@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
+import org.forwork.socket.WebSocket;
 
 /**
  * Servlet implementation class ChatController
  */
-@WebServlet({ "/ChatController", "/chat" })
+@WebServlet("/chat/*")
 public class ChatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,13 +25,35 @@ public class ChatController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String requestURI = request.getRequestURI();
+    	String contextPath = request.getContextPath(); // /MVC
+    	System.out.println(contextPath);
+    	String command = requestURI.substring(contextPath.length()+6);
+    	
+    	Action action = null;
+    	ActionForward forward = null;
+    	System.out.println(command);
+    	
+    	if(command.contentEquals("sendMessage.do")) {
+    		WebSocket socket = new WebSocket();
+    	  	
+    	  	
+    	  	socket.handleOpen();
+    	  	
+    	  	socket.handleMessage(request.getParameter("msg"));
+    	  	
+    	}
+    	
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doProcess(request, response);
 	}
 
 	/**
@@ -39,15 +62,7 @@ public class ChatController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
-		String requestURI = request.getRequestURI();
-    	String contextPath = request.getContextPath();
-    	String command = requestURI.substring(contextPath.length()+7);
-    	
-    	Action action = null;
-    	ActionForward forward = null;
-    	if (command.equals("sendMessageAction.do")) {
-    		
-    	}
+		doProcess(request, response);
 	}
 
 	/**

@@ -1,4 +1,5 @@
 <!doctype html>
+<%@page import="org.forwork.socket.WebSocket" %>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -23,12 +24,44 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     -->
-    <div class="message">
+    <textarea id="message" rows="10" cols="50">
     
-    </div>
-    <form action="sendMessageAction.do" method="POST">
-    	<input type="text" />
-    	<input type="submit" />
-    </form>
-  </body>
+    </textarea>
+    	<input type="text" name="msg" id="texts" />
+   		<input type="submit" onclick="sendMessage()" value="send"/>
+   		<input type="submit" onclick="disconnect()" value="disconnect"/>
+  
+  <script type="text/javascript">
+  	
+  	let webSocket = new WebSocket("ws://localhost:8081/for_work/websocket");
+  	
+  	let messageArea = document.getElementById("message");
+  	
+  	webSocket.onopen = function(message){
+  		messageArea.value += "server connect...\n";	
+  	};
+  	
+  	webSocket.onclose = function(message){
+  		messageArea.value += "server disconnect...\n";
+  	}
+  	webSocket.onerror = function(message){
+  		messageArea.value += "error....\n";
+  	}
+  	webSocket.onmessage = function(message){
+  		messageArea.value += "Recevied From Server " + message.data + "\n";
+  	}
+  	
+  	function sendMessage(){
+  		var message = document.getElementById("texts");
+  		messageArea.value += "send to server " + message.value + "\n";
+  		webSocket.send(message.value);
+  		message.value = "";
+  	}
+  	
+  	function disconnect(){
+  		webSocket.close();
+  	}
+  	
+  </script>
+   </body>
 </html>
