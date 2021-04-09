@@ -135,40 +135,17 @@
 					  </div>
 					</div>
 				</div>
-				
-				
-				<!-- 스프린트 정보 설정 div -->
-				<!-- 
-				<form class="form-inline">
-				<div class="form-group ">
-					<div class="col-xs-2">
-						<label for="sprintNo">Sprint No.</label> 
-						<input class="form-control" id="sprintNo" type="text">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-2">
-						<label for="sprintStartDate">Start Date</label>
-						<input class="form-control" id="sprintStartDate" type="date">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-2">
-						<label for="sprintEndDate">End Date</label> 
-						<input class="form-control" id="sprintEndDate" type="date">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-2">
-						<label for="sprintEndDate">End Date</label> 
-						<input class="form-control" id="sprintEndDate" type="date">
-					</div>
-				</div>
-					
-				</form>
-				-->
 			</div>
-			<div class="col-4">
+			<div class="col-4 border-1">
+				<div class="row flex-row flex-sm-nowrap py-1">
+					<h3>프로젝트 성취율</h3>
+				</div>
+				<div class="row flex-row flex-sm-nowrap py-1">
+					<label>전체 진행률</label>
+				</div>
+				<div class="row flex-row flex-sm-nowrap py-1">
+					<label>전체 진행률</label>
+				</div>
 			</div>
 		</div>
 		
@@ -181,7 +158,17 @@
 			 				<div class="card draggable shadow-sm" id="task1" draggable="true" ondragstart="drag(event)"> <!-- Task 하나 -->
                             <div class="card-body p-2"> <!-- Task 하나의 내용처리 -->
                                 <div class="card-title"> <!-- Task 하나의 제목 -->
-                                	<button class="btn btn-primary btn-sm float-right">...</button>
+                                	<div class="dropdown float-right" >
+									  <a class="btn btn-default" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									   	...
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" href="#">담당자 추가</a>
+									    <a class="dropdown-item" href="#">To-do List에 추가</a>
+									    <a class="dropdown-item" href="#">Task 수정</a>
+									    <a class="dropdown-item" href="#">Task 삭제</a>
+									  </div>
+									</div>
                                 </div>
                                 <div class="card-text">
 	                                 <p> <!-- Task 내용 -->
@@ -204,7 +191,17 @@
 			 				<div class="card draggable shadow-sm" id="task1" draggable="true" ondragstart="drag(event)"> <!-- Task 하나 -->
                             <div class="card-body p-2"> <!-- Task 하나의 내용처리 -->
                                 <div class="card-title"> <!-- Task 하나의 제목 -->
-                                	<button class="btn btn-primary btn-sm float-right">...</button>
+                                	<div class="dropdown float-right" >
+									  <a class="btn btn-default" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									   	...
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" href="#">담당자 추가</a>
+									    <a class="dropdown-item" href="#">To-do List에 추가</a>
+									    <a class="dropdown-item" href="#">Task 수정</a>
+									    <a class="dropdown-item" href="#">Task 삭제</a>
+									  </div>
+									</div>
                                 </div>
                                 <div class="card-text">
 	                                 <p> <!-- Task 내용 -->
@@ -231,7 +228,6 @@
 									  <a class="btn btn-default" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									   	...
 									  </a>
-									
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									    <a class="dropdown-item" href="#">담당자 추가</a>
 									    <a class="dropdown-item" href="#">To-do List에 추가</a>
@@ -261,7 +257,17 @@
 			 				<div class="card draggable shadow-sm" id="task1" draggable="true" ondragstart="drag(event)"> <!-- Task 하나 -->
                             <div class="card-body p-2"> <!-- Task 하나의 내용처리 -->
                                 <div class="card-title"> <!-- Task 하나의 제목 -->
-                                	<button class="btn btn-primary btn-sm float-right">...</button>
+                                	<div class="dropdown float-right" >
+									  <a class="btn btn-default" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									   	...
+									  </a>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									    <a class="dropdown-item" href="#">담당자 추가</a>
+									    <a class="dropdown-item" href="#">To-do List에 추가</a>
+									    <a class="dropdown-item" href="#">Task 수정</a>
+									    <a class="dropdown-item" href="#">Task 삭제</a>
+									  </div>
+									</div>
                                 </div>
                                 <div class="card-text">
 	                                 <p> <!-- Task 내용 -->
