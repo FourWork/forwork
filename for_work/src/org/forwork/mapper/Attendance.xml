@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="org.forwork.mapper.AttendanceMapper">
+	<cache />
+	<resultMap type="map" id="timeResultMap">
+		<result column="commute" property="commute"/>
+		<result column="off" property="off"/>
+	</resultMap>
+	
+	<insert id="commute" parameterType="String">
+		insert into attendance(
+			MEMBER_ID, ATTEND_DATE, COMMUTE_TIME
+		)
+		values(
+			#{member_id},SYSDATE,TO_CHAR(SYSDATE,'HH24:MI:SS')
+		)
+		
+	</insert>
+	
+	<select id="check" parameterType="String" resultType="int">
+		select count(*) from attendance where member_id = #{member_id} and TO_CHAR(attend_date) = TO_CHAR(SYSDATE)
+	</select>
+
+	<select id="getTime" parameterType="String" resultMap="timeResultMap">
+		select commute_time As commute, off_time As off From attendance where member_id = #{member_id} and TO_CHAR(attend_date) = TO_CHAR(SYSDATE)
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,6 +19,7 @@
 	
 	<mappers>
 		<mapper resource="org/forwork/mapper/Member.xml"/>
+		<mapper resource="org/forwork/mapper/Attendance.xml"/>
 	</mappers>
 	
 </configuration>

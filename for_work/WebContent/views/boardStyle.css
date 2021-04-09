@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+.wrap {
+	background-color: #e9eef5;
+	height: 100%;
+	padding-top: 20px;
+	box-sizing: border-box;
+}
+
+.boardMenu {
+	min-height: 500px;
+	min-width: 50px;
+	background-color: #fff;
+	padding: 20px;
+	position: relative;
+	right: -10px;
+}
+
+.card {
+	height: 300px;
+	border: 1px solid #EBF7FF;
+}
+
+.card-img-top {
+	height: 100px;
+}
+
+.card-text {
+	height: 50px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: left;
+}
+
+.noticePreList {
+	position: relative;
+	left: -20px;
+}
+
+.boardMenu a {
+	text-decoration: none;
+	color: black;
+}
+
+.boardMenuPlus {
+	position: relative;
+	left: 16px;
+	top: 5px;
+}
+
+.PostWriter, .PostDate, .PostHitcount {
+	float: left;
+}
+
+.noticePre {
+	box-sizing: border-box;
+	height: 180px;
+}
+
+.boardPre {
+	background: #fff;
+	border-radius: 10px;
+	min-height: 250px;
+	box-sizing: border-box;
+	padding: 10px;
+	margin-top: 20px;
+	width: 475px;
+	border: 1px solid #D8D8D8;
+	position: relative;
+	float: left;
+	left: -20px;
+}
+
+.boardPre:nth-child(odd) {
+	position: relative;
+	float: left;
+}
+
+.boardPre:nth-child(even) {
+	position: relative;
+	float: right;
+}
+
+.boardPre:last-child {
+	margin-bottom: 20px;
+}
+
+.boardTitle {
+	border-bottom: 1px solid #C6C6C6;
+	padding: 5px 5px 10px;
+}
+
+.PostWrap {
+	box-sizing: border-box;
+	height: 80px;
+	padding: 10px;
+	margin: 10px 0px 20px;
+}
+
+.PostTitle {
+	clear: both;
+}
+
+.PostWrap:last-child {
+	border-top: 1px solid #C6C6C6;
+}
+
+.PostDate {
+	margin: 0px 5px;
+}
