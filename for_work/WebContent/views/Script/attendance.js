@@ -30,3 +30,20 @@
 		 $('#today').html(month+"월 "+date+"일");
 		 
 		 });
+		 
+		  $(function(){
+	$("button").click(function() {	
+ 		var check = window.prompt($(this).val()+"하실거면 "+$(this).val()+"을 입력해주세요", "");
+		//출근 또는 퇴근 실행
+		if(check == $(this).val()){
+			if(check == "출근"){
+				location.href="/for_work/attendance/commute";
+			}else{
+				location.href="/for_work/attendance/off";
+				}
+		}else{
+			alert("잘못된 입력입니다.")}
+	})
+	 })
+	 
+	 

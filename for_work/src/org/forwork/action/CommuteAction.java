@@ -12,7 +12,7 @@ public class CommuteAction implements Action {
 		ActionForward af = new ActionForward();
 		AttendanceService service = AttendanceService.getInstance();
 		service.commuteService(request);
-		af.setPath(path);
+		af.setPath("/for_work/attendance/");
 		af.setRedirect(true);
 		return af;
 	}

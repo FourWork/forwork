@@ -1,5 +1,7 @@
 package org.forwork.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,11 +17,31 @@ public class AttendanceService {
 	}
 	
 	public int commuteService(HttpServletRequest request) throws Exception{
-		int result;
+		int result = -1;
+		HttpSession session = request.getSession();
 		AttendanceDAO dao = AttendanceDAO.getInstance();
-		result = dao.commute(request.getParameter("member_id"));
-		
+		if (session.getAttribute("member_id") != null) {
+			int member_id = (int)session.getAttribute("member_id");
+			int check = dao.check(member_id+"");
+			System.out.println(check);
+			if (check == 0) {
+
+				result = dao.commute(member_id+"");
+	
+			}
+		}
 		return result;
 	}
 	
+	
+	public Map<String, String> getTimeService(HttpServletRequest request) throws Exception{
+		Map<String, String> result = null;
+		HttpSession session = request.getSession();
+		AttendanceDAO dao = AttendanceDAO.getInstance();
+		if(session.getAttribute("member_id") != null) {
+			int member_id = (int)session.getAttribute("member_id");
+			result = dao.getTime(member_id+"");
+		}
+		return result;
+	}
 }

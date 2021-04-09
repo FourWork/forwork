@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<%
+	session.setAttribute("member_id", 2);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,18 +16,20 @@
  <script type="text/javascript">
 
  $(function(){
-	$("button").click(function() {	
- 		var check = window.prompt($(this).val()+"하실거면 "+$(this).val()+"을 입력해주세요", "");
-		//출근 또는 퇴근 실행
-		if(check == $(this).val()){
-			if(check == "출근"){
-				location.href="/for_work/attendance/commute";
-			}else{
-				location.href="/for_work/attendance/off";
-				}
+		if("${commute}"!= ""){
+			console.log("1")
+			$("#commute").html("${commute}");
 		}
-	})
-	 })
+		else{
+			$("#commute").html("-");
+		}
+		 
+		if("${off}" != ""){			
+			$("#off").html("${off}");
+		}else{
+		$("#off").html("-");
+		}
+		 })
  </script>
 <style type="text/css">
 	#off{
@@ -66,11 +71,10 @@
 </head>
 <body>
 
-
 	<div id = "today"></div>
-	<div id="commute">-</div>
+	<div id="commute"></div>
 	<button type="button" value="출근" class ="btn btn-primary">출근</button>
-	<div id="off">-</div>
+	<div id="off"></div>
 	<button type="button" value="퇴근" class ="btn btn-primary">퇴근</button>
 	 <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
