@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%
-	session.setAttribute("userId", "1");
+	session.setAttribute("userId", "2");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,8 +30,9 @@
     
     </textarea>
     	<input type="text" id="message" />
-   		<input type="button" onclick="sendMessage()" value="send"/>
-   		<input type="button" onclick="disconnect()" value="disconnect"/>
+   		<input type="submit" onclick="sendMessage()" value="send"/>
+   		<input type="submit" onclick="disconnect()" value="disconnect"/>
+  
   <script type="text/javascript">
   	
   	let webSocket = new WebSocket("ws://localhost:8081/for_work/broadsocket");
@@ -52,14 +52,15 @@
   	}
   	// 소켓에 들어온메세지가 있을 때
   	webSocket.onmessage = function(message){
-  		console.log(JSON.stringify(message));
-  		chatRoom.value += "Recevied From Server " + JSON.stringify(msg) + "\n";
+  		console.log(message);
+  		let parsedMsg = JSON.parse(message.data);
+  		chatRoom.value += "Recevied From Server " + parsedMsg.content + "\n";
   	}
   	
   	function sendMessage(){
   		let msg = {
   			"content": message.value,
-  			"sender": "1",
+  			"sender": "2",
   			"chatroomId": "1",
   			"sendTime": "1231231"
   		}
