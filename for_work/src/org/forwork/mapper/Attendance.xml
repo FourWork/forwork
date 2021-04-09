@@ -21,6 +21,10 @@
 		
 	</insert>
 	
+	<update id="off" parameterType="String">
+		update attendance set off_time = TO_CHAR(SYSDATE,'HH24:MI:SS') where member_id = #{member_id}
+	</update>
+	
 	<select id="check" parameterType="String" resultType="int">
 		select count(*) from attendance where member_id = #{member_id} and TO_CHAR(attend_date) = TO_CHAR(SYSDATE)
 	</select>

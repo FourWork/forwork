@@ -54,6 +54,26 @@ public class AttendanceDAO {
 		return result;
 	}
 	
+	public int off(String member_id) {
+		SqlSession session = getSqlSessionFacotry().openSession();
+		int result = -1;
+		try {
+			result = session.getMapper(AttendanceMapper.class).off(member_id);
+			if(result > 0) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return result;
+		
+	}
 	public Map<String, String> getTime(String member_id) {
 		SqlSession session = getSqlSessionFacotry().openSession();
 		

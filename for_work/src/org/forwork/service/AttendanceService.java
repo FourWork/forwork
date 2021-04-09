@@ -33,7 +33,16 @@ public class AttendanceService {
 		return result;
 	}
 	
-	
+	public int offService(HttpServletRequest request) throws Exception{
+		int result = -1;
+		HttpSession session = request.getSession();
+		AttendanceDAO dao = AttendanceDAO.getInstance();
+		if(session.getAttribute("member_id") != null) {
+			int member_id = (int)session.getAttribute("member_id");
+			result = dao.off(member_id+"");
+		}
+		return result;
+	}
 	public Map<String, String> getTimeService(HttpServletRequest request) throws Exception{
 		Map<String, String> result = null;
 		HttpSession session = request.getSession();

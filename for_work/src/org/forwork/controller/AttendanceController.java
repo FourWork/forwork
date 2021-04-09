@@ -13,6 +13,7 @@ import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
 import org.forwork.action.AttendanceAction;
 import org.forwork.action.CommuteAction;
+import org.forwork.action.OffAction;
 
 /**
  * Servlet implementation class AttendanceController
@@ -35,6 +36,8 @@ public class AttendanceController extends HttpServlet {
     		action = new AttendanceAction();
     	}else if(url.equals("/attendance/commute")){
     		action = new CommuteAction();
+    	}else if(url.equals("/attendance/off")) {
+    		action = new OffAction();
     	}
     	try {
     		if(action != null) {

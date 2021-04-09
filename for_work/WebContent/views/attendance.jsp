@@ -17,7 +17,6 @@
 
  $(function(){
 		if("${commute}"!= ""){
-			console.log("1")
 			$("#commute").html("${commute}");
 		}
 		else{
