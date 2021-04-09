@@ -6,7 +6,6 @@ public class Member {
 	private String name;
 	private String pw;
 	private String status_id;
-	private String role;
 
 	public Member() {}
 
@@ -17,7 +16,6 @@ public class Member {
 		this.name = name;
 		this.pw = pw;
 		this.status_id = status_id;
-		this.role = role;
 	}
 
 	public String getMember_id() {
@@ -58,18 +56,7 @@ public class Member {
 
 	public void setStatus_id(String status_id) {
 		this.status_id = status_id;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
-	
-	
+	}	
 }
 
 
