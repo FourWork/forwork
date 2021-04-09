@@ -35,7 +35,7 @@
             <li class="nav-item">
               <a class="nav-link" href="profile.html">
                 <i class="ni ni-badge"></i>
-                <span class="nav-link-text">게시판</span>
+                <span class="nav-link-text">게시판</span>
               </a>
             </li>
             <li class="nav-item">
