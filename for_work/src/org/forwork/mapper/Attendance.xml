@@ -33,6 +33,10 @@
 		select commute_time As commute, off_time As off From attendance where member_id = #{member_id} and TO_CHAR(attend_date) = TO_CHAR(SYSDATE)
 	</select>
 
+
+	<select id="getWeekAttendance" parameterType="hashmap" resultType="WeekAt">
+		Select TO_CHAR(attend_date,'day') AS week,COMMUTE_TIME AS commute,OFF_TIME AS off from attendance where ATTEND_DATE between TRUNC(sysdate-#{ago},'iw') and TRUNC(sysdate-#{ago},'iw')+6 and member_id = #{member_id} order by attend_date;
+	</select>
 </mapper>
 
 

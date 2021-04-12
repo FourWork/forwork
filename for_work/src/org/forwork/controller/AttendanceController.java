@@ -32,6 +32,7 @@ public class AttendanceController extends HttpServlet {
     	url = url.substring(request.getContextPath().length());
     	Action action = null;
     	ActionForward af = null;
+    	
     	if(url.equals("/attendance/")) {
     		action = new AttendanceAction();
     	}else if(url.equals("/attendance/commute")){
@@ -66,5 +67,6 @@ public class AttendanceController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
+
 
 }

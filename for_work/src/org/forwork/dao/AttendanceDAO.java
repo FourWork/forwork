@@ -2,6 +2,7 @@ package org.forwork.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
@@ -9,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.forwork.domain.Member;
+import org.forwork.dto.WeekAttendance;
 import org.forwork.mapper.AttendanceMapper;
 
 public class AttendanceDAO {
@@ -89,6 +91,23 @@ public class AttendanceDAO {
 			}
 		}
 		return result;
+	}
+	
+	public List<WeekAttendance> getWeekAttendance(Map<String, Integer> map){
+		List<WeekAttendance> wa = null;
+		SqlSession session = getSqlSessionFacotry().openSession();
+		
+		try {
+			wa = session.getMapper(AttendanceMapper.class).getWeekAttendance(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		
+		return wa;
 	}
 	
 	public SqlSessionFactory getSqlSessionFacotry() {
