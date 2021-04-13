@@ -10,6 +10,11 @@
 	<select id="getChatroomMemberRelation" resultType="ChatroomMemberRelation">
 		select * from chatroom_member_relation
 	</select>
+	
+	<insert id="insertMessage" parameterType="Message">
+		insert into message(message_id, message, send_time, sender, chatroom_id)
+			values(message_id_seq.nextval, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh:mi:ss'), #{sender}, #{chatroom_id})
+	</insert>
 
 
 </mapper>

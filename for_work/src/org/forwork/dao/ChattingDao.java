@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.forwork.domain.ChatroomMemberRelation;
+import org.forwork.domain.Message;
 import org.forwork.mapper.ChattingMapper;
 
 public class ChattingDao {
@@ -43,5 +44,24 @@ public class ChattingDao {
 			}
 		}
 		return result;
+	}
+	
+	public void insertMessage(Message message) {
+		SqlSession session = getSqlSessionFacotry().openSession();
+		int re = -1;
+		try {
+			re = session.getMapper(ChattingMapper.class).insertMessage(message);
+			if (re > 0) {
+				session.commit();
+			} else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 	}
 }

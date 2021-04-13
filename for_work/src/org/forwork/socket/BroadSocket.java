@@ -18,6 +18,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import org.forwork.domain.ChatroomMemberRelation;
+import org.forwork.domain.Message;
 import org.forwork.service.ChattingService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,7 +27,6 @@ import org.json.simple.parser.JSONParser;
 public class BroadSocket {
 	private Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
 
-	// TODO: DB에 저장된 정보(user-chatroom-relation) 불러와서 넣은 리스트 만들기
 	// TODO: socket session 연결(OnOpen)이랑 연결 끊는 부분(OnClose) 수정하기
 	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
@@ -115,14 +115,14 @@ public class BroadSocket {
 		}
 		
 		JSONObject ob = (JSONObject) object;
+		// 메세지 저장
+		Message msg = new Message();
+		msg.setMessage((String)ob.get("content"));
+		msg.setSender((String)ob.get("sender"));
+		msg.setChatroom_id((String)ob.get("chatroomId"));
+		msg.setSend_time((String)ob.get("sendTime"));
+		service.insertMessageService(msg);
 		
-//		Message msg = new Message();
-//		msg.content = (String)ob.get("content");
-//		msg.sender = (String)ob.get("sender");
-//		msg.chatroomId = (String)ob.get("chatroomId");
-//		msg.sendTime = (String)ob.get("sendTime");
-		
-		// TODO: 보내기를 원하는 유저들의 user_id 찾기
 		String chatroomId = (String)ob.get("chatroomId");
 		List<String> sendingUserIds = new ArrayList<String>();
 		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
@@ -132,6 +132,7 @@ public class BroadSocket {
 			}
 		}
 		
+		// TODO: 페이지 별로 채팅방 구분
 		for(String sendingUserId: sendingUserIds) {
 			User sendTo = getUser(sendingUserId);
 			System.out.println("sdfsdfsdfNulll");

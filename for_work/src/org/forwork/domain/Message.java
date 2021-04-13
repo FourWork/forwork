@@ -59,5 +59,11 @@ public class Message implements Serializable {
 	public void setSender(String sender) {
 		this.sender = sender;
 	}
+
+	@Override
+	public String toString() {
+		return "Message [message_id=" + message_id + ", message=" + message + ", send_time=" + send_time
+				+ ", chatroom_id=" + chatroom_id + ", sender=" + sender + "]";
+	}
 	
 }
