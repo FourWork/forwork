@@ -12,7 +12,7 @@ public class OffAction implements Action {
 		ActionForward af = new ActionForward();
 		AttendanceService service = AttendanceService.getInstance();
 		service.offService(request);
-		af.setPath("/for_work/attendance/");
+		af.setPath("/for_work/attendance/main");
 		af.setRedirect(true);
 		return af;
 	}

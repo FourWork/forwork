@@ -1,6 +1,8 @@
 package org.forwork.dto;
 
-public class WeekAttendance {
+import java.io.Serializable;
+
+public class WeekAttendance implements Serializable {
 	private String week;
 	private String commute;
 	private String off;

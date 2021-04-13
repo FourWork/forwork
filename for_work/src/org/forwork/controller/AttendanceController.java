@@ -32,8 +32,8 @@ public class AttendanceController extends HttpServlet {
     	url = url.substring(request.getContextPath().length());
     	Action action = null;
     	ActionForward af = null;
-    	
-    	if(url.equals("/attendance/")) {
+
+    	if(url.matches("^(/attendance/main)")) {
     		action = new AttendanceAction();
     	}else if(url.equals("/attendance/commute")){
     		action = new CommuteAction();
