@@ -20,7 +20,7 @@ public class ChatroomDetailAction implements Action {
 		request.setAttribute("messages", messages);
 		
 		af.setRedirect(false);
-		af.setPath("/views/chatting/chatDetail.jsp");
+		af.setPath("/views/chatting/chatroomDetail.jsp");
 		
 		return af;
 	}

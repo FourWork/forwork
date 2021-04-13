@@ -54,7 +54,7 @@ public class BroadSocket {
 		List<ChatroomMemberRelation> results = service.getChatroomMemberRelationService();
 		for(ChatroomMemberRelation result: results) {
 			chatroomMemberRelations.add(result);
-			System.out.println(result);
+//			System.out.println(result);
 		}
 	}
 
