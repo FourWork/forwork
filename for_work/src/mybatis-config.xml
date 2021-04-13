@@ -14,12 +14,11 @@
 			<dataSource type="JNDI">
 				<property name="data_source" value="java:comp/env/jdbc/oracle"/>
 			</dataSource>
-		</environment>		
+		</environment>
 	</environments>
 	
 	<mappers>
 		<mapper resource="org/forwork/mapper/Member.xml"/>
-		<mapper resource="org/forwork/mapper/Attendance.xml"/>
 	</mappers>
 	
 </configuration>
