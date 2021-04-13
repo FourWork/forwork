@@ -9,13 +9,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/gson-2.8.6.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/json_simple-1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/Java/설치/drive-download-20210209T060842Z-001/json-lib-2.3-jdk13.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
