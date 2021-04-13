@@ -135,10 +135,10 @@ public class BroadSocket {
 		// TODO: 페이지 별로 채팅방 구분
 		for(String sendingUserId: sendingUserIds) {
 			User sendTo = getUser(sendingUserId);
-			System.out.println("sdfsdfsdfNulll");
-			System.out.println(sendTo.userId);
-			// 자기랑 연결된 소켓에 보낼때는 그냥 send
-			sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+			if (sendTo != null) {
+				// 자기랑 연결된 소켓에 보낼때는 그냥 send
+				sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+			}
 		}
 	}
 	
