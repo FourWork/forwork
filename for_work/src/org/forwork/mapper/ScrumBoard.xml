@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="scrum.mapper.ScrumBoardMapper">
+	<cache />
+	
+	<insert id="insertTask" parameterType="Task">
+		insert into task_ex(
+		TASK_CONTENT, task_type_id, task_id
+		)
+		values(
+		#{task_content}, 1, task_ex_seq.nextval
+		)
+	
+	</insert>
+	
+	<select id="listTask"  resultType="Task">
+		select task_content, responsibility, writer, task_type_id from task_ex
+	</select>
+	
+	<delete id="deleteTask" parameterType="int">
+		delete from board where seq = #{seq}	
+	</delete>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
