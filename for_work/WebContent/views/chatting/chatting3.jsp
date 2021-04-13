@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-	session.setAttribute("userId", "1");
+	session.setAttribute("userId", "3");
 %>
 <!DOCTYPE html>
 <html>
@@ -52,15 +52,16 @@
   	}
   	// 소켓에 들어온메세지가 있을 때
   	webSocket.onmessage = function(message){
-  		console.log(JSON.stringify(message));
-  		chatRoom.value += "Recevied From Server " + JSON.stringify(msg) + "\n";
+  		console.log(message);
+  		let parsedMsg = JSON.parse(message.data);
+  		chatRoom.value += "Recevied From Server " + parsedMsg.content + "\n";
   	}
   	
   	function sendMessage(){
   		let msg = {
   			"content": message.value,
-  			"sender": "1",
-  			"chatroomId": "1",
+  			"sender": "3",
+  			"chatroomId": "2",
   			"sendTime": "1231231"
   		}
 		webSocket.send(JSON.stringify(msg));

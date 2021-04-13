@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%
-	session.setAttribute("userId", "2");
+	session.setAttribute("userId", "4");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,8 +30,9 @@
     
     </textarea>
     	<input type="text" id="message" />
-   		<input type="button" onclick="sendMessage()" value="send"/>
-   		<input type="button" onclick="disconnect()" value="disconnect"/>
+   		<input type="submit" onclick="sendMessage()" value="send"/>
+   		<input type="submit" onclick="disconnect()" value="disconnect"/>
+  
   <script type="text/javascript">
   	
   	let webSocket = new WebSocket("ws://localhost:8081/for_work/broadsocket");
@@ -60,8 +60,8 @@
   	function sendMessage(){
   		let msg = {
   			"content": message.value,
-  			"sender": "2",
-  			"chatroomId": "3",
+  			"sender": "4",
+  			"chatroomId": "2",
   			"sendTime": "1231231"
   		}
 		webSocket.send(JSON.stringify(msg));

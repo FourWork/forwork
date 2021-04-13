@@ -29,19 +29,19 @@ public class ChattingDao {
 		}
 		return new SqlSessionFactoryBuilder().build(in);
 	}
-//	
-//	public List<ChatroomMemberRelation> getChatroomMemberRelation() {
-//		SqlSession session = getSqlSessionFacotry().openSession();
-//		List<ChatroomMemberRelation> result = null;
-//		try {
-//			result = session.getMapper(ChattingMapper.class).getChatroomMemberRelation();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (session != null) {
-//				session.close();
-//			}
-//		}
-//		return result;
-//	}
+	
+	public List<ChatroomMemberRelation> getChatroomMemberRelation() {
+		SqlSession session = getSqlSessionFacotry().openSession();
+		List<ChatroomMemberRelation> result = null;
+		try {
+			result = session.getMapper(ChattingMapper.class).getChatroomMemberRelation();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
 }

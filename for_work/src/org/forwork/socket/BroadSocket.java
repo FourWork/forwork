@@ -28,7 +28,7 @@ public class BroadSocket {
 
 	// TODO: DB에 저장된 정보(user-chatroom-relation) 불러와서 넣은 리스트 만들기
 	// TODO: socket session 연결(OnOpen)이랑 연결 끊는 부분(OnClose) 수정하기
-//	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
+	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
 	
 	private ChattingService service = ChattingService.getInstance();
@@ -47,13 +47,14 @@ public class BroadSocket {
 //	}
 	
 	// TODO: 여기서 DB 내용을 바로 가져오는게 아니라 chatroom-member-relation 테이블이 수정되면 이 함수만 call하도록 수정 
-//	public void setChatroomMemberRelations() {
-//		List<ChatroomMemberRelation> results = service.getChatroomMemberRelationService();
-//		for(ChatroomMemberRelation result: results) {
-//			chatroomMemberRelations.add(result);
-//			System.out.println(result);
-//		}
-//	}
+	public void setChatroomMemberRelations() {
+		chatroomMemberRelations.clear();
+		List<ChatroomMemberRelation> results = service.getChatroomMemberRelationService();
+		for(ChatroomMemberRelation result: results) {
+			chatroomMemberRelations.add(result);
+			System.out.println(result);
+		}
+	}
 
 	public User getUser(Session userSession) {
 		Optional<User> op = sessionUsers.stream().filter(x -> x.session == userSession).findFirst();
@@ -75,6 +76,7 @@ public class BroadSocket {
 	public void handleConnection(Session userSession, EndpointConfig config) {
 		
 		// TODO: 여기 말고 다른 곳에서 하도록 수정
+		setChatroomMemberRelations();
 		
 		if (!configs.containsKey(userSession)) {
 			configs.put(userSession, config);
@@ -121,14 +123,22 @@ public class BroadSocket {
 //		msg.sendTime = (String)ob.get("sendTime");
 		
 		// TODO: 보내기를 원하는 유저들의 user_id 찾기
-		String sendUserId = "2";
+		String chatroomId = (String)ob.get("chatroomId");
+		List<String> sendingUserIds = new ArrayList<String>();
+		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
+			if (relation.getChatroom_id().equals(chatroomId)) {
+				sendingUserIds.add(relation.getUser_id());
+				System.out.println(sendingUserIds);
+			}
+		}
 		
-		// TODO: 모든 유저에 대해서
-		User sendTo = getUser(sendUserId);
-		System.out.println("sdfsdfsdfNulll");
-		System.out.println(sendTo.userId);
-		// 자기랑 연결된 소켓에 보낼때는 그냥 send
-		sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+		for(String sendingUserId: sendingUserIds) {
+			User sendTo = getUser(sendingUserId);
+			System.out.println("sdfsdfsdfNulll");
+			System.out.println(sendTo.userId);
+			// 자기랑 연결된 소켓에 보낼때는 그냥 send
+			sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+		}
 	}
 	
 	@OnClose

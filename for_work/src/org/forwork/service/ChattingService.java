@@ -14,7 +14,7 @@ public class ChattingService {
 		return service;
 	}
 	
-//	public List<ChatroomMemberRelation> getChatroomMemberRelationService() {
-//		return dao.getChatroomMemberRelation();
-//	}
+	public List<ChatroomMemberRelation> getChatroomMemberRelationService() {
+		return dao.getChatroomMemberRelation();
+	}
 }

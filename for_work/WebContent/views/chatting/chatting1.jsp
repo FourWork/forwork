@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-	session.setAttribute("userId", "2");
+	session.setAttribute("userId", "1");
 %>
 <!DOCTYPE html>
 <html>
@@ -60,7 +60,7 @@
   	function sendMessage(){
   		let msg = {
   			"content": message.value,
-  			"sender": "2",
+  			"sender": "1",
   			"chatroomId": "3",
   			"sendTime": "1231231"
   		}
