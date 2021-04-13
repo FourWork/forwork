@@ -2,6 +2,7 @@
 
 <%
 	session.setAttribute("userId", "2");
+	session.setAttribute("chatroomId", "3");
 %>
 <!DOCTYPE html>
 <html>

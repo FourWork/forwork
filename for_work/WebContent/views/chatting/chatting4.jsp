@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	session.setAttribute("userId", "4");
+	session.setAttribute("chatroomId", "2");
 %>
 <!DOCTYPE html>
 <html>

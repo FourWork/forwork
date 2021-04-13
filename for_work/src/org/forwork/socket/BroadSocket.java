@@ -29,6 +29,7 @@ public class BroadSocket {
 
 	// TODO: socket session 연결(OnOpen)이랑 연결 끊는 부분(OnClose) 수정하기
 	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
+	// 같은 유저라도 채팅방 여러개에 들어가있다면 세션이 여러개
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
 	
 	private ChattingService service = ChattingService.getInstance();
@@ -36,6 +37,7 @@ public class BroadSocket {
 	private class User {
 		Session session;
 		String userId;
+		String chatroomId;
 	}
 	
 //	private class Message {
@@ -64,8 +66,8 @@ public class BroadSocket {
 		return null;
 	}
 	
-	public User getUser(String userId) {
-		Optional<User> op = sessionUsers.stream().filter(x -> x.userId.equals(userId)).findFirst();
+	public User getUser(String userId, String chatrooomId) {
+		Optional<User> op = sessionUsers.stream().filter((x) -> x.userId.equals(userId) && x.chatroomId.equals(chatrooomId)).findFirst();
 		if (op.isPresent()) {
 			return op.get();
 		}
@@ -86,11 +88,12 @@ public class BroadSocket {
 		user.session = userSession;
 		HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 		user.userId = (String) httpSession.getAttribute("userId");
+		user.chatroomId = (String) httpSession.getAttribute("chatroomId");
 		sessionUsers.add(user);
 		
-		for(User u: sessionUsers) {
-			System.out.println(u.userId);
-		}
+//		for(User u: sessionUsers) {
+//			System.out.println(u.userId);
+//		}
 	}
 	
 	// 소켓에 메세지가 들어왔을 때
@@ -115,13 +118,6 @@ public class BroadSocket {
 		}
 		
 		JSONObject ob = (JSONObject) object;
-		// 메세지 저장
-		Message msg = new Message();
-		msg.setMessage((String)ob.get("content"));
-		msg.setSender((String)ob.get("sender"));
-		msg.setChatroom_id((String)ob.get("chatroomId"));
-		msg.setSend_time((String)ob.get("sendTime"));
-		service.insertMessageService(msg);
 		
 		String chatroomId = (String)ob.get("chatroomId");
 		List<String> sendingUserIds = new ArrayList<String>();
@@ -134,12 +130,20 @@ public class BroadSocket {
 		
 		// TODO: 페이지 별로 채팅방 구분
 		for(String sendingUserId: sendingUserIds) {
-			User sendTo = getUser(sendingUserId);
+			User sendTo = getUser(sendingUserId, chatroomId);
 			if (sendTo != null) {
 				// 자기랑 연결된 소켓에 보낼때는 그냥 send
 				sendTo.session.getBasicRemote().sendText(ob.toJSONString());
 			}
 		}
+		
+		// 메세지 저장
+		Message msg = new Message();
+		msg.setMessage((String)ob.get("content"));
+		msg.setSender((String)ob.get("sender"));
+		msg.setChatroom_id((String)ob.get("chatroomId"));
+		msg.setSend_time((String)ob.get("sendTime"));
+		service.insertMessageService(msg);
 	}
 	
 	@OnClose

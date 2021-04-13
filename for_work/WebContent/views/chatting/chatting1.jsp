@@ -2,6 +2,7 @@
 
 <%
 	session.setAttribute("userId", "1");
+	session.setAttribute("chatroomId", "3");
 %>
 <!DOCTYPE html>
 <html>
@@ -61,7 +62,6 @@
   	function sendMessage(){
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
-  		console.log(sendTime);
   		let msg = {
   			"content": message.value,
   			"sender": "1",
