@@ -9,13 +9,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/gson-2.8.6.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/json_simple-1.1.jar"/>
-	<classpathentry kind="lib" path="/Users/leejooeun/kosta-project/forwork/source/json-lib-2.3-jdk13.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
