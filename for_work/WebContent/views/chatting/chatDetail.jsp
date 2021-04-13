@@ -10,8 +10,8 @@
 </head>
 <body>
 	<ul>
-		<c:forEach var="chatroom" items="${chatrooms}">
-			<a href="ChatroomDetail.do?chatroomId=${chatroom.chatroom_id}"><li>${chatroom.chatroom_name }</li></a>
+		<c:forEach var="message" items="${messages}">
+			<li>${message.message }</li>
 		</c:forEach>
 	</ul>
 </body>

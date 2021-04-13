@@ -16,13 +16,13 @@ public class ChatroomDetailAction implements Action {
 		ActionForward af = new ActionForward();
 		ChattingService service = ChattingService.getInstance();
 		
-		List<Message> messages = service.getMessageByChatroomIdService((String)request.getAttribute("chatroomId"));
+		List<Message> messages = service.getMessageByChatroomIdService(request.getParameter("chatroomId"));
+		request.setAttribute("messages", messages);
 		
-		// 처음에 실행하고 chatrooomId 설정해주는 위치?
 		af.setRedirect(false);
-		af.setPath("/views/chatting/chatting.jsp");
+		af.setPath("/views/chatting/chatDetail.jsp");
 		
-		return null;
+		return af;
 	}
 
 }

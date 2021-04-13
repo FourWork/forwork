@@ -39,15 +39,15 @@ public class ChatController extends HttpServlet {
     	ActionForward forward = null;
     	System.out.println(command);
     	
-    	if(command.equals("ChatroomDetail.do")) {
-    		action = new ChatroomDetailAction();
+    	if(command.equals("ChatroomList.do")){
+    		action = new ChatroomListAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-    	} else if(command.equals("ChatroomList.do")){
-    		action = new ChatroomListAction();
+    	} else if(command.equals("ChatroomDetail.do")) {
+    		action = new ChatroomDetailAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

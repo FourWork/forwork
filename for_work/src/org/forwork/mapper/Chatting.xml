@@ -20,6 +20,7 @@
 	<select id="getMessageByChatroomId" parameterType="String" resultType="Message">
 		select * from message
 			where chatroom_id = #{chatroom_id}
+			order by send_time
 	</select>
 	
 	<!-- 유저가 가진 채팅방 목록 -->
