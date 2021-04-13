@@ -42,8 +42,9 @@
     	<input type="text" id="message" />
    		<input type="button" onclick="sendMessage()" value="send"/>
    		<input type="button" onclick="disconnect()" value="disconnect"/>
+   		<input type="text" value="${userId }" id="user">
   <script type="text/javascript">
-  	
+  	let sender = document.getElementById("user").value;
   	let webSocket = new WebSocket("ws://localhost:8081/for_work/broadsocket");
   	
   	let chatRoom = document.getElementById("chattingRoom");
@@ -60,11 +61,9 @@
   		chatRoom.value += "error....\n";
   	}
   	// 소켓에 들어온 메세지가 있을 때
-  	// TODO: 자기가 보낸 것, 남이 보낸 것 구분해서 표시
   	webSocket.onmessage = function(message){
-  		console.log(message);
   		let parsedMsg = JSON.parse(message.data);
-  		if (parsedMsg.sender == "1"){
+  		if (parsedMsg.sender == sender){
   			chatRoom.value += "나: " + parsedMsg.content + "\n";
   		} else {
   			chatRoom.value += parsedMsg.sender + ": " + parsedMsg.content + "\n";	
@@ -82,9 +81,10 @@
   		console.log(param);
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  		console.log("sender: " + sender);
   		let msg = {
   			"content": message.value,
-  			"sender": "1",
+  			"sender": sender,
   			"chatroomId": param,
   			"sendTime": sendTime
   		}

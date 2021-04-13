@@ -22,7 +22,6 @@ public class ChatroomDetailAction implements Action {
 		request.setAttribute("messages", messages);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("userId", "1");
 		session.setAttribute("chatroomId", chatroomId);
 		
 		af.setRedirect(false);

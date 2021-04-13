@@ -21,7 +21,6 @@ public class ChattingService {
 	}
 	
 	public void insertMessageService(Message message) {
-		System.out.println(message);
 		dao.insertMessage(message);
 	}
 	
