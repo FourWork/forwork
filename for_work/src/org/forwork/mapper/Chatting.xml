@@ -7,7 +7,9 @@
 <mapper namespace="org.forwork.mapper.ChattingMapper">
 	<cache />
 	
-	
+	<select id="getChatroomMemberRelation" resultType="">
+		select * from chatroom_member_relation
+	</select>
 
 
 </mapper>
