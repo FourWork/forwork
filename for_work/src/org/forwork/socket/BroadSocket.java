@@ -89,6 +89,9 @@ public class BroadSocket {
 		HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 		user.userId = (String) httpSession.getAttribute("userId");
 		user.chatroomId = (String) httpSession.getAttribute("chatroomId");
+		System.out.println("herere");
+		System.out.println(user.userId);
+		System.out.println(user.chatroomId);
 		sessionUsers.add(user);
 		
 //		for(User u: sessionUsers) {

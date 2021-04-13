@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.forwork.domain.Message;
 import org.forwork.service.ChattingService;
@@ -16,8 +17,13 @@ public class ChatroomDetailAction implements Action {
 		ActionForward af = new ActionForward();
 		ChattingService service = ChattingService.getInstance();
 		
-		List<Message> messages = service.getMessageByChatroomIdService(request.getParameter("chatroomId"));
+		String chatroomId = request.getParameter("chatroomId");
+		List<Message> messages = service.getMessageByChatroomIdService(chatroomId);
 		request.setAttribute("messages", messages);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", "1");
+		session.setAttribute("chatroomId", chatroomId);
 		
 		af.setRedirect(false);
 		af.setPath("/views/chatting/chatroomDetail.jsp");
