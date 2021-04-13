@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
 	private String message_id;
 	private String message;
 	private String send_time;

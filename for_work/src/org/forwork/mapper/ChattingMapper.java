@@ -1,5 +1,9 @@
 package org.forwork.mapper;
 
-public interface ChattingMapper {
+import java.util.List;
 
+import org.forwork.domain.ChatroomMemberRelation;
+
+public interface ChattingMapper {
+	List<ChatroomMemberRelation> getChatroomMemberRelation();
 }

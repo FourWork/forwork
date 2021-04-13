@@ -17,6 +17,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.forwork.domain.ChatroomMemberRelation;
+import org.forwork.service.ChattingService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -26,7 +28,10 @@ public class BroadSocket {
 
 	// TODO: DB에 저장된 정보(user-chatroom-relation) 불러와서 넣은 리스트 만들기
 	// TODO: socket session 연결(OnOpen)이랑 연결 끊는 부분(OnClose) 수정하기
+//	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
+	
+	private ChattingService service = ChattingService.getInstance();
 
 	private class User {
 		Session session;
@@ -39,6 +44,15 @@ public class BroadSocket {
 //		String sendTime;
 //		String chatroomId;
 //		
+//	}
+	
+	// TODO: 여기서 DB 내용을 바로 가져오는게 아니라 chatroom-member-relation 테이블이 수정되면 이 함수만 call하도록 수정 
+//	public void setChatroomMemberRelations() {
+//		List<ChatroomMemberRelation> results = service.getChatroomMemberRelationService();
+//		for(ChatroomMemberRelation result: results) {
+//			chatroomMemberRelations.add(result);
+//			System.out.println(result);
+//		}
 //	}
 
 	public User getUser(Session userSession) {
@@ -59,6 +73,9 @@ public class BroadSocket {
 	
 	@OnOpen
 	public void handleConnection(Session userSession, EndpointConfig config) {
+		
+		// TODO: 여기 말고 다른 곳에서 하도록 수정
+		
 		if (!configs.containsKey(userSession)) {
 			configs.put(userSession, config);
 		}

@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class Portfolio {
+import java.io.Serializable;
+
+public class Portfolio implements Serializable {
 	private String portfolio_id;
 	private String member_id;
 	private String portfolio_title;

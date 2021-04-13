@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
 	private String member_id;
 	private String email;
 	private String name;
