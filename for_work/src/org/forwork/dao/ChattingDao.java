@@ -8,6 +8,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
 import org.forwork.domain.Message;
 import org.forwork.mapper.ChattingMapper;
@@ -63,5 +64,35 @@ public class ChattingDao {
 				session.close();
 			}
 		}
+	}
+	
+	public List<Message> getMessageByChatroomId(String chatroomId){
+		SqlSession session = getSqlSessionFacotry().openSession();
+		List<Message> messages = null;
+		try {
+			messages = session.getMapper(ChattingMapper.class).getMessageByChatroomId(chatroomId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return messages;
+	}
+	
+	public List<Chatroom> getChatroomByMemberId(String memberId){
+		SqlSession session = getSqlSessionFacotry().openSession();
+		List<Chatroom> chatrooms = null;
+		try {
+			chatrooms = session.getMapper(ChattingMapper.class).getChatroomByMemberId(memberId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return chatrooms;
 	}
 }

@@ -52,11 +52,17 @@
   	webSocket.onerror = function(){
   		chatRoom.value += "error....\n";
   	}
-  	// 소켓에 들어온메세지가 있을 때
+  	// 소켓에 들어온 메세지가 있을 때
+  	// TODO: 자기가 보낸 것, 남이 보낸 것 구분해서 표시
   	webSocket.onmessage = function(message){
   		console.log(message);
   		let parsedMsg = JSON.parse(message.data);
   		chatRoom.value += "Recevied From Server " + parsedMsg.content + "\n";
+  	}
+  	
+  	// TODO: 시간 단위(1시간?)만큼의 메세지 불러와서 띄워주기
+  	function loadMessage(){
+  		
   	}
   	
   	function sendMessage(){
