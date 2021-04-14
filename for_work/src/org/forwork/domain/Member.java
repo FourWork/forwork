@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
 	private String member_id;
 	private String email;
 	private String name;
@@ -56,7 +58,9 @@ public class Member {
 
 	public void setStatus_id(String status_id) {
 		this.status_id = status_id;
-	}	
+	}
+
+	
 }
 
 

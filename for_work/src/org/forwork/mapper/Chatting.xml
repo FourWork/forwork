@@ -7,7 +7,30 @@
 <mapper namespace="org.forwork.mapper.ChattingMapper">
 	<cache />
 	
-
+	<select id="getChatroomMemberRelation" resultType="ChatroomMemberRelation">
+		select * from chatroom_member_relation
+	</select>
+	
+	<insert id="insertMessage" parameterType="Message">
+		insert into message(message_id, message, send_time, sender, chatroom_id)
+			values(message_id_seq.nextval, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id})
+	</insert>
+	
+	<!-- TODO: 요청한 시간대에 맞는 메세지 보내주도록 수정 -->
+	<select id="getMessageByChatroomId" parameterType="String" resultType="Message">
+		select * from message
+			where chatroom_id = #{chatroom_id}
+			order by send_time
+	</select>
+	
+	<!-- 유저가 가진 채팅방 목록 -->
+	<select id="getChatroomByMemberId" parameterType="String" resultType="Chatroom">
+		select *
+			from chatroom
+			where chatroom_id in (select chatroom_id
+									from chatroom_member_relation
+									where user_id = #{member_id})
+	</select>
 
 
 </mapper>

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
+<%
+session.setAttribute("member_id", 1);
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -97,6 +100,7 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">언어 추가</label>
                         <input type="text" name="language">
+                        <button type="button" class="btn btn-primary">Add</button>
                       </div>
                     </div>
                   </div>
@@ -104,7 +108,15 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-city">추가된 언어</label>
-
+						<div class="list-group">
+						  <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+						    The current button
+						  </button>
+						  <button type="button" class="list-group-item list-group-item-action">A second item</button>
+						  <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+						  <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+						  <button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
+						</div>
                       </div>
                     </div>
 
