@@ -30,10 +30,43 @@
 			// 움직이지 못하는 css 선택자	
 			cancel : ".no-move",
 			// 이동하려는 location에 추가 되는 클래스	
-			placeholder : "card-placeholder"
+			placeholder : "card-placeholder",
+			start: function(event,ui){
+				$(this).attr('data-previndex',ui.item.index());
+			}
+				,
+			update:function(event,ui){
+				var previdx = $(this).attr('data-previndex');
+				var nowidx = ui.item.index();
+				var task_id = $(ui.item).find('.task_id').html();
+				var col_name = $(ui.item).closest('.column').find('.card-title').html();
+				if(typeof previdx != 'undefined'){
+				console.log(previdx+'\n'+nowidx+'\n'+task_id+'\n'+col_name);
+				
+				$.ajax({
+					type:"POST",
+					url:"",
+					data : {
+						"previdx":previdx,
+						"nowidx":nowidx,
+						"task_id":task_id,
+						"col_name":col_name
+					},
+					dataType:"json",
+					success:function(data){
+						if(data.result>0){
+							console.log("성공");
+						}
+					},
+					error:function(e){
+						console.log('error : ' + e);
+					}
+				})
+				}
+			}
 		});
 		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
-		$(".column .card").disableSelection();
+
 	});
 </script>
 </head>
@@ -138,6 +171,7 @@
 							<div class="card-body p-2 ui-sortable-handle">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
+									<p class = "task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"
@@ -286,6 +320,7 @@
 							<div class="card-body p-2">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
+									<p class = "task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"

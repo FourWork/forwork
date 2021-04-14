@@ -18,7 +18,7 @@
 	</insert>
 	
 	<select id="listTask"  resultType="Task">
-		select task_content, responsibility, writer, task_type_id from task_ex
+		select task_id, task_content, responsibility, writer, task_type_id from task_ex
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
