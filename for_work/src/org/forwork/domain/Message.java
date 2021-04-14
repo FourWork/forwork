@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
 	private String message_id;
 	private String message;
 	private String send_time;
@@ -56,6 +58,12 @@ public class Message {
 
 	public void setSender(String sender) {
 		this.sender = sender;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [message_id=" + message_id + ", message=" + message + ", send_time=" + send_time
+				+ ", chatroom_id=" + chatroom_id + ", sender=" + sender + "]";
 	}
 	
 }

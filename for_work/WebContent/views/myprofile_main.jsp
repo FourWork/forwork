@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
+<%
+session.setAttribute("member_id", 1);
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -12,25 +15,31 @@
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
   <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
-  <!-- Favicon -->
-  <link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
-  <link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
-  <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-  <!-- Page plugins -->
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
-<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+  
+	<!-- Favicon -->
+	<link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
+  
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  
+	<!-- Icons -->
+	<link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
+	<link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  
+	<!-- Page plugins -->
+	<!-- Argon CSS -->
+	<link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
+  
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-  <!-- CSS -->
-  <link href="CSS/myprofile.css" type="text/css" rel="stylesheet">
+
+	<!-- CSS -->
+	<link href="CSS/myprofile.css" type="text/css" rel="stylesheet">
+	
 <title>Insert title here</title>
 </head>
 <body>
@@ -49,26 +58,42 @@
     
     <div class="content_container">
     	<div class="row">
-    	
-    	<div id="accordion">
-    	
-  <div class="card">
+ 
+	<div id="accordion">
+    	<c:forEach var="Portfolio" items="${list }">
+    	  <div class="card">
+
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          	포트폴리오1
+          	${portfolio.portfolio_title }
         </button>
       </h5>
     </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+<div id="collapseOne" class="collapse  show" aria-labelledby="headingOne" data-parent="#accordion" style="margin-top: -70px;">
       <div class="card-body">
-       포트폴리오 내용
+		<table border ="1" bordercolor="blue" width="100%" align="center">
+			<tr align="left">
+				<td>${portfolio.portfolio_start_date}</td>
+				<td>~</td>
+				<td>${portfolio.portfolio_end_date}</td>
+			</tr>
+			<tr>
+				<p><td colspan="3">${portfolio.portfolio_detail}</td><p>
+			</tr>
+			<tr>
+				<p><td colspan="3">사용언어</td><p>
+			</tr>
+		</table>
       </div>
     </div>
+
   </div>
+  </c:forEach>
   
 </div>
+    	
     	<!-- 프로필 카드 영역 -->
 			<div class="column_right">
 				<div class="card card-profile">
