@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class Project {
+import java.io.Serializable;
+
+public class Project implements Serializable {
 	private String project_id;
 	private String project_title;
 	private String project_start_date;

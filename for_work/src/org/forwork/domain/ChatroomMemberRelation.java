@@ -2,17 +2,15 @@ package org.forwork.domain;
 
 import java.io.Serializable;
 
-public class Chatroom implements Serializable {
+public class ChatroomMemberRelation implements Serializable {
 	private String chatroom_id;
-	private String chatroom_name;
 	private String user_id;
 	
-	public Chatroom() {}
+	public ChatroomMemberRelation() {}
 
-	public Chatroom(String chatroom_id, String chatroom_name, String user_id) {
+	public ChatroomMemberRelation(String chatroom_id, String user_id) {
 		super();
 		this.chatroom_id = chatroom_id;
-		this.chatroom_name = chatroom_name;
 		this.user_id = user_id;
 	}
 
@@ -22,14 +20,6 @@ public class Chatroom implements Serializable {
 
 	public void setChatroom_id(String chatroom_id) {
 		this.chatroom_id = chatroom_id;
-	}
-
-	public String getChatroom_name() {
-		return chatroom_name;
-	}
-
-	public void setChatroom_name(String chatroom_name) {
-		this.chatroom_name = chatroom_name;
 	}
 
 	public String getUser_id() {
