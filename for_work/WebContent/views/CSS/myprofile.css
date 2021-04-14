@@ -108,4 +108,12 @@ flex: 0 0 66.66667%;
 	padding-left:10px;
 	
 }
+
+.list-group{
+	width:320px;
+	font-size:12px;
+}
+
+.collapse show{
+    margin-top: -70px;
 }

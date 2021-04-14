@@ -13,6 +13,7 @@ import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
 import org.forwork.action.AttendanceAction;
 import org.forwork.action.CommuteAction;
+import org.forwork.action.OffAction;
 
 /**
  * Servlet implementation class AttendanceController
@@ -31,10 +32,13 @@ public class AttendanceController extends HttpServlet {
     	url = url.substring(request.getContextPath().length());
     	Action action = null;
     	ActionForward af = null;
-    	if(url.equals("/attendance/")) {
+
+    	if(url.matches("^(/attendance/main)")) {
     		action = new AttendanceAction();
     	}else if(url.equals("/attendance/commute")){
     		action = new CommuteAction();
+    	}else if(url.equals("/attendance/off")) {
+    		action = new OffAction();
     	}
     	try {
     		if(action != null) {
@@ -63,5 +67,6 @@ public class AttendanceController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
+
 
 }

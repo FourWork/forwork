@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%@ include file="boardHeader.jsp"%>
+
+<%@ include file="header.jsp"%>
 
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -23,6 +27,8 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 
+<link rel="stylesheet" href="CSS/boardStyle.css" type="text/css">
+
 <div class="wrap">
 	<div class="container">
 		<div class="row">
@@ -35,6 +41,9 @@
 								class="bi bi-check2-square"></i> 공지 사항</a></li>
 						<li class="list-group-item"><a href="#"><i
 								class="bi bi-clipboard"></i> 기본 게시판</a></li>
+						<c:forEach var="boardMenu" items="">
+							
+						</c:forEach>
 					</ul>
 					<a href="#" class="boardMenuPlus"><i
 						class="bi bi-plus-square-dotted"></i></a>
@@ -51,11 +60,9 @@
 									<div class="card h-100">
 										<div class="card-body">
 											<h5 class="card-title">
-												<i class="bi bi-exclamation"></i> Card title
+												<i class="bi bi-exclamation"></i> 공지 사항 제목
 											</h5>
-											<p class="card-text">This is a longer card with
-												supporting text below as a natural lead-in to additional
-												content. This content is a little bit longer.</p>
+											<p class="card-text">공지 사항 내용 미리 보기</p>
 											<p class="card-text">2021-04-09</p>
 										</div>
 									</div>
