@@ -4,6 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+	<!--<settings>
+    	<setting name="mapUnderscoreToCamelCase" value="true"/>
+  	</settings>-->
 	<typeAliases>
 		<typeAlias type="org.forwork.domain.Member" alias="Member"/>
 		<typeAlias type="org.forwork.domain.Project" alias="Project"/>
@@ -15,6 +18,7 @@
 		<typeAlias type="org.forwork.domain.Post" alias="Post"/>
 		<typeAlias type="org.forwork.domain.Portfolio" alias="Portfolio"/>
 		<typeAlias type="org.forwork.domain.ChatroomMemberRelation" alias="ChatroomMemberRelation"/>
+		<typeAlias type="org.forwork.dto.MessageDto" alias="MessageDto" />
 	</typeAliases>
 	
 	<environments default="development">
@@ -34,5 +38,4 @@
 		<mapper resource="org/forwork/mapper/ScrumBoard.xml"/>
 		<mapper resource="org/forwork/mapper/Portfolio.xml"/>
 	</mappers>
-	
 </configuration>

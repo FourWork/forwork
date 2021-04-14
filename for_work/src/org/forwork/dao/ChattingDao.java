@@ -71,6 +71,7 @@ public class ChattingDao {
 		List<Message> messages = null;
 		try {
 			messages = session.getMapper(ChattingMapper.class).getMessageByChatroomId(chatroomId);
+			System.out.println(messages);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -96,18 +97,4 @@ public class ChattingDao {
 		return chatrooms;
 	}
 	
-	public String getChatroomNameById(String chatroomId) {
-		SqlSession session = getSqlSessionFacotry().openSession();
-		String name = "";
-		try {
-			name = session.getMapper(ChattingMapper.class).getChatroomNameById(chatroomId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-		return name;
-	}
 }

@@ -1,6 +1,7 @@
 package org.forwork.action;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,8 +27,13 @@ public class ChatroomDetailAction implements Action {
 		List<Message> messages = service.getMessageByChatroomIdService(chatroomId);
 		request.setAttribute("messages", messages);
 		
-		String chatroomName = service.getChatroomNameByIdService(chatroomId);
-		request.setAttribute("chatroomName", chatroomName);
+		Optional<Chatroom> selectedChatroom = chatrooms.stream().filter(x-> x.getChatroom_id().equals(chatroomId)).findFirst();
+		
+		if (selectedChatroom.isPresent()) {
+			request.setAttribute("chatroomName", selectedChatroom.get().getChatroom_name());
+		} else {
+			request.setAttribute("chatroomName", "없음");
+		}
 		
 		session.setAttribute("chatroomId", chatroomId);
 		

@@ -105,11 +105,11 @@
   	<div class="chatbox">
 		<c:forEach var="message" items="${messages}">
 			<div>
-				<c:if test="${message.sender == userId }">
+				<c:if test="${message.sender.member_id == userId }">
 					<span class="bubble my-bubble">${message.message }</span>
 				</c:if>
-				<c:if test="${message.sender != userId }">
-					<div class="bubble friend-profile friend-name">${message.sender }</div>
+				<c:if test="${message.sender.member_id != userId }">
+					<div class="bubble friend-profile friend-name">${message.sender.name }</div>
 					<img class="bubble friend-profile" src="../Img/profile.png" width="38">
 					<span class="bubble friend-bubble">${message.message }</span>
 				</c:if>
@@ -118,7 +118,7 @@
 	</div>
 
    	<div class="text-box">
-   		<input type="text" id="message" />
+   		<input type="text" onkeyup="isEnterKey()" id="message" />
    		<input type="button" onclick="sendMessage()" value="send" id="chat-send"/>
      		<div class="clearfix"></div>
    	</div>
@@ -175,6 +175,12 @@
   			"sendTime": sendTime
   		}
 		webSocket.send(JSON.stringify(msg));
+  	}
+  	
+  	function isEnterKey(){
+  		if (window.event.keyCode == 13) {
+        	sendMessage();
+       }
   	}
   	
   	function disconnect(){

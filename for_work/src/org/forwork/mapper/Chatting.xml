@@ -6,6 +6,16 @@
 
 <mapper namespace="org.forwork.mapper.ChattingMapper">
 	<cache />
+	<resultMap id="messageResult" type="MessageDto">
+		<id property="message_id" column="message_id"/>
+		<result property="message" column="message"/>
+		<result property="send_time" column="send_time"/>
+		<result property="chatroom_id" column="chatroom_id"/>
+		<collection property="sender" ofType="Member" column="sender">
+			<id property="member_id" column="member_id"/>
+			<result property="name" column="name"/>
+		</collection>
+	</resultMap>
 	
 	<select id="getChatroomMemberRelation" resultType="ChatroomMemberRelation">
 		select * from chatroom_member_relation
@@ -17,10 +27,12 @@
 	</insert>
 	
 	<!-- TODO: 요청한 시간대에 맞는 메세지 보내주도록 수정 -->
-	<select id="getMessageByChatroomId" parameterType="String" resultType="Message">
-		select * from message
-			where chatroom_id = #{chatroom_id}
-			order by send_time
+	<select id="getMessageByChatroomId" parameterType="String" resultMap="messageResult">
+		select * 
+			from message m, member u
+			where m.sender = u.member_id(+)
+			and m.chatroom_id = #{chatroom_id}
+			order by m.send_time
 	</select>
 	
 	<!-- 유저가 가진 채팅방 목록 -->
@@ -30,12 +42,6 @@
 			where chatroom_id in (select chatroom_id
 									from chatroom_member_relation
 									where user_id = #{member_id})
-	</select>
-	
-	<select id="getChatroomNameById" parameterType="String" resultType="String">
-		select chatroom_name
-			from chatroom
-			where chatroom_id = #{chatroom_id}
 	</select>
 
 </mapper>

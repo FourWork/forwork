@@ -40,14 +40,6 @@ public class BroadSocket {
 		String chatroomId;
 	}
 	
-//	private class Message {
-//		String content;
-//		String sender;
-//		String sendTime;
-//		String chatroomId;
-//		
-//	}
-	
 	// TODO: 여기서 DB 내용을 바로 가져오는게 아니라 chatroom-member-relation 테이블이 수정되면 이 함수만 call하도록 수정 
 	public void setChatroomMemberRelations() {
 		chatroomMemberRelations.clear();
@@ -89,9 +81,9 @@ public class BroadSocket {
 		HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 		user.userId = (String) httpSession.getAttribute("userId");
 		user.chatroomId = (String) httpSession.getAttribute("chatroomId");
-		System.out.println("herere");
-		System.out.println(user.userId);
-		System.out.println(user.chatroomId);
+//		System.out.println("herere");
+//		System.out.println(user.userId);
+//		System.out.println(user.chatroomId);
 		sessionUsers.add(user);
 		
 //		for(User u: sessionUsers) {
@@ -127,7 +119,7 @@ public class BroadSocket {
 		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
 			if (relation.getChatroom_id().equals(chatroomId)) {
 				sendingUserIds.add(relation.getUser_id());
-				System.out.println(sendingUserIds);
+//				System.out.println(sendingUserIds);
 			}
 		}
 		

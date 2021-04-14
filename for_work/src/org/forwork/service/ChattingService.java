@@ -31,8 +31,4 @@ public class ChattingService {
 	public List<Chatroom> getChatroomByMemberIdService(String memberId){
 		return dao.getChatroomByMemberId(memberId);
 	}
-	
-	public String getChatroomNameByIdService(String chatroomId) {
-		return dao.getChatroomNameById(chatroomId);
-	}
 }
