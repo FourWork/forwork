@@ -124,9 +124,11 @@
    	</div>
 	<input type="button" onclick="disconnect()" value="disconnect"/>
 	<input type="text" value="${userId }" id="user">
+	<input type="text" value="${name }" id="userName">
    		
   <script type="text/javascript">
   	let sender = document.getElementById("user").value;
+  	let senderName = document.getElementById("userName").value;
   	let webSocket = new WebSocket("ws://localhost:8081/for_work/broadsocket");
   	
 /*   	let chatRoom = document.getElementById("chattingRoom"); */
@@ -146,12 +148,28 @@
   	webSocket.onmessage = function(message){
   		let parsedMsg = JSON.parse(message.data);
         let chatBubble = document.createElement('span');
+    	
         chatBubble.innerHTML =  parsedMsg.content;   
         chatBubble.classList.add('bubble');
-        if (parsedMsg.sender == sender){
+        
+        if (parsedMsg.senderId == sender){
         	chatBubble.classList.add('my-bubble');
   		} else {
-  			chatBubble.classList.add('friend-bubble');	
+  			let name = document.createElement('div');
+  	    	let img = document.createElement('img');
+  	    	
+  			chatBubble.classList.add('friend-bubble');
+  			name.innerHTML = parsedMsg.senderName;
+  	        name.classList.add('bubble');
+  	        name.classList.add('friend-profile');
+  	        name.classList.add('friend-name');
+  	        
+  	        img.src = '../Img/profile.png';
+  	        img.width = 38;
+  	      	img.classList.add('bubble');
+	        img.classList.add('friend-profile');
+	  	    document.querySelector('.chatbox').appendChild(name);
+	        document.querySelector('.chatbox').appendChild(img);
   		}
         document.querySelector('.chatbox').appendChild(chatBubble);
   	}
@@ -170,7 +188,8 @@
   		console.log("sender: " + sender);
   		let msg = {
   			"content": message.value,
-  			"sender": sender,
+  			"senderId": sender,
+  			"senderName": senderName,
   			"chatroomId": param,
   			"sendTime": sendTime
   		}

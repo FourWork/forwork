@@ -135,7 +135,7 @@ public class BroadSocket {
 		// 메세지 저장
 		Message msg = new Message();
 		msg.setMessage((String)ob.get("content"));
-		msg.setSender((String)ob.get("sender"));
+		msg.setSender((String)ob.get("senderId"));
 		msg.setChatroom_id((String)ob.get("chatroomId"));
 		msg.setSend_time((String)ob.get("sendTime"));
 		service.insertMessageService(msg);

@@ -43,6 +43,13 @@
 									from chatroom_member_relation
 									where user_id = #{member_id})
 	</select>
+	
+	<!-- 로그인 유지하면 필요 없음 -->
+	<select id="getMemberById" parameterType="String" resultType="Member">
+		select *
+			from member
+			where member_id = #{member_id}
+	</select>
 
 </mapper>
 
