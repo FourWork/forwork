@@ -26,6 +26,9 @@ public class ChatroomDetailAction implements Action {
 		List<Message> messages = service.getMessageByChatroomIdService(chatroomId);
 		request.setAttribute("messages", messages);
 		
+		String chatroomName = service.getChatroomNameByIdService(chatroomId);
+		request.setAttribute("chatroomName", chatroomName);
+		
 		session.setAttribute("chatroomId", chatroomId);
 		
 		af.setRedirect(false);
