@@ -13,7 +13,6 @@ import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
 import org.forwork.action.ChatroomDetailAction;
 import org.forwork.action.ChatroomListAction;
-import org.forwork.socket.WebSocket;
 
 /**
  * Servlet implementation class ChatController
