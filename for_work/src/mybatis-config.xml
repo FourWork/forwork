@@ -27,6 +27,7 @@
 		<mapper resource="org/forwork/mapper/Member.xml"/>
 		<mapper resource="org/forwork/mapper/Attendance.xml"/>
 		<mapper resource="org/forwork/mapper/Chatting.xml"/>
+		<mapper resource="org/forwork/mapper/ScrumBoard.xml"/>
 		<mapper resource="org/forwork/mapper/Portfolio.xml"/>
 	</mappers>
 	

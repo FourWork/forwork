@@ -5,19 +5,19 @@ import java.io.Serializable;
 public class Task implements Serializable {
 	private String task_id;
 	private String project_id;
-	private String task_type;
+	private String task_type_id;
 	private String responsibility;
 	private String writer;
 	private String task_content;
 	
 	public Task() {}
 
-	public Task(String task_id, String project_id, String task_type, String responsibility, String writer,
+	public Task(String task_id, String project_id, String task_type_id, String responsibility, String writer,
 			String task_content) {
 		super();
 		this.task_id = task_id;
 		this.project_id = project_id;
-		this.task_type = task_type;
+		this.task_type_id = task_type_id;
 		this.responsibility = responsibility;
 		this.writer = writer;
 		this.task_content = task_content;
@@ -39,12 +39,12 @@ public class Task implements Serializable {
 		this.project_id = project_id;
 	}
 
-	public String getTask_type() {
-		return task_type;
+	public String getTask_type_id() {
+		return task_type_id;
 	}
 
-	public void setTask_type(String task_type) {
-		this.task_type = task_type;
+	public void setTask_type_id(String task_type_id) {
+		this.task_type_id = task_type_id;
 	}
 
 	public String getResponsibility() {
@@ -70,6 +70,8 @@ public class Task implements Serializable {
 	public void setTask_content(String task_content) {
 		this.task_content = task_content;
 	}
+
+
 
 	
 }
