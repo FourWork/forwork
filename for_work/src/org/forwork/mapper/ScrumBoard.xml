@@ -4,7 +4,7 @@
 
 
 
-<mapper namespace="scrum.mapper.ScrumBoardMapper">
+<mapper namespace="org.forwork.mapper.ScrumBoardMapper">
 	<cache />
 	
 	<insert id="insertTask" parameterType="Task">
