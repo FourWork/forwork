@@ -13,6 +13,8 @@ public class ChatroomListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO: 지금은 chatroomList.jsp로 갈때 채팅방 목록을 가져가고, userId를 세션에 넣어주는데,
+		// 사실 모든 페이지로 갈 때 채팅방 목록은 항상 필요함
 		ActionForward af = new ActionForward();
 		ChattingService service = ChattingService.getInstance();
 		

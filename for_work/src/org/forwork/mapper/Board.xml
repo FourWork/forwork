@@ -12,7 +12,7 @@
 	</insert> 
 	
 	<!-- 게시글 추가 -->
-	<insert id="insertPost" parameterType="Board_test">
+	<insert id="insertPost" parameterType="Post">
 		insert into post(post_id, board_id, post_writer, post_title, post_content, post_date, post_file)
 			values(post_seq.nextval, #{board_id}, #{post_writer}, #{post_title}, #{post_content}, SYSDATE, #{post_file})
 	</insert>
