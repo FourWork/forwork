@@ -36,6 +36,7 @@
 		  background-color: #fff46d;
 		  border-radius: 14px 14px 0px 14px;
 		  padding: 7px 15px 7px 15px;
+		  margin-bottom: 30px;
 		  float: right;
 		  clear: both;
 		}
@@ -44,8 +45,20 @@
 		  background-color: rgb(190, 194, 236);
 		  border-radius: 14px 14px 14px 0;
 		  padding: 7px 15px 7px 15px;
+		  margin-left: 50px;
+		  margin-top: -45px;
+		  margin-bottom: 30px;
 		  float: left;
 		  clear: both;
+		}
+		
+		.friend-profile {
+		  float: left;
+		  clear: both;
+		}
+		
+		.friend-name {
+			margin-left: 60px;
 		}
 		
 		
@@ -91,24 +104,26 @@
   	</div>
   	<div class="chatbox">
 		<c:forEach var="message" items="${messages}">
-			<c:if test="${message.sender == userId }">
-				<span class="bubble my-bubble">${message.message }</span>
-			</c:if>
-			<c:if test="${message.sender != userId }">
-				<span class="bubble friend-bubble">${message.message }</span>
-			</c:if>
+			<div>
+				<c:if test="${message.sender == userId }">
+					<span class="bubble my-bubble">${message.message }</span>
+				</c:if>
+				<c:if test="${message.sender != userId }">
+					<div class="bubble friend-profile friend-name">${message.sender }</div>
+					<img class="bubble friend-profile" src="../Img/profile.png" width="38">
+					<span class="bubble friend-bubble">${message.message }</span>
+				</c:if>
+			</div>
 		</c:forEach>
 	</div>
-<!-- 	
-    <textarea id="chattingRoom" rows="10" cols="50">
-    </textarea> -->
-    	<div class="text-box">
-    		<input type="text" id="message" />
-    		<input type="button" onclick="sendMessage()" value="send" id="chat-send"/>
-      		<div class="clearfix"></div>
-    	</div>
-   		<input type="button" onclick="disconnect()" value="disconnect"/>
-   		<input type="text" value="${userId }" id="user">
+
+   	<div class="text-box">
+   		<input type="text" id="message" />
+   		<input type="button" onclick="sendMessage()" value="send" id="chat-send"/>
+     		<div class="clearfix"></div>
+   	</div>
+	<input type="button" onclick="disconnect()" value="disconnect"/>
+	<input type="text" value="${userId }" id="user">
    		
   <script type="text/javascript">
   	let sender = document.getElementById("user").value;
