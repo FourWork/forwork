@@ -10,6 +10,8 @@
 		<typeAlias type="org.forwork.domain.Task" alias="Task"/>
 		<typeAlias type="org.forwork.domain.Chatroom" alias="Chatroom"/>
 		<typeAlias type="org.forwork.domain.Message" alias="Message"/>
+		<typeAlias type="org.forwork.domain.Board" alias="Board"/>
+		<typeAlias type="org.forwork.domain.Post" alias="Post"/>
 		<typeAlias type="org.forwork.domain.Portfolio" alias="Portfolio"/>
 		<typeAlias type="org.forwork.domain.ChatroomMemberRelation" alias="ChatroomMemberRelation"/>
 	</typeAliases>
@@ -27,6 +29,7 @@
 		<mapper resource="org/forwork/mapper/Member.xml"/>
 		<mapper resource="org/forwork/mapper/Attendance.xml"/>
 		<mapper resource="org/forwork/mapper/Chatting.xml"/>
+		<mapper resource="org/forwork/mapper/Board.xml"/>
 		<mapper resource="org/forwork/mapper/ScrumBoard.xml"/>
 		<mapper resource="org/forwork/mapper/Portfolio.xml"/>
 	</mappers>
