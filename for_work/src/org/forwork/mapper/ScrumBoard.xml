@@ -25,7 +25,14 @@
 		delete from board where seq = #{seq}	
 	</delete>
 	
+	<!-- project id 조건에 추가하기 -->
+	<select id="getTask" parameterType="String" resultType="Task">
+		select * from task_ex where task_id = #{task_id}
+	</select>
 	
+	<update id="updateTask" parameterType="Task">
+		update task set task_type_id = #{task_type_id} where task_id = #{task_id}
+	</update>
 	
 </mapper>
 
