@@ -7,17 +7,16 @@
 <mapper namespace="org.forwork.mapper.MemberMapper">
 	<cache />
 	<!-- parameterType  예시! 수정 필요합니다.-->
-	<insert id="insertBoard" parameterType="Member">
-		insert into board(
-		SEQ, TITLE, WRITER, CONTENTS, REGDATE, HITCOUNT,FNAME
+	<insert id="insertMember" parameterType="Member">
+		insert into Member(
+			member_id, name, email, pw
 		)
 		values(
-		BOARD_SEQ.NEXTVAL, #{title}, #{writer}, #{contents}, SYSDATE, 0, #{fname}
+			MEMBER_SEQ.NEXTVAL, #{name}, #{email}, #{pw}
 		)
-
 	</insert>
-
-
+	
+	
 </mapper>
 
 
