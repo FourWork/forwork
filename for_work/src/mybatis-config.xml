@@ -10,6 +10,7 @@
 		<typeAlias type="org.forwork.domain.Task" alias="Task"/>
 		<typeAlias type="org.forwork.domain.Chatroom" alias="Chatroom"/>
 		<typeAlias type="org.forwork.domain.Message" alias="Message"/>
+		<typeAlias type="org.forwork.domain.ChatroomMemberRelation" alias="ChatroomMemberRelation"/>
 	</typeAliases>
 	
 	<environments default="development">
