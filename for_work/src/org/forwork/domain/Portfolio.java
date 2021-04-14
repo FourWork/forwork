@@ -3,6 +3,7 @@ package org.forwork.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
+
 public class Portfolio implements Serializable {
 	private String portfolio_id;
 	private String member_id;
