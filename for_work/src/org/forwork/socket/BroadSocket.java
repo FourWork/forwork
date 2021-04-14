@@ -17,6 +17,9 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.forwork.domain.ChatroomMemberRelation;
+import org.forwork.domain.Message;
+import org.forwork.service.ChattingService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -24,13 +27,17 @@ import org.json.simple.parser.JSONParser;
 public class BroadSocket {
 	private Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
 
-	// TODO: DB에 저장된 정보(user-chatroom-relation) 불러와서 넣은 리스트 만들기
 	// TODO: socket session 연결(OnOpen)이랑 연결 끊는 부분(OnClose) 수정하기
+	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
+	// 같은 유저라도 채팅방 여러개에 들어가있다면 세션이 여러개
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
+	
+	private ChattingService service = ChattingService.getInstance();
 
 	private class User {
 		Session session;
 		String userId;
+		String chatroomId;
 	}
 	
 //	private class Message {
@@ -40,6 +47,16 @@ public class BroadSocket {
 //		String chatroomId;
 //		
 //	}
+	
+	// TODO: 여기서 DB 내용을 바로 가져오는게 아니라 chatroom-member-relation 테이블이 수정되면 이 함수만 call하도록 수정 
+	public void setChatroomMemberRelations() {
+		chatroomMemberRelations.clear();
+		List<ChatroomMemberRelation> results = service.getChatroomMemberRelationService();
+		for(ChatroomMemberRelation result: results) {
+			chatroomMemberRelations.add(result);
+//			System.out.println(result);
+		}
+	}
 
 	public User getUser(Session userSession) {
 		Optional<User> op = sessionUsers.stream().filter(x -> x.session == userSession).findFirst();
@@ -49,8 +66,8 @@ public class BroadSocket {
 		return null;
 	}
 	
-	public User getUser(String userId) {
-		Optional<User> op = sessionUsers.stream().filter(x -> x.userId.equals(userId)).findFirst();
+	public User getUser(String userId, String chatrooomId) {
+		Optional<User> op = sessionUsers.stream().filter((x) -> x.userId.equals(userId) && x.chatroomId.equals(chatrooomId)).findFirst();
 		if (op.isPresent()) {
 			return op.get();
 		}
@@ -59,6 +76,10 @@ public class BroadSocket {
 	
 	@OnOpen
 	public void handleConnection(Session userSession, EndpointConfig config) {
+		
+		// TODO: 여기 말고 다른 곳에서 하도록 수정
+		setChatroomMemberRelations();
+		
 		if (!configs.containsKey(userSession)) {
 			configs.put(userSession, config);
 		}
@@ -67,11 +88,15 @@ public class BroadSocket {
 		user.session = userSession;
 		HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 		user.userId = (String) httpSession.getAttribute("userId");
+		user.chatroomId = (String) httpSession.getAttribute("chatroomId");
+		System.out.println("herere");
+		System.out.println(user.userId);
+		System.out.println(user.chatroomId);
 		sessionUsers.add(user);
 		
-		for(User u: sessionUsers) {
-			System.out.println(u.userId);
-		}
+//		for(User u: sessionUsers) {
+//			System.out.println(u.userId);
+//		}
 	}
 	
 	// 소켓에 메세지가 들어왔을 때
@@ -97,21 +122,31 @@ public class BroadSocket {
 		
 		JSONObject ob = (JSONObject) object;
 		
-//		Message msg = new Message();
-//		msg.content = (String)ob.get("content");
-//		msg.sender = (String)ob.get("sender");
-//		msg.chatroomId = (String)ob.get("chatroomId");
-//		msg.sendTime = (String)ob.get("sendTime");
+		String chatroomId = (String)ob.get("chatroomId");
+		List<String> sendingUserIds = new ArrayList<String>();
+		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
+			if (relation.getChatroom_id().equals(chatroomId)) {
+				sendingUserIds.add(relation.getUser_id());
+				System.out.println(sendingUserIds);
+			}
+		}
 		
-		// TODO: 보내기를 원하는 유저들의 user_id 찾기
-		String sendUserId = "2";
+		// TODO: 페이지 별로 채팅방 구분
+		for(String sendingUserId: sendingUserIds) {
+			User sendTo = getUser(sendingUserId, chatroomId);
+			if (sendTo != null) {
+				// 자기랑 연결된 소켓에 보낼때는 그냥 send
+				sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+			}
+		}
 		
-		// TODO: 모든 유저에 대해서
-		User sendTo = getUser(sendUserId);
-		System.out.println("sdfsdfsdfNulll");
-		System.out.println(sendTo.userId);
-		// 자기랑 연결된 소켓에 보낼때는 그냥 send
-		sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+		// 메세지 저장
+		Message msg = new Message();
+		msg.setMessage((String)ob.get("content"));
+		msg.setSender((String)ob.get("sender"));
+		msg.setChatroom_id((String)ob.get("chatroomId"));
+		msg.setSend_time((String)ob.get("sendTime"));
+		service.insertMessageService(msg);
 	}
 	
 	@OnClose

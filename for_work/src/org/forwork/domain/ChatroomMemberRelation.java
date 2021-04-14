@@ -1,6 +1,8 @@
 package org.forwork.domain;
 
-public class ChatroomMemberRelation {
+import java.io.Serializable;
+
+public class ChatroomMemberRelation implements Serializable {
 	private String chatroom_id;
 	private String user_id;
 	
