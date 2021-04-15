@@ -37,7 +37,7 @@ public class PortfolioDAO {
 
 		List<Portfolio> list = null;
 		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
-			System.out.println("listPortfolio Service");
+			System.out.println("@listPortfolio DAO");
 			list = sqlSession.getMapper(PortfolioMapper.class).listPortfolio(member_id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,6 +45,16 @@ public class PortfolioDAO {
 		return list;
 	}
 
+	public List<Portfolio_Language> listLanguages(String member_id){
+		List<Portfolio_Language> list = null;
+		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
+			System.out.println("@listlanguage DAO");
+			list = sqlSession.getMapper(PortfolioMapper.class).listLanguage(member_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	public Member loadMemberCard(String member_id) {
 
 		Member member = null;
@@ -76,10 +86,10 @@ public class PortfolioDAO {
 		return re;
 	}
 	
-	public String getPortfolio_id() {
+	public String getPortfolio_max_id() {
 		String re = "";
 		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
-			re = sqlSession.getMapper(PortfolioMapper.class).getPortfolio_id();
+			re = sqlSession.getMapper(PortfolioMapper.class).getPortfolio_max_id();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

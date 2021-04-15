@@ -6,16 +6,16 @@
 	<cache />
 	
 	<select id="listPortfolio" parameterType="String" resultType="Portfolio">
-		select portfolio_title, portfolio_start_date, portfolio_end_date, portfolio_detail
+		select *
 		from portfolio
 		where member_id = #{member_id}
 		order by portfolio_id desc
 	</select>
 	
 	<select id="listLanguage" parameterType="String" resultType="Portfolio_language">
-		select portfolio_language
-			from portfolio_language
-			where portfolio_id = #{portfolio_id}
+		select *
+			from PORTFOLIO_LANGUAGE_VIEW
+			where member_id=#{member_id}
 			order by portfolio_language
 	</select>
 	
@@ -25,7 +25,7 @@
 	values(portfolio_seq.nextval,#{member_id},#{portfolio_title},#{portfolio_start_date},#{portfolio_end_date},#{portfolio_detail})
 	</insert>
 	
-	<select id="getPortfolio_id" resultType="string">
+	<select id="getPortfolio_max_id" resultType="string">
 		select max(portfolio_id)
 			from portfolio
 	</select>

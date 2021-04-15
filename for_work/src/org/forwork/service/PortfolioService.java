@@ -22,7 +22,14 @@ public class PortfolioService {
 		return list;
 	}
 	
-	
+	public List<Portfolio_Language> listLanguageService(String member_id) throws Exception{
+		List<Portfolio_Language> list = dao.listLanguages(member_id);
+		for(int i = 0 ; i<list.size();i++) {
+			System.out.println(list.get(i).getPortfolio_language());
+			System.out.println(list.get(i).getPortfolio_id());
+		}
+		return list;
+	}
 	
 	public Member loadMemberCard(String member_id) throws Exception{
 		Member member = dao.loadMemberCard(member_id);
@@ -38,7 +45,7 @@ public class PortfolioService {
 		for(int i =0; i<pfLangList.size();i++) {
 			//System.out.println(pfLangList.get(i).getPortfolio_language().toString());
 			//dao.insertPfLanguage(pfLangList.get(i));
-			String id = dao.getPortfolio_id();
+			String id = dao.getPortfolio_max_id();
 			System.out.println("aaaaaaaaaaaaaaaaaaid: " + id);
 			Portfolio_Language portfolio_Language = pfLangList.get(i);
 			System.out.println(portfolio_Language.getPortfolio_language());

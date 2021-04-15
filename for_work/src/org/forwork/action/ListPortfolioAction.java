@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
+import org.forwork.domain.Portfolio_Language;
 import org.forwork.service.PortfolioService;
 
 
@@ -33,6 +34,10 @@ public class ListPortfolioAction implements Action {
 	Member member = service.loadMemberCard(member_id);
 	request.setAttribute("member", member);
 	
+	List<Portfolio_Language> langList = service.listLanguageService(member_id);
+	request.setAttribute("langList", langList);
+
+
 	
 	forward.setRedirect(false);
 	forward.setPath("/views/myprofile_main.jsp");
