@@ -58,7 +58,7 @@
 	<!-- 최신 글 목록 -->
 	<select id="listBoard" parameterType="int" resultType="Post">
 		<![CDATA[
-		select ROWNUM, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
+		select ROWNUM, b.board_id, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
 			from post p, board b where p.board_id = b.board_id and b.project_id = #{project_id}
 			and ROWNUM <= 15 order by p.post_id desc
 		]]>
