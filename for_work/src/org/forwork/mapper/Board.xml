@@ -19,7 +19,7 @@
 	
 	<!-- 게시판 메뉴 -->
 	<select id="listBoardMenu" parameterType="int" resultType="Board">
-		select * from board <where>project_id = #{project_id}</where>
+		select * from board <where>project_id = #{project_id}</where> order by board_id
 	</select>
 	
 	<!-- 공지 사항, 기본 게시판 생성 -->
