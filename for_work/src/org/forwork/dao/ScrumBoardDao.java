@@ -171,12 +171,12 @@ public class ScrumBoardDao {
 		return task;
 	}
 	
-	public int updateTask(Task task) {
+	public int moveTask(Task task) {
 		int result = -1;
 		
 		SqlSession session = getSqlSessionFactory().openSession();
 		try {
-			result = session.getMapper(ScrumBoardMapper.class).updateTask(task);
+			result = session.getMapper(ScrumBoardMapper.class).moveTask(task);
 			if(result == 1) {
 				session.commit();
 			}else {

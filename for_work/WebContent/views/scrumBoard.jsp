@@ -196,7 +196,6 @@
 									</div>
 								</div>
 								<!-- task delete Modal -->
-								<jsp:include page="taskDeleteModal.jsp" />
 								<div class="card-text">
 									<p id="taskContent">
 										<!-- Task 내용 -->
@@ -246,8 +245,6 @@
 										</div>
 									</div>
 								</div>
-								<!-- task delete Modal -->
-								<jsp:include page="taskDeleteModal.jsp" />
 								<div class="card-text">
 									<p id="taskContent">
 										<!-- Task 내용 -->
@@ -295,8 +292,7 @@
 										</div>
 									</div>
 								</div>
-								<!-- task delete Modal -->
-								<jsp:include page="taskDeleteModal.jsp" />
+
 								<div class="card-text">
 									<p id="taskContent">
 										<!-- Task 내용 -->
@@ -345,8 +341,6 @@
 										</div>
 									</div>
 								</div>
-								<!-- task delete Modal -->
-								<jsp:include page="taskDeleteModal.jsp" />
 								<div class="card-text">
 									<p id="taskContent">
 										<!-- Task 내용 -->

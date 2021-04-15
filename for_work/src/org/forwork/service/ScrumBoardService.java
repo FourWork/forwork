@@ -81,7 +81,7 @@ public class ScrumBoardService {
 			
 			task.setTask_type_id(type_id);
 			task.setTask_index(Integer.parseInt(request.getParameter("nowidx")));
-			int result_update = dao.updateTask(task);
+			int result_update = dao.moveTask(task);
 			
 			result = dao.increaseIndex(task);
 			if(result_update == 1) {
