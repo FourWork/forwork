@@ -16,6 +16,7 @@ import org.forwork.action.DetailDeleteAction;
 import org.forwork.action.DetailUpdateAction;
 import org.forwork.action.InsertTaskAction;
 import org.forwork.action.UpdateTaskAction;
+import org.forwork.action.MoveTaskAction;
 import org.forwork.action.scrumBoardAction;
 
 
@@ -33,7 +34,6 @@ public class ScrumController extends HttpServlet {
     	String contextPath = request.getContextPath();
 
     	String command = requestURI.substring(contextPath.length()+6);
-    	System.out.println("최종 요청: " + command);
     	
     	Action action = null;  // 한 번만 선언해서 각각 다른 action으로 형변환하여 쓸 수 있게 하는 것
 		ActionForward forward = null;
@@ -77,6 +77,14 @@ public class ScrumController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("moveTask.do")) {
+			action = new MoveTaskAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		else if(command.equals("detailUpdateAction.do")) {

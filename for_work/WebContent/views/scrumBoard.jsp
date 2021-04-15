@@ -4,58 +4,103 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="header.jsp"%>
-<!doctype html>
-<html lang="eng">
+
+<!DOCTYPE html>
+<html>
 <head>
-
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
- 
+<title></title>
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-	crossorigin="anonymous">
-
-
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- 부트스트랩 4.x를 사용한다. -->
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-	crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    -->
-    
-<!-- dropdown 쓰려면 이 세 코드 있어야함 -->
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-	crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-	crossorigin="anonymous"></script>
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+	$(function() { // task move
+		$(".column").sortable(
+				{
+					// 드래그 앤 드롭 단위 css 선택자	
+					connectWith : ".column",
+					// 움직이는 css 선택자	
+					handle : ".card-header",
+					// 움직이지 못하는 css 선택자	
+					cancel : ".no-move",
+					// 이동하려는 location에 추가 되는 클래스	
+					placeholder : "card-placeholder",
+					start : function(event, ui) {
+						$(this).attr('data-previndex', ui.item.index());
+					},
+					update : function(event, ui) {
+						var previdx = $(this).attr('data-previndex');
+						var nowidx = ui.item.index();
+						var task_id = $(ui.item).find('.task_id').html();
+						var col_name = $(ui.item).closest('.column').find(
+								'.card-title').html();
 
-<title>스크럼 보드 만드는 중</title>
+						if (typeof previdx != 'undefined') {
+							$.ajax({
+								type : "POST",
+								url : "moveTask.do",
+								data : {
+									"previdx" : previdx,
+									"nowidx" : nowidx,
+									"task_id" : task_id,
+									"col_name" : col_name
+								},
+								success : function(data) {
+									if (data.result > 0) {
+										console.log("성공");
+									}
+								},
+								error : function(e) {
+									console.log('error : ' + e);
+								}
+							})
+						}
+					}
+				});
+		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
+	$('.addRes').click(function(){
+			var task_id = $(this).closest('.card').find('.task_id').html();
+			
+	});
+	});
+</script>
 </head>
+<style>
+/* 마우스 포인터을 손가락으로 변경 */
+.card:not (.no-move ) .card-header {
+	cursor: pointer;
+}
+
+.column {
+	border: 1px solid lightgray;
+}
+
+.card-placeholder {
+	border: 1px dotted black;
+	margin: 0 1em 1em 0;
+	height: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: lightgray;
+}
+
+.card-text {
+	margin-left: 12px;
+}
+
+.task_id {
+	visibility: hidden;
+	margin: 0px;
+	height: 0px;
+}
+</style>
 <body>
 	<div class="container-fluid pt-3">
 		<!-- 전체 화면의 틀 -->
@@ -107,275 +152,228 @@
 					<jsp:include page="taskAddModal.jsp" />
 
 				</div>
-				</div>
-
-				<div class="col-4 border-1">
-					<!-- 프로젝트 진행률 부분 -->
-					<div class="row flex-row flex-sm-nowrap py-1">
-						<h3>프로젝트 성취율</h3>
-					</div>
-					<div class="row flex-row flex-sm-nowrap py-1">
-						<label>전체 진행률</label>
-					</div>
-					<div class="row flex-row flex-sm-nowrap py-1">
-						<label>전체 진행률</label>
-					</div>
-				</div>
-				</div>
-			
-
-			<div class="row flex-row flex-sm-nowrap py-3">
-				<!-- 스크럼보드의 전체 틀 / row : 가로로 그룹 지을 컬럼들의 집합 / flex-row : 수평 진행 방향 설정 / nowrap : 줄 안바꿈 -->
-
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<!-- Stories -->
-					<div class="card bg-light">
-						<!-- card : 컬럼 하나의 레이아웃 -->
-						<div class="card-body">
-							<!-- card-body :카드 내용이 들어갑니다. .card-title로 제목을, .card-text로 내용을 구분합니다. -->
-							<h6 class="card-title text-uppercase text-truncate py-2">Stories</h6>
-							<c:forEach var="task" items="${list }">
-								<c:if
-									test="${task.task_type_id ==1}">
-									<div class="items border border-light">
-										<!-- card-body에서 title을 빼고 나머지 Task들만 묶은 border -->
-										<div class="card draggable shadow-sm" id="task1"
-											draggable="true" ondragstart="drag(event)">
-											<!-- Task 하나 -->
-											<div class="card-body p-2">
-												<!-- Task 하나의 내용처리 -->
-												<div class="card-title">
-													<!-- Task 하나의 제목 -->
-													<div class="dropdown float-right">
-														<a class="btn btn-default" href="#" role="button"
-															id="dropdownMenuLink" data-toggle="dropdown"
-															aria-haspopup="true" aria-expanded="false"> ... </a>
-														<div class="dropdown-menu"
-															aria-labelledby="dropdownMenuLink">
-															<a class="dropdown-item" href="#">담당자 추가</a> 
-															<a class="dropdown-item" href="#">To-do List에 추가</a> 
-															<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
-															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
-														</div>
-													</div>
-													
-													<p>${task.task_id }</p>
-												</div>
-												<div class="card-text">
-													<p id="taskContent">
-														<!-- Task 내용 -->
-							
-														${task.task_content } <br>
-
-													</p>
-													<h6 class="font-weight-light text-black" id="resp">
-														담당 : <b>${task.responsibility }</b>
-													</h6>
-													<!-- 담당자 -->
-													<h6 class="font-weight-light text-black" id="taskWriter">
-														created by <b>${task.writer }</b>
-													</h6>
-													<!-- 작성자 -->
-
-												</div>
-											</div>
-										</div>
-										<div class="dropzone rounded" ondrop="drop(event)"
-											ondragover="allowDrop(event)" ondragleave="clearDrop(event)">
-											&nbsp;</div>
-										<!-- Task 카드 아래에 공간 띄우기 -->
-									</div>
-								</c:if>
-							</c:forEach>								
-							
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<!-- To-do -->
-					<div class="card bg-light">
-						<!-- card : 컬럼 하나의 레이아웃 -->
-						<div class="card-body">
-							<!-- card-body :카드 내용이 들어갑니다. .card-title로 제목을, .card-text로 내용을 구분합니다. -->
-							<h6 class="card-title text-uppercase text-truncate py-2">To-do</h6>
-							<c:forEach var="task" items="${list }">
-								<c:if test="${task.task_type_id ==2 }">
-									<div class="items border border-light">
-										<!-- card-body에서 title을 빼고 나머지 Task들만 묶은 border -->
-										<div class="card draggable shadow-sm" id="task1"
-											draggable="true" ondragstart="drag(event)">
-											<!-- Task 하나 -->
-											<div class="card-body p-2">
-												<!-- Task 하나의 내용처리 -->
-												<div class="card-title">
-													<!-- Task 하나의 제목 -->
-													<div class="dropdown float-right">
-														<a class="btn btn-default" href="#" role="button"
-															id="dropdownMenuLink" data-toggle="dropdown"
-															aria-haspopup="true" aria-expanded="false"> ... </a>
-														<div class="dropdown-menu"
-															aria-labelledby="dropdownMenuLink">
-															<a class="dropdown-item" href="#">담당자 추가</a> <a
-																class="dropdown-item" href="#">To-do List에 추가</a> 
-																<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
-															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
-														</div>
-													</div>											
-
-												</div>
-												<div class="card-text">
-													<p>
-														<!-- Task 내용 -->
-														${task.task_content } <br>
-													</p>
-													<h6 class="font-weight-light text-black">
-														담당 : <b>${task.responsibility }</b>
-													</h6>
-													<h6 class="font-weight-light text-black">
-														created by <b>${task.writer }</b>
-													</h6>
-												</div>
-											</div>
-										</div>
-										<div class="dropzone rounded" ondrop="drop(event)"
-											ondragover="allowDrop(event)" ondragleave="clearDrop(event)">
-											&nbsp;</div>
-										<!-- Task 카드 아래에 공간 띄우기 -->
-									</div>
-								</c:if>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<!-- Doing -->
-					<div class="card bg-light">
-						<!-- card : 컬럼 하나의 레이아웃 -->
-						<div class="card-body">
-							<!-- card-body :카드 내용이 들어갑니다. .card-title로 제목을, .card-text로 내용을 구분합니다. -->
-							<h6 class="card-title text-uppercase text-truncate py-2">Doing</h6>
-							<c:forEach var="task" items="${list }">
-								<c:if test="${task.task_type_id ==3 }">
-									<div class="items border border-light">
-										<!-- card-body에서 title을 빼고 나머지 Task들만 묶은 border -->
-										<div class="card draggable shadow-sm" id="task1"
-											draggable="true" ondragstart="drag(event)">
-											<!-- Task 하나 -->
-											<div class="card-body p-2">
-												<!-- Task 하나의 내용처리 -->
-												<div class="card-title">
-													<!-- Task 하나의 제목 -->
-													<div class="dropdown float-right">
-														<a class="btn btn-default" href="#" role="button"
-															id="dropdownMenuLink" data-toggle="dropdown"
-															aria-haspopup="true" aria-expanded="false"> ... </a>
-														<div class="dropdown-menu"
-															aria-labelledby="dropdownMenuLink">
-															<a class="dropdown-item" href="#">담당자 추가</a> <a
-																class="dropdown-item" href="#">To-do List에 추가</a> 
-																<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
-															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
-														</div>
-													</div>											
-
-												</div>
-												<div class="card-text">
-													<p>
-														<!-- Task 내용 -->
-														${task.task_content }
-													</p>
-													<h6 class="font-weight-light text-black">
-														담당 : <b>${task.responsibility }</b>
-													</h6>
-													<h6 class="font-weight-light text-black">
-														created by <b>${task.writer }</b>
-													</h6>
-												</div>
-											</div>
-										</div>
-										<div class="dropzone rounded" ondrop="drop(event)"
-											ondragover="allowDrop(event)" ondragleave="clearDrop(event)">
-											&nbsp;</div>
-										<!-- Task 카드 아래에 공간 띄우기 -->
-									</div>
-								</c:if>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-4 col-xl-3">
-					<!-- Done -->
-					<div class="card bg-light">
-						<!-- card : 컬럼 하나의 레이아웃 -->
-						<div class="card-body">
-							<!-- card-body :카드 내용이 들어갑니다. .card-title로 제목을, .card-text로 내용을 구분합니다. -->
-							<h6 class="card-title text-uppercase text-truncate py-2">Done</h6>
-							<c:forEach var="task" items="${list }">
-								<c:if test="${task.task_type_id == 4 }">
-									<div class="items border border-light">
-										<!-- card-body에서 title을 빼고 나머지 Task들만 묶은 border -->
-										<div class="card draggable shadow-sm" id="task1"
-											draggable="true" ondragstart="drag(event)">
-											<!-- Task 하나 -->
-											<div class="card-body p-2">
-												<!-- Task 하나의 내용처리 -->
-												<div class="card-title">
-													<!-- Task 하나의 제목 -->
-													<div class="dropdown float-right">
-														<a class="btn btn-default" href="#" role="button"
-															id="dropdownMenuLink" data-toggle="dropdown"
-															aria-haspopup="true" aria-expanded="false"> ... </a>
-														<div class="dropdown-menu"
-															aria-labelledby="dropdownMenuLink">
-															<a class="dropdown-item" href="#">담당자 추가</a> <a
-																class="dropdown-item" href="#">To-do List에 추가</a> 
-																<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
-															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
-														</div>
-													</div>											
-
-												</div>
-												<div class="card-text">
-													<p>
-														<!-- Task 내용 -->
-														${task.task_content }
-													</p>
-													<h6 class="font-weight-light text-black">
-														담당 : <b>${task.responsibility }</b>
-													</h6>
-													<h6 class="font-weight-light text-black">
-														created by <b>${task.writer }</b>
-													</h6>
-												</div>
-											</div>
-										</div>
-										<div class="dropzone rounded" ondrop="drop(event)"
-											ondragover="allowDrop(event)" ondragleave="clearDrop(event)">
-											&nbsp;</div>
-										<!-- Task 카드 아래에 공간 띄우기 -->
-									</div>
-								</c:if>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
 			</div>
 
+			<div class="col-4 border-1">
+				<!-- 프로젝트 진행률 부분 -->
+				<div class="row flex-row flex-sm-nowrap py-1">
+					<h3>프로젝트 성취율</h3>
+				</div>
+				<div class="row flex-row flex-sm-nowrap py-1">
+					<label>전체 진행률</label>
+				</div>
+				<div class="row flex-row flex-sm-nowrap py-1">
+					<label>전체 진행률</label>
+				</div>
+			</div>
 		</div>
+
+
+		<div class="row flex-row flex-sm-nowrap py-3">
+			<div class="col-sm-6 col-md-4 col-xl-3 column bg-light mx-2">
+				<h6 class="card-title text-uppercase text-truncate py-2">Stories</h6>
+				<c:forEach var="task" items="${list }">
+					<c:if test="${task.task_type_id ==1}">
+						<div class="card draggable shadow-sm" id="task1">
+							<!-- Task 하나 -->
+							<div class="card-header"></div>
+							<div class="card-body p-2 ui-sortable-handle">
+								<!-- Task 하나의 내용처리 -->
+								<div class="card-title">
+									<p class="task_id">${task.task_id}</p>
+									<!-- Task 하나의 제목 -->
+									<div class="dropdown float-right">
+										<a class="btn btn-default" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> ... </a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+														<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
+
+										</div>
+									</div>
+								</div>
+								<!-- task delete Modal -->
+								<jsp:include page="taskDeleteModal.jsp" />
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
+
+										${task.task_content } <br>
+
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+										담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
+
+								</div>
+							</div>
+
+
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+			<div class="col-sm-6 col-md-4 col-xl-3 column bg-light mx-2">
+				<h6 class="card-title text-uppercase text-truncate py-2 no-move">To-do</h6>
+				<c:forEach var="task" items="${list }">
+					<c:if test="${task.task_type_id ==2}">
+						<div class="card shadow-sm" id="task1">
+							<!-- Task 하나 -->
+							<div class="card-header"></div>
+							<div class="card-body p-2">
+								<!-- Task 하나의 내용처리 -->
+								<div class="card-title">
+									<p class="task_id">${task.task_id}</p>
+									<!-- Task 하나의 제목 -->
+									<div class="dropdown float-right">
+										<a class="btn btn-default" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> ... </a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
+
+										</div>
+									</div>
+								</div>
+								<!-- task delete Modal -->
+								<jsp:include page="taskDeleteModal.jsp" />
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
+
+										${task.task_content } <br>
+
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+										담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
+
+								</div>
+							</div>
+
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+			<div class="col-sm-6 col-md-4 col-xl-3 column bg-light mx-2">
+				<h6 class="card-title text-uppercase text-truncate py-2">Doing</h6>
+				<c:forEach var="task" items="${list }">
+					<c:if test="${task.task_type_id ==3}">
+						<div class="card shadow-sm" id="task1">
+							<!-- Task 하나 -->
+							<div class="card-header"></div>
+							<div class="card-body p-2">
+								<!-- Task 하나의 내용처리 -->
+								<div class="card-title">
+									<p class="task_id">${task.task_id}</p>
+									<!-- Task 하나의 제목 -->
+									<div class="dropdown float-right">
+										<a class="btn btn-default" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> ... </a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
+										</div>
+									</div>
+								</div>
+								<!-- task delete Modal -->
+								<jsp:include page="taskDeleteModal.jsp" />
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
+
+										${task.task_content } <br>
+
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+										담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
+
+								</div>
+							</div>
+
+						</div>
+
+					</c:if>
+				</c:forEach>
+			</div>
+			<div class="col-sm-6 col-md-4 col-xl-3 column bg-light mx-2">
+				<h6 class="card-title text-uppercase text-truncate py-2">Done</h6>
+				<c:forEach var="task" items="${list }">
+					<c:if test="${task.task_type_id ==4}">
+						<div class="card shadow-sm" id="task1">
+							<!-- Task 하나 -->
+							<div class="card-header"></div>
+							<div class="card-body p-2">
+								<!-- Task 하나의 내용처리 -->
+								<div class="card-title">
+									<p class="task_id">${task.task_id}</p>
+									<!-- Task 하나의 제목 -->
+									<div class="dropdown float-right">
+										<a class="btn btn-default" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> ... </a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
+										</div>
+									</div>
+								</div>
+								<!-- task delete Modal -->
+								<jsp:include page="taskDeleteModal.jsp" />
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
+
+										${task.task_content } <br>
+
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+									담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
+
+								</div>
+							</div>
+
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
+
+
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<%@ include file="footer.jsp"%>

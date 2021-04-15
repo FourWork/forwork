@@ -10,4 +10,9 @@ public interface ScrumBoardMapper {
 	int deleteTask(int task_id);
 	int updateTask(Task task);
 	Task detailTask(int task_id);
+	int getStoriesIndex();
+	Task getTask(String task_id);
+	int updateTask(Task task);
+	int increaseIndex(Task task);
+	int decreaseIndex(Task task);
 }
