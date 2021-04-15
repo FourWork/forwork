@@ -4,7 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="header.jsp"%>
-
+<%
+session.setAttribute("member_id", "1");
+session.setAttribute("name", "test");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +56,7 @@
 									"col_name" : col_name
 								},
 								success : function(data) {
-									if (data.result > 0) {
+									if (data == 'success') {
 										console.log("성공");
 									}
 								},
@@ -65,10 +68,24 @@
 					}
 				});
 		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
-	$('.addRes').click(function(){
-			var task_id = $(this).closest('.card').find('.task_id').html();
-			
-	});
+		
+		$('.addRes').click(function(){
+			var task_id = $(this).closest('.card').find('.task_id').html();		
+		<%-- 	$(this).closest('.card').find('#resp').find('b').html('<%=session.getAttribute("name")%>');	 --%>
+		$.ajax({
+				type : "POST",
+				url : "addRes.do",
+				data : {
+					"task_id" : task_id
+				},
+				success : function(data){
+					console.log("성공");
+					$(this).closest('.card').find('#resp').find('b').html('<%=session.getAttribute("name")%>');
+					console.log("성공");
+				}
+			}); 
+		});
+
 	});
 </script>
 </head>
@@ -204,7 +221,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-										담당 : <b>${task.responsibility}</b>
+										담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">
@@ -253,7 +270,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-										담당 : <b>${task.responsibility}</b>
+										담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">
@@ -301,7 +318,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-										담당 : <b>${task.responsibility}</b>
+										담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">
@@ -349,7 +366,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-									담당 : <b>${task.responsibility}</b>
+									담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">

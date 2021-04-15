@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="listTask"  resultType="Task">
-		select task_id, task_content, responsibility, writer, task_type_id,task_index from task_ex order by task_index
+		select * from task_ex order by task_index
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
@@ -57,7 +57,7 @@
 	</update>
 	
 	<update id="addRes" parameterType="Task">
-		update task_ex set RESPONSIBILITY = #{RESPONSIBILITY}, name = #{name} where task_id = #{task_id}
+		update task_ex set RESPONSIBILITY = #{responsibility}, name = #{name} where task_id = #{task_id}
 	</update>
 </mapper>
 
