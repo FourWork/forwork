@@ -71,7 +71,7 @@ session.setAttribute("name", "test");
 		
 		$('.addRes').click(function(){
 			var task_id = $(this).closest('.card').find('.task_id').html();		
-		<%-- 	$(this).closest('.card').find('#resp').find('b').html('<%=session.getAttribute("name")%>');	 --%>
+			var now = $(this).closest('.card').find('#resp').find('b');
 		$.ajax({
 				type : "POST",
 				url : "addRes.do",
@@ -79,9 +79,7 @@ session.setAttribute("name", "test");
 					"task_id" : task_id
 				},
 				success : function(data){
-					console.log("성공");
-					$(this).closest('.card').find('#resp').find('b').html('<%=session.getAttribute("name")%>');
-					console.log("성공");
+					$(now).html('<%=session.getAttribute("name")%>');
 				}
 			}); 
 		});
