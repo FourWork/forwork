@@ -45,7 +45,6 @@ public class ScrumBoardDao {
 				sqlSession.close();
 			}
 		}
-		System.out.println(list);
 		return list;
 	}
 	
