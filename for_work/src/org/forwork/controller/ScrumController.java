@@ -13,6 +13,7 @@ import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
 import org.forwork.action.DeleteTaskAction;
 import org.forwork.action.InsertTaskAction;
+import org.forwork.action.MoveTaskAction;
 import org.forwork.action.scrumBoardAction;
 
 
@@ -30,7 +31,6 @@ public class ScrumController extends HttpServlet {
     	String contextPath = request.getContextPath();
 
     	String command = requestURI.substring(contextPath.length()+6);
-    	System.out.println("최종 요청 : " + command);
     	
     	Action action = null;  
 		ActionForward forward = null;
@@ -65,6 +65,14 @@ public class ScrumController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("moveTask.do")) {
+			action = new MoveTaskAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		

@@ -9,16 +9,20 @@
 	
 	<insert id="insertTask" parameterType="Task">
 		insert into task_ex(
-		TASK_CONTENT, task_type_id, task_id
+		TASK_CONTENT, task_type_id, task_id, task_index
 		)
 		values(
-		#{task_content}, 1, task_ex_seq.nextval
+		#{task_content}, 1, task_ex_seq.nextval, #{task_index}
 		)
 	
 	</insert>
 	
+	<select id="getStoriesIndex" resultType="int">
+		select max(task_index) from task_ex where task_type_id = 1;
+	</select>
+	
 	<select id="listTask"  resultType="Task">
-		select task_id, task_content, responsibility, writer, task_type_id from task_ex
+		select task_id, task_content, responsibility, writer, task_type_id,task_index from task_ex order by task_index
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
@@ -30,8 +34,17 @@
 		select * from task_ex where task_id = #{task_id}
 	</select>
 	
+	
 	<update id="updateTask" parameterType="Task">
-		update task set task_type_id = #{task_type_id} where task_id = #{task_id}
+		update task_ex set task_type_id = #{task_type_id},task_index = #{task_index} where task_id = #{task_id}
+	</update>
+	 
+	<update id="increaseIndex" parameterType="Task">
+		update task_ex set task_index = task_index+1 where task_id != #{task_id} and task_type_id = #{task_type_id} and task_index >= #{task_index}
+	</update>
+	
+	<update id="decreaseIndex" parameterType="Task">
+		update task_ex set task_index = task_index-1 where task_type_id = #{task_type_id} and task_index > #{task_index}	
 	</update>
 	
 </mapper>

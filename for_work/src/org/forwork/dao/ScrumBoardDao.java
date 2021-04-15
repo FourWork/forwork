@@ -96,5 +96,101 @@ public class ScrumBoardDao {
 
 		return re;
 	}
-
+	
+	public int getStoriesIndex() {
+		int result = -1;
+		
+		SqlSession session = getSqlSessionFactory().openSession();
+		
+		try {
+			result = session.getMapper(ScrumBoardMapper.class).getStoriesIndex();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		
+		return result;
+	}
+	
+	public Task getTask(String task_id) {
+		Task task = null;
+		SqlSession session = getSqlSessionFactory().openSession();
+		
+		try {
+			task = session.getMapper(ScrumBoardMapper.class).getTask(task_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return task;
+	}
+	
+	public int updateTask(Task task) {
+		int result = -1;
+		
+		SqlSession session = getSqlSessionFactory().openSession();
+		try {
+			result = session.getMapper(ScrumBoardMapper.class).updateTask(task);
+			if(result == 1) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
+	
+	public int increaseIndex(Task task) {
+		int result = -1;
+		
+		SqlSession session = getSqlSessionFactory().openSession();
+		try {
+			result = session.getMapper(ScrumBoardMapper.class).increaseIndex(task);
+			if(result >= 0) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
+	
+	public int decreaseIndex(Task task) {
+		int result = -1;
+		
+		SqlSession session = getSqlSessionFactory().openSession();
+		try {
+			result = session.getMapper(ScrumBoardMapper.class).decreaseIndex(task);
+			if(result >= 0) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
 }

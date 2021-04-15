@@ -40,19 +40,19 @@
 				var nowidx = ui.item.index();
 				var task_id = $(ui.item).find('.task_id').html();
 				var col_name = $(ui.item).closest('.column').find('.card-title').html();
+				
 				if(typeof previdx != 'undefined'){
 				console.log(previdx+'\n'+nowidx+'\n'+task_id+'\n'+col_name);
 				
-				$.ajax({
+ 				$.ajax({
 					type:"POST",
-					url:"",
+					url:"moveTask.do",
 					data : {
 						"previdx":previdx,
 						"nowidx":nowidx,
 						"task_id":task_id,
 						"col_name":col_name
 					},
-					dataType:"json",
 					success:function(data){
 						if(data.result>0){
 							console.log("성공");
@@ -61,7 +61,7 @@
 					error:function(e){
 						console.log('error : ' + e);
 					}
-				})
+				}) 
 				}
 			}
 		});
@@ -222,6 +222,7 @@
 							<div class="card-body p-2">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
+								<p class = "task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"
@@ -271,6 +272,7 @@
 							<div class="card-body p-2">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
+								<p class = "task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"

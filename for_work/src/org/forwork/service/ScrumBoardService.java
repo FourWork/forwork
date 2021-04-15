@@ -38,6 +38,46 @@ public class ScrumBoardService {
 		return dao.deleteTask(Integer.parseInt(request.getParameter("seq")));
 		
 	}
+	
+	public int moveTaskService(HttpServletRequest request)throws Exception{
+		int result = 0;
+		request.setCharacterEncoding("utf-8");
+		String task_id = request.getParameter("task_id");
+		Task task = dao.getTask(task_id);
+		String type_id = null;
+		if(request.getParameter("col_name") != null) {
+			switch (request.getParameter("col_name")) {
+			case "Stories":
+					type_id = "1";
+				break;
+			case"To-do":
+				type_id = "2";
+				break;
+			case"Doing":
+				type_id = "3";
+				break;
+			case"Done":
+				type_id = "4";
+				break;
+			default:
+				break;
+			}
+		}
+		
+		if(task != null) {
+			result = dao.decreaseIndex(task);
+			
+			task.setTask_type_id(type_id);
+			task.setTask_index(Integer.parseInt(request.getParameter("nowidx")));
+			int result_update = dao.updateTask(task);
+			
+			result = dao.increaseIndex(task);
+			if(result_update == 1) {
+				
+			}
+		}
+		return result;
+	}
 
 
 }
