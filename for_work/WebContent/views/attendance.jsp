@@ -50,6 +50,7 @@
  	         ['일요일', 0]
  	   	]);
  	   	var obj = {};
+ 	   	
  	   	<%List<WeekAttendance> li = (List<WeekAttendance>)request.getAttribute("week");
  	   	if(li != null){
  	   	for(int i = 0; i < li.size();i++){
