@@ -30,33 +30,47 @@ $(window).on('load', function(){
 </head>
 <body>
 
-<div class="modal fade" id="taskDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog" role="document">
+<div class="modal fade" data-backdrop="static" id="taskDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg" role="document">
 					    <div class="modal-content">
 					      <div class="modal-header">
 					        <h5 class="modal-title" id="exampleModalLabel">Task 삭제</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
 					      </div>
 					      <form action="deleteTaskAction.do?task_id=${task.task_id }" method="post">
 					      <div class="modal-body">
-							<h4>Task_ID : ${task.task_id }</h4><br>
-							 <h3> Task 내용 : ${task.task_content }</h3><br>
-							 <h3> Task 담당자 : ${task.responsibility }</h3><br>
-							 <h3> Task 작성자 : ${task.writer }</h3><br>
+					      <table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col">Task_ID</th>
+							      <th scope="col">Task 내용</th>
+							      <th scope="col">Task 담당자</th>
+							      <th scope="col">Task 작성자</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      	<td>${task.task_id }</td>
+					      			<td>${task.task_content }</td>
+					      			<td>${task.responsibility }</td>
+					      			<td>${task.writer }</td>
+							    </tr>
+							   </tbody>
+							   </table>
+							   
+							   <br>
+					      	
+							<h6>선택한 Task를 정말로 삭제하시겠습니까?</h6>
 							 
 					      </div>
 					      
 					      <div class="modal-footer">
 					      	<!-- <a class="btn btn-secondary" href="" role="button">취소</a> -->
 					        <a type="button" class="btn btn-secondary" href="scrumBoard.do">취소</a>
-					        <button type="submit" class="btn btn-success" id="taskAddBtn">삭제</button>
+					        <button type="submit" class="btn btn-danger" id="taskAddBtn">삭제</button>
 					      </div>
 						  </form>
 					    </div>
 					  </div>
-					</div>		
-
+					</div>	
 </body>
 </html>

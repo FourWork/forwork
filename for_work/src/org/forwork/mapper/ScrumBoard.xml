@@ -35,7 +35,7 @@
 	</update> 
 	
 	<select id="detailTask" resultType="Task" parameterType="int">
-		select task_id, task_content, responsibility from task_ex where task_id = #{task_id}
+		select task_id, task_content, responsibility, writer from task_ex where task_id = #{task_id}
 	</select>
 	
 	<!-- project id 조건에 추가하기 -->

@@ -30,20 +30,33 @@ $(window).on('load', function(){
 </head>
 <body>
 
-<div class="modal fade"  id="taskUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog" role="document">
+<div class="modal fade " data-backdrop="static"  id="taskUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg" role="document">
 					    <div class="modal-content">
 					      <div class="modal-header">
 					        <h5 class="modal-title" id="exampleModalLabel">Task 수정</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
 					      </div>
 					      <form action="updateTaskAction.do?task_id=${task.task_id }" method="post">
 					      <div class="modal-body">
-							<h4>Task_ID : ${task.task_id }</h4><br>
-							<label>Task 내용 : </label><input type="text" name="task_content" value="${task.task_content }"><br>
-							<label>Task 담당자 : </label><input type="text" name="responsibility" value=" ${task.responsibility }">
+					      <table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col">Task_ID</th>
+							      <th scope="col">Task 내용</th>
+							      <th scope="col">Task 담당자</th>
+							      <th scope="col">Task 작성자</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      	<td>${task.task_id }</td>
+					      			<td><input type="text" name="task_content" value="${task.task_content }"></td>
+					      			<td><input type="text" name="responsibility" value=" ${task.responsibility }"></td>
+					      			<td>${task.writer }</td>
+							    </tr>
+							   </tbody>
+							   </table>
+					      
 					      </div>
 					      
 					      <div class="modal-footer">
@@ -54,7 +67,7 @@ $(window).on('load', function(){
 						  </form>
 					    </div>
 					  </div>
-					</div>			
+					</div>		
 
 </body>
 </html>
