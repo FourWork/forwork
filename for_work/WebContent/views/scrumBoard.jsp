@@ -168,6 +168,7 @@
 			</div>
 		</div>
 
+
 		<div class="row flex-row flex-sm-nowrap py-3">
 			<div class="col-sm-6 col-md-4 col-xl-3 column bg-light mx-2">
 				<h6 class="card-title text-uppercase text-truncate py-2">Stories</h6>
@@ -187,10 +188,10 @@
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
-												class="dropdown-item" href="#">To-do List에 추가</a> <a
-												class="dropdown-item" href="#">Task 수정</a> <a
-												class="dropdown-item" href="#" data-toggle="modal"
-												data-target="#taskDelete">Task 삭제</a>
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+														<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
+
 										</div>
 									</div>
 								</div>
@@ -238,10 +239,10 @@
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
-												class="dropdown-item" href="#">To-do List에 추가</a> <a
-												class="dropdown-item" href="#">Task 수정</a> <a
-												class="dropdown-item" href="#" data-toggle="modal"
-												data-target="#taskDelete">Task 삭제</a>
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
+
 										</div>
 									</div>
 								</div>
@@ -288,10 +289,9 @@
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
-												class="dropdown-item" href="#">To-do List에 추가</a> <a
-												class="dropdown-item" href="#">Task 수정</a> <a
-												class="dropdown-item" href="#" data-toggle="modal"
-												data-target="#taskDelete">Task 삭제</a>
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
 										</div>
 									</div>
 								</div>
@@ -317,6 +317,7 @@
 							</div>
 
 						</div>
+
 					</c:if>
 				</c:forEach>
 			</div>
@@ -338,10 +339,9 @@
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
-												class="dropdown-item" href="#">To-do List에 추가</a> <a
-												class="dropdown-item" href="#">Task 수정</a> <a
-												class="dropdown-item" href="#" data-toggle="modal"
-												data-target="#taskDelete">Task 삭제</a>
+												class="dropdown-item" href="#">To-do List에 추가</a> 															
+                      <a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
 										</div>
 									</div>
 								</div>

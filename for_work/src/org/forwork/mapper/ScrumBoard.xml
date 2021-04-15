@@ -26,8 +26,17 @@
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
-		delete from board where seq = #{seq}	
+		delete from task_ex where task_id = #{task_id}	
 	</delete>
+	
+	<update id="updateTask" parameterType="Task">
+		update task_ex set task_content=#{task_content}, responsibility=#{responsibility}
+		where task_id = #{task_id}
+	</update> 
+	
+	<select id="detailTask" resultType="Task" parameterType="int">
+		select task_id, task_content, responsibility from task_ex where task_id = #{task_id}
+	</select>
 	
 	<!-- project id 조건에 추가하기 -->
 	<select id="getTask" parameterType="String" resultType="Task">
@@ -35,7 +44,7 @@
 	</select>
 	
 	
-	<update id="updateTask" parameterType="Task">
+	<update id="moveTask" parameterType="Task">
 		update task_ex set task_type_id = #{task_type_id},task_index = #{task_index} where task_id = #{task_id}
 	</update>
 	 
