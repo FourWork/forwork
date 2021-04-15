@@ -35,11 +35,14 @@ public class PortfolioController extends HttpServlet {
 		
 		String command = requestURI.substring(contextPath.length()+11);
 		
-		
+		System.out.println(command);
 		Action action = null;
 		ActionForward forward= null;
 
 		if(command.contentEquals("listPortfolioAction.do")) {
+		
+			System.out.println("리스트 포트폴리오 액션!");
+			
 			action = new ListPortfolioAction();
 			try {
 				forward =action.execute(request, response);
@@ -61,6 +64,7 @@ public class PortfolioController extends HttpServlet {
 			e.printStackTrace();
 		}
 		}
+		
 		if(forward != null) {
     		if(forward.isRedirect()) {
     			response.sendRedirect(forward.getPath());

@@ -17,6 +17,7 @@
 		<typeAlias type="org.forwork.domain.Board" alias="Board"/>
 		<typeAlias type="org.forwork.domain.Post" alias="Post"/>
 		<typeAlias type="org.forwork.domain.Portfolio" alias="Portfolio"/>
+		<typeAlias type="org.forwork.domain.Portfolio_Language" alias="Portfolio_Language"/>
 		<typeAlias type="org.forwork.domain.ChatroomMemberRelation" alias="ChatroomMemberRelation"/>
 		<typeAlias type="org.forwork.dto.MessageDto" alias="MessageDto" />
 	</typeAliases>
