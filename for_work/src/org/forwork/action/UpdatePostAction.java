@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.forwork.domain.Post;
 import org.forwork.service.BoardService;
 
+
 public class UpdatePostAction implements Action {
 
 	@Override

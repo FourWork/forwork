@@ -1,5 +1,7 @@
 package org.forwork.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,25 +9,21 @@ import org.forwork.domain.Board;
 import org.forwork.service.BoardService;
 
 
-public class InsertBoardAction implements Action {
+public class BoardManagerAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("utf-8");
-		
 		ActionForward forward = new ActionForward();
 		BoardService service = BoardService.getInstance();
 		
 		int project_id = Integer.parseInt(request.getParameter("project_id"));
+		List<Board> boardMenu = service.listBoardMenuService(project_id);
 		
-		Board board = new Board();
-		board.setProject_id(project_id);
-		board.setBoard_name(request.getParameter("board_name"));
+		request.setAttribute("boardMenu", boardMenu);
+		request.setAttribute("project_id", project_id);
 		
-		service.insertBoardService(board);
-		
-		forward.setRedirect(true);
-		forward.setPath("boardManagerAction.do?project_id=" + project_id);
+		forward.setRedirect(false);
+		forward.setPath("/views/boardManager.jsp");
 		
 		return forward;
 	}

@@ -7,6 +7,7 @@ import org.forwork.domain.Board;
 import org.forwork.domain.Post;
 import org.forwork.service.BoardService;
 
+
 public class DetailPostAction implements Action {
 
 	@Override
@@ -17,6 +18,7 @@ public class DetailPostAction implements Action {
 		int board_id = Integer.parseInt(request.getParameter("board_id"));
 		int post_id = Integer.parseInt(request.getParameter("post_id"));
 		
+		service.updateHitcountService(post_id);
 		Post post = service.detailPostService(post_id);
 		Board board = service.boardNameService(board_id);
 //		List<Reply> replys = service.listReplyService(seq);

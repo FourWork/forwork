@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.forwork.domain.Board;
 import org.forwork.service.BoardService;
 
+
 public class UpdateBoardAction implements Action {
 
 	@Override
@@ -25,7 +26,7 @@ public class UpdateBoardAction implements Action {
 		service.updateBoardService(board);
 		
 		forward.setRedirect(true);
-		forward.setPath("listAction.do?project_id=" + project_id);
+		forward.setPath("boardManagerAction.do?project_id=" + project_id);
 		
 		return forward;
 	}
