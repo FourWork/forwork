@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.forwork.service.BoardService;
 
+
 public class DeletePostAction implements Action {
 
 	@Override

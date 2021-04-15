@@ -5,8 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.forwork.domain.Board;
 import org.forwork.domain.Post;
 import org.forwork.service.BoardService;
+
 
 public class BoardMainAction implements Action {
 
@@ -17,11 +19,13 @@ public class BoardMainAction implements Action {
 		
 		int project_id = Integer.parseInt(request.getParameter("project_id"));
 
+		List<Board> boardMenu = service.listBoardMenuService(project_id); 
 		List<Post> noticePre = service.listNoticeService(project_id);
 		List<Post> boardList = service.listBoardService(project_id);
 		
 		request.setAttribute("noticePre", noticePre);
 		request.setAttribute("boardList", boardList);
+		request.setAttribute("boardMenu", boardMenu);
 		
 		forward.setRedirect(false);
 		forward.setPath("/views/boardMain.jsp?project_id=" + project_id);

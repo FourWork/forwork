@@ -2,7 +2,6 @@ package org.forwork.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.forwork.domain.Board;
 import org.forwork.domain.Post;
 
@@ -28,5 +27,6 @@ public interface BoardMapper {
 	int updateBoard(Board board);
 	int deleteBoard(int board_id);
 	
+	int updateHitcount(int post_id);
 	
 }

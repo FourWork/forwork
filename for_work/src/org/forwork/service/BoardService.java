@@ -31,8 +31,8 @@ public class BoardService {
 		return dao.listBoardMenu(project_id);
 	}
 	
-	public int insertinsertNoticeBoard(int project_jd) throws Exception {
-		return dao.insertNoticeBoard(project_jd);
+	public int insertinsertNoticeBoard(int project_id) throws Exception {
+		return dao.insertNoticeBoard(project_id);
 	}
 	
 	public int insertDefaultBoard(int project_id) throws Exception {
@@ -73,5 +73,9 @@ public class BoardService {
 	
 	public int deleteBoardService(int board_id) throws Exception {
 		return dao.deleteBoard(board_id);
+	}
+	
+	public int updateHitcountService(int post_id) throws Exception {
+		return dao.updateHitcount(post_id);
 	}
 }

@@ -9,7 +9,7 @@ public class InsertPortfolioFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward= new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("/views/MyProfile/test_myProfile_add.jsp");
+		forward.setPath("/views/test_myprofile_addPortfolio.jsp");
 		
 		return forward;
 	}

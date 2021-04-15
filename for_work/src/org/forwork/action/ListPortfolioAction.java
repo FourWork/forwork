@@ -1,7 +1,6 @@
 package org.forwork.action;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,20 +20,22 @@ public class ListPortfolioAction implements Action {
 	PortfolioService service = PortfolioService.getInstance();
 
 	String member_id = null;
+
 	if(session !=null) {
 		
 		 member_id = Integer.toString((int) session.getAttribute("member_id"));
-		 
+		 System.out.println("멤버아이디 가져오기"+member_id);
 	}
 	
 	List<Portfolio> list = service.listPortfolioService(member_id);
 	request.setAttribute("list", list);
-	
+
 	Member member = service.loadMemberCard(member_id);
 	request.setAttribute("member", member);
 	
+	
 	forward.setRedirect(false);
-	forward.setPath("/views/MyProfile/test_myProfile_main.jsp");
+	forward.setPath("/views/myprofile_main.jsp");
 	
 	return forward;
 	}
