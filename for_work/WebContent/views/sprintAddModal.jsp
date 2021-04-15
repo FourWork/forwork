@@ -9,7 +9,7 @@
 <body>
 	<div class="modal fade" id="sprintAdd" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Sprint 정보를
@@ -20,34 +20,36 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<label for="sprintNo" class="col-form-label">Sprint No.</label> <input
-								type="text" class="form-control" id="sprintNo">
-						</div>
-						<div class="form-group">
-							<label for="sprintName" class="col-form-label">스프린트 이름</label> <input
-								type="text" class="form-control" id="sprintName">
-						</div>
-						<div class="form-group">
-							<label for="sprintStartDate" class="col-form-label">시작일</label> <input
-								type="date" class="form-control" id="sprintStartDate">
-						</div>
-						<div class="form-group">
-							<label for="sprintEndDate" class="col-form-label">종료일</label> <input
-								type="date" class="form-control" id="sprintEndDate">
-						</div>
-						<div class="form-group">
-							<label for="sprintName" class="col-form-label">색</label> <input
-								type="color" class="form-control" id="sprintName">
-						</div>
-					</form>
+					<form action="insertSprintAction.do" method="post">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Sprint 이름</th>
+									<th scope="col">Sprint 시작일</th>
+									<th scope="col">Sprint 종료일</th>
+									<th scope="col">Sprint 색</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="text" class="form-control"
+										id="sprintTitle" name="sprint_title"></td>
+									<td><input type="date" class="form-control"
+										id="sprintStartDate" name="sprint_start_date"></td>
+									<td><input type="date" class="form-control"
+										id="sprintEndDate" name="sprint_end_date"></td>
+									<td><input type="color" class="form-control"
+										id="sprintName" name="sprint_color" value="#00ff00"></td>
+								</tr>
+							</tbody>
+						</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">취소</button>
 					<button type="submit" class="btn btn-primary">추가</button>
 				</div>
+			</form>
 			</div>
 		</div>
 	</div>

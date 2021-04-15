@@ -2,7 +2,9 @@ package org.forwork.mapper;
 
 import java.util.List;
 
+import org.forwork.domain.Sprint;
 import org.forwork.domain.Task;
+
 
 public interface ScrumBoardMapper {
 	int insertTask(Task task);
@@ -16,4 +18,6 @@ public interface ScrumBoardMapper {
 	int increaseIndex(Task task);
 	int decreaseIndex(Task task);
 	int addRes(Task task);
+	int insertSprint(Sprint sprint);
+	List<Sprint> listSprint();
 }

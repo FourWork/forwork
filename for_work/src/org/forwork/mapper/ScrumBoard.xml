@@ -59,6 +59,24 @@
 	<update id="addRes" parameterType="Task">
 		update task_ex set RESPONSIBILITY = #{RESPONSIBILITY}, name = #{name} where task_id = #{task_id}
 	</update>
+	
+	
+		<!-- Sprint CRUD SQL문 -->
+	
+		<insert id="insertSprint" parameterType="Sprint">
+		insert into sprint_ex(
+		sprint_id, sprint_title, sprint_color, sprint_start_date, sprint_end_date
+		)
+		values(
+		sprint_ex_seq.nextval, #{sprint_title}, #{sprint_color}, #{sprint_start_date}, #{sprint_end_date}
+		)
+	
+		</insert>
+	
+		<select id="listSprint"  resultType="Sprint">
+		select * from sprint_ex
+		</select>
+	
 </mapper>
 
 
