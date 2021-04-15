@@ -1,6 +1,7 @@
 package org.forwork.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
@@ -14,5 +15,7 @@ public interface PortfolioMapper {
 	Member loadMemberCard(String member_id);
 	int insertPfLanguage(Portfolio_Language pfLang);
 	String getPortfolio_max_id();
+//	List<Portfolio_Language> loadMemberLanguage(String member_id);
 	
+	List<Map<String,Object>> countMemberLanguage(String member_id);
 }

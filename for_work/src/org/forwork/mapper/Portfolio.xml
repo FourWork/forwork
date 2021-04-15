@@ -7,9 +7,9 @@
 	
 	<select id="listPortfolio" parameterType="String" resultType="Portfolio">
 		select *
-		from portfolio
-		where member_id = #{member_id}
-		order by portfolio_id desc
+			from portfolio
+			where member_id = #{member_id}
+			order by portfolio_id desc
 	</select>
 	
 	<select id="listLanguage" parameterType="String" resultType="Portfolio_language">
@@ -21,8 +21,10 @@
 	
 	
 	<insert id="insertPortfolio" parameterType="Portfolio" >
-	insert into portfolio(portfolio_id, member_id, portfolio_title, portfolio_start_date, portfolio_end_date, portfolio_detail)
-	values(portfolio_seq.nextval,#{member_id},#{portfolio_title},#{portfolio_start_date},#{portfolio_end_date},#{portfolio_detail})
+		insert into portfolio
+			(portfolio_id, member_id, portfolio_title, portfolio_start_date, portfolio_end_date, portfolio_detail)
+			values
+			(portfolio_seq.nextval,#{member_id},#{portfolio_title},#{portfolio_start_date},#{portfolio_end_date},#{portfolio_detail})
 	</insert>
 	
 	<select id="getPortfolio_max_id" resultType="string">
@@ -42,8 +44,37 @@
 	
 	<select id="loadMemberCard" parameterType="String" resultType="Member">
 	select name, email from member
-	where member_id = #{member_id}
+		where member_id = #{member_id}
 	</select>
+	
+<!-- 	<select id="loadMemberLanguage" parameterType="String" resultType="Portfolio_language">
+	select distinct portfolio_language
+		from portfolio_language_view
+		where member_id = #{member_id}
+	</select> -->
+	
+<!-- 	<select id="countMemberLanguage" parameterType="Portfolio_language" resultType="Integer">
+	select count(portfolio_language)
+		from portfolio_language_view
+		where member_id= #{member_id}
+		group by rollup(portfolio_language)
+		order by portfolio_language
+	</select> -->
+	
+	<!-- 통계값을 가져오기 위한 hashMap 구성 -->
+	<resultMap type="HashMap" id="langStatMap">
+		<result column="portfolio_language" property="language"/>
+		<result column="count(*)" property="langCount"/>
+	</resultMap>
+	
+	<select id="countMemberLanguage" parameterType="String" resultMap="langStatMap">
+	select portfolio_language, count(*)
+		from portfolio_language_view
+		where member_id=#{member_id}
+		group by rollup(portfolio_language)
+		order by portfolio_language
+	</select>
+
 	
 
 </mapper>

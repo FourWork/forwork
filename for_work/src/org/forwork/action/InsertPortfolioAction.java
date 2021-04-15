@@ -50,6 +50,7 @@ public class InsertPortfolioAction implements Action {
 				}
 				
 				
+				
 		service.insertPortfolioService(portfolio);
 		service.insertPfLangService(pfLangList);
 		forward.setRedirect(true);
