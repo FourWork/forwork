@@ -5,6 +5,7 @@ import java.util.List;
 import org.forwork.dao.ChattingDao;
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
+import org.forwork.domain.Member;
 import org.forwork.domain.Message;
 
 public class ChattingService {
@@ -30,5 +31,9 @@ public class ChattingService {
 	
 	public List<Chatroom> getChatroomByMemberIdService(String memberId){
 		return dao.getChatroomByMemberId(memberId);
+	}
+
+	public Member getMemberByIdService(String memberId) {
+		return dao.getMemberById(memberId);
 	}
 }

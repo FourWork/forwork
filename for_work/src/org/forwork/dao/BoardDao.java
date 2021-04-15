@@ -11,6 +11,7 @@ import org.forwork.domain.Board;
 import org.forwork.domain.Post;
 import org.forwork.mapper.BoardMapper;
 
+
 public class BoardDao {
 
 	private static BoardDao dao = new BoardDao();
@@ -95,7 +96,7 @@ public class BoardDao {
 	
 	public int insertNoticeBoard(int project_id) {
 		int re = -1;
-
+		
 		List<Board> list = listBoardMenu(project_id);
 
 		if (list.size() == 0) {
@@ -148,7 +149,6 @@ public class BoardDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("BoardDao의 board_id 값 : " + board_id);
 		return board_id;
 	}
 	
@@ -258,6 +258,23 @@ public class BoardDao {
 		
 		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
 			re = sqlSession.getMapper(BoardMapper.class).deleteBoard(board_id);
+			
+			if(re > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return re;
+	}
+	
+	public int updateHitcount(int post_id) {
+		int re = -1;
+		
+		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
+			re = sqlSession.getMapper(BoardMapper.class).updateHitcount(post_id);
 			
 			if(re > 0) {
 				sqlSession.commit();

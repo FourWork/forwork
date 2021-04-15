@@ -16,6 +16,9 @@
 		)
 	</insert>
 	
+	<select id="getMember" parameterType="String" resultType="Member">
+		select * from member where member_id = #{member_id}
+	</select>
 	
 </mapper>
 

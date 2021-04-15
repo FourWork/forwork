@@ -5,10 +5,18 @@
 <mapper namespace="org.forwork.mapper.PortfolioMapper">
 	<cache />
 	
-<select id="listPortfolio" parameterType="String" resultType="Portfolio">
-		select * from portfolio
+	<select id="listPortfolio" parameterType="String" resultType="Portfolio">
+		select portfolio_title, portfolio_start_date, portfolio_end_date, portfolio_detail
+		from portfolio
 		where member_id = #{member_id}
 		order by portfolio_id desc
+	</select>
+	
+	<select id="listLanguage" parameterType="String" resultType="Portfolio_language">
+		select portfolio_language
+			from portfolio_language
+			where portfolio_id = #{portfolio_id}
+			order by portfolio_language
 	</select>
 	
 	
@@ -17,9 +25,25 @@
 	values(portfolio_seq.nextval,#{member_id},#{portfolio_title},#{portfolio_start_date},#{portfolio_end_date},#{portfolio_detail})
 	</insert>
 	
+	<select id="getPortfolio_id" resultType="string">
+		select max(portfolio_id)
+			from portfolio
+	</select>
+	
+	<insert id="insertPfLanguage" parameterType="Portfolio_language">
+		insert into portfolio_language(portfolio_id, portfolio_language, portfolio_language_seq)
+			values(
+				#{portfolio_id},
+				#{portfolio_language},
+				portfolio_language_seq.nextval
+			)
+	</insert>
+	
+	
 	<select id="loadMemberCard" parameterType="String" resultType="Member">
 	select name, email from member
 	where member_id = #{member_id}
 	</select>
+	
 
 </mapper>

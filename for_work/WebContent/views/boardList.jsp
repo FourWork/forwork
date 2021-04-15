@@ -1,88 +1,121 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%@ include file="header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글 목록</title>
+<style type="text/css">
+.header {
+	background-color: #EAEAEA;
+}
 
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+td {
+	border: 1px solid gray;
+	text-align: center;
+}
 
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-	crossorigin="anonymous">
+table {
+	border-collapse: collapse;
+}
 
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-	crossorigin="anonymous"></script>
+a {
+	text-decoration: none;
+	color: black;
+}
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+a:hover {
+	font-weight: bold;
+}
 
-<link rel="stylesheet" href="CSS/boardStyle.css" type="text/css">
+.seq, .hitcount {
+	min-width: 50px;
+}
 
-<div class="wrap">
-	<div class="container">
-		<div class="row">
-			<div class="col-2">
-				<div class="boardMenu">
-					<ul class="list-group list-group-flush">
-						<li class="list-group-item"><a href="#"><i
-								class="bi bi-house-door"></i> 홈</a></li>
-						<li class="list-group-item"><a href="#"><i
-								class="bi bi-check2-square"></i> 공지 사항</a></li>
-						<li class="list-group-item"><a href="#"><i
-								class="bi bi-clipboard"></i> 기본 게시판</a></li>
-					</ul>
-					<a href="#" class="boardMenuPlus"><i
-						class="bi bi-plus-square-dotted"></i></a>
-				</div>
-			</div>
-			<div class="col-10">
-				<div class="listWrap">
-					<div class="boardName">기본 게시판</div>
-					<form action="" method="post" class="searchBar">
-						<input type="checkbox" name="area" value="title" id="title"><label for="title">제목</label>
-						<input type="checkbox" name="area" value="writer" id="writer"><label for="writer">작성자</label> 
-						<input type="text" name="searchKey" size="10"> 
-						<input type="submit" value="검색">
-					</form>
-					<input type="button" value="글쓰기" class="writeBtn" onclick="javascipt:window.location='insertPost.do'">
+.writer {
+	min-width: 80px;
+}
 
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col">번호</th>
-								<th scope="col" style="width: 55%; text-align: center">제목</th>
-								<th scope="col">작성자</th>
-								<th scope="col">조회</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="board" items="">
-								<tr>
-									
-								</tr>						
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!-- col-10 -->
-		</div>
-	</div>
-</div>
+.title {
+	min-width: 200px;
+}
 
+.regdate {
+	min-width: 150px;
+}
+</style>
+</head>
+<body>
+	<a href="insertPost.do">글쓰기</a>
 
+	<ul>
+		<c:forEach var="boardMenu" items="${boardMenu}">
+			<li><a
+				href="listAction.do?project_id=${boardMenu.project_id}&board_id=${boardMenu.board_id}">${boardMenu.board_name}</a></li>
+		</c:forEach>
+	</ul>
+	<a href="boardManagerAction.do?project_id=${boardName.project_id}">게시판 관리</a>
 
+	<h2>${boardName.board_name}</h2>
+	<a
+		href="insertPost.do?project_id=${boardName.project_id}&board_id=${boardName.board_id}">글
+		작성하기</a>
+	<table>
+		<tr>
+			<td class="header seq">글 번호</td>
+			<td class="header title">글 제목</td>
+			<td class="header writer">작성자</td>
+			<td class="header regdate">작성일</td>
+			<td class="header hitcount">조회수</td>
+		</tr>
+		<c:forEach var="board" items="${list}">
+			<tr>
+				<td>${board.post_id}</td>
+				<td><a href="detailAction.do?post_id=${board.post_id}&board_id=${boardName.board_id}">${board.post_title}</a></td>
+				 <td>${board.post_writer}</td>
+				<td><fmt:parseDate var="dt" value="${board.post_date}"
+						pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
+						value="${dt}" pattern="yyyy.MM.dd HH:mm" /></td>
+				<td>${board.hitcount}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<br>
+	<!-- 페이징 영역 -->
+	<!-- 이전 영역 -->
+	<%-- 	<c:if test="${listModel.startPage > 5}">
+		<a href="listAction.do?pageNum=${listModel.startPage - 1}">[이전]</a>
+	</c:if>
 
+	<!-- 페이지 목록 -->
+	<c:forEach var="pageNo" begin="${listModel.startPage}"
+		end="${listModel.endPage}">
+		<c:if test="${listModel.requestPage == pageNo}">
+			<b>
+		</c:if>
+		<a href="listAction.do?pageNum=${pageNo}">[${pageNo}]</a>
+		<c:if test="${listModel.requestPage == pageNo}">
+			</b>
+		</c:if>
+	</c:forEach>
 
+	<!-- 다음 영역 -->
+	<c:if test="${listModel.endPage < listModel.totalPageCount}">
+		<a href="listAction.do?pageNum=${listModel.endPage + 1}">[다음]</a>
+	</c:if> --%>
+	<br>
+	<br>
 
-<%@ include file="footer.jsp"%>
+	<!-- 	<form action="listAction.do" method="post">
+		<input type="checkbox" name="area" value="title" id="title"><label
+			for="title">제목</label> <input type="checkbox" name="area"
+			value="writer" id="writer"><label for="writer">작성자</label> <input
+			type="text" name="searchKey" size="10"> <input type="submit"
+			value="검색">
+	</form> -->
+</body>
+</html>
