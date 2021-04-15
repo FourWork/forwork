@@ -35,7 +35,19 @@ public class ScrumBoardService {
 	}
 	
 	public int deleteTaskService(HttpServletRequest request)throws Exception{
-		return dao.deleteTask(Integer.parseInt(request.getParameter("seq")));
+		return dao.deleteTask(Integer.parseInt(request.getParameter("task_id")));
+		
+	}
+	
+	public int updateTaskService(Task task)throws Exception{
+
+		return dao.updateTask(task);
+	}
+	
+	public Task detailTaskService(HttpServletRequest request)throws Exception{
+		Task task = dao.detailTask(Integer.parseInt(request.getParameter("task_id")));
+		
+		return task;
 		
 	}
 

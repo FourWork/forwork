@@ -54,27 +54,6 @@
 	integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
 	crossorigin="anonymous"></script>
 
-
-
-<!-- 
-<script type="text/javascript">
-$(function() {  // $(document).ready(function())와 같은 코드임
-	$('.dropdown-menu').click(function(e) {
-	    e.stopPropagation();
-	    if ($(e.target).is('[data-toggle=modal]')) {
-	        $($(e.target).data('target')).modal()
-	    }
-	});
-})
-
-</script>
--->
-
-<!-- 내가 지정한 css -->
-<!--
-  <link rel="stylesheet" type="text/css" href="scrumBoardStyle.css" />
-    -->
-
 <title>스크럼 보드 만드는 중</title>
 </head>
 <body>
@@ -175,17 +154,17 @@ $(function() {  // $(document).ready(function())와 같은 코드임
 															aria-labelledby="dropdownMenuLink">
 															<a class="dropdown-item" href="#">담당자 추가</a> 
 															<a class="dropdown-item" href="#">To-do List에 추가</a> 
-															<a class="dropdown-item" href="#">Task 수정</a>
-															<a class="dropdown-item" href="#" data-toggle="modal" data-target="#taskDelete">Task 삭제</a>
+															<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
 														</div>
-													</div>											
-															<!-- task delete Modal -->
-															<jsp:include page="taskDeleteModal.jsp" />
+													</div>
+													
+													<p>${task.task_id }</p>
 												</div>
 												<div class="card-text">
 													<p id="taskContent">
 														<!-- Task 내용 -->
-
+							
 														${task.task_content } <br>
 
 													</p>
@@ -207,7 +186,8 @@ $(function() {  // $(document).ready(function())와 같은 코드임
 										<!-- Task 카드 아래에 공간 띄우기 -->
 									</div>
 								</c:if>
-							</c:forEach>
+							</c:forEach>								
+							
 						</div>
 					</div>
 				</div>
@@ -237,13 +217,12 @@ $(function() {  // $(document).ready(function())와 같은 코드임
 														<div class="dropdown-menu"
 															aria-labelledby="dropdownMenuLink">
 															<a class="dropdown-item" href="#">담당자 추가</a> <a
-																class="dropdown-item" href="#">To-do List에 추가</a> <a
-																class="dropdown-item" href="#">Task 수정</a>
-																<a class="dropdown-item" href="#" data-toggle="modal" data-target="#taskDelete">Task 삭제</a>
+																class="dropdown-item" href="#">To-do List에 추가</a> 
+																<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
 														</div>
 													</div>											
-															<!-- task delete Modal -->
-															<jsp:include page="taskDeleteModal.jsp" />
+
 												</div>
 												<div class="card-text">
 													<p>
@@ -294,13 +273,12 @@ $(function() {  // $(document).ready(function())와 같은 코드임
 														<div class="dropdown-menu"
 															aria-labelledby="dropdownMenuLink">
 															<a class="dropdown-item" href="#">담당자 추가</a> <a
-																class="dropdown-item" href="#">To-do List에 추가</a> <a
-																class="dropdown-item" href="#">Task 수정</a> 
-																<a class="dropdown-item" href="#" data-toggle="modal" data-target="#taskDelete">Task 삭제</a>
+																class="dropdown-item" href="#">To-do List에 추가</a> 
+																<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
 														</div>
 													</div>											
-															<!-- task delete Modal -->
-															<jsp:include page="taskDeleteModal.jsp" />
+
 												</div>
 												<div class="card-text">
 													<p>
@@ -351,13 +329,12 @@ $(function() {  // $(document).ready(function())와 같은 코드임
 														<div class="dropdown-menu"
 															aria-labelledby="dropdownMenuLink">
 															<a class="dropdown-item" href="#">담당자 추가</a> <a
-																class="dropdown-item" href="#">To-do List에 추가</a> <a
-																class="dropdown-item" href="#">Task 수정</a>
-																 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#taskDelete">Task 삭제</a>
+																class="dropdown-item" href="#">To-do List에 추가</a> 
+																<a class="dropdown-item" href="detailUpdateAction.do?task_id=${task.task_id }" >Task 수정</a>
+															<a class="dropdown-item" href="detailDeleteAction.do?task_id=${task.task_id }">Task 삭제</a>
 														</div>
 													</div>											
-															<!-- task delete Modal -->
-															<jsp:include page="taskDeleteModal.jsp" />
+
 												</div>
 												<div class="card-text">
 													<p>

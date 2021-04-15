@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.forwork.domain.Task;
 import org.forwork.mapper.ScrumBoardMapper;
 
+
+
 public class ScrumBoardDao {
 	
 	private static ScrumBoardDao dao = new ScrumBoardDao();
@@ -18,12 +20,12 @@ public class ScrumBoardDao {
 		return dao;
 	}
 	
-	public SqlSessionFactory getSqlSessionFactory() { 
+	public SqlSessionFactory getSqlSessionFactory() { //sqlSession
 		String resource = "mybatis-config.xml";
 		InputStream in = null;
 		
 		try {
-			in = Resources.getResourceAsStream(resource); 
+			in = Resources.getResourceAsStream(resource); // mybatis-config.xml에 inputStream연결 하는 것
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,7 +47,7 @@ public class ScrumBoardDao {
 				sqlSession.close();
 			}
 		}
-		System.out.println(list);
+		
 		return list;
 	}
 	
@@ -55,9 +57,9 @@ public class ScrumBoardDao {
 		int re= -1;
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
 		try {
-			re = sqlSession.getMapper(ScrumBoardMapper.class).insertTask(task); 
+			re = sqlSession.getMapper(ScrumBoardMapper.class).insertTask(task); //insertBoard는 Board.xml의 id명과 일치시킴(메서드명을 id명과 일치시켜야함)
 			if(re>0) {
-				sqlSession.commit(); 
+				sqlSession.commit(); // commit을 꼭 해줘야 함
 			}else {
 				sqlSession.rollback();
 			}
@@ -75,13 +77,52 @@ public class ScrumBoardDao {
 	}
 	
 	
-	public int deleteTask(int seq) {
+	public int updateTask(Task task) {
 		int re= -1;
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
 		try {
-			re = sqlSession.getMapper(ScrumBoardMapper.class).deleteTask(seq); 
+			re = sqlSession.getMapper(ScrumBoardMapper.class).updateTask(task);
 			if(re>0) {
-				sqlSession.commit(); 
+				sqlSession.commit(); // commit을 꼭 해줘야 함
+			}else {
+				sqlSession.rollback();
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(sqlSession !=null) {
+				sqlSession.close();
+			}
+		}
+		return re;
+	}
+	
+	
+	public Task detailTask(int task_id) {
+		SqlSession sqlSession = getSqlSessionFactory().openSession();
+		Task task = new Task();
+		try {
+			task = sqlSession.getMapper(ScrumBoardMapper.class).detailTask(task_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(sqlSession !=null) {
+				sqlSession.close();
+			}
+			
+		}
+		return task;
+	}
+	
+	
+	public int deleteTask(int task_id) {
+		int re= -1;
+		SqlSession sqlSession = getSqlSessionFactory().openSession();
+		try {
+			re = sqlSession.getMapper(ScrumBoardMapper.class).deleteTask(task_id); 
+			if(re>0) {
+				sqlSession.commit(); // insert, update, delete는 commit을 꼭 해줘야 함
 			}else {
 				sqlSession.rollback();
 			}

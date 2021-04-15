@@ -18,12 +18,21 @@
 	</insert>
 	
 	<select id="listTask"  resultType="Task">
-		select task_content, responsibility, writer, task_type_id from task_ex
+		select task_content, responsibility, writer, task_type_id, task_id from task_ex
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
-		delete from board where seq = #{seq}	
+		delete from task_ex where task_id = #{task_id}	
 	</delete>
+	
+	<update id="updateTask" parameterType="Task">
+		update task_ex set task_content=#{task_content}, responsibility=#{responsibility}
+		where task_id = #{task_id}
+	</update> 
+	
+	<select id="detailTask" resultType="Task" parameterType="int">
+		select task_id, task_content, responsibility from task_ex where task_id = #{task_id}
+	</select>
 	
 	
 	
