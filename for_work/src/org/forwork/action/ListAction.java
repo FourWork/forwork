@@ -1,6 +1,5 @@
 package org.forwork.action;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ public class ListAction implements Action {
 		ActionForward forward = new ActionForward();
 		BoardService service = BoardService.getInstance();
 		
-		int project_id = Integer.parseInt(request.getParameter("project_id"));
+		int project_id = Integer.parseInt(request.getParameter("project_id"));	
 		
 		// 새 프로젝트에 자동으로 공지 사항, 기본 게시판 생성
 		service.insertinsertNoticeBoard(project_id);
@@ -41,8 +40,9 @@ public class ListAction implements Action {
 		request.setAttribute("list", list);
 		
 		forward.setRedirect(false);
-		forward.setPath("/views/boardList.jsp?project_id" + project_id + "&board_id=" + board_id);
 		
+		//forward.setPath("/views/boardList.jsp?project_id=" + project_id + "&board_id=" + board_id);
+		forward.setPath("/views/boardList.jsp");
 		return forward;
 	}
 

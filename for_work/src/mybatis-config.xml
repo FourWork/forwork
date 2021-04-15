@@ -15,6 +15,7 @@
 		<typeAlias type="org.forwork.domain.Post" alias="Post"/>
 		<typeAlias type="org.forwork.domain.Portfolio" alias="Portfolio"/>
 		<typeAlias type="org.forwork.domain.ChatroomMemberRelation" alias="ChatroomMemberRelation"/>
+		<typeAlias type="org.forwork.domain.Todolist" alias="Todolist"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -33,6 +34,7 @@
 		<mapper resource="org/forwork/mapper/Board.xml"/>
 		<mapper resource="org/forwork/mapper/ScrumBoard.xml"/>
 		<mapper resource="org/forwork/mapper/Portfolio.xml"/>
+		<mapper resource="org/forwork/mapper/Todolist.xml"/>
 	</mappers>
 	
 </configuration>

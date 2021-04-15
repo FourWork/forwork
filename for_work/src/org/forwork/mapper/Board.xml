@@ -12,7 +12,7 @@
 	</insert> 
 	
 	<!-- 게시글 추가 -->
-	<insert id="insertPost" parameterType="Board_test">
+	<insert id="insertPost" parameterType="Post">
 		insert into post(post_id, board_id, post_writer, post_title, post_content, post_date, post_file)
 			values(post_seq.nextval, #{board_id}, #{post_writer}, #{post_title}, #{post_content}, SYSDATE, #{post_file})
 	</insert>
@@ -46,11 +46,11 @@
 	<!-- 공지 사항 미리 보기 -->
 	<select id="listNotice" parameterType="int" resultType="Post">
  		<![CDATA[
- 		select ROWNUM, b.board_id, p.post_title, p.post_content, p.post_date, p.hitcount 
+ 		select ROWNUM, b.board_id, p.post_id, p.post_title, p.post_content, p.post_date, p.hitcount 
  			from board b, post p where b.board_id = p.board_id 
  			AND board_name = '공지 사항' 
  			AND project_id = #{project_id} 
- 			AND ROWNUM <= 4 
+ 			AND ROWNUM <= 3 
  			order by p.post_id DESC
  		 ]]>
 	</select>
@@ -89,6 +89,11 @@
 	<delete id="deleteBoard" parameterType="int">
 		delete from board where board_id = #{board_id}
 	</delete>
+	
+	<!-- 조회수 -->
+	<update id="updateHitcount" parameterType="int">
+		update post set hitcount = hitcount + 1 where post_id = #{post_id}
+	</update>
 	
 <!-- 	<select id="countPost" parameterType="Search" resultType="int">
 		select count(*) from (select * from board where project_id = #{project_id})
