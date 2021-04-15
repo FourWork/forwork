@@ -56,6 +56,9 @@
 		update task_ex set task_index = task_index-1 where task_type_id = #{task_type_id} and task_index > #{task_index}	
 	</update>
 	
+	<update id="addRes" parameterType="Task">
+		update task_ex set RESPONSIBILITY = #{RESPONSIBILITY}, name = #{name} where task_id = #{task_id}
+	</update>
 </mapper>
 
 

@@ -233,4 +233,25 @@ public class ScrumBoardDao {
 		}
 		return result;
 	}
+	
+	public int addRes(Task task) {
+		int result = -1;
+		
+		SqlSession session = getSqlSessionFactory().openSession();
+		try {
+			result = session.getMapper(ScrumBoardMapper.class).addRes(task);
+			if(result == 1 ) {
+				session.commit();
+			}else {
+				session.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
 }

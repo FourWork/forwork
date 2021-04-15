@@ -15,4 +15,5 @@ public interface ScrumBoardMapper {
 	int moveTask(Task task);
 	int increaseIndex(Task task);
 	int decreaseIndex(Task task);
+	int addRes(Task task);
 }
