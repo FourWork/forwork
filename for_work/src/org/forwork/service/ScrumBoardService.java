@@ -22,8 +22,8 @@ public class ScrumBoardService {
 		
 		Task task = new Task();
 		task.setTask_content(request.getParameter("task_content"));
+		task.setTask_index(dao.getStoriesIndex()+1);
 		
-		System.out.println(task.getTask_content());
 		
 		return dao.insertTask(task);
 	}

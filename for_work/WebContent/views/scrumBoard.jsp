@@ -21,52 +21,54 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
-	$(function() {
-		$(".column").sortable({
-			// 드래그 앤 드롭 단위 css 선택자	
-			connectWith : ".column",
-			// 움직이는 css 선택자	
-			handle : ".card-header",
-			// 움직이지 못하는 css 선택자	
-			cancel : ".no-move",
-			// 이동하려는 location에 추가 되는 클래스	
-			placeholder : "card-placeholder",
-			start: function(event,ui){
-				$(this).attr('data-previndex',ui.item.index());
-			}
-				,
-			update:function(event,ui){
-				var previdx = $(this).attr('data-previndex');
-				var nowidx = ui.item.index();
-				var task_id = $(ui.item).find('.task_id').html();
-				var col_name = $(ui.item).closest('.column').find('.card-title').html();
-				
-				if(typeof previdx != 'undefined'){
-				console.log(previdx+'\n'+nowidx+'\n'+task_id+'\n'+col_name);
-				
- 				$.ajax({
-					type:"POST",
-					url:"moveTask.do",
-					data : {
-						"previdx":previdx,
-						"nowidx":nowidx,
-						"task_id":task_id,
-						"col_name":col_name
+	$(function() { // task move
+		$(".column").sortable(
+				{
+					// 드래그 앤 드롭 단위 css 선택자	
+					connectWith : ".column",
+					// 움직이는 css 선택자	
+					handle : ".card-header",
+					// 움직이지 못하는 css 선택자	
+					cancel : ".no-move",
+					// 이동하려는 location에 추가 되는 클래스	
+					placeholder : "card-placeholder",
+					start : function(event, ui) {
+						$(this).attr('data-previndex', ui.item.index());
 					},
-					success:function(data){
-						if(data.result>0){
-							console.log("성공");
-						}
-					},
-					error:function(e){
-						console.log('error : ' + e);
-					}
-				}) 
-				}
-			}
-		});
-		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
+					update : function(event, ui) {
+						var previdx = $(this).attr('data-previndex');
+						var nowidx = ui.item.index();
+						var task_id = $(ui.item).find('.task_id').html();
+						var col_name = $(ui.item).closest('.column').find(
+								'.card-title').html();
 
+						if (typeof previdx != 'undefined') {
+							$.ajax({
+								type : "POST",
+								url : "moveTask.do",
+								data : {
+									"previdx" : previdx,
+									"nowidx" : nowidx,
+									"task_id" : task_id,
+									"col_name" : col_name
+								},
+								success : function(data) {
+									if (data.result > 0) {
+										console.log("성공");
+									}
+								},
+								error : function(e) {
+									console.log('error : ' + e);
+								}
+							})
+						}
+					}
+				});
+		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
+	$('.addRes').click(function(){
+			var task_id = $(this).closest('.card').find('.task_id').html();
+			
+	});
 	});
 </script>
 </head>
@@ -89,8 +91,14 @@
 	background-color: lightgray;
 }
 
-.card-text{
-	margin-left : 12px;
+.card-text {
+	margin-left: 12px;
+}
+
+.task_id {
+	visibility: hidden;
+	margin: 0px;
+	height: 0px;
 }
 </style>
 <body>
@@ -171,14 +179,14 @@
 							<div class="card-body p-2 ui-sortable-handle">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
-									<p class = "task_id">${task.task_id}</p>
+									<p class="task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"
 											id="dropdownMenuLink" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="#">담당자 추가</a> <a
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
 												class="dropdown-item" href="#">To-do List에 추가</a> <a
 												class="dropdown-item" href="#">Task 수정</a> <a
 												class="dropdown-item" href="#" data-toggle="modal"
@@ -188,23 +196,23 @@
 								</div>
 								<!-- task delete Modal -->
 								<jsp:include page="taskDeleteModal.jsp" />
-							<div class="card-text">
-								<p id="taskContent">
-									<!-- Task 내용 -->
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
 
-									${task.task_content } <br>
+										${task.task_content } <br>
 
-								</p>
-								<h6 class="font-weight-light text-black" id="resp">
-									담당 : <b>담당${i}</b>
-								</h6>
-								<!-- 담당자 -->
-								<h6 class="font-weight-light text-black" id="taskWriter">
-									created by <b>${task.writer }</b>
-								</h6>
-								<!-- 작성자 -->
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+										담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
 
-							</div>
+								</div>
 							</div>
 
 
@@ -222,14 +230,14 @@
 							<div class="card-body p-2">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
-								<p class = "task_id">${task.task_id}</p>
+									<p class="task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"
 											id="dropdownMenuLink" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="#">담당자 추가</a> <a
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
 												class="dropdown-item" href="#">To-do List에 추가</a> <a
 												class="dropdown-item" href="#">Task 수정</a> <a
 												class="dropdown-item" href="#" data-toggle="modal"
@@ -239,23 +247,23 @@
 								</div>
 								<!-- task delete Modal -->
 								<jsp:include page="taskDeleteModal.jsp" />
-							<div class="card-text">
-								<p id="taskContent">
-									<!-- Task 내용 -->
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
 
-									${task.task_content } <br>
+										${task.task_content } <br>
 
-								</p>
-								<h6 class="font-weight-light text-black" id="resp">
-									담당 : <b>담당${i}</b>
-								</h6>
-								<!-- 담당자 -->
-								<h6 class="font-weight-light text-black" id="taskWriter">
-									created by <b>${task.writer }</b>
-								</h6>
-								<!-- 작성자 -->
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+										담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
 
-							</div>
+								</div>
 							</div>
 
 						</div>
@@ -272,14 +280,14 @@
 							<div class="card-body p-2">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
-								<p class = "task_id">${task.task_id}</p>
+									<p class="task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"
 											id="dropdownMenuLink" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="#">담당자 추가</a> <a
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
 												class="dropdown-item" href="#">To-do List에 추가</a> <a
 												class="dropdown-item" href="#">Task 수정</a> <a
 												class="dropdown-item" href="#" data-toggle="modal"
@@ -289,23 +297,23 @@
 								</div>
 								<!-- task delete Modal -->
 								<jsp:include page="taskDeleteModal.jsp" />
-							<div class="card-text">
-								<p id="taskContent">
-									<!-- Task 내용 -->
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
 
-									${task.task_content } <br>
+										${task.task_content } <br>
 
-								</p>
-								<h6 class="font-weight-light text-black" id="resp">
-									담당 : <b>담당${i}</b>
-								</h6>
-								<!-- 담당자 -->
-								<h6 class="font-weight-light text-black" id="taskWriter">
-									created by <b>${task.writer }</b>
-								</h6>
-								<!-- 작성자 -->
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+										담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
 
-							</div>
+								</div>
 							</div>
 
 						</div>
@@ -322,14 +330,14 @@
 							<div class="card-body p-2">
 								<!-- Task 하나의 내용처리 -->
 								<div class="card-title">
-									<p class = "task_id">${task.task_id}</p>
+									<p class="task_id">${task.task_id}</p>
 									<!-- Task 하나의 제목 -->
 									<div class="dropdown float-right">
 										<a class="btn btn-default" href="#" role="button"
 											id="dropdownMenuLink" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false"> ... </a>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-											<a class="dropdown-item" href="#">담당자 추가</a> <a
+											<a class="dropdown-item addRes" href="#">담당자 추가</a> <a
 												class="dropdown-item" href="#">To-do List에 추가</a> <a
 												class="dropdown-item" href="#">Task 수정</a> <a
 												class="dropdown-item" href="#" data-toggle="modal"
@@ -339,23 +347,23 @@
 								</div>
 								<!-- task delete Modal -->
 								<jsp:include page="taskDeleteModal.jsp" />
-							<div class="card-text">
-								<p id="taskContent">
-									<!-- Task 내용 -->
+								<div class="card-text">
+									<p id="taskContent">
+										<!-- Task 내용 -->
 
-									${task.task_content } <br>
+										${task.task_content } <br>
 
-								</p>
-								<h6 class="font-weight-light text-black" id="resp">
-									담당 : <b>담당${i}</b>
-								</h6>
-								<!-- 담당자 -->
-								<h6 class="font-weight-light text-black" id="taskWriter">
-									created by <b>${task.writer }</b>
-								</h6>
-								<!-- 작성자 -->
+									</p>
+									<h6 class="font-weight-light text-black" id="resp">
+									담당 : <b>${task.responsibility}</b>
+									</h6>
+									<!-- 담당자 -->
+									<h6 class="font-weight-light text-black" id="taskWriter">
+										created by <b>${task.writer }</b>
+									</h6>
+									<!-- 작성자 -->
 
-							</div>
+								</div>
 							</div>
 
 						</div>
