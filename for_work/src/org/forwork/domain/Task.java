@@ -10,11 +10,12 @@ public class Task implements Serializable {
 	private String writer;
 	private String task_content;
 	private int task_index;
+	private String name;
 	
 	public Task() {}
 
 	public Task(String task_id, String project_id, String task_type_id, String responsibility, String writer,
-			String task_content, int task_index) {
+			String task_content, int task_index, String name) {
 		super();
 		this.task_id = task_id;
 		this.project_id = project_id;
@@ -23,8 +24,18 @@ public class Task implements Serializable {
 		this.writer = writer;
 		this.task_content = task_content;
 		this.task_index = task_index;
+		this.name = name;
+	}
+	
+	
+
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getTask_index() {
 		return task_index;

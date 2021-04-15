@@ -3,8 +3,11 @@ package org.forwork.service;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.forwork.dao.MemberDAO;
 import org.forwork.dao.ScrumBoardDao;
+import org.forwork.domain.Member;
 import org.forwork.domain.Task;
 
 
@@ -91,5 +94,20 @@ public class ScrumBoardService {
 		return result;
 	}
 
+	public int addResService(HttpServletRequest request) throws Exception{
+		int result = -1;
+		HttpSession session = request.getSession();
+		Task task = dao.getTask(request.getParameter("task_id"));
+		if(task != null) {
+			if(session.getAttribute("name")!=null) {
+				String m_name = (String)session.getAttribute("name");
+				String m_id = (String)session.getAttribute("member_id");
+				task.setResponsibility(m_id);
+				task.setName(m_name);
+				result = dao.addRes(task);
+			}
+		}
+		return result;
+	}
 
 }
