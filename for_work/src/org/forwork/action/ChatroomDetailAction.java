@@ -23,7 +23,6 @@ public class ChatroomDetailAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
-		System.out.println(session.getAttribute("chatrooms"));
 		ChatroomDto chatroomDto = (ChatroomDto) session.getAttribute("chatrooms");
 		List<Chatroom> chatrooms = chatroomDto.getChatrooms();
 		

@@ -26,14 +26,14 @@ public class ChatroomListAction implements Action {
 		ChatroomDto chatrooms = new ChatroomDto();
 		chatrooms.setChatrooms(service.getChatroomByMemberIdService(userId));
 
-		List<Message> messages = service.getLastMessagePerChatroomByMemberIdService(userId);
+		List<Message> previewMessages = service.getLastMessagePerChatroomByMemberIdService(userId);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		session.setAttribute("name", loggedInUser.getName());
 		session.setAttribute("chatrooms", chatrooms);
 		// TODO: 새로운 메세지가 들어오면 service 다시 콜하도록 위치 수정
-		session.setAttribute("messages", messages);
+		session.setAttribute("previewMessages", previewMessages);
 		
 		af.setRedirect(false);
 		af.setPath("/views/chatting/chatroomList.jsp");

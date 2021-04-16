@@ -83,14 +83,14 @@
                             <h4 class="mb-0 text-sm">${chatroom.chatroom_name }</h4>
                           </div>
                           <div class="text-right text-muted">
-                          	<c:forEach var="message" items="${messages}">
+                          	<c:forEach var="message" items="${previewMessages}">
                         		<c:if test="${message.chatroom_id == chatroom.chatroom_id}">
                             		<small>${message.send_time}</small>
                             	</c:if>
                        		</c:forEach>
                           </div>
                         </div>
-                        <c:forEach var="message" items="${messages}">
+                        <c:forEach var="message" items="${previewMessages}">
                         	<c:if test="${message.chatroom_id == chatroom.chatroom_id}">
                         		<p class="text-sm mb-0">${message.message }</p>
                         	</c:if>
