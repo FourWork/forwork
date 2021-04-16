@@ -9,19 +9,23 @@ import javax.servlet.http.HttpSession;
 
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.Message;
+import org.forwork.dto.ChatroomDto;
 import org.forwork.service.ChattingService;
 
 public class ChatroomDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO: 모든 페이지에서 DB로부터 chatrooms를 얻어서 setAttribute해주는 부분을 어떻게 리팩토링할 수 있을지 생각
+		// 세션에 저장된 chatrooms 사용
+		// url 인자로 넘어온 chatroomId를 세션에 저장(소켓에 연결됐을때 저장해주기 위함)
 		ActionForward af = new ActionForward();
 		ChattingService service = ChattingService.getInstance();
 		
 		HttpSession session = request.getSession();
-		List<Chatroom> chatrooms = service.getChatroomByMemberIdService((String)session.getAttribute("userId"));
-		request.setAttribute("chatrooms", chatrooms);
+		
+		System.out.println(session.getAttribute("chatrooms"));
+		ChatroomDto chatroomDto = (ChatroomDto) session.getAttribute("chatrooms");
+		List<Chatroom> chatrooms = chatroomDto.getChatrooms();
 		
 		String chatroomId = request.getParameter("chatroomId");
 		List<Message> messages = service.getMessageByChatroomIdService(chatroomId);
@@ -35,6 +39,7 @@ public class ChatroomDetailAction implements Action {
 			request.setAttribute("chatroomName", "없음");
 		}
 		
+		// 소켓에서 사용
 		session.setAttribute("chatroomId", chatroomId);
 		
 		af.setRedirect(false);

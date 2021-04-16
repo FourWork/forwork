@@ -8,30 +8,33 @@ import javax.servlet.http.HttpSession;
 
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.Member;
+import org.forwork.domain.Message;
+import org.forwork.dto.ChatroomDto;
 import org.forwork.service.ChattingService;
 
 public class ChatroomListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO: 지금은 chatroomList.jsp로 갈때 채팅방 목록을 가져가고, userId를 세션에 넣어주는데,
-		// 사실 모든 페이지로 갈 때 채팅방 목록은 항상 필요함
+		// chatrooms, userId, name 모두 세션에 저장
 		ActionForward af = new ActionForward();
 		ChattingService service = ChattingService.getInstance();
 		
 		String userId = request.getParameter("memberId");
-		
 		Member loggedInUser = service.getMemberByIdService(userId);
 		
-		List<Chatroom> chatrooms = service.getChatroomByMemberIdService(request.getParameter("memberId"));
-		
-		request.setAttribute("chatrooms", chatrooms);
+		ChatroomDto chatrooms = new ChatroomDto();
+		chatrooms.setChatrooms(service.getChatroomByMemberIdService(userId));
+
+		List<Message> messages = service.getLastMessagePerChatroomByMemberIdService(userId);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("userId", userId);
 		session.setAttribute("name", loggedInUser.getName());
+		session.setAttribute("chatrooms", chatrooms);
+		// TODO: 새로운 메세지가 들어오면 service 다시 콜하도록 위치 수정
+		session.setAttribute("messages", messages);
 		
-		// 처음에 실행하고 chatrooomId 설정해주는 위치? -> url 파라미터로 넘겨줌
 		af.setRedirect(false);
 		af.setPath("/views/chatting/chatroomList.jsp");
 		
