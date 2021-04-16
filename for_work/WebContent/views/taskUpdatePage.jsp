@@ -50,8 +50,8 @@ $(window).on('load', function(){
 							  <tbody>
 							    <tr>
 							      	<td>${task.task_id }</td>
-					      			<td>${task.task_content }</td>
-					      			<td><input type="text" name="responsibility" value=" ${task.responsibility }"></td>
+					      			<td><input type="text" name="task_content" value="${task.task_content }"></td>
+					      			<td>${task.responsibility }</td>
 					      			<td>${task.writer }</td>
 							    </tr>
 							   </tbody>
