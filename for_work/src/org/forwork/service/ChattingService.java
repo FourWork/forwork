@@ -36,4 +36,8 @@ public class ChattingService {
 	public Member getMemberByIdService(String memberId) {
 		return dao.getMemberById(memberId);
 	}
+	
+	public List<Message> getLastMessagePerChatroomByMemberIdService(String memberId){
+		return dao.getLastMessagePerChatroomByMemberId(memberId);
+	}
 }

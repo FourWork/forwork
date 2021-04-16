@@ -11,6 +11,7 @@
 		<typeAlias type="org.forwork.domain.Member" alias="Member"/>
 		<typeAlias type="org.forwork.domain.Project" alias="Project"/>
 		<typeAlias type="org.forwork.domain.Task" alias="Task"/>
+		<typeAlias type="org.forwork.domain.Sprint" alias="Sprint"/>
 		<typeAlias type="org.forwork.domain.Chatroom" alias="Chatroom"/>
 		<typeAlias type="org.forwork.domain.Message" alias="Message"/>
 		<typeAlias type="org.forwork.dto.WeekAttendance" alias="WeekAt"/>

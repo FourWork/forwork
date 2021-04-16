@@ -7,8 +7,10 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.forwork.domain.Sprint;
 import org.forwork.domain.Task;
 import org.forwork.mapper.ScrumBoardMapper;
+
 
 
 
@@ -151,7 +153,9 @@ public class ScrumBoardDao {
 				session.close();
 			}
 		}
-		
+		if(result < 1) {
+			result = 0;
+		}
 		return result;
 	}
 	
@@ -254,4 +258,45 @@ public class ScrumBoardDao {
 		}
 		return result;
 	}
+	
+	
+	
+	//Sprint CRUD
+	
+		public int insertSprint(Sprint sprint) {
+			int re = -1;
+			SqlSession sqlSession = getSqlSessionFactory().openSession();
+			try {
+				re = sqlSession.getMapper(ScrumBoardMapper.class).insertSprint(sprint);
+				if(re>0) {
+					sqlSession.commit();
+				}else {
+					sqlSession.rollback();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(sqlSession != null) {
+					sqlSession.close();
+				}
+			}
+			
+			return re;
+		}
+		
+		public List<Sprint> listSprint(){
+			SqlSession sqlSession = getSqlSessionFactory().openSession();
+			List<Sprint> list = null;
+			try {
+				list = sqlSession.getMapper(ScrumBoardMapper.class).listSprint();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(sqlSession != null) {
+					sqlSession.close();
+				}
+			}
+			
+			return list;
+		}
 }

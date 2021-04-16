@@ -72,7 +72,7 @@ public class ChattingDao {
 		List<Message> messages = null;
 		try {
 			messages = session.getMapper(ChattingMapper.class).getMessageByChatroomId(chatroomId);
-			System.out.println(messages);
+//			System.out.println(messages);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -111,5 +111,21 @@ public class ChattingDao {
 			}
 		}
 		return member;
+	}
+	
+	public List<Message> getLastMessagePerChatroomByMemberId(String memberId){
+		SqlSession session = getSqlSessionFactory().openSession();
+		List<Message> messages = null;
+		try {
+			messages = session.getMapper(ChattingMapper.class).getLastMessagePerChatroomByMemberId(memberId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		
+		return messages;
 	}
 }
