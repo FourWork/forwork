@@ -2,6 +2,7 @@ package org.forwork.dao;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -37,7 +38,7 @@ public class PortfolioDAO {
 
 		List<Portfolio> list = null;
 		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
-			System.out.println("listPortfolio Service");
+			System.out.println("@listPortfolio DAO");
 			list = sqlSession.getMapper(PortfolioMapper.class).listPortfolio(member_id);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -45,18 +46,50 @@ public class PortfolioDAO {
 		return list;
 	}
 
+	public List<Portfolio_Language> listLanguages(String member_id){
+		List<Portfolio_Language> list = null;
+		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
+			System.out.println("@listlanguage DAO");
+			list = sqlSession.getMapper(PortfolioMapper.class).listLanguage(member_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	public Member loadMemberCard(String member_id) {
 
 		Member member = null;
 		try (SqlSession sqlSesssion = getSqlSessionFactory().openSession();) {
-			System.out.println("loadMemberCard Service");
+			System.out.println("loadMemberCard DAO");
 			member = sqlSesssion.getMapper(PortfolioMapper.class).loadMemberCard(member_id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return member;
 	}
-
+	
+//	public List<Portfolio_Language> loadMemberLanguage(String member_id) {
+//		List<Portfolio_Language> list = null;
+//		try (SqlSession sqlSesssion = getSqlSessionFactory().openSession();) {
+//			System.out.println("loadLanguage DAO");
+//			list = sqlSesssion.getMapper(PortfolioMapper.class).loadMemberLanguage(member_id);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//	}
+	
+	public List<Map<String,Object>> countMemberLanguage(String member_id){
+		List<Map<String,Object>> list = null;
+		try (SqlSession sqlSesssion = getSqlSessionFactory().openSession();) {
+			System.out.println("countMLang DAO");
+			list = sqlSesssion.getMapper(PortfolioMapper.class).countMemberLanguage(member_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public int insertPortfolio(Portfolio portfolio) {
 		int re = -1;
 
@@ -76,10 +109,10 @@ public class PortfolioDAO {
 		return re;
 	}
 	
-	public String getPortfolio_id() {
+	public String getPortfolio_max_id() {
 		String re = "";
 		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
-			re = sqlSession.getMapper(PortfolioMapper.class).getPortfolio_id();
+			re = sqlSession.getMapper(PortfolioMapper.class).getPortfolio_max_id();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,17 +144,5 @@ public class PortfolioDAO {
 
 		System.out.println("가져온 언어" + re);
 		return re;
-
-//	Map<String, Object> pfLangMap= null;
-//	List<Map<String, Object>> pfLangList = new ArrayList<Map<String,Object>>();
-//	
-//	for(int i =0;i<pfLang.getPortfolio_language().length;i++) {
-//		pfLangMap = new HashMap<String,Object>();
-//		pfLangMap.put("portfolio_language", pfLang.getPortfolio_language()[i]);
-//		pfLangList.add(pfLangMap);
-//	}
-//	System.out.println(pfLangList.toString());
-//	return sqlSession.insert("insertPortfolioLanguange", pfLangMap);
-
 	}
 }
