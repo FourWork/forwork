@@ -122,6 +122,9 @@ public class BoardDao {
 		int re = -1;
 
 		List<Board> list = listBoardMenu(project_id);
+		
+		System.out.println("insertDefaultBoard : "+list.size());
+		
 		if (list.size() == 1) {
 
 			try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {

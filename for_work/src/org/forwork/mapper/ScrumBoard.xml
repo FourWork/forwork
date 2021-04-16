@@ -9,10 +9,10 @@
 	
 	<insert id="insertTask" parameterType="Task">
 		insert into task_ex(
-		TASK_CONTENT, task_type_id, task_id, task_index
+		TASK_CONTENT, task_type_id, task_id, task_index, writer
 		)
 		values(
-		#{task_content}, 1, task_ex_seq.nextval, #{task_index}
+		#{task_content}, 1, task_ex_seq.nextval, #{task_index},#{writer}
 		)
 	
 	</insert>
@@ -22,7 +22,7 @@
 	</select>
 	
 	<select id="listTask"  resultType="Task">
-		select task_id, task_content, responsibility, writer, task_type_id,task_index from task_ex order by task_index
+		select * from task_ex order by task_index
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
@@ -35,7 +35,7 @@
 	</update> 
 	
 	<select id="detailTask" resultType="Task" parameterType="int">
-		select task_id, task_content, responsibility, writer from task_ex where task_id = #{task_id}
+		select task_id, task_content, responsibility, writer, name from task_ex where task_id = #{task_id}
 	</select>
 	
 	<!-- project id 조건에 추가하기 -->
@@ -57,7 +57,7 @@
 	</update>
 	
 	<update id="addRes" parameterType="Task">
-		update task_ex set RESPONSIBILITY = #{RESPONSIBILITY}, name = #{name} where task_id = #{task_id}
+		update task_ex set RESPONSIBILITY = #{responsibility}, name = #{name} where task_id = #{task_id}
 	</update>
 	
 	

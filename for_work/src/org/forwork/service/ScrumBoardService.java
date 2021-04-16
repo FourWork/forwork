@@ -24,8 +24,12 @@ public class ScrumBoardService {
 	
 	public int insertTaskService(HttpServletRequest request)throws Exception{
 		request.setCharacterEncoding("utf-8");
-		
+		HttpSession session = request.getSession();
+		String writer = (String)session.getAttribute("name");
 		Task task = new Task();
+		if(writer != null){
+			task.setWriter(writer);
+		}
 		task.setTask_content(request.getParameter("task_content"));
 		task.setTask_index(dao.getStoriesIndex()+1);
 		

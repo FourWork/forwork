@@ -81,14 +81,14 @@ public class BroadSocket {
 		HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSessionConfigurator.Session);
 		user.userId = (String) httpSession.getAttribute("userId");
 		user.chatroomId = (String) httpSession.getAttribute("chatroomId");
-//		System.out.println("herere");
-//		System.out.println(user.userId);
-//		System.out.println(user.chatroomId);
+		System.out.println("herere");
+		System.out.println(user.userId);
+		System.out.println(user.chatroomId);
 		sessionUsers.add(user);
 		
-//		for(User u: sessionUsers) {
-//			System.out.println(u.userId);
-//		}
+		for(User u: sessionUsers) {
+			System.out.println(u.userId);
+		}
 	}
 	
 	// 소켓에 메세지가 들어왔을 때
@@ -118,8 +118,7 @@ public class BroadSocket {
 		List<String> sendingUserIds = new ArrayList<String>();
 		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
 			if (relation.getChatroom_id().equals(chatroomId)) {
-				sendingUserIds.add(relation.getUser_id());
-//				System.out.println(sendingUserIds);
+				sendingUserIds.add(relation.getMember_id());
 			}
 		}
 		
@@ -128,6 +127,7 @@ public class BroadSocket {
 			User sendTo = getUser(sendingUserId, chatroomId);
 			if (sendTo != null) {
 				// 자기랑 연결된 소켓에 보낼때는 그냥 send
+				System.out.println(ob.toJSONString());
 				sendTo.session.getBasicRemote().sendText(ob.toJSONString());
 			}
 		}
