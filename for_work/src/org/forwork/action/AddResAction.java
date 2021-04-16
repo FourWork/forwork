@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.forwork.service.ScrumBoardService;
 
-public class MoveTaskAction implements Action {
+public class AddResAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ActionForward af = new ActionForward();
 		ScrumBoardService service = ScrumBoardService.getInstance();
-		int res = service.moveTaskService(request);
+		int result = service.addResService(request);
 		PrintWriter out = response.getWriter();
-		if(res >= 0) {
+		if(result == 1){
 			out.print("success");
 		}else {
-			out.print("fail");
+			out.print("false");			
 		}
-		
-
 		return null;
 	}
 

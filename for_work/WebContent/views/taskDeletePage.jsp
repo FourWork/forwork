@@ -51,7 +51,7 @@ $(window).on('load', function(){
 							    <tr>
 							      	<td>${task.task_id }</td>
 					      			<td>${task.task_content }</td>
-					      			<td>${task.responsibility }</td>
+					      			<td>${task.name}</td>
 					      			<td>${task.writer }</td>
 							    </tr>
 							   </tbody>

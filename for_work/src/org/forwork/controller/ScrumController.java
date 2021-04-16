@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
+import org.forwork.action.AddResAction;
 import org.forwork.action.DeleteTaskAction;
 import org.forwork.action.DetailDeleteAction;
 import org.forwork.action.DetailUpdateAction;
@@ -100,6 +101,13 @@ public class ScrumController extends HttpServlet {
 		
 		else if(command.equals("updateTaskAction.do")) {
 			action = new UpdateTaskAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("addRes.do")) {
+			action = new AddResAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
