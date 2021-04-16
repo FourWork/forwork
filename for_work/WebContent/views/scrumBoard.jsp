@@ -115,6 +115,14 @@ session.setAttribute("name", "test");
 	margin: 0px;
 	height: 0px;
 }
+
+#colorbutton {
+	border : none;
+	border-radius: 50%;
+	width:20px;
+	height: 20px;
+}
+
 </style>
 <body>
 	<div class="container-fluid pt-3">
@@ -127,14 +135,24 @@ session.setAttribute("name", "test");
 				<!-- 프로젝랑 스프린트 정보 있는 div -->
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 프로젝트 정보만 -->
-					<div class="col-5">
-						<h3 class="font-weight-light text-black">Project Name</h3>
-						<!-- 프로젝트 제목 -->
-					</div>
-					<div class="col-7">
-						<!-- 프로젝트 기간 보여주는 div -->
-						<h5>2021/04/01 ~ 2021/06/18</h5>
-					</div>
+					
+					<table class="table" id="project_table">
+						<thead>
+								<tr>
+									<th scope="col">Project 이름</th>
+									<th scope="col">Project 시작일</th>
+									<th scope="col">Project 종료일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr >
+									<td>Team04 중간 프로젝트</td>
+									<td>2021-04-05</td>
+									<td>2021-04-16</td>
+								</tr>
+							</tbody>
+						</table>
+						
 				</div>
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트 정보만 -->					
@@ -153,7 +171,9 @@ session.setAttribute("name", "test");
 									<td>${sprint.sprint_title }</td>
 									<td>${sprint.sprint_start_date }</td>
 									<td>${sprint.sprint_end_date }</td>
-									<td style= "background-color: ${sprint.sprint_color };" class="sprint_color_cell"></td>
+									<td align=center>
+										<button style= "background-color: ${sprint.sprint_color };" id="colorbutton" disabled></button>
+									</td>
 								</tr>
 							</tbody>
 							</c:forEach>
@@ -177,15 +197,20 @@ session.setAttribute("name", "test");
 
 			<div class="col-4 border-1">
 				<!-- 프로젝트 진행률 부분 -->
-				<div class="row flex-row flex-sm-nowrap py-1">
-					<h3>프로젝트 성취율</h3>
-				</div>
-				<div class="row flex-row flex-sm-nowrap py-1">
-					<label>전체 진행률</label>
-				</div>
-				<div class="row flex-row flex-sm-nowrap py-1">
-					<label>전체 진행률</label>
-				</div>
+				<table class="table">
+						<thead>
+								<tr>
+									<th scope="col">Project 성취율</th>
+									<th scope="col">Sprint 성취율</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr >
+									<td>50%</td>
+									<td>20%</td>
+								</tr>
+							</tbody>
+						</table>
 			</div>
 		</div>
 

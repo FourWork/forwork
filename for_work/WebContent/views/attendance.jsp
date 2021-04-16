@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="header.jsp" %>
 <%
-	session.setAttribute("member_id", 2);
+	session.setAttribute("member_id", "2");
 %>
 
 <!DOCTYPE html>
@@ -62,6 +62,9 @@
 				int o_hour = Integer.parseInt(temp.getOff().substring(0, 2));
 				int o_min = Integer.parseInt(temp.getOff().substring(3, 5));
 				time = ((o_hour*60+o_min)-(c_hour*60+c_min))/60.0 - 1;
+				if(time < 0){
+					time = 0;
+				}
 			}
 	 	   	String week = temp.getWeek();
 	 	   	%>

@@ -119,12 +119,12 @@
 
    	<div class="text-box">
    		<input type="text" onkeyup="isEnterKey()" id="message" />
-   		<input type="button" onclick="sendMessage()" value="send" id="chat-send"/>
+   		<input type="button" onclick="sendMessage()" value="send" id="chat-send" />
      		<div class="clearfix"></div>
    	</div>
-	<input type="button" onclick="disconnect()" value="disconnect"/>
-	<input type="text" value="${userId }" id="user">
-	<input type="text" value="${name }" id="userName">
+	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
+	<input type="text" value="${userId }" id="user" style="display:none;">
+	<input type="text" value="${name }" id="userName" style="display:none;">
    		
   <script type="text/javascript">
   	let sender = document.getElementById("user").value;

@@ -38,10 +38,8 @@
 	<!-- 유저가 가진 채팅방 목록 -->
 	<select id="getChatroomByMemberId" parameterType="String" resultType="Chatroom">
 		select *
-			from chatroom
-			where chatroom_id in (select chatroom_id
-									from chatroom_member_relation
-									where user_id = #{member_id})
+			from chatroom_vw
+			where member_id = #{member_id}
 	</select>
 	
 	<!-- 로그인 유지하면 필요 없음 -->
@@ -50,6 +48,21 @@
 			from member
 			where member_id = #{member_id}
 	</select>
+	
+	
+	<select id="getLastMessagePerChatroomByMemberId" parameterType="String" resultType="Message">
+		select *
+			from (select chatroom_id, max(send_time) as max_send_time
+					from message
+					where chatroom_id in (select chatroom_id
+											from chatroom_vw
+											where member_id = #{member_id})
+					group by chatroom_id) c, message m
+			where c.chatroom_id = m.chatroom_id
+			and c.max_send_time = m.send_time
+	</select>
+	
+	
 
 </mapper>
 

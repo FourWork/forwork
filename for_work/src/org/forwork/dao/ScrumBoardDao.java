@@ -153,7 +153,9 @@ public class ScrumBoardDao {
 				session.close();
 			}
 		}
-		
+		if(result < 1) {
+			result = 0;
+		}
 		return result;
 	}
 	

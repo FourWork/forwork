@@ -24,7 +24,7 @@ public class AttendanceService {
 		int result = -1;
 		HttpSession session = request.getSession();
 		if (session.getAttribute("member_id") != null) {
-			int member_id = (int)session.getAttribute("member_id");
+			int member_id = Integer.parseInt((String)session.getAttribute("member_id"));
 			int check = dao.check(member_id+"");
 			if (check == 0) {
 
@@ -39,7 +39,7 @@ public class AttendanceService {
 		int result = -1;
 		HttpSession session = request.getSession();
 		if(session.getAttribute("member_id") != null) {
-			int member_id = (int)session.getAttribute("member_id");
+			int member_id = Integer.parseInt((String)session.getAttribute("member_id"));
 			Map<String, String> res =dao.getTime(member_id+"");
 			if(res.size()== 1 ||res.get("off").equals(""))
 				result = dao.off(member_id+"");
@@ -51,7 +51,7 @@ public class AttendanceService {
 		List<WeekAttendance> li = null;
 		HttpSession s = request.getSession();
 		if(s.getAttribute("member_id") != null) {
-			int member_id = (int)s.getAttribute("member_id");
+			int member_id = Integer.parseInt((String)s.getAttribute("member_id"));
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			map.put("id", member_id);
 			
@@ -73,7 +73,7 @@ public class AttendanceService {
 		Map<String, String> result = null;
 		HttpSession session = request.getSession();
 		if(session.getAttribute("member_id") != null) {
-			int member_id = (int)session.getAttribute("member_id");
+			int member_id = Integer.parseInt((String)session.getAttribute("member_id"));
 			result = dao.getTime(member_id+"");
 		}
 		return result;
