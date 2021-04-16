@@ -100,6 +100,14 @@
 	margin: 0px;
 	height: 0px;
 }
+
+#colorbutton {
+	border : none;
+	border-radius: 50%;
+	width:20px;
+	height: 20px;
+
+}
 </style>
 <body>
 	<div class="container-fluid pt-3">
@@ -138,7 +146,9 @@
 									<td>${sprint.sprint_title }</td>
 									<td>${sprint.sprint_start_date }</td>
 									<td>${sprint.sprint_end_date }</td>
-									<td style= "background-color: ${sprint.sprint_color };" class="sprint_color_cell"></td>
+									<td align=center>
+										<button style= "background-color: ${sprint.sprint_color };" id="colorbutton" disabled></button>
+									</td>
 								</tr>
 							</tbody>
 							</c:forEach>
