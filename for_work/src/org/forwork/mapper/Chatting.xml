@@ -61,6 +61,8 @@
 			where c.chatroom_id = m.chatroom_id
 			and c.max_send_time = m.send_time
 	</select>
+	
+	
 
 </mapper>
 

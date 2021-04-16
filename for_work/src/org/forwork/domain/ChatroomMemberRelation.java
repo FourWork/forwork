@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class ChatroomMemberRelation implements Serializable {
 	private String chatroom_id;
-	private String user_id;
+	private String member_id;
 	
 	public ChatroomMemberRelation() {}
 
-	public ChatroomMemberRelation(String chatroom_id, String user_id) {
+	public ChatroomMemberRelation(String chatroom_id, String member_id) {
 		super();
 		this.chatroom_id = chatroom_id;
-		this.user_id = user_id;
+		this.member_id = member_id;
 	}
 
 	public String getChatroom_id() {
@@ -22,12 +22,12 @@ public class ChatroomMemberRelation implements Serializable {
 		this.chatroom_id = chatroom_id;
 	}
 
-	public String getUser_id() {
-		return user_id;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 	
 }
