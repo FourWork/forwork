@@ -19,7 +19,7 @@
 	
 	<!-- 게시판 메뉴 -->
 	<select id="listBoardMenu" parameterType="int" resultType="Board">
-		select * from board <where>project_id = #{project_id}</where>
+		select * from board <where>project_id = #{project_id}</where> order by board_id
 	</select>
 	
 	<!-- 공지 사항, 기본 게시판 생성 -->
@@ -46,11 +46,11 @@
 	<!-- 공지 사항 미리 보기 -->
 	<select id="listNotice" parameterType="int" resultType="Post">
  		<![CDATA[
- 		select ROWNUM, b.board_id, p.post_title, p.post_content, p.post_date, p.hitcount 
+ 		select ROWNUM, b.board_id, p.post_id, p.post_title, p.post_content, p.post_date, p.hitcount 
  			from board b, post p where b.board_id = p.board_id 
  			AND board_name = '공지 사항' 
  			AND project_id = #{project_id} 
- 			AND ROWNUM <= 4 
+ 			AND ROWNUM <= 3 
  			order by p.post_id DESC
  		 ]]>
 	</select>
@@ -58,7 +58,7 @@
 	<!-- 최신 글 목록 -->
 	<select id="listBoard" parameterType="int" resultType="Post">
 		<![CDATA[
-		select ROWNUM, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
+		select ROWNUM, b.board_id, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
 			from post p, board b where p.board_id = b.board_id and b.project_id = #{project_id}
 			and ROWNUM <= 15 order by p.post_id desc
 		]]>
@@ -90,6 +90,11 @@
 		delete from board where board_id = #{board_id}
 	</delete>
 	
+	<!-- 조회수 -->
+	<update id="updateHitcount" parameterType="int">
+		update post set hitcount = hitcount + 1 where post_id = #{post_id}
+	</update>
+	
 <!-- 	<select id="countPost" parameterType="Search" resultType="int">
 		select count(*) from (select * from board where project_id = #{project_id})
 		<if test="area != null">
@@ -101,5 +106,4 @@
 			</where>
 		</if>
 	</select> -->
-	
 </mapper>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.forwork.domain.Post;
 import org.forwork.service.BoardService;
 
+
 public class UpdatePostAction implements Action {
 
 	@Override
@@ -15,6 +16,7 @@ public class UpdatePostAction implements Action {
 		ActionForward forward = new ActionForward();
 		BoardService service = BoardService.getInstance();
 
+		int project_id = Integer.parseInt(request.getParameter("project_id"));
 		int post_id = Integer.parseInt(request.getParameter("post_id"));
 		int board_id = Integer.parseInt(request.getParameter("board_id"));
 		
@@ -27,7 +29,7 @@ public class UpdatePostAction implements Action {
 		service.updatePostService(post);
 		
 		forward.setRedirect(true);
-		forward.setPath("detailAction.do?post_id=" + post_id + "&board_id=" + board_id);
+		forward.setPath("detailAction.do?post_id=" + post_id + "&board_id=" + board_id + "&project_id=" + project_id);
 		
 		return forward;
 	}

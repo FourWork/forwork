@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -65,11 +65,12 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-                  <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.</h6>
+                  <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
+                <c:forEach var="chatroom" items="${chatrooms}">
                 <div class="list-group list-group-flush">
-                  <a href="#!" class="list-group-item list-group-item-action">
+                  <a href="ChatroomDetail.do?chatroomId=${chatroom.chatroom_id}" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
@@ -78,7 +79,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">${chatroom.chatroom_name }</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>2 hrs ago</small>
@@ -88,10 +89,10 @@
                       </div>
                     </div>
                   </a>
-                  <a href="#!" class="list-group-item list-group-item-action">
+                  <!-- <a href="#!" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">
-                        <!-- Avatar -->
+                        Avatar
                         <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
@@ -110,7 +111,7 @@
                   <a href="#!" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">
-                        <!-- Avatar -->
+                        Avatar
                         <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
@@ -129,7 +130,7 @@
                   <a href="#!" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">
-                        <!-- Avatar -->
+                        Avatar
                         <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
@@ -148,7 +149,7 @@
                   <a href="#!" class="list-group-item list-group-item-action">
                     <div class="row align-items-center">
                       <div class="col-auto">
-                        <!-- Avatar -->
+                        Avatar
                         <img alt="Image placeholder" src="../assets/img/theme/team-5.jpg" class="avatar rounded-circle">
                       </div>
                       <div class="col ml--2">
@@ -163,8 +164,9 @@
                         <p class="text-sm mb-0">A new issue has been reported for Argon.</p>
                       </div>
                     </div>
-                  </a>
+                  </a> -->
                 </div>
+                </c:forEach>
                 <!-- View all -->
                 <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
               </div>

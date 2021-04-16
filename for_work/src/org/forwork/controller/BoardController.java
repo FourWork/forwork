@@ -12,15 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
 import org.forwork.action.BoardMainAction;
+import org.forwork.action.BoardManagerAction;
+import org.forwork.action.DeleteBoardAction;
 import org.forwork.action.DeletePostAction;
 import org.forwork.action.DetailPostAction;
 import org.forwork.action.InsertBoardAction;
-import org.forwork.action.InsertBoardFormAction;
 import org.forwork.action.InsertPostAction;
 import org.forwork.action.InsertPostFormAction;
 import org.forwork.action.ListAction;
+import org.forwork.action.ListNoticeAction;
+import org.forwork.action.UpdateBoardAction;
+import org.forwork.action.UpdateBoardFormAction;
 import org.forwork.action.UpdatePostAction;
 import org.forwork.action.UpdatePostFormAction;
+
 
 @WebServlet("/board/*")
 public class BoardController extends HttpServlet {
@@ -41,8 +46,8 @@ public class BoardController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if (command.equals("insertBoard.do")) {
-			action = new InsertBoardFormAction();
+		if (command.equals("boardManagerAction.do")) {
+			action = new BoardManagerAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -106,6 +111,34 @@ public class BoardController extends HttpServlet {
 			}
 		} else if (command.equals("deletePostAction.do")) {
 			action = new DeletePostAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("listNoticeAction.do")) {
+			action = new ListNoticeAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("updateBoardFormAction.do")) {
+			action = new UpdateBoardFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("updateBoardAction.do")) {
+			action = new UpdateBoardAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("deleteBoardAction.do")) {
+			action = new DeleteBoardAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

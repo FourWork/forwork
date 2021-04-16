@@ -50,6 +50,7 @@
  	         ['일요일', 0]
  	   	]);
  	   	var obj = {};
+ 	   	
  	   	<%List<WeekAttendance> li = (List<WeekAttendance>)request.getAttribute("week");
  	   	if(li != null){
  	   	for(int i = 0; i < li.size();i++){
@@ -84,15 +85,38 @@
 					.getElementById('chart_div'));
 			chart.draw(data, options);
 		}
+ 	$(function(){ // 주간 수정
+ 		var ago = "<%=request.getParameter("ago")%>";
+ 		if(ago == 'null'){
+ 			ago = 0;
+ 		}
+		// getDay시 0 : 일 1 : 월 ~ 6 : 토
+ 		var now = new Date();
+ 		var mon = new Date();
+ 		var sun = new Date();
+ 		var day = parseInt(now.getDay());
+ 		
+ 		// mon를 월요일로 변경
+ 		if(day > 0){
+ 			mon.setDate(now.getDate()-(day-1)-(7*ago));
+ 		}else{
+ 			mon.setDate(now.getDate()-6-(7*ago));
+ 		}
+ 		sun.setTime(mon.getTime()+ 518400000);
+ 		
+		var sMonth = mon.getMonth()+1;
+		var sDay = mon.getDate();
+		 sDay  = sDay  >= 10 ? sDay : "0" + sDay;
+		var eMonth = sun.getMonth()+1;
+		var eDay = sun.getDate();
+		 eDay  = eDay  >= 10 ? eDay : "0" + eDay;
+		 
+		var str = sMonth+'.'+sDay+' ~ '+eMonth+'.'+eDay;
+		
+ 		$("#weekdays").html(str);
+ 	});
  	
  	$(function(){
- 		var date = new Date();
- 		console.log(date);
- 		console.log(date.getDay());
- 		console.log(date.toLocaleString());
- 		console.log(date.getMonth());
- 		var month = date.getMonth()+1;
-
  		var ago = "<%=request.getParameter("ago")%>";
 		if(ago == 'null'){
 			ago = 0;
@@ -162,7 +186,7 @@
 	 <div id="chart_div" style="width: 900px; height: 500px;"></div>
 	<div id = "changeWeek"><a href="" id = "previous"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-</svg></a>04.12~04.18<a href="" id = "next"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+</svg></a><span id = "weekdays"></span><a href="" id = "next"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
 </svg></a></div>
 
