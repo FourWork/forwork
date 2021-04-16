@@ -14,6 +14,8 @@ import org.forwork.action.ActionForward;
 import org.forwork.action.InsertPortfolioAction;
 import org.forwork.action.InsertPortfolioFormAction;
 import org.forwork.action.ListPortfolioAction;
+import org.forwork.action.SelectPortfolioAction;
+import org.forwork.action.UpdatePortfolioAction;
 
 /**
  * Servlet implementation class PortfolioController
@@ -41,7 +43,7 @@ public class PortfolioController extends HttpServlet {
 
 		if(command.contentEquals("listPortfolioAction.do")) {
 		
-			System.out.println("리스트 포트폴리오 액션!");
+			System.out.println("컨트롤러_리스트 포트폴리오 액션!");
 			
 			action = new ListPortfolioAction();
 			try {
@@ -50,19 +52,34 @@ public class PortfolioController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.contentEquals("insertPortfolioAction.do")){
-		action = new InsertPortfolioAction();
-		try {
-			forward = action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			action = new InsertPortfolioAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.contentEquals("insertPortfolioFormAction.do")){
-		action = new InsertPortfolioFormAction();
-		try {
-			forward = action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			action = new InsertPortfolioFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.contentEquals("updatePortfolioAction.do")){
+			System.out.println("updatePortfolioAction");
+			action = new UpdatePortfolioAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.contentEquals("selectPortfolioAction.do")){
+			action = new SelectPortfolioAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if(forward != null) {
