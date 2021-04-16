@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.forwork.dao.MemberDAO;
 import org.forwork.dao.ScrumBoardDao;
 import org.forwork.domain.Member;
+import org.forwork.domain.Sprint;
 import org.forwork.domain.Task;
+
 
 
 public class ScrumBoardService {
@@ -109,5 +111,27 @@ public class ScrumBoardService {
 		}
 		return result;
 	}
+	
+	
+	// Sprint CRUD
+	
+		public int insertSprintService(HttpServletRequest request)throws Exception{
+			request.setCharacterEncoding("utf-8");
+			
+			Sprint sprint = new Sprint();
+			
+			sprint.setSprint_title(request.getParameter("sprint_title"));
+			sprint.setSprint_color(request.getParameter("sprint_color"));
+			sprint.setSprint_start_date(request.getParameter("sprint_start_date"));
+			sprint.setSprint_end_date(request.getParameter("sprint_end_date"));
+
+			return dao.insertSprint(sprint);
+		}
+		
+		public List<Sprint> listSprintService()throws Exception{
+			List<Sprint> list = dao.listSprint();
+			
+			return list;
+		}
 
 }

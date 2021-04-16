@@ -122,21 +122,27 @@
 					</div>
 				</div>
 				<div class="row flex-row flex-sm-nowrap py-1">
-					<!-- 스프린트 정보만 -->
-					<div class="col-1">
-						<h6>1차</h6>
-					</div>
-					<div class="col-4">
-						<h4 class="font-weight-light text-black">Team4 Sprint01</h4>
-						<!-- 프로젝트 제목 -->
-					</div>
-					<div class="col-4">
-						<!-- 프로젝트 기간 보여주는 div -->
-						<h6 class=>2021/04/01 ~ 2021/04/15</h6>
-					</div>
-					<div class="col-1">
-						<h6>색</h6>
-					</div>
+					<!-- 스프린트 정보만 -->					
+					<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Sprint 이름</th>
+									<th scope="col">Sprint 시작일</th>
+									<th scope="col">Sprint 종료일</th>
+									<th scope="col">Sprint 색</th>
+								</tr>
+							</thead>
+							<c:forEach  var="sprint" items="${sprintList }">
+							<tbody>
+								<tr>
+									<td>${sprint.sprint_title }</td>
+									<td>${sprint.sprint_start_date }</td>
+									<td>${sprint.sprint_end_date }</td>
+									<td style= "background-color: ${sprint.sprint_color };" class="sprint_color_cell"></td>
+								</tr>
+							</tbody>
+							</c:forEach>
+						</table>
 				</div>
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트&Task 카드 추가 버튼 div -->
