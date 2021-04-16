@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@page import="org.forwork.domain.Portfolio"%>
 <%@page import="org.forwork.domain.Member"%>
 <%@page import="org.forwork.dao.PortfolioDAO"%>
@@ -52,8 +54,32 @@ session.setAttribute("member_id", 1);
 	
 	<!-- JSON 값 받아와서 차트그리기 -->
 
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+		    google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+			
+			function drawChart() { 
+				var data = google.visualization.arrayToDataTable([
+					['Programming Language','Count'],
+				<% 
+				List<Map<String,String>> li = (List<Map<String,String>>)request.getAttribute("statLangList");
+					for(int i = 0; i < li.size()-1;i++){
+						System.out.println(li.get(i).get("language"));
+						System.out.println(li.get(i).get("langCount"));
+						%>['<%=li.get(i).get("language")%>',
+						<%=li.get(i).get("langCount")%>],
+					<%}%>
+				]);
+				var options = {'title': 'Portfolio_language'}; 
+				
+			
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		        chart.draw(data, options);
+			} 
+	</script> 
 
-<title>Insert title here</title>
+<title>My Profile main</title>
 </head>
 <body>
     <div class="header_myProfile">
@@ -70,9 +96,9 @@ session.setAttribute("member_id", 1);
     
     <div class="content_container">
     	<div class="row">
- <div class="column_left">
+ <div class="column_left" style="width:40%">
 	<c:forEach var="portfolio" items="${list }">
-			<div class="alert alert-primary" role="alert">
+			<div class="alert alert-primary" role="alert" style="width:100%">
   				<h4 class="alert-heading">${portfolio.portfolio_title }</h4>
   				<p><table align="center">
 					<tr align="left">
@@ -88,6 +114,7 @@ session.setAttribute("member_id", 1);
 					</table>
 				</p>
   				<hr>
+  				
   				<p class="mb-0">
   					<c:forEach var="portfolio_language"	items="${langList }">
 						<c:if test="${portfolio.portfolio_id == portfolio_language.portfolio_id}">
@@ -141,31 +168,7 @@ session.setAttribute("member_id", 1);
 
 							<div class="card-body">
 							<!-- 차트 들어갈 곳.. -->
-								<div class="chart-pie pt-4 pb-2">
-									<div class="chartjs-size-monitor">
-										<div class="chartjs-size-monitor-expand">
-											<div class=""></div>
-										</div>
-										<div class="chartjs-size-monitor-shrink">
-											<div class=""></div>
-										</div>
-									</div>
-									<canvas id="myPieChart" width="314" height="245"
-										class="chartjs-render-monitor"
-										style="display: block; width: 314px; height: 245px;"></canvas>
-								</div>
-								<div class="mt-4 text-center small">
-									<span class="mr-2"> 
-									<i class="fas fa-circle text-primary"></i> Direct
-									</span> 
-									<span class="mr-2"> 
-									<i class="fas fa-circle text-success"></i> Social
-									</span> 
-									<span class="mr-2"> 
-									<i class="fas fa-circle text-info"></i>
-										Referral
-									</span>
-								</div>
+							      <div id="piechart" style="width: 500px; height: 400px;"></div>
 							</div>
 						</div>
 					</div>
