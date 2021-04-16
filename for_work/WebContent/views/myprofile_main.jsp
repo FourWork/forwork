@@ -1,3 +1,6 @@
+<%@page import="org.forwork.domain.Portfolio"%>
+<%@page import="org.forwork.domain.Member"%>
+<%@page import="org.forwork.dao.PortfolioDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
@@ -14,7 +17,7 @@ session.setAttribute("member_id", 1);
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+  <title>MyProfile-Main</title>
   
 	<!-- Favicon -->
 	<link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
@@ -26,31 +29,40 @@ session.setAttribute("member_id", 1);
 	<link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
 	<link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   
-	<!-- Page plugins -->
 	<!-- Argon CSS -->
 	<link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
-  
-    <!-- Required meta tags -->
+
+ 	<!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 	<!-- CSS -->
 	<link href="CSS/myprofile.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/CSS/myprofile.css">
 	
+	<!-- JSON 값 받아와서 차트그리기 -->
+
+
 <title>Insert title here</title>
 </head>
 <body>
-     <div class="header_myProfile">
-      <!-- Header container -->
+    <div class="header_myProfile">
       <div class="container_myProfile">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello Member</h1>
+            <h1 class="display-2 text-white">Hello ${member.name }</h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-         <button type="button" class="btn btn-primary">Add Portfolio</button>
+         	<a href="insertPortfolioFormAction.do"><button type="button" class="btn btn-primary">Add Portfolio</button></a>
           </div>
         </div>
       </div>
@@ -58,41 +70,34 @@ session.setAttribute("member_id", 1);
     
     <div class="content_container">
     	<div class="row">
- 
-	<div id="accordion">
-    	<c:forEach var="Portfolio" items="${list }">
-    	  <div class="card">
-
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          	${portfolio.portfolio_title }
-        </button>
-      </h5>
-    </div>
-
-<div id="collapseOne" class="collapse  show" aria-labelledby="headingOne" data-parent="#accordion" style="margin-top: -70px;">
-      <div class="card-body">
-		<table border ="1" bordercolor="blue" width="100%" align="center">
-			<tr align="left">
-				<td>${portfolio.portfolio_start_date}</td>
-				<td>~</td>
-				<td>${portfolio.portfolio_end_date}</td>
-			</tr>
-			<tr>
-				<p><td colspan="3">${portfolio.portfolio_detail}</td><p>
-			</tr>
-			<tr>
-				<p><td colspan="3">사용언어</td><p>
-			</tr>
-		</table>
-      </div>
-    </div>
-
-  </div>
-  </c:forEach>
-  
-</div>
+ <div class="column_left">
+	<c:forEach var="portfolio" items="${list }">
+			<div class="alert alert-primary" role="alert">
+  				<h4 class="alert-heading">${portfolio.portfolio_title }</h4>
+  				<p><table align="center">
+					<tr align="left">
+						<td>${portfolio.portfolio_start_date }</td>
+						<td>~</td>
+						<td>${portfolio.portfolio_end_date }</td>
+					</tr>
+					<tr>
+						<p>
+						<td colspan="3">${portfolio.portfolio_detail }</td>
+						<p>
+					</tr>
+					</table>
+				</p>
+  				<hr>
+  				<p class="mb-0">
+  					<c:forEach var="portfolio_language"	items="${langList }">
+						<c:if test="${portfolio.portfolio_id == portfolio_language.portfolio_id}">
+					${portfolio_language.portfolio_language}
+						</c:if>
+					</c:forEach></p>
+			</div>
+			
+		</c:forEach>
+ </div>
     	
     	<!-- 프로필 카드 영역 -->
 			<div class="column_right">
@@ -101,7 +106,7 @@ session.setAttribute("member_id", 1);
 					<div class="row justify-content-center">
 						<div class="col-lg-3 order-lg-2">
 							<div class="card-profile-image">
-								<a href="#"> <img src="https://ifh.cc/g/y53wll.jpg class="rounded-circle">
+								<a href="#"> <img src="https://ifh.cc/g/BGjWHX.png" class="rounded-circle">
 								</a>
 							</div>
 						</div>
@@ -110,7 +115,7 @@ session.setAttribute("member_id", 1);
 						<div class="row">
 							<div class="col">
 								<div class="card-profile-stats d-flex justify-content-center">
-									<div>
+									<!-- <div>
 										<span class="heading">22</span> <span class="description">Project</span>
 									</div>
 									<div>
@@ -118,20 +123,16 @@ session.setAttribute("member_id", 1);
 									</div>
 									<div>
 										<span class="heading">89</span> <span class="description">Comments</span>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
-						<div class="text-center">
+						<div class="text-center" style="padding-top:100px;">
 							<h5 class="h3">
-								Jessica Jones<span class="font-weight-light">, 27</span>
+								${member.name }<span class="font-weight-light">, 27</span>
 							</h5>
-							<div class="h5 font-weight-300">
-								<i class="ni location_pin mr-2"></i>Bucharest, Romania
-							</div>
 							<div class="h5 mt-4">
-								<i class="ni business_briefcase-24 mr-2"></i>Solution Manager -
-								Creative Tim Officer
+								<i class="ni business_briefcase-24 mr-2"></i>${member.email }
 							</div>
 							<div>
 								<i class="ni education_hat mr-2"></i>University of Computer
@@ -139,6 +140,7 @@ session.setAttribute("member_id", 1);
 							</div>
 
 							<div class="card-body">
+							<!-- 차트 들어갈 곳.. -->
 								<div class="chart-pie pt-4 pb-2">
 									<div class="chartjs-size-monitor">
 										<div class="chartjs-size-monitor-expand">

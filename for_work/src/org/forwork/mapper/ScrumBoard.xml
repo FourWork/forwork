@@ -4,28 +4,78 @@
 
 
 
-<mapper namespace="scrum.mapper.ScrumBoardMapper">
+<mapper namespace="org.forwork.mapper.ScrumBoardMapper">
 	<cache />
 	
 	<insert id="insertTask" parameterType="Task">
 		insert into task_ex(
-		TASK_CONTENT, task_type_id, task_id
+		TASK_CONTENT, task_type_id, task_id, task_index, writer
 		)
 		values(
-		#{task_content}, 1, task_ex_seq.nextval
+		#{task_content}, 1, task_ex_seq.nextval, #{task_index},#{writer}
 		)
 	
 	</insert>
 	
+	<select id="getStoriesIndex" resultType="int">
+		select max(task_index) from task_ex where task_type_id = 1
+	</select>
+	
 	<select id="listTask"  resultType="Task">
-		select task_content, responsibility, writer, task_type_id from task_ex
+		select * from task_ex order by task_index
 	</select>
 	
 	<delete id="deleteTask" parameterType="int">
-		delete from board where seq = #{seq}	
+		delete from task_ex where task_id = #{task_id}	
 	</delete>
 	
+	<update id="updateTask" parameterType="Task">
+		update task_ex set task_content=#{task_content}, responsibility=#{responsibility}
+		where task_id = #{task_id}
+	</update> 
 	
+	<select id="detailTask" resultType="Task" parameterType="int">
+		select task_id, task_content, responsibility, writer, name from task_ex where task_id = #{task_id}
+	</select>
+	
+	<!-- project id 조건에 추가하기 -->
+	<select id="getTask" parameterType="String" resultType="Task">
+		select * from task_ex where task_id = #{task_id}
+	</select>
+	
+	
+	<update id="moveTask" parameterType="Task">
+		update task_ex set task_type_id = #{task_type_id},task_index = #{task_index} where task_id = #{task_id}
+	</update>
+	 
+	<update id="increaseIndex" parameterType="Task">
+		update task_ex set task_index = task_index+1 where task_id != #{task_id} and task_type_id = #{task_type_id} and task_index >= #{task_index}
+	</update>
+	
+	<update id="decreaseIndex" parameterType="Task">
+		update task_ex set task_index = task_index-1 where task_type_id = #{task_type_id} and task_index > #{task_index}	
+	</update>
+	
+	<update id="addRes" parameterType="Task">
+		update task_ex set RESPONSIBILITY = #{responsibility}, name = #{name} where task_id = #{task_id}
+	</update>
+	
+	
+		<!-- Sprint CRUD SQL문 -->
+	
+		<insert id="insertSprint" parameterType="Sprint">
+		insert into sprint_ex(
+		sprint_id, sprint_title, sprint_color, sprint_start_date, sprint_end_date
+		)
+		values(
+		sprint_ex_seq.nextval, #{sprint_title}, #{sprint_color}, #{sprint_start_date}, #{sprint_end_date}
+		)
+	
+		</insert>
+	
+		<select id="listSprint"  resultType="Sprint">
+		select * from sprint_ex
+		</select>
 	
 </mapper>
 

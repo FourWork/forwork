@@ -10,7 +10,7 @@
 <body>
 	<!-- header -->
 	<div id="header">
-		<img src="/Img/logo.png" id="logo">
+		<img src="/Img/forworklogo.JPG" id="logo">
 	</div>
 
 	<!-- wrapper -->
@@ -33,7 +33,7 @@
 					<h3 class="join_title">
 						<label for="pswd1">비밀번호</label>
 					</h3>
-					<span class="box int_pass"> <input type="password" id="pswd1"
+					<span class="box int_pass"> <input type="text" id="pswd1"
 						class="int" maxlength="20"> <span id="alertTxt">사용불가</span>
 						<img src="/Img/pw.jpg" id="pswd1_img1" class="pswdImg">
 					</span> <span class="error_next_box"></span>

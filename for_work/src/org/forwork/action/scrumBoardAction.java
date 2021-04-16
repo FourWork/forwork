@@ -5,8 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.forwork.domain.Sprint;
 import org.forwork.domain.Task;
 import org.forwork.service.ScrumBoardService;
+
 
 
 public class scrumBoardAction implements Action {
@@ -19,6 +21,9 @@ public class scrumBoardAction implements Action {
 		
 		List<Task> list = service.listScrumBoardService();
 		request.setAttribute("list", list);
+		
+		List<Sprint> sprintList = service.listSprintService();
+		request.setAttribute("sprintList", sprintList);
 		
 		
 		

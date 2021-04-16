@@ -53,6 +53,22 @@ public class MemberDAO {
 		return re;
 	}
 	
+	public Member getMember(String member_id) {
+		Member m = null;
+		SqlSession session = getSqlSessionFactory().openSession();
+		try {
+			m = session.getMapper(MemberMapper.class).getMember(member_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(session != null) {
+				session.close();
+			}
+		}
+		
+		return m;
+	}
+	
 	/*
 	 * public int readMember(Member member) {
 	 * 
