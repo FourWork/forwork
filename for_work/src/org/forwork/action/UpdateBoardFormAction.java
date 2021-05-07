@@ -1,5 +1,7 @@
 package org.forwork.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,11 +16,15 @@ public class UpdateBoardFormAction implements Action {
 		ActionForward forward = new ActionForward();
 		BoardService service = BoardService.getInstance();
 		
+		int project_id = Integer.parseInt(request.getParameter("project_id"));
 		int board_id = Integer.parseInt(request.getParameter("board_id"));
 		
 		Board board = service.boardNameService(board_id);
+		List<Board> boardMenu = service.listBoardMenuService(project_id);
 		
 		request.setAttribute("board", board);
+		request.setAttribute("boardMenu", boardMenu);
+		request.setAttribute("project_id", project_id);
 		
 		forward.setRedirect(false);
 		forward.setPath("/views/updateBoard.jsp");

@@ -4,7 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="header.jsp"%>
-
+<%
+session.setAttribute("member_id", "1");
+session.setAttribute("name", "test");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +56,7 @@
 									"col_name" : col_name
 								},
 								success : function(data) {
-									if (data.result > 0) {
+									if (data == 'success') {
 										console.log("성공");
 									}
 								},
@@ -65,10 +68,22 @@
 					}
 				});
 		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
-	$('.addRes').click(function(){
-			var task_id = $(this).closest('.card').find('.task_id').html();
-			
-	});
+		
+		$('.addRes').click(function(){
+			var task_id = $(this).closest('.card').find('.task_id').html();		
+			var now = $(this).closest('.card').find('#resp').find('b');
+		$.ajax({
+				type : "POST",
+				url : "addRes.do",
+				data : {
+					"task_id" : task_id
+				},
+				success : function(data){
+					$(now).html('<%=session.getAttribute("name")%>');
+				}
+			}); 
+		});
+
 	});
 </script>
 </head>
@@ -100,6 +115,14 @@
 	margin: 0px;
 	height: 0px;
 }
+
+#colorbutton {
+	border : none;
+	border-radius: 50%;
+	width:20px;
+	height: 20px;
+}
+
 </style>
 <body>
 	<div class="container-fluid pt-3">
@@ -112,31 +135,49 @@
 				<!-- 프로젝랑 스프린트 정보 있는 div -->
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 프로젝트 정보만 -->
-					<div class="col-5">
-						<h3 class="font-weight-light text-black">Project Name</h3>
-						<!-- 프로젝트 제목 -->
-					</div>
-					<div class="col-7">
-						<!-- 프로젝트 기간 보여주는 div -->
-						<h5>2021/04/01 ~ 2021/06/18</h5>
-					</div>
+					
+					<table class="table" id="project_table">
+						<thead>
+								<tr>
+									<th scope="col">Project 이름</th>
+									<th scope="col">Project 시작일</th>
+									<th scope="col">Project 종료일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr >
+									<td>Team04 중간 프로젝트</td>
+									<td>2021-04-05</td>
+									<td>2021-04-16</td>
+								</tr>
+							</tbody>
+						</table>
+						
 				</div>
 				<div class="row flex-row flex-sm-nowrap py-1">
-					<!-- 스프린트 정보만 -->
-					<div class="col-1">
-						<h6>1차</h6>
-					</div>
-					<div class="col-4">
-						<h4 class="font-weight-light text-black">Team4 Sprint01</h4>
-						<!-- 프로젝트 제목 -->
-					</div>
-					<div class="col-4">
-						<!-- 프로젝트 기간 보여주는 div -->
-						<h6 class=>2021/04/01 ~ 2021/04/15</h6>
-					</div>
-					<div class="col-1">
-						<h6>색</h6>
-					</div>
+					<!-- 스프린트 정보만 -->					
+					<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Sprint 이름</th>
+									<th scope="col">Sprint 시작일</th>
+									<th scope="col">Sprint 종료일</th>
+									<th scope="col">Sprint 색</th>
+								</tr>
+							</thead>
+							<c:forEach  var="sprint" items="${sprintList }">
+							<tbody>
+								<tr>
+									<td>${sprint.sprint_title }</td>
+									<td>${sprint.sprint_start_date }</td>
+									<td>${sprint.sprint_end_date }</td>
+									<td align=center>
+										<button style= "background-color: ${sprint.sprint_color };" id="colorbutton" disabled></button>
+									</td>
+								</tr>
+							</tbody>
+							</c:forEach>
+						</table>
 				</div>
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트&Task 카드 추가 버튼 div -->
@@ -156,15 +197,20 @@
 
 			<div class="col-4 border-1">
 				<!-- 프로젝트 진행률 부분 -->
-				<div class="row flex-row flex-sm-nowrap py-1">
-					<h3>프로젝트 성취율</h3>
-				</div>
-				<div class="row flex-row flex-sm-nowrap py-1">
-					<label>전체 진행률</label>
-				</div>
-				<div class="row flex-row flex-sm-nowrap py-1">
-					<label>전체 진행률</label>
-				</div>
+				<table class="table">
+						<thead>
+								<tr>
+									<th scope="col">Project 성취율</th>
+									<th scope="col">Sprint 성취율</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr >
+									<td>50%</td>
+									<td>20%</td>
+								</tr>
+							</tbody>
+						</table>
 			</div>
 		</div>
 
@@ -204,7 +250,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-										담당 : <b>${task.responsibility}</b>
+										담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">
@@ -253,7 +299,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-										담당 : <b>${task.responsibility}</b>
+										담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">
@@ -301,7 +347,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-										담당 : <b>${task.responsibility}</b>
+										담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">
@@ -349,7 +395,7 @@
 
 									</p>
 									<h6 class="font-weight-light text-black" id="resp">
-									담당 : <b>${task.responsibility}</b>
+									담당 : <b>${task.name}</b>
 									</h6>
 									<!-- 담당자 -->
 									<h6 class="font-weight-light text-black" id="taskWriter">

@@ -19,8 +19,8 @@ public class ListAction implements Action {
 		int project_id = Integer.parseInt(request.getParameter("project_id"));	
 		
 		// 새 프로젝트에 자동으로 공지 사항, 기본 게시판 생성
-		service.insertinsertNoticeBoard(project_id);
-		service.insertDefaultBoard(project_id);
+//		service.insertinsertNoticeBoard(project_id);
+//		service.insertDefaultBoard(project_id);
 		
 		int board_id;
 		

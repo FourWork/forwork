@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.forwork.action.Action;
 import org.forwork.action.ActionForward;
+import org.forwork.action.AddResAction;
 import org.forwork.action.DeleteTaskAction;
 import org.forwork.action.DetailDeleteAction;
 import org.forwork.action.DetailUpdateAction;
+import org.forwork.action.InsertSprintAction;
 import org.forwork.action.InsertTaskAction;
 import org.forwork.action.UpdateTaskAction;
 import org.forwork.action.MoveTaskAction;
 import org.forwork.action.scrumBoardAction;
+
 
 
 @WebServlet("/task/*")
@@ -103,6 +106,26 @@ public class ScrumController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("addRes.do")) {
+			action = new AddResAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// Sprint CRUD
+		
+		else if(command.equals("insertSprintAction.do")) {
+			// DB에 데이터 저장
+			// 페이지"insertTaskAction.do"로 이동
+			action = new InsertSprintAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 		}
 		
 		
