@@ -18,11 +18,11 @@
 			values(#{board_id}, #{project_id}, #{board_name})	
 	</insert>
 	
-	<select id="getBoard" resultType="org.test.domain.Board">
+	<select id="getBoard" resultType="org.forwork.domain.Board">
 		select * from board where board_id = #{board_id}
 	</select>
 	
-	<select id="listBoardMenu" resultType="org.test.domain.Board">
+	<select id="listBoardMenu" resultType="org.forwork.domain.Board">
 		select * from board where project_id = #{project_id}
 	</select>
 	
