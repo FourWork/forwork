@@ -7,7 +7,11 @@
          pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
 <%
-session.setAttribute("member_id", 1);
+String member_id = request.getParameter("member_id");
+
+session.setAttribute("member_id", member_id);
+
+
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
@@ -76,9 +80,27 @@ session.setAttribute("member_id", 1);
 			
 				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 		        chart.draw(data, options);
-			} 
+			}
+			
+			$(document).ready(function(){
+				$(".alert-heading").click(function(){
+					var submenu = $(".alert-heading-content");
+					if( submenu.is(":visible")){
+					submenu.slideUp();
+					}else{
+					submenu.slideDown();
+					}
+				});
+			});
 	</script> 
-
+	<style>
+		.alert-heading{
+		 cursor:pointer;
+		}
+		.alert-heading-content {
+		 display:none;
+		}
+	</style>
 <title>My Profile main</title>
 </head>
 <body>
@@ -100,15 +122,21 @@ session.setAttribute("member_id", 1);
 	<c:forEach var="portfolio" items="${list }">
 			<div class="alert alert-primary" role="alert" style="width:100%">
   				<h4 class="alert-heading">${portfolio.portfolio_title }</h4>
-  				<p><table align="center">
+				<div class="alert-heading-content">
+				<a href="selectPortfolioAction.do?portfolio_id=${portfolio.portfolio_id}">
+					<button type="button" class="btn btn-outline-primary">수정</button>
+				</a>
+				<button type="button" class="btn btn-outline-secondary">삭제</button>
+  				<p><table align="center" style="width:100%">
 					<tr align="left">
+						<td>진행 기간:</td>
 						<td>${portfolio.portfolio_start_date }</td>
 						<td>~</td>
 						<td>${portfolio.portfolio_end_date }</td>
 					</tr>
 					<tr>
 						<p>
-						<td colspan="3">${portfolio.portfolio_detail }</td>
+						<td colspan="4">${portfolio.portfolio_detail }</td>
 						<p>
 					</tr>
 					</table>
@@ -118,9 +146,10 @@ session.setAttribute("member_id", 1);
   				<p class="mb-0">
   					<c:forEach var="portfolio_language"	items="${langList }">
 						<c:if test="${portfolio.portfolio_id == portfolio_language.portfolio_id}">
-					${portfolio_language.portfolio_language}
+						<span class="badge badge-pill badge-primary">${portfolio_language.portfolio_language}</span>
 						</c:if>
 					</c:forEach></p>
+				</div>
 			</div>
 			
 		</c:forEach>

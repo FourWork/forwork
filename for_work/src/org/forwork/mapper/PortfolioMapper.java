@@ -15,7 +15,8 @@ public interface PortfolioMapper {
 	Member loadMemberCard(String member_id);
 	int insertPfLanguage(Portfolio_Language pfLang);
 	String getPortfolio_max_id();
+	int updatePortfolio(Portfolio portfolio);
 //	List<Portfolio_Language> loadMemberLanguage(String member_id);
-	
+	Portfolio selectPortfolio(String portfolio_id);
 	List<Map<String,Object>> countMemberLanguage(String member_id);
 }
