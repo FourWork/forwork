@@ -3,7 +3,7 @@ package org.forwork.domain;
 import lombok.Data;
 
 @Data
-public class MemberVO {
+public class Member {
 	private String member_id;
 	private String email;
 	private String name;

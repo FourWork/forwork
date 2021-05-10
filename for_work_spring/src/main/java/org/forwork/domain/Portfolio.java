@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class PortfolioVO {
+public class Portfolio {
 
 	private String portfolio_id;
 	private String member_id;

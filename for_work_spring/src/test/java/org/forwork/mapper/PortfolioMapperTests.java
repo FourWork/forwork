@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import org.forwork.domain.PortfolioLanguageVO;
-import org.forwork.domain.PortfolioVO;
+import org.forwork.domain.PortfolioLanguage;
+import org.forwork.domain.Portfolio;
 import org.forwork.mapper.PortfolioMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -74,10 +74,16 @@ public class PortfolioMapperTests {
 //		mapper.insertPfLang(vo);
 //	}
 	
-	@Test
-	public void testPfLangStat(){
-		String mID="1";
-		log.info(mapper.countMemberLanguage(mID));
-	}
+//	@Test
+//	public void testPfLangStat(){
+//		String mID="1";
+//		log.info(mapper.countMemberLanguage(mID));
+//	}
+	
+//	@Test
+//	public  void testMaxPid(){
+//		log.info(mapper.getPortfolio_max_id());
+//	}
+	
 	//멤버id-포트폴리오id 결합해서 갖고오는부분 쿼리 수정할거신가?
 }

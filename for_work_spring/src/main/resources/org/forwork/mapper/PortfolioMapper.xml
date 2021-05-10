@@ -21,14 +21,20 @@
   			where portfolio_id=#{portfolio_id}
   	</delete>
   	
+  	<delete id="delete2">
+  		delete from portfolio_language
+  			where portfolio_id=#{portfolio_id}
+  	</delete>
+  	
   	<update id="update">
 		update portfolio 
 			set portfolio_title = #{portfolio_title},
 			portfolio_start_date = #{portfolio_start_date},
 			portfolio_end_date = #{portfolio_end_date},
-			portfolio_detail = #{portfolio_detail}
+			portfolio_detail = #{portfolio_detail}d
 			where portfolio_id = #{portfolio_id}
 	</update>
+	
   	
   	<select id="listPortfolio" resultType="org.forwork.domain.PortfolioVO">
 		select *
@@ -39,13 +45,16 @@
   	
   	<insert id="insertPfLang">
 		insert into portfolio_language(portfolio_id, portfolio_language, portfolio_language_seq)
-			values(
-				(select max(portfolio_id)
-			from portfolio),
-				#{portfolio_language},
-				portfolio_language_seq.nextval
+			#{portfolio_id},
+			#{portfolio_language},
+			portfolio_language_seq.nextval
 			)
 	</insert>
+	
+	<select id="getPortfolio_max_id" resultType="Integer">
+		select max(portfolio_id)
+			from portfolio
+	</select>
 	
 	<!-- 통계값을 가져오기 위한 hashMap 구성 -->
 	<resultMap type="HashMap" id="langStatMap">
