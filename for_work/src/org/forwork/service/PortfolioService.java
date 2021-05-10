@@ -22,6 +22,12 @@ public class PortfolioService {
 		return list;
 	}
 	
+	public Portfolio selectPortfolioService(String portfolio_id) throws Exception{
+		Portfolio portfolio = dao.selectPortfolio(portfolio_id);
+		System.out.println(portfolio);
+		return portfolio;
+	}
+	
 	public List<Portfolio_Language> listLanguageService(String member_id) throws Exception{
 		List<Portfolio_Language> list = dao.listLanguages(member_id);
 		return list;
@@ -43,6 +49,10 @@ public class PortfolioService {
 	
 	public int insertPortfolioService(Portfolio portfolio)throws Exception {
 		return dao.insertPortfolio(portfolio);
+	}
+	
+	public int updatePortfolioService(Portfolio portfolio)throws Exception{
+		return dao.updatePortfolio(portfolio);
 	}
 	
 	public int insertPfLangService(List<Portfolio_Language> pfLangList)throws Exception{

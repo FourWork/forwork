@@ -9,7 +9,7 @@
 		select *
 			from portfolio
 			where member_id = #{member_id}
-			order by portfolio_id desc
+			order by portfolio_id
 	</select>
 	
 	<select id="listLanguage" parameterType="String" resultType="Portfolio_language">
@@ -18,7 +18,20 @@
 			where member_id=#{member_id}
 			order by portfolio_language
 	</select>
+	<select id="selectPortfolio" parameterType="String" resultType="Portfolio">
+		select *
+			from portfolio
+			where portfolio_id=#{portfolio_id}
+	</select>
 	
+	<update id="updatePortfolio" parameterType="Portfolio">
+		update portfolio 
+			set portfolio_title = #{portfolio_title},
+			portfolio_start_date = #{portfolio_start_date},
+			portfolio_end_date = #{portfolio_end_date},
+			portfolio_detail = #{portfolio_detail}
+			where portfolio_id = #{portfolio_id}
+	</update>
 	
 	<insert id="insertPortfolio" parameterType="Portfolio" >
 		insert into portfolio
