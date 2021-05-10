@@ -11,7 +11,7 @@
   <meta name="author" content="Creative Tim">
   <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
   <!-- Favicon -->
-  <link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
+  <link rel="icon" href="../../resources/assets/img/brand/favicon.png" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -65,6 +65,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
+
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">${chatrooms.chatrooms.size() }</strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
@@ -80,6 +81,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
+
                             <h4 class="mb-0 text-sm">${chatroom.chatroom_name }</h4>
                           </div>
                           <div class="text-right text-muted">
@@ -95,10 +97,12 @@
                         		<p class="text-sm mb-0">${message.message }</p>
                         	</c:if>
                         </c:forEach>
+
                       </div>
                     </div>
                   </a>
                 </div>
+
                 </c:forEach>
                 <!-- View all -->
                 <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
