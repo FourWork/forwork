@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -18,24 +19,37 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
+import org.forwork.domain.Member;
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageDto;
+import org.forwork.mapper.ChattingMapper;
 import org.forwork.service.ChattingService;
+import org.forwork.service.ChattingServiceImpl;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-@ServerEndpoint(value = "/broadsocket", configurator = HttpSessionConfigurator.class)
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Controller
+@RequiredArgsConstructor
+@ServerEndpoint(value = "/websocket", configurator = HttpSessionConfigurator.class)
 public class WebSocketServer {
-	private Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
+	private static Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
 
 	// TODO: socket session 연결(OnOpen)이랑 연결 끊는 부분(OnClose) 수정하기
 	private static List<ChatroomMemberRelation> chatroomMemberRelations = Collections.synchronizedList(new ArrayList<>());
 	// 같은 유저라도 채팅방 여러개에 들어가있다면 세션이 여러개
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
 	
-	private ChattingService service;
-	
-	public WebSocketServer(ChattingService service) {
-		this.service = service;
-	}
+//	@Setter(onMethod_ = {@Autowired})
+//	@Inject
+//	@Setter(onMethod_ = {@Autowired})
+	private static ChattingServiceImpl service;
 
 	private class User {
 		Session session;
@@ -106,41 +120,41 @@ public class WebSocketServer {
 //			sessionUsers.add(newUser);
 //		}
 		
-//		JSONParser parser = new JSONParser();
-//		Object object = null;
-//
-//		try {
-//			object = parser.parse(message);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		JSONParser parser = new JSONParser();
+		Object object = null;
+
+		try {
+			object = parser.parse(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-//		JSONObject ob = (JSONObject) object;
+		JSONObject ob = (JSONObject) object;
 		
-//		String chatroomId = (String)ob.get("chatroomId");
-//		List<String> sendingUserIds = new ArrayList<String>();
-//		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
-//			if (relation.getChatroom_id().equals(chatroomId)) {
-//				sendingUserIds.add(relation.getMember_id());
-//			}
-//		}
-//		
-//		// TODO: 페이지 별로 채팅방 구분
-//		for(String sendingUserId: sendingUserIds) {
-//			User sendTo = getUser(sendingUserId, chatroomId);
-//			if (sendTo != null) {
-//				// 자기랑 연결된 소켓에 보낼때는 그냥 send
-//				System.out.println(ob.toJSONString());
-//				sendTo.session.getBasicRemote().sendText(ob.toJSONString());
-//			}
-//		}
-//		
+		String chatroomId = (String)ob.get("chatroomId");
+		List<String> sendingUserIds = new ArrayList<String>();
+		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
+			if (relation.getChatroom_id().equals(chatroomId)) {
+				sendingUserIds.add(relation.getMember_id());
+			}
+		}
+		
+		// TODO: 페이지 별로 채팅방 구분
+		for(String sendingUserId: sendingUserIds) {
+			User sendTo = getUser(sendingUserId, chatroomId);
+			if (sendTo != null) {
+				// 자기랑 연결된 소켓에 보낼때는 그냥 send
+				System.out.println(ob.toJSONString());
+				sendTo.session.getBasicRemote().sendText(ob.toJSONString());
+			}
+		}
+		
 		// 메세지 저장
 		Message msg = new Message();
-//		msg.setMessage((String)ob.get("content"));
-//		msg.setSender((String)ob.get("senderId"));
-//		msg.setChatroom_id((String)ob.get("chatroomId"));
-//		msg.setSend_time((String)ob.get("sendTime"));
+		msg.setMessage((String)ob.get("content"));
+		msg.setSender((String)ob.get("senderId"));
+		msg.setChatroom_id((String)ob.get("chatroomId"));
+		msg.setSend_time((String)ob.get("sendTime"));
 		service.createMessage(msg);
 	}
 	

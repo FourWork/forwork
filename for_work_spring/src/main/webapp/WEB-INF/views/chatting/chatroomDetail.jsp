@@ -129,7 +129,7 @@
   <script type="text/javascript">
   	let sender = document.getElementById("user").value;
   	let senderName = document.getElementById("userName").value;
-  	let webSocket = new WebSocket("ws://localhost:8081/for_work/broadsocket");
+  	let webSocket = new WebSocket("ws://localhost:8081/websocket");
   	
 /*   	let chatRoom = document.getElementById("chattingRoom"); */
   	let message = document.getElementById("message");

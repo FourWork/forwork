@@ -6,6 +6,7 @@ import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
 import org.forwork.domain.Member;
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageDto;
 import org.forwork.mapper.ChattingMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class ChattingServiceImpl implements ChattingService {
 	}
 
 	@Override
-	public List<Message> findMessageByChatroomId(String chatroomId) {
+	public List<MessageDto> findMessageByChatroomId(String chatroomId) {
 		// TODO Auto-generated method stub
 		return mapper.getMessageByChatroomId(chatroomId);
 	}
