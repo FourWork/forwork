@@ -95,157 +95,231 @@ svg {
 				d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
 			</svg></a>
 	</div>
-	
 
-</body>
-<script type="text/javascript">
- $(function(){
-	 var now = new Date();
-	 var month = now.getMonth()+1;
-	 var date = now.getDate();
-	 month = month >=10 ? month : "0" + month;
-	 date  = date  >= 10 ? date : "0" + date;
-	 $('#today').html(month+"월 "+date+"일");
+	<script type="text/javascript">
+	
+	var attendanceService = (function(){
+ 		function printTime(){
+ 			$.ajax({
+				url:"/attendance/getReg",
+				method:"get",
+				success:function(time){
+					console.log(time);
+					var commuteTime = time.commute;
+					var offTime = time.off;
+					if(commuteTime != ''){
+						$("#commute").html(commuteTime);
+					}
+					else{
+						$("#commute").html("-");
+					}
+					 
+					if(offTime != ''){			
+						$("#off").html(offTime);
+					}else{
+					$("#off").html("-");
+	 	   			}
+				}
+		});
+		} 
+		
+		function drawGraph(ago){
+			google.charts.load('current', {packages: ['corechart', 'bar']});
+		 	google.charts.setOnLoadCallback(drawAxisTickColors);
+		 	
+		 	function drawAxisTickColors(){
+		 	   	var data = new google.visualization.DataTable();
+		 	   	data.addColumn('string','day');
+		 	   	data.addColumn('number','근무시간');
+		 	   	data.addRows([
+			         ['월요일', 0],            
+		 	         ['화요일', 0],            
+		 	         ['수요일', 0],
+		 	         ['목요일', 0],
+		 	         ['금요일', 0],
+		 	         ['토요일', 0],
+		 	         ['일요일', 0]
+		 	   	]);
+		 	   	$.ajax({
+		 	   		url:"/attendance/getWeek/"+ago,
+		 	   		method : "get",
+		 	   		success:function(week){
+		 	   			console.log(week);
+		 	   			for(var i = 0; i < week.length; i++){
+		  	   				if(week[i].week == data.getValue(i, 0)){
+		 	   					data.setValue(i, 1, week[i].workTime);
+		 	   				} 
+		 	   			}
+		 				var options = {
+		 						title : '주간 근무 현황',
+		 						colors :['blue']
+		 					};
+		 					var chart = new google.visualization.ColumnChart(document
+		 							.getElementById('chart_div'));
+		 					chart.draw(data, options);
+		 					setWeek(ago)
+		 	   		}
+		 	   	})
+		 
+			};
+		
+		};
+		
+		function today(){
+			var now = new Date();
+			var month = now.getMonth()+1;
+			var date = now.getDate();
+			month = month >=10 ? month : "0" + month;
+			date  = date  >= 10 ? date : "0" + date;
+			$('#today').html(month+"월 "+date+"일");
+		}
+		
+
+
+		function setting(){
+			printTime();
+			today();
+		}
+		
+		return {
+			drawGraph : drawGraph,
+			setting:setting
+		};
+
+		
+	})();
+	
+	
+	
+	var ago = 0;
+
+	attendanceService.drawGraph(ago);
+	attendanceService.setting;
+	
 	 
-	 });
-	 
  $(function(){
-	  $("button").click(function() {	
+	  $("button").click(function(e) {	
 	 		var check = window.prompt($(this).val()+"하시려면 "+$(this).val()+"을 입력해주세요", "");
 			//출근 또는 퇴근 실행
 			if(check == $(this).val()){
 				if(check == "출근"){
-					location.href="/for_work/attendance/commute";
+					e.preventDefault();
+					
+					$.ajax({
+						url:"/attendance/commute",
+						method:"post",
+						success:function(str){
+							if(str == 'success'){
+								printTime();
+							}
+						}
+					})
+					
 				}else{
 					if($("#commute").html() != "-"){
-						location.href="/for_work/attendance/off";
+						e.preventDefault();
+						
+						$.ajax({
+							url:"/attendance/off",
+							method:"post",
+							success:function(str){
+								if(str == 'success'){
+									printTime();
+								}
+							}
+						})
 					}else{
 						alert("아직 출근하지 않았습니다.");
 					}
-					}
+				}
 			}else{
 				alert("잘못된 입력입니다.")}
 		})
-		 })
+	});
 
  
- 
- $(function(){
-	 	var commuteTime = <c:out value="${time.commute}"/>
-	 	console.log(commuteTime);
-	 	var offTime = <c:out value="${time.off} == null? '': ${time.off}"/>;
-	 	
-		if(commuteTime != ""){
-			$("#commute").html(commuteTime);
-		}
-		else{
-			$("#commute").html("-");
-		}
-		 
-		if(offTime != ""){			
-			$("#off").html(offTime);
-		}else{
-		$("#off").html("-");
-		}
-		 })
-		 
 
-	google.charts.load('current', {packages: ['corechart', 'bar']});
- 	google.charts.setOnLoadCallback(drawAxisTickColors);
- 	function drawAxisTickColors(){
- 	   	var data = new google.visualization.DataTable();
- 	   	data.addColumn('string','day');
- 	   	data.addColumn('number','근무시간');
- 	   	data.addRows([
-	         ['월요일', 0],            
- 	         ['화요일', 0],            
- 	         ['수요일', 0],
- 	         ['목요일', 0],
- 	         ['금요일', 0],
- 	         ['토요일', 0],
- 	         ['일요일', 0]
- 	   	]);
- 	   	var obj = {};
+ 	function setWeek(ago){
+		// getDay시 0 : 일 1 : 월 ~ 6 : 토
+		var now = new Date();
+		var mon = new Date();
+		var sun = new Date();
+		var day = parseInt(now.getDay());
 
- <%-- 	   	<%List<WeekAttendance> li = (List<WeekAttendance>)request.getAttribute("week");
- 	   	if(li != null){
- 	   	for(int i = 0; i < li.size();i++){
- 	   		double time = 0;
- 	   		WeekAttendance temp = li.get(i);
- 		   	int c_hour = Integer.parseInt(temp.getCommute().substring(0, 2));
-			int c_min = Integer.parseInt(temp.getCommute().substring(3, 5));
-			if(temp.getOff() != null){
-				int o_hour = Integer.parseInt(temp.getOff().substring(0, 2));
-				int o_min = Integer.parseInt(temp.getOff().substring(3, 5));
-				time = ((o_hour*60+o_min)-(c_hour*60+c_min))/60.0 - 1;
-				if(time < 0){
-					time = 0;
-				}
-			}
-	 	   	String week = temp.getWeek();
-	 	   	%>
-	 	   	Object.assign(obj,{"<%=week%>":"<%=time%>"});
-	 	   	<%
- 	   	}%>    
-		for (var i = 0; i < 7; i++) {
-				for ( var s in obj) {
-					if (data.getValue(i, 0) == s) {
-						data.setValue(i, 1, obj[s]);
+		// mon를 월요일로 변경
+		if (day > 0) {
+			mon.setDate(now.getDate() - (day - 1) - (7 * ago));
+		} else {
+			mon.setDate(now.getDate() - 6 - (7 * ago));
+		}
+		sun.setTime(mon.getTime() + 518400000);
+
+		var sMonth = mon.getMonth() + 1;
+		var sDay = mon.getDate();
+		sDay = sDay >= 10 ? sDay : "0" + sDay;
+		var eMonth = sun.getMonth() + 1;
+		var eDay = sun.getDate();
+		eDay = eDay >= 10 ? eDay : "0" + eDay;
+
+		var str = sMonth + '.' + sDay + ' ~ ' + eMonth + '.' + eDay;
+
+		$("#weekdays").html(str);
+	}
+ 	
+
+
+		$(function() {
+			$("#previous").on("click", function(e) {
+				e.preventDefault();
+				ago += 1;
+				attendanceService.drawGraph(ago);
+				setWeek(ago);
+
+			})
+			$("#next").on("click", function(e) {
+				e.preventDefault();
+				ago -= 1;
+				attendanceService.drawGraph(ago);
+				setWeek(ago);
+			})
+
+		})
+	
+		
+	$(function(){
+ 		printTime();
+		})
+		
+	function printTime(){
+			$.ajax({
+				url:"/attendance/getTime",
+				method:"get",
+				success:function(time){
+
+					if (time != null) {
+						var commuteTime = time.commute == null ? ''
+								: time.commute;
+						var offTime = time.off == null ? '' : time.off;
+						if (commuteTime != '') {
+							$("#commute").html(commuteTime);
+						} else {
+							$("#commute").html("-");
+						}
+
+						if (offTime != '') {
+							$("#off").html(offTime);
+						} else {
+							$("#off").html("-");
+						}
+					}else{
+						$("#commute").html("-");
+						$("#off").html("-");
 					}
 				}
-		} 	   	
- 	   	<%}%> 
-
-			var options = {
-				title : '주간 근무 현황',
-				colors :['blue']
-			};
-			var chart = new google.visualization.ColumnChart(document
-					.getElementById('chart_div'));
-			chart.draw(data, options);
-		}--%>
- 	$(function(){ // 주간 수정
- 		var ago = "<%=request.getParameter("ago")%>";
- 		if(ago == 'null'){
- 			ago = 0;
- 		}
-		// getDay시 0 : 일 1 : 월 ~ 6 : 토
- 		var now = new Date();
- 		var mon = new Date();
- 		var sun = new Date();
- 		var day = parseInt(now.getDay());
- 		
- 		// mon를 월요일로 변경
- 		if(day > 0){
- 			mon.setDate(now.getDate()-(day-1)-(7*ago));
- 		}else{
- 			mon.setDate(now.getDate()-6-(7*ago));
- 		}
- 		sun.setTime(mon.getTime()+ 518400000);
- 		
-		var sMonth = mon.getMonth()+1;
-		var sDay = mon.getDate();
-		 sDay  = sDay  >= 10 ? sDay : "0" + sDay;
-		var eMonth = sun.getMonth()+1;
-		var eDay = sun.getDate();
-		 eDay  = eDay  >= 10 ? eDay : "0" + eDay;
-		 
-		var str = sMonth+'.'+sDay+' ~ '+eMonth+'.'+eDay;
-		
- 		$("#weekdays").html(str);
- 	});
- 	
- 	$(function(){
- 		var ago = "<%=request.getParameter("ago")%>";
-		if(ago == 'null'){
-			ago = 0;
+			});
 		}
-		$("#previous").attr("href","/for_work/attendance/main?ago="+(parseInt(ago)+1));
-		$("#next").attr("href","/for_work/attendance/main?ago="+(parseInt(ago)-1));
-
- 	})
- 	
 	</script>
+</body>
 </html>
 
 <%@ include file="footer.jsp"%>

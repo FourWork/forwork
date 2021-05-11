@@ -11,6 +11,12 @@
 		<result column="off" property="off"/>
 	</resultMap>
 	
+	<resultMap type="map" id="weekResultMap">
+		<result column="week" property="week"/>
+		<result column="commute" property="commute"/>
+		<result column="off" property="off"/>
+	</resultMap>
+	
 	<insert id="commute" parameterType="String">
 		insert into attendance(
 			MEMBER_ID, ATTEND_DATE, COMMUTE_TIME
@@ -34,7 +40,7 @@
 	</select>
 
 
-<!-- 	<select id="getWeekAttendance" parameterType="java.util.HashMap" resultType="WeekAt">
-		Select TO_CHAR(attend_date,'day') AS week,COMMUTE_TIME AS commute,OFF_TIME AS off from attendance where ATTEND_DATE between TRUNC(sysdate-#{ago},'iw') and TRUNC(sysdate-#{ago},'iw')+6 and member_id = #{id} order by attend_date
-	</select> -->
+ 	<select id="getWeekAttendance" parameterType="java.util.HashMap" resultMap="weekResultMap">
+		Select TO_CHAR(attend_date,'day') AS week,COMMUTE_TIME AS commute,OFF_TIME AS off from attendance where ATTEND_DATE between TRUNC(sysdate-#{ago},'iw') and TRUNC(sysdate-#{ago},'iw')+6 and member_id = #{member_id} order by attend_date
+	</select> 
 </mapper>
