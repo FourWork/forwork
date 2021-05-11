@@ -10,7 +10,7 @@
 			(portfolio_seq.nextval,#{member_id},#{portfolio_title},sysdate,sysdate,#{portfolio_detail})
   	</insert>
   	
-  	<select id="read" resultType="org.forwork.domain.PortfolioVO">
+  	<select id="read" resultType="org.forwork.domain.Portfolio">
   		select *
 			from portfolio
 			where portfolio_id=#{portfolio_id}
@@ -36,7 +36,7 @@
 	</update>
 	
   	
-  	<select id="listPortfolio" resultType="org.forwork.domain.PortfolioVO">
+  	<select id="listPortfolio" resultType="org.forwork.domain.Portfolio">
 		select *
 			from portfolio
 			where member_id = #{member_id}
