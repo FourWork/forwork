@@ -65,6 +65,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
+
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">${chatrooms.chatrooms.size() }</strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
@@ -80,6 +81,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
+
                             <h4 class="mb-0 text-sm">${chatroom.chatroom_name }</h4>
                           </div>
                           <div class="text-right text-muted">
@@ -95,10 +97,12 @@
                         		<p class="text-sm mb-0">${message.message }</p>
                         	</c:if>
                         </c:forEach>
+
                       </div>
                     </div>
                   </a>
                 </div>
+
                 </c:forEach>
                 <!-- View all -->
                 <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
