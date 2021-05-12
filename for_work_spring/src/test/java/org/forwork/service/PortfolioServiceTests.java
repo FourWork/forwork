@@ -55,10 +55,23 @@ public class PortfolioServiceTests {
 //		service.update(portfolio, pfLang);
 //	}
 	
-	@Test
-	public void testDelete(){
-		log.info("---------in testDelete---------");
-		String portfolio_id ="157";
-		service.delete(portfolio_id);
-	}
+//	@Test
+//	public void testDelete(){
+//		log.info("---------in testDelete---------");
+//		String portfolio_id ="157";
+//		service.delete(portfolio_id);
+//	}
+	
+//	@Test
+//	public void testRead(){
+//		String portfolio_id = "37";
+//		log.info(service.readPfLang(portfolio_id));
+//	}
+	
+//	@Test
+//	public void testCountLang(){
+//		String member_id="1";
+//		log.info(service.countLang(member_id));
+//	}
+	
 }

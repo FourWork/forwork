@@ -82,14 +82,18 @@ public class PortfolioMapperTests {
 //	}
 	
 //	@Test
-//	public void testPfLangStat(){
+//	public void testCntMemLang(){
 //		String mID="1";
-//		log.info(mapper.countMemberLanguage(mID));
+//		log.info(mapper.rollupLanguage(mID));
 //	}
-	
+
 //	@Test
-//	public  void testMaxPid(){
-//		log.info(mapper.getPortfolio_max_id());
+//	public void testReadPfLang(){
+//		String portfolio_id = "37";
+//		List<PortfolioLanguage> pfLangList = mapper.readPfLang(portfolio_id);
+//		log.info(pfLangList);
+//		
 //	}
 	
+
 }
