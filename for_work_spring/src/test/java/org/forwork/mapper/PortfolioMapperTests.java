@@ -44,12 +44,12 @@ public class PortfolioMapperTests {
 //		});
 //	}
 	
-//	@Test
-//	public void testRead(){
-//		String targetPId = "42";
-//		PortfolioVO vo = mapper.read(targetPId);
-//		log.info(vo);
-//	}
+	@Test
+	public void testRead(){
+		String targetPId = "42";
+		Portfolio vo = mapper.read(targetPId);
+		log.info(vo);
+	}
 	
 //	@Test
 //	public void testUpdate(){
@@ -69,8 +69,9 @@ public class PortfolioMapperTests {
 	
 //	@Test
 //	public void testInsertPfLang(){
-//		PortfolioLanguageVO vo= new PortfolioLanguageVO();
-//		vo.setPortfolio_language("Java");
+//		PortfolioLanguage vo= new PortfolioLanguage();
+//		String language="A";
+//		vo.setPortfolio_language(language);
 //		mapper.insertPfLang(vo);
 //	}
 	
@@ -85,5 +86,4 @@ public class PortfolioMapperTests {
 //		log.info(mapper.getPortfolio_max_id());
 //	}
 	
-	//���id-��Ʈ������id �����ؼ� ������ºκ� ���� �����ҰŽŰ�?
 }

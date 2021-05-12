@@ -20,7 +20,7 @@ public class AttendanceService {
 		return service;
 	}
 	
-	public int commuteService(HttpServletRequest request) throws Exception{
+	public int commuteService(HttpServletRequest request) throws Exception{f
 		int result = -1;
 		HttpSession session = request.getSession();
 		if (session.getAttribute("member_id") != null) {
