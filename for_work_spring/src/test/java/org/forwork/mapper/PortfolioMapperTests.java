@@ -37,26 +37,26 @@ public class PortfolioMapperTests {
 //			PortfolioVO vo = new PortfolioVO();
 //			
 //			vo.setMember_id(memArr[i%4]);
-//			vo.setPortfolio_title("Æ÷Æ®Æú¸®¿À Á¦¸ñ"+i);
-//			vo.setPortfolio_detail("Æ÷Æú ³»¿ë"+i);
+//			vo.setPortfolio_title("ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+i);
+//			vo.setPortfolio_detail("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"+i);
 //			
 //			mapper.insert(vo);
 //		});
 //	}
 	
-//	@Test
-//	public void testRead(){
-//		String targetPId = "42";
-//		PortfolioVO vo = mapper.read(targetPId);
-//		log.info(vo);
-//	}
+	@Test
+	public void testRead(){
+		String targetPId = "42";
+		Portfolio vo = mapper.read(targetPId);
+		log.info(vo);
+	}
 	
 //	@Test
 //	public void testUpdate(){
 //		String targetPId="41";
 //		PortfolioVO vo = mapper.read(targetPId);
-//		vo.setPortfolio_title("½ºÇÁ¸µÀ¸·Î ¼öÁ¤ÇÏ´Â Á¦¸ñ");
-//		vo.setPortfolio_detail("½ºÇÁ¸µ ÇÁ·¹ÀÓ¿öÅ©ÀÇ »ç¿ëÀ» ±¸Çö ¤¾");
+//		vo.setPortfolio_title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½");
+//		vo.setPortfolio_detail("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
 //		mapper.update(vo);
 //		
 //	}
@@ -69,8 +69,9 @@ public class PortfolioMapperTests {
 	
 //	@Test
 //	public void testInsertPfLang(){
-//		PortfolioLanguageVO vo= new PortfolioLanguageVO();
-//		vo.setPortfolio_language("Java");
+//		PortfolioLanguage vo= new PortfolioLanguage();
+//		String language="A";
+//		vo.setPortfolio_language(language);
 //		mapper.insertPfLang(vo);
 //	}
 	
@@ -85,5 +86,4 @@ public class PortfolioMapperTests {
 //		log.info(mapper.getPortfolio_max_id());
 //	}
 	
-	//¸â¹öid-Æ÷Æ®Æú¸®¿Àid °áÇÕÇØ¼­ °®°í¿À´ÂºÎºÐ Äõ¸® ¼öÁ¤ÇÒ°Å½Å°¡?
 }

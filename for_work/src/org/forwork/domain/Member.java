@@ -1,4 +1,4 @@
-package org.forwork.domain;
+	package org.forwork.domain;
 
 import java.io.Serializable;
 
