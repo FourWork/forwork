@@ -45,6 +45,18 @@ public class PortfolioDAO {
 		}
 		return list;
 	}
+	
+	public Portfolio selectPortfolio(String portfolio_id){
+		Portfolio portfolio = null;
+		System.out.println("@DAO 포폴아이디"+portfolio_id);
+		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
+			System.out.println("@selectPortfolio DAO");
+			portfolio = sqlSession.getMapper(PortfolioMapper.class).selectPortfolio(portfolio_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return portfolio;
+	}
 
 	public List<Portfolio_Language> listLanguages(String member_id){
 		List<Portfolio_Language> list = null;
@@ -93,10 +105,27 @@ public class PortfolioDAO {
 	public int insertPortfolio(Portfolio portfolio) {
 		int re = -1;
 
-		System.out.println("insertPortfolio-DAO");
-		System.out.println(portfolio);
+		System.out.println("@insertPortfolio-DAO");
 		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
 			re = sqlSession.getMapper(PortfolioMapper.class).insertPortfolio(portfolio);
+			if (re > 0) {
+				sqlSession.commit();
+			} else {
+				sqlSession.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return re;
+	}
+	
+	public int updatePortfolio(Portfolio portfolio) {
+		int re = -1;
+
+		System.out.println("@updatePortfolio-DAO");
+		try (SqlSession sqlSession = getSqlSessionFactory().openSession();) {
+			re = sqlSession.getMapper(PortfolioMapper.class).updatePortfolio(portfolio);
 			if (re > 0) {
 				sqlSession.commit();
 			} else {
