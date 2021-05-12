@@ -15,8 +15,13 @@ import lombok.extern.log4j.Log4j;
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
 	
-
 	private PortfolioMapper mapper;
+	
+	@Override
+	public Portfolio read(String portfolio_id) {
+		
+		return mapper.read(portfolio_id);
+	}
 	
 	@Transactional
 	@Override
@@ -29,10 +34,11 @@ public class PortfolioServiceImpl implements PortfolioService {
 		log.info("--------RegisterService_insert_Pflang-----------");
 		
 	}
+	
 	@Transactional
 	@Override
 	public void update(Portfolio portfolio, PortfolioLanguage pfLang) {
-		
+		//PortfolioLanguage가 삭제-삽입 되는 로직 추후에 변경필요
 		log.info("-------------UpdateService------------");
 		mapper.update(portfolio);
 		log.info("-------------UpdateService_update_portfolio----------");
@@ -40,11 +46,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 		mapper.updatePfLang(pfLang);
 	}
 
-	@Override
-	public Portfolio read(String portfolio_id) {
-		
-		return mapper.read(portfolio_id);
-	}
+
 
 	
 }

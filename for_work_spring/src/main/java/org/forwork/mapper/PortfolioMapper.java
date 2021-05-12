@@ -11,11 +11,11 @@ public interface PortfolioMapper {
 	public int insert(Portfolio vo);
 	public Portfolio read(String portfolio_id);
 	
-	//Æ®·£Àè¼Ç´ÜÀ§(delete-deletePfLang)
+	//íŠ¸ëžœìž­ì…˜ ë‹¨ìœ„(delete-deletePfLang)
 	public int delete(String portfolio_id);
 	public int deletePfLang(String portfolio_id);
 	
-	//Æ®·£Àè¼Ç ´ÜÀ§(update-deltePfLang-updatePfLang) 
+	//íŠ¸ëžœìž­ì…˜ ë‹¨ìœ„(update-deltePfLang-updatePfLang) 
 	public int update(Portfolio vo);
 	
 	public List<Portfolio> listPortfolio(String member_id);
