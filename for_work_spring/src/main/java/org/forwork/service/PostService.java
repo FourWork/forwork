@@ -12,9 +12,9 @@ public interface PostService {
 	
 	public int addHitcount(Long post_id);
 	
-	public boolean modify(Post post);
+	public int modify(Post post);
 	
-	public boolean remove(Long post_id);
+	public int remove(Long post_id);
 	
 	public List<Post> getList(Long board_id);
 	

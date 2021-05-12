@@ -38,17 +38,17 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public boolean modify(Post post) {
+	public int modify(Post post) {
 		log.info("게시글 수정..." + post);
 		
-		return mapper.updatePost(post) == 1;
+		return mapper.updatePost(post);
 	}
 
 	@Override
-	public boolean remove(Long post_id) {
+	public int remove(Long post_id) {
 		log.info("게시글 삭제..." + post_id);
 		
-		return mapper.deletePost(post_id) == 1;
+		return mapper.deletePost(post_id);
 	}
 
 	@Override

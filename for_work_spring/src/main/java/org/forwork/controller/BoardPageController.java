@@ -58,4 +58,21 @@ public class BoardPageController {
 		postService.addHitcount(post_id); // 조회 수
 	}
 	
+	@GetMapping("/updatePost")
+	public void updatePost(int project_id, Long board_id, Long post_id, Model model) {
+		log.info("게시글 수정 페이지");
+		
+		model.addAttribute("menu", boardService.getList(project_id));
+		model.addAttribute("board", boardService.get(board_id)); 
+		model.addAttribute("post", postService.get(post_id));
+	}
+
+	@GetMapping("/insertPost")
+	public void insertPost(int project_id, Long board_id, Model model) {
+		log.info("게시글 등록 페이지");
+		
+		model.addAttribute("menu", boardService.getList(project_id));
+		model.addAttribute("board", boardService.get(board_id)); 
+	}
+	
 }
