@@ -7,5 +7,5 @@ public interface PortfolioService {
 	public Portfolio read(String portfolio_id);
 	public void register(Portfolio portfolio, PortfolioLanguage pfLang);
 	public void update(Portfolio portfolio, PortfolioLanguage pfLang);
-
+	public void delete(String portfolio_id);
 }

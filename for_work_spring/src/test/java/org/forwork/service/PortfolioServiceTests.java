@@ -40,19 +40,25 @@ public class PortfolioServiceTests {
 //	
 //	}
 	
-	@Test
-	public void testUpdate(){
-		Portfolio portfolio = service.read("99");
-		portfolio.setPortfolio_detail("서비스테스트_update_Detail 210512");
-		portfolio.setPortfolio_title("서비스테스트_update_Portfolio 210512");
-		log.info("----in testUpdate-----");
-		log.info(portfolio);
-		
-		PortfolioLanguage pfLang = new PortfolioLanguage();
-		String portfolio_id=portfolio.getPortfolio_id();
-		pfLang.setPortfolio_language("서비스테스트_update_language");
-		pfLang.setPortfolio_id(portfolio_id);
-		service.update(portfolio, pfLang);
-	}
+//	@Test
+//	public void testUpdate(){
+//		Portfolio portfolio = service.read("99");
+//		portfolio.setPortfolio_detail("서비스테스트_update_Detail 210512");
+//		portfolio.setPortfolio_title("서비스테스트_update_Portfolio 210512");
+//		log.info("----in testUpdate-----");
+//		log.info(portfolio);
+//		
+//		PortfolioLanguage pfLang = new PortfolioLanguage();
+//		String portfolio_id=portfolio.getPortfolio_id();
+//		pfLang.setPortfolio_language("서비스테스트_update_language");
+//		pfLang.setPortfolio_id(portfolio_id);
+//		service.update(portfolio, pfLang);
+//	}
 	
+	@Test
+	public void testDelete(){
+		log.info("---------in testDelete---------");
+		String portfolio_id ="157";
+		service.delete(portfolio_id);
+	}
 }

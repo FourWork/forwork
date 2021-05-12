@@ -66,6 +66,12 @@ public class PortfolioMapperTests {
 //		String targePID="49";
 //		mapper.delete(targePID);
 //	}
+
+//	@Test
+//	public void testDeletePfLang(){
+//		String targePID="34";
+//		mapper.deletePfLang(targePID);
+//	}
 	
 //	@Test
 //	public void testInsertPfLang(){

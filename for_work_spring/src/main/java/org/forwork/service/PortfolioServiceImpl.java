@@ -45,7 +45,18 @@ public class PortfolioServiceImpl implements PortfolioService {
 		mapper.deletePfLang(portfolio.getPortfolio_id());
 		mapper.updatePfLang(pfLang);
 	}
+	
+	@Transactional
+	@Override
+	public void delete(String portfolio_id) {
+		log.info("-------------DeleteService-------------");
+		mapper.deletePfLang(portfolio_id);
+		mapper.delete(portfolio_id);
 
+		
+	}
+
+	
 
 
 	
