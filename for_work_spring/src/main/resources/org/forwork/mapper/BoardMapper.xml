@@ -18,6 +18,17 @@
 			values(#{board_id}, #{project_id}, #{board_name})	
 	</insert>
 	
+	<!-- 공지 사항, 기본 게시판 생성 -->
+	<insert id="insertNoticeBoard">
+		insert into board(board_id, project_id, board_name)
+			values(board_seq.nextval, #{project_id}, '공지 사항')
+	</insert>
+
+	<insert id="insertDefaultBoard">
+		insert into board(board_id, project_id, board_name)
+			values(board_seq.nextval, #{project_id}, '기본 게시판')
+	</insert>
+	
 	<select id="getBoard" resultType="org.forwork.domain.Board">
 		select * from board where board_id = #{board_id}
 	</select>
