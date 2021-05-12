@@ -142,11 +142,11 @@
   	stompClient.connect({}, function(frame){
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
-  		stompClient.subscribe("/topic/hello", function(response){
+  		stompClient.subscribe("/topic/greetings", function(response){
   			console.log("sfsdfsd")
   			console.log(response);
   			console.log(JSON.parse(response.body));
-  			showGreeting(JSON.parse(response.body).name);
+  			showGreeting(JSON.parse(response.body));
   		});
   	}, function(error) {
   	    alert(error);
@@ -159,7 +159,7 @@
   	function sendMessage(){
   		let message = document.getElementById("message");
   		console.log(message.value)
-  		stompClient.send("/app/greetings", {}, JSON.stringify({'name': message.value}))
+  		stompClient.send("/app/hello", {}, message.value)
   	}
   
   	

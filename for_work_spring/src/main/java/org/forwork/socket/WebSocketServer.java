@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -41,7 +42,7 @@ public class WebSocketServer {
 //	@Inject
 //	@Setter(onMethod_ = {@Autowired})
 	
-	@Setter(onMethod_ = {@Autowired})
+	@Inject
 	private ChattingServiceImpl service;
 
 	private class User {
