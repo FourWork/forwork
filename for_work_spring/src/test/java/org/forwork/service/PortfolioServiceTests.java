@@ -41,12 +41,14 @@ public class PortfolioServiceTests {
 	}
 	
 //	@Test
-//	public void testRegister(){
-//		Portfolio portfolio = new Portfolio();
-//		portfolio.setMember_id("1");
-//		portfolio.setPortfolio_title("서비스테스트_Portfolio");
-//		portfolio.setPortfolio_detail("서비스테스트_Detail");
-//		
-//		service.register(portfolio);
+//	public void testUpdate(){
+//		Portfolio portfolio = service.read("99");
+//		portfolio.setPortfolio_detail("수정하는 기능 @Service");
+//		portfolio.setPortfolio_title("수정한 포폴제목 @Service");
+//		log.info("----in testUpdate-----");
+//		log.info(portfolio);
+//		PortfolioLanguage pfLang = new PortfolioLanguage();
+//		pfLang.setPortfolio_language("Java");
+//		service.update(portfolio, pfLang);
 //	}
 }

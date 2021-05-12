@@ -29,11 +29,22 @@ public class PortfolioServiceImpl implements PortfolioService {
 		log.info("--------RegisterService_insert_Pflang-----------");
 		
 	}
+	@Transactional
+	@Override
+	public void update(Portfolio portfolio, PortfolioLanguage pfLang) {
+		
+		log.info("-------------UpdateService------------");
+		mapper.update(portfolio);
+		log.info("-------------UpdateService_update_portfolio----------");
+		mapper.deletePfLang(portfolio.getPortfolio_id());
+		mapper.updatePfLang(pfLang);
+	}
 
-//	@Override
-//	public int register(Portfolio portfolio){
-//		
-//		log.info("Register Service---------"+portfolio);
-//		return mapper.insert(portfolio);
-//	}
+	@Override
+	public Portfolio read(String portfolio_id) {
+		
+		return mapper.read(portfolio_id);
+	}
+
+	
 }

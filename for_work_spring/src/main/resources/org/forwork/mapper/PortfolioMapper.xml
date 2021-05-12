@@ -31,9 +31,9 @@
 	<update id="update">
 		update portfolio
 		set portfolio_title = #{portfolio_title},
-		portfolio_start_date = #{portfolio_start_date},
-		portfolio_end_date = #{portfolio_end_date},
-		portfolio_detail = #{portfolio_detail}d
+		portfolio_start_date = sysdate,
+		portfolio_end_date = sysdate,
+		portfolio_detail = #{portfolio_detail}
 		where portfolio_id = #{portfolio_id}
 	</update>
 
@@ -57,7 +57,7 @@
 
 	<insert id="insertPfLang">
 	insert into portfolio_language(portfolio_id, portfolio_language,portfolio_language_seq)
-		values((select max(portfolio_id)
+		values((select max(to_number(portfolio_id))
 	    from portfolio),#{portfolio_language},portfolio_language_seq.nextval)
 	</insert>
 
