@@ -31,10 +31,10 @@ public class PortfolioServiceTests {
 	Portfolio portfolio = new Portfolio();
 	PortfolioLanguage pfLang = new PortfolioLanguage();
 	portfolio.setMember_id("1");
-	portfolio.setPortfolio_title("¼­ºñ½ºÅ×½ºÆ®_Portfolio");
-	portfolio.setPortfolio_detail("¼­ºñ½ºÅ×½ºÆ®_Detail");
+	portfolio.setPortfolio_title("ì„œë²„í…ŒìŠ¤íŠ¸_Portfolio 210512");
+	portfolio.setPortfolio_detail("ì„œë²„í…ŒìŠ¤íŠ¸_Detail 210512");
 	
-	pfLang.setPortfolio_language("¼­ºñ½ºÅ×½ºÆ®_¾ð¾î");
+	pfLang.setPortfolio_language("ì„œë²„í…ŒìŠ¤íŠ¸_language 210512");
 	
 	service.register(portfolio, pfLang);
 	
@@ -43,8 +43,8 @@ public class PortfolioServiceTests {
 //	@Test
 //	public void testUpdate(){
 //		Portfolio portfolio = service.read("99");
-//		portfolio.setPortfolio_detail("¼öÁ¤ÇÏ´Â ±â´É @Service");
-//		portfolio.setPortfolio_title("¼öÁ¤ÇÑ Æ÷ÆúÁ¦¸ñ @Service");
+//		portfolio.setPortfolio_detail("ì„œë²„í…ŒìŠ¤íŠ¸ @Service");
+//		portfolio.setPortfolio_title("ì„œë²„í…ŒìŠ¤íŠ¸ @Service");
 //		log.info("----in testUpdate-----");
 //		log.info(portfolio);
 //		PortfolioLanguage pfLang = new PortfolioLanguage();
