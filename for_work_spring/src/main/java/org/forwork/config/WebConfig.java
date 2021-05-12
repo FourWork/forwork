@@ -26,7 +26,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		return new String[] {"/"};
 	}
 	
-/*	//404¿¡·¯¸¦ Ã³¸®ÇÏ±â À§ÇÑ ¸Ş¼­µå
+/*	//404ì—ëŸ¬ë¥¼ ì²˜ë¦¬í•˜ê¸° ìœ„í•œ ë©”ì„œë“œ
 	@Override
 	protected void customizeRegistration(ServletRegistration.Dynamic registration){
 		registration.setInitParameter("throwExceptionIfNoHandlerFound", "true");
@@ -40,8 +40,4 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		return new Filter[] { characterEncodingFilter};
 	}
 	
-	
-	
-	
-
 }
