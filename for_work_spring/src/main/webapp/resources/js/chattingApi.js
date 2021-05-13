@@ -22,9 +22,29 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function getChatroomName(chatroomId, callback, error) {
+		$.ajax({
+			type : 'get',
+			url : '/chatroom/' + chatroomId,
+			datatType : "json",
+			success : function(result, status, xhr) {
+				console.log(result);
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
-		getMessages : getMessages
+		getMessages : getMessages,
+		getChatroomName : getChatroomName,
 	};
 
 })();

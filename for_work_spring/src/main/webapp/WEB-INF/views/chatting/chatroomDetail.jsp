@@ -134,6 +134,12 @@
   	document.addEventListener("DOMContentLoaded", function(){
   		let userId = document.getElementById("user").value;
   		let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
+  		let chatroomTitle = document.getElementById("chatroom-title");
+  		chattingService.getChatroomName(chatroomId, function(result){
+  			console.log("11111111111")
+  			console.log(result);
+  			chatroomTitle.value = result;
+  		});
   		
   		let chatbox = document.querySelector(".chatbox");
   		chattingService.getMessages(chatroomId, function(messages){

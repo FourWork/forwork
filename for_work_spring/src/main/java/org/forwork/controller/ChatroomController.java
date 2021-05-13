@@ -14,19 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-@RequestMapping("/message/*")
+@RequestMapping("/chatroom/*")
 @AllArgsConstructor
 @RestController
-public class ChattingController {
+public class ChatroomController {
 
 	private final ChattingService service;
 	
-	@GetMapping(value = "/chatroom/{chatroomId}",
+	@GetMapping(value = "/{chatroomId}",
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<MessageDto>> getMessages(@PathVariable String chatroomId) {
-		return new ResponseEntity<>(service.findMessageByChatroomId(chatroomId), HttpStatus.OK);
+	public ResponseEntity<String> getChatroomName(@PathVariable String chatroomId) {
+		return new ResponseEntity<>(service.findChatroomName(chatroomId), HttpStatus.OK);
 	}
-	
-	
-	
 }
