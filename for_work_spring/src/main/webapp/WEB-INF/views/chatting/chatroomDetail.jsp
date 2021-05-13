@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../header.jsp" %>
 <%
 	/* String chatroomId = request.getParameter("chatroomId"); */
@@ -12,6 +12,7 @@
   	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script type="text/javascript" src="/resources/js/chattingApi.js"></script>
     <title>chatting</title>
     <style type="text/css">
     	#chatroom-title-container {
@@ -102,7 +103,7 @@
   </head>
   <body>
   	<div id="chatroom-title-container">
-  		<span id="chatroom-title">${chatroomName }</span>
+  		<span id="chatroom-title" data-chatroom-id="${chatroomId }" >${chatroomName }</span>
   	</div>
   	<div class="chatbox">
 		<c:forEach var="message" items="${messages}">
@@ -125,13 +126,35 @@
      		<div class="clearfix"></div>
    	</div>
 	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
-	<input type="text" value="1" id="user" style="display:none;">
+	<input type="text" value="${userId }" id="user" style="display:none;">
 	<input type="text" value="sdfsadf" id="userName" style="display:none;">
    		
   <script type="text/javascript">
+  
+  	document.addEventListener("DOMContentLoaded", function(){
+  		let userId = document.getElementById("user").value;
+  		let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
+  		
+  		let chatbox = document.querySelector(".chatbox");
+  		chattingService.getMessages(chatroomId, function(messages){
+  			let html = ""
+  			messages.forEach( msg => {
+  				if (msg.sender.member_id == userId){
+  					html += '<span class="bubble my-bubble">' + msg.message + '</span>'
+  				} else {
+  					html += 
+  	  					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
+  						+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">'
+  						+ '<span class="bubble friend-bubble">' + msg.message + '</span>';
+  				}
+  			});
+  			chatbox.innerHTML = html;
+  		});
+	});
+
+
+  	
   	let stompClient = null;
-  	let sender = document.getElementById("user").value;
-  	let senderName = document.getElementById("userName").value;
   	/* let webSocket = new WebSocket("ws://localhost:8081/websocket"); */
   	let socket = new SockJS("/websocket");
   	socket.onopen = function () {
@@ -142,24 +165,33 @@
   	stompClient.connect({}, function(frame){
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
-  		stompClient.subscribe("/topic/greetings", function(response){
-  			console.log("sfsdfsd")
-  			console.log(response);
-  			console.log(JSON.parse(response.body));
-  			showGreeting(JSON.parse(response.body));
+  		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
+  			showMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
   	    alert(error);
   	}); 
   	
-  	function showGreeting(message){
-  		alert(message);
+  	function showMessage(message){
+  		console.log(message);
   	}
   	
   	function sendMessage(){
+  		let sender = document.getElementById("user").value;
+  	  	let senderName = document.getElementById("userName").value;
   		let message = document.getElementById("message");
+  		let date = new Date();
+  		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  		console.log("sender: " + sender);
+  		let msg = {
+  			"content": message.value,
+  			"senderId": sender,
+  			"senderName": senderName,
+  			"chatroomId": chatroomId,
+  			"sendTime": sendTime
+  		}
   		console.log(message.value)
-  		stompClient.send("/app/hello", {}, message.value)
+  		stompClient.send("/app/message/" + chatroomId, {}, msg)
   	}
   
   	
@@ -206,24 +238,7 @@
   	function loadMessage(){
   		
   	}
-  	
-  	function sendMessage(){
-  		let url = document.location.href;
-  		let param = url.substring(url.indexOf('chatroomId=') + 11);
-  		console.log(param);
-  		let date = new Date();
-  		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
-  		console.log("sender: " + sender);
-  		let msg = {
-  			"content": message.value,
-  			"senderId": sender,
-  			"senderName": senderName,
-  			"chatroomId": param,
-  			"sendTime": sendTime
-  		}
-		webSocket.send(JSON.stringify(msg));
-  	}
-  	
+ 
   	function isEnterKey(){
   		if (window.event.keyCode == 13) {
         	sendMessage();
