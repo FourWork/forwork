@@ -9,7 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan(basePackages={"org.forwork.controller"})
+@ComponentScan(basePackages={"org.forwork.controller", "org.forwork.socket"})
 public class ServletConfig implements WebMvcConfigurer{
 
 

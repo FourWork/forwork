@@ -13,4 +13,9 @@ public class ChattingPageController {
 	public String detail() {
 		return "chatting/chatroomDetail";
 	}
+	
+	@GetMapping(value = "chatting/chatroom2")
+	public String detail2() {
+		return "chatting/index";
+	}
 }

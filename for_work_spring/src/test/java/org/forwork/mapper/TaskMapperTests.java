@@ -20,53 +20,70 @@ public class TaskMapperTests {
 	public TaskMapper mapper;
 	
 
+//	@Test
+//	public void testInsertTask(){
+//		
+//		Task task = new Task();
+//		
+//		task.setTask_content("로그인 구현");
+//		task.setTask_index("1");
+//		task.setWriter("이가영");
+//		
+//		mapper.insertTask(task);
+//	}
+//
+//	@Test
+//	public void testListTask(){
+//		
+//		mapper.listTask().forEach(task->log.info(task));
+//	}
+//	
+//	@Test
+//	public void testDeleteTask(){
+//		
+//		int task_id = 85;
+//		int count = mapper.deleteTask(task_id);
+//		log.info("DELETE RESULT: " + count);
+//
+//	}
+//	
+//	@Test
+//	public void testUpdateTask(){
+//		
+//		Task task = new Task();
+//		task.setTask_content("수정했음!!!");
+//		task.setTask_id("84");
+//		
+//		int count = mapper.updateTask(task);
+//		log.info("UPDATE RESULT: " + count);
+//	}
+//	
+//	@Test
+//	public void testDetailTask(){
+//		
+//		log.info(mapper.detailTask(65));
+//	}
+//	
+//	@Test
+//	public void testMapper(){
+//		
+//		log.info(mapper);
+//	}
+//	@Test
+//	public void testDecrease(){
+//		mapper.decreaseUpdate("2", "1");
+//	}
+//	@Test
+//	public void testIncrease(){
+//		mapper.increaseUpdate("1", "2");
+//	}
 	@Test
-	public void testInsertTask(){
-		
-		Task task = new Task();
-		
-		task.setTask_content("로그인 구현");
+	public void getUpdateTest(){
+		Task task = mapper.detailTask(23);
+		log.info(task);
 		task.setTask_index("1");
-		task.setWriter("이가영");
-		
-		mapper.insertTask(task);
-	}
-
-	@Test
-	public void testListTask(){
-		
-		mapper.listTask().forEach(task->log.info(task));
+		task.setTask_type_id("2");
+		mapper.moveTask(task);
 	}
 	
-	@Test
-	public void testDeleteTask(){
-		
-		int task_id = 85;
-		int count = mapper.deleteTask(task_id);
-		log.info("DELETE RESULT: " + count);
-
-	}
-	
-	@Test
-	public void testUpdateTask(){
-		
-		Task task = new Task();
-		task.setTask_content("수정했음!!!");
-		task.setTask_id("84");
-		
-		int count = mapper.updateTask(task);
-		log.info("UPDATE RESULT: " + count);
-	}
-	
-	@Test
-	public void testDetailTask(){
-		
-		log.info(mapper.detailTask(65));
-	}
-	
-	@Test
-	public void testMapper(){
-		
-		log.info(mapper);
-	}
 }
