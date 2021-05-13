@@ -23,6 +23,8 @@ public class PortfolioServiceImpl implements PortfolioService {
 	
 	private PortfolioMapper mapper;
 	
+	
+	
 	@Override
 	public Portfolio read(String portfolio_id) {
 		
@@ -31,14 +33,17 @@ public class PortfolioServiceImpl implements PortfolioService {
 	
 	@Transactional
 	@Override
-	public void register(Portfolio portfolio, PortfolioLanguage pfLang) {
+	public int register(Portfolio portfolio, List<PortfolioLanguage> pfLangList) {
 		
 		log.info("--------RegisterService-----------");
-		mapper.insert(portfolio);
+		int returnInteger = mapper.insert(portfolio);
 		log.info("--------RegisterService_insert_Portfolio-----------");
-		mapper.insertPfLang(pfLang);
-		log.info("--------RegisterService_insert_Pflang-----------");
-		
+		List<PortfolioLanguage> list = pfLangList;
+		for(PortfolioLanguage pfLang : pfLangList){
+			mapper.insertPfLang(pfLang);
+			log.info("--------RegisterService_insert_Pflang"+pfLang+"-----------");
+		}
+		return returnInteger;
 	}
 	
 	@Transactional
@@ -84,8 +89,14 @@ public class PortfolioServiceImpl implements PortfolioService {
 		
 		return statLangList;
 	}
-	
-	
 
+	@Override
+	public List<Portfolio> getList(String member_id) {
+	 
+		return mapper.listPortfolio(member_id);
+	}
+	
+	
+	
 	
 }

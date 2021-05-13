@@ -8,9 +8,10 @@ import org.forwork.domain.PortfolioLanguage;
 
 public interface PortfolioService {
 	public Portfolio read(String portfolio_id);
-	public void register(Portfolio portfolio, PortfolioLanguage pfLang);
+	public int register(Portfolio portfolio, List<PortfolioLanguage> pfLangList);
 	public void update(Portfolio portfolio, PortfolioLanguage pfLang);
 	public void delete(String portfolio_id);
+	public List<Portfolio> getList(String member_id);
 	public List<PortfolioLanguage> readPfLang(String portfolio_id);
 	public List<Map<String, String>> countLang(String member_id);
 }
