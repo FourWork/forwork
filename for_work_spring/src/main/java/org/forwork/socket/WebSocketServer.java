@@ -19,24 +19,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
-import org.forwork.domain.Member;
 import org.forwork.domain.Message;
-import org.forwork.dto.MessageDto;
-import org.forwork.mapper.ChattingMapper;
-import org.forwork.service.ChattingService;
 import org.forwork.service.ChattingServiceImpl;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Controller
-@RequiredArgsConstructor
 @ServerEndpoint(value = "/websocket", configurator = HttpSessionConfigurator.class)
 public class WebSocketServer {
 	private static Map<Session, EndpointConfig> configs = Collections.synchronizedMap(new HashMap<>());
@@ -46,10 +39,11 @@ public class WebSocketServer {
 	// 같은 유저라도 채팅방 여러개에 들어가있다면 세션이 여러개
 	private static List<User> sessionUsers = Collections.synchronizedList(new ArrayList<>());
 	
-//	@Setter(onMethod_ = {@Autowired})
 //	@Inject
 //	@Setter(onMethod_ = {@Autowired})
-	private static ChattingServiceImpl service;
+	
+	@Inject
+	private ChattingServiceImpl service;
 
 	private class User {
 		Session session;
@@ -133,11 +127,13 @@ public class WebSocketServer {
 		
 		String chatroomId = (String)ob.get("chatroomId");
 		List<String> sendingUserIds = new ArrayList<String>();
-		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
-			if (relation.getChatroom_id().equals(chatroomId)) {
-				sendingUserIds.add(relation.getMember_id());
-			}
-		}
+		sendingUserIds.add("1");
+		sendingUserIds.add("2");
+//		for(ChatroomMemberRelation relation: chatroomMemberRelations) {
+//			if (relation.getChatroom_id().equals(chatroomId)) {
+//				sendingUserIds.add(relation.getMember_id());
+//			}
+//		}
 		
 		// TODO: 페이지 별로 채팅방 구분
 		for(String sendingUserId: sendingUserIds) {
@@ -155,7 +151,7 @@ public class WebSocketServer {
 		msg.setSender((String)ob.get("senderId"));
 		msg.setChatroom_id((String)ob.get("chatroomId"));
 		msg.setSend_time((String)ob.get("sendTime"));
-		service.createMessage(msg);
+//		service.createMessage(msg);
 	}
 	
 	@OnClose

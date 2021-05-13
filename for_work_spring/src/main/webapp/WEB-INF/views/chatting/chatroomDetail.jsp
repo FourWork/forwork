@@ -9,7 +9,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <title>chatting</title>
     <style type="text/css">
     	#chatroom-title-container {
@@ -123,26 +125,52 @@
      		<div class="clearfix"></div>
    	</div>
 	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
-	<input type="text" value="${userId }" id="user" style="display:none;">
-	<input type="text" value="${name }" id="userName" style="display:none;">
+	<input type="text" value="1" id="user" style="display:none;">
+	<input type="text" value="sdfsadf" id="userName" style="display:none;">
    		
   <script type="text/javascript">
+  	let stompClient = null;
   	let sender = document.getElementById("user").value;
   	let senderName = document.getElementById("userName").value;
-  	let webSocket = new WebSocket("ws://localhost:8081/websocket");
+  	/* let webSocket = new WebSocket("ws://localhost:8081/websocket"); */
+  	let socket = new SockJS("/websocket");
+  	socket.onopen = function () {
+  		
+  		console.log("connected");
+  	}
+  	stompClient = Stomp.over(socket);
+  	stompClient.connect({}, function(frame){
+  		/* setConnected(true); */
+  		console.log('connected: ' + frame);
+  		stompClient.subscribe("/topic/greetings", function(response){
+  			console.log("sfsdfsd")
+  			console.log(response);
+  			console.log(JSON.parse(response.body));
+  			showGreeting(JSON.parse(response.body));
+  		});
+  	}, function(error) {
+  	    alert(error);
+  	}); 
   	
-/*   	let chatRoom = document.getElementById("chattingRoom"); */
-  	let message = document.getElementById("message");
+  	function showGreeting(message){
+  		alert(message);
+  	}
+  	
+  	function sendMessage(){
+  		let message = document.getElementById("message");
+  		console.log(message.value)
+  		stompClient.send("/app/hello", {}, message.value)
+  	}
+  
+  	
+  	/* let message = document.getElementById("message");
   	
   	webSocket.onopen = function(){
-  		/* chatRoom.value += "connected to server...\n" */
   	};
   	
   	webSocket.onclose = function(){
-  		/* chatRoom.value += "disconnected...\n"; */
   	}
   	webSocket.onerror = function(){
-  		/* chatRoom.value += "error....\n"; */
   	}
   	// 소켓에 들어온 메세지가 있을 때
   	webSocket.onmessage = function(message){
@@ -204,7 +232,7 @@
   	
   	function disconnect(){
   		webSocket.close();
-  	}
+  	} */
   	
   </script>
    </body>
