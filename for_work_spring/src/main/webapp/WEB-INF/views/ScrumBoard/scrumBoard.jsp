@@ -33,10 +33,10 @@ $(document).ready(function(){
 	
 	var task_type_id = '<c:out value="${task.task_type_id}"/>';
 	
-	var listStoriesUL = $("#storiesColumn");
-	var listTodoUL = $("#todoColumn");
-	var listDoingUL = $("#doingColumn");
-	var listDoneUL = $("#doneColumn");
+	var listStoriesDiv = $("#storiesColumn");
+	var listTodoDiv = $("#todoColumn");
+	var listDoingDiv = $("#doingColumn");
+	var listDoneDiv = $("#doneColumn");
 
 	showList();
 	
@@ -57,36 +57,40 @@ $(document).ready(function(){
 			var str3="<h6 class='card-title text-uppercase text-truncate py-2'>Doing</h6>";
 			var str4="<h6 class='card-title text-uppercase text-truncate py-2'>Done</h6>";
 			
-
+			listStoriesDiv.html(str1);
+	        listTodoDiv.html(str2);
+	        listDoingDiv.html(str3);
+	        listDoneDiv.html(str4);
+			
 			if(list==null || list.length==0){
-				listStoriesUL.html("");
-				listTodoUL.html("");
-				listDoingUL.html("");
-				listDoneUL.html("");
-				
-				return;
-			}
+	            listStoriesDiv.html(str1);
+	            listTodoDiv.html(str2);
+	            listDoingDiv.html(str3);
+	            listDoneDiv.html(str4);
+	            
+	            return;
+	         }
 			
 			for(var i =0, len=list.length ; i < len ; i++){
 				if(list[i].task_type_id==1){
 					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;				
-					listStoriesUL.html(str1);
+					listStoriesDiv.html(str1);
 				}
 				
 				str ="";
 				if(list[i].task_type_id==2){
 					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
-					listTodoUL.html(str2);
+					listTodoDiv.html(str2);
 				}
 				str="";
 				if(list[i].task_type_id==3){
 					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
-					listDoingUL.html(str3);
+					listDoingDiv.html(str3);
 				}
 				str="";
 				if(list[i].task_type_id==4){
 					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
-					listDoneUL.html(str4);
+					listDoneDiv.html(str4);
 				}	
 			}		
 		}); // end function
@@ -222,19 +226,21 @@ $(document).ready(function(){
 						var task_id = $(ui.item).find('.task_id').html();
 						var col_name = $(ui.item).closest('.column').find(
 								'.card-title').html();
-					console.log(previdx);
-					console.log(nowidx);
-
-						if (typeof previdx != 'undefined') {
-							$.ajax({
-								type : "POST",
-								url : "moveTask.do",
-								data : {
+	
+						
+						if (typeof previdx != 'undefined' && previdx != 0) {
+							var changeData = {
 									"previdx" : previdx,
 									"nowidx" : nowidx,
 									"task_id" : task_id,
 									"col_name" : col_name
-								},
+								};
+								console.log(changeData);
+							$.ajax({
+								type : "POST",
+								url : "/task/move",
+								contentType:"application/json",
+								data : JSON.stringify(changeData),
 								success : function(data) {
 									if (data == 'success') {
 										console.log("성공");
@@ -252,15 +258,16 @@ $(document).ready(function(){
 		$('.addRes').click(function(){
 			var task_id = $(this).closest('.card').find('.task_id').html();		
 			var now = $(this).closest('.card').find('#resp').find('b');
-		$.ajax({
+			var myName = "";
+			$.ajax({
 				type : "POST",
 				url : "addRes.do",
 				data : {
-					"task_id" : task_id
+					"task_id" : task_id,
+					"name" : myName
 				},
 				success : function(data){
-					$(now).html('<%=session.getAttribute("name")%>
-	');
+					$(now).html(myName);
 				}
 			});
 		});
