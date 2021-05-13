@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java/org/forwork/controller/PostController.java=UTF-8
+encoding//src/main/java/org/forwork/controller/TodolistController.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
-encoding//src/test/java/org/forwork/mapper/PortfolioMapperTests.java=UTF-8
+encoding/<project>=UTF-8
+

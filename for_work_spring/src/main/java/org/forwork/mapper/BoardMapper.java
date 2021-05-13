@@ -5,6 +5,10 @@ import java.util.List;
 import org.forwork.domain.Board;
 
 public interface BoardMapper {
+	
+	public int insertNoticeBoard(int project_id);
+	
+	public int insertDefaultBoard(int project_id);
 
 	public void insertBoard(Board board);
 	
