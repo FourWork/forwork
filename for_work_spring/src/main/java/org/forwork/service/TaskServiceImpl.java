@@ -66,13 +66,15 @@ public class TaskServiceImpl implements TaskService {
 		Task task = mapper.detailTask(Integer.parseInt(changeData.get("task_id")));
 		System.out.println("previdx : " + changeData.get("previdx"));
 		System.out.println("getTask_type_id : " + task.getTask_type_id());
+		System.out.println("col_name : " +  changeData.get("col_name"));
+		
 		mapper.decreaseUpdate(changeData.get("previdx"), task.getTask_type_id());
 		
 		String type_id = null;
 		switch (changeData.get("col_name")) {
 			case "Stories":
 				type_id = "1";break;
-			case"To-do":
+			case"To-Do":
 				type_id = "2";break;
 			case"Doing":
 				type_id = "3";break;
@@ -80,13 +82,13 @@ public class TaskServiceImpl implements TaskService {
 				type_id = "4";break;
 			default:break;
 		}
-
+		System.out.println("type_id  :  " + type_id);
 		mapper.increaseUpdate(changeData.get("nowidx"), type_id);
 		
 		task.setTask_index(changeData.get("nowidx"));
 		task.setTask_type_id(type_id);
 		log.info("update task : " + task);
-		return mapper.updateTask(task);
+		return mapper.moveTask(task);
 	}
 
 }

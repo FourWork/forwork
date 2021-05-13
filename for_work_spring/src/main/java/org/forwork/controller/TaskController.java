@@ -81,6 +81,8 @@ public class TaskController {
 	
 	@PostMapping(value="/move", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> moveTask(@RequestBody Map<String, String>param){
+		
+		System.out.println(param);
 		if(service.moveTask(param)== 1){			
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		}else{

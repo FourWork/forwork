@@ -258,15 +258,16 @@ $(document).ready(function(){
 		$('.addRes').click(function(){
 			var task_id = $(this).closest('.card').find('.task_id').html();		
 			var now = $(this).closest('.card').find('#resp').find('b');
-		$.ajax({
+			var myName = "";
+			$.ajax({
 				type : "POST",
 				url : "addRes.do",
 				data : {
-					"task_id" : task_id
+					"task_id" : task_id,
+					"name" : myName
 				},
 				success : function(data){
-					var name = "name"
-					$(now).html(name);
+					$(now).html(myName);
 				}
 			});
 		});

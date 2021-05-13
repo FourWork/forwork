@@ -69,8 +69,21 @@ public class TaskMapperTests {
 //		
 //		log.info(mapper);
 //	}
+//	@Test
+//	public void testDecrease(){
+//		mapper.decreaseUpdate("2", "1");
+//	}
+//	@Test
+//	public void testIncrease(){
+//		mapper.increaseUpdate("1", "2");
+//	}
 	@Test
-	public void testDecrease(){
-		mapper.decreaseUpdate("2", "1");
+	public void getUpdateTest(){
+		Task task = mapper.detailTask(23);
+		log.info(task);
+		task.setTask_index("1");
+		task.setTask_type_id("2");
+		mapper.moveTask(task);
 	}
+	
 }
