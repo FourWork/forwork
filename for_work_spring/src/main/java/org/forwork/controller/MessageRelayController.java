@@ -1,6 +1,6 @@
 package org.forwork.controller;
 
-import org.forwork.domain.Message;
+import org.forwork.dto.MessageDto;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -14,7 +14,7 @@ public class MessageRelayController {
 
     @MessageMapping("/message/{chatroomId}")
     @SendTo("/topic/chatroom/{chatroomId}")
-    public Message sendUsualMessage(@DestinationVariable String chatroomId, Message message) throws Exception {
+    public MessageDto sendUsualMessage(@DestinationVariable String chatroomId, MessageDto message) throws Exception {
         System.out.println(message);
         return message;
     }

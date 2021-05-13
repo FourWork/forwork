@@ -127,7 +127,7 @@
    	</div>
 	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
 	<input type="text" value="${userId }" id="user" style="display:none;">
-	<input type="text" value="sdfsadf" id="userName" style="display:none;">
+	<input type="text" value="${member.name }" id="userName" style="display:none;">
    		
   <script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
@@ -160,7 +160,6 @@
 
   	
   	let stompClient = null;
-  	/* let webSocket = new WebSocket("ws://localhost:8081/websocket"); */
   	let socket = new SockJS("/websocket");
   	socket.onopen = function () {
   		
@@ -189,14 +188,14 @@
         chatBubble.innerHTML =  msg.message;   
         chatBubble.classList.add('bubble');
         
-        if (msg.sender == sender){
+        if (msg.sender.member_id == sender){
         	chatBubble.classList.add('my-bubble');
   		} else {
   			let name = document.createElement('div');
   	    	let img = document.createElement('img');
   	    	
   			chatBubble.classList.add('friend-bubble');
-  			name.innerHTML = msg.sender;
+  			name.innerHTML = msg.sender.name;
   	        name.classList.add('bubble');
   	        name.classList.add('friend-profile');
   	        name.classList.add('friend-name');
@@ -219,9 +218,12 @@
   		console.log("sender: " + sender);
   		let msg = {
   			"message": message.value,
-  			"sender": sender,
   			"chatroom_id": chatroomId,
-  			"send_time": sendTime
+  			"send_time": sendTime,
+  			"sender" : {
+  				"member_id": sender,
+  				"name" : senderName
+  			}
   		}
   		console.log(message.value)
   		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
