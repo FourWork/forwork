@@ -1,5 +1,11 @@
 package org.forwork.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
 import org.forwork.mapper.PortfolioMapper;
@@ -15,8 +21,13 @@ import lombok.extern.log4j.Log4j;
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
 	
-
 	private PortfolioMapper mapper;
+	
+	@Override
+	public Portfolio read(String portfolio_id) {
+		
+		return mapper.read(portfolio_id);
+	}
 	
 	@Transactional
 	@Override
@@ -29,22 +40,52 @@ public class PortfolioServiceImpl implements PortfolioService {
 		log.info("--------RegisterService_insert_Pflang-----------");
 		
 	}
+	
 	@Transactional
 	@Override
 	public void update(Portfolio portfolio, PortfolioLanguage pfLang) {
-		
+		//PortfolioLanguage가 삭제-삽입 되는 로직 추후에 변경필요
 		log.info("-------------UpdateService------------");
 		mapper.update(portfolio);
 		log.info("-------------UpdateService_update_portfolio----------");
 		mapper.deletePfLang(portfolio.getPortfolio_id());
 		mapper.updatePfLang(pfLang);
 	}
+	
+	@Transactional
+	@Override
+	public void delete(String portfolio_id) {
+		log.info("-------------DeleteService-------------");
+		mapper.deletePfLang(portfolio_id);
+		mapper.delete(portfolio_id);
+	}
 
 	@Override
-	public Portfolio read(String portfolio_id) {
-		
-		return mapper.read(portfolio_id);
+	public List<PortfolioLanguage> readPfLang(String portfolio_id) {
+		log.info("-------------readPfLangService-------------");
+		List<PortfolioLanguage> pfLangList = mapper.readPfLang(portfolio_id);
+		return pfLangList;
 	}
+
+	@Override
+	public List<Map<String, String>> countLang(String member_id) {
+		log.info("------------countLangService---------------");
+		//google api 사용을 위한 형변환
+		List<Map<String,Object>> list0 = mapper.rollupLanguage(member_id);
+		List<Map<String,String>> statLangList = new ArrayList<>();
+		
+		for(Map<String,Object> map: list0) {
+			Map<String,String> newMap = new HashMap();
+			for(Entry<String,Object> entry : map.entrySet()) {
+				newMap.put(entry.getKey(), entry.getValue().toString());
+			}
+			statLangList.add(newMap);
+		}
+		
+		return statLangList;
+	}
+	
+	
 
 	
 }
