@@ -2,9 +2,10 @@ package org.forwork.service;
 
 import java.util.List;
 
+import org.forwork.service.BoardService;
+import org.springframework.stereotype.Service;
 import org.forwork.domain.Board;
 import org.forwork.mapper.BoardMapper;
-import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -17,38 +18,52 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 
 	@Override
+	public int init(int project_id) {
+		
+		if (mapper.listBoardMenu(project_id).size() == 0) {
+			log.info("ìƒˆ í”„ë¡œì íŠ¸ ê³µì§€ ì‚¬í•­, ê¸°ë³¸ ê²Œì‹œíŒ ìƒì„±...");
+			
+			mapper.insertNoticeBoard(project_id);
+			mapper.insertDefaultBoard(project_id);
+		}
+		
+		return mapper.listBoardMenu(project_id).size();
+	}
+	
+	@Override
 	public int register(Board board) {
-		log.info("»õ °Ô½ÃÆÇ µî·Ï..." + board);
+		log.info("ìƒˆ ê²Œì‹œíŒ ë“±ë¡..." + board);
 		
 		return mapper.insertBoardSelectKey(board);
 	}
 
 	@Override
 	public Board get(Long board_id) {
-		log.info("°Ô½ÃÆÇ ÀÌ¸§..." + board_id);
+		log.info("ê²Œì‹œíŒ ì´ë¦„..." + board_id);
 		
 		return mapper.getBoard(board_id);
 	}
 
 	@Override
-	public boolean modify(Board board) {
-		log.info("°Ô½ÃÆÇ ¼öÁ¤..." + board);
+	public int modify(Board board) {
+		log.info("ê²Œì‹œíŒ ìˆ˜ì •..." + board);
 		
-		return mapper.updateBoard(board) == 1;
+		return mapper.updateBoard(board);
 	}
 
 	@Override
-	public boolean remove(Long board_id) {
-		log.info("°Ô½ÃÆÇ »èÁ¦..." + board_id);
+	public int remove(Long board_id) {
+		log.info("ê²Œì‹œíŒ ì‚­ì œ..." + board_id);
 		
-		return mapper.deleteBoard(board_id) == 1;
+		return mapper.deleteBoard(board_id);
 	}
 
 	@Override
 	public List<Board> getList(int project_id) {
-		log.info("ÇÁ·ÎÁ§Æ®º° °Ô½ÃÆÇ ¸ñ·Ï...");
+		log.info("í”„ë¡œì íŠ¸ë³„ ê²Œì‹œíŒ ëª©ë¡...");
 		
 		return mapper.listBoardMenu(project_id);
 	}
+
 
 }
