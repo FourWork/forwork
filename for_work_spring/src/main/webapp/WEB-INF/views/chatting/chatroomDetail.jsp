@@ -12,7 +12,7 @@
   	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script type="text/javascript" src="/resources/js/chattingApi.js"></script>
+	<script type="text/javascript" src="/resources/js/chatting.js"></script>
     <title>chatting</title>
     <style type="text/css">
     	#chatroom-title-container {
@@ -136,9 +136,7 @@
   		let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
   		let chatroomTitle = document.getElementById("chatroom-title");
   		chattingService.getChatroomName(chatroomId, function(result){
-  			console.log("11111111111")
-  			console.log(result);
-  			chatroomTitle.value = result;
+  			chatroomTitle.innerHTML = result.chatroom_name;
   		});
   		
   		let chatbox = document.querySelector(".chatbox");

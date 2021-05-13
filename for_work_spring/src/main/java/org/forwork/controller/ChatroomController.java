@@ -2,6 +2,7 @@ package org.forwork.controller;
 
 import java.util.List;
 
+import org.forwork.domain.Chatroom;
 import org.forwork.dto.MessageDto;
 import org.forwork.service.ChattingService;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,9 @@ public class ChatroomController {
 	
 	@GetMapping(value = "/{chatroomId}",
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> getChatroomName(@PathVariable String chatroomId) {
-		return new ResponseEntity<>(service.findChatroomName(chatroomId), HttpStatus.OK);
+	public ResponseEntity<Chatroom> getChatroomName(@PathVariable String chatroomId) {
+		Chatroom chatroom = new Chatroom();
+		chatroom.setChatroom_name(service.findChatroomName(chatroomId));
+		return new ResponseEntity<>(chatroom, HttpStatus.OK);
 	}
 }

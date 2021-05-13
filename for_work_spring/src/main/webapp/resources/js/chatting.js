@@ -29,12 +29,12 @@ let chattingService = (function() {
 			url : '/chatroom/' + chatroomId,
 			datatType : "json",
 			success : function(result, status, xhr) {
-				console.log(result);
 				if (callback) {
 					callback(result);
 				}
 			},
 			error : function(xhr, status, er) {
+				console.log("error");
 				if (error) {
 					error(er);
 				}
