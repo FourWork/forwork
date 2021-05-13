@@ -9,7 +9,7 @@ let chattingService = (function() {
 		$.ajax({
 			type : 'get',
 			url : '/message/chatroom/' + chatroomId,
-			datatType : "json",
+			dataType : "json",
 			success : function(result, status, xhr) {
 				if (callback) {
 					callback(result);
@@ -27,7 +27,7 @@ let chattingService = (function() {
 		$.ajax({
 			type : 'get',
 			url : '/chatroom/' + chatroomId,
-			datatType : "json",
+			dataType : "json",
 			success : function(result, status, xhr) {
 				if (callback) {
 					callback(result);
