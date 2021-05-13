@@ -41,10 +41,30 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function insertMessage(message, callback, error) {
+		$.ajax({
+			type : 'post',
+			url : '/message/new',
+			data : JSON.stringify(message),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
 		getChatroomName : getChatroomName,
+		insertMessage : insertMessage,
 	};
 
 })();

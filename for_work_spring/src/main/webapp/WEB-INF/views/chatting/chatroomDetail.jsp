@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../header.jsp" %>
-<%
-	/* String chatroomId = request.getParameter("chatroomId"); */
-	/* session.setAttribute("userId", "1");
-	session.setAttribute("chatroomId", chatroomId); */
-%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -226,6 +221,15 @@
   			}
   		}
   		console.log(message.value)
+  		let saveMsg = {
+  			"message": message.value,
+  			"chatroom_id": chatroomId,
+  			"send_time": sendTime,
+  			"sender": sender
+  		}
+  		chattingService.insertMessage(saveMsg, function(result){
+  			console.log(result);
+  		})
   		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
   	}
   
