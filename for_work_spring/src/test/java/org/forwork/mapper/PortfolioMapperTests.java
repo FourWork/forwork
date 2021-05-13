@@ -37,26 +37,26 @@ public class PortfolioMapperTests {
 //			PortfolioVO vo = new PortfolioVO();
 //			
 //			vo.setMember_id(memArr[i%4]);
-//			vo.setPortfolio_title("��Ʈ������ ����"+i);
-//			vo.setPortfolio_detail("���� ����"+i);
+//			vo.setPortfolio_title("Portfolio create TEST title"+i);
+//			vo.setPortfolio_detail("Portfolio create TEST detail"+i);
 //			
 //			mapper.insert(vo);
 //		});
 //	}
 	
-	@Test
-	public void testRead(){
-		String targetPId = "42";
-		Portfolio vo = mapper.read(targetPId);
-		log.info(vo);
-	}
+//	@Test
+//	public void testRead(){
+//		String targetPId = "42";
+//		Portfolio vo = mapper.read(targetPId);
+//		log.info(vo);
+//	}
 	
 //	@Test
 //	public void testUpdate(){
-//		String targetPId="41";
-//		PortfolioVO vo = mapper.read(targetPId);
-//		vo.setPortfolio_title("���������� �����ϴ� ����");
-//		vo.setPortfolio_detail("������ �����ӿ�ũ�� ����� ���� ��");
+//		String targetPId="98";
+//		Portfolio vo = mapper.read(targetPId);
+//		vo.setPortfolio_title("Portfolio update TEST title");
+//		vo.setPortfolio_detail("Portfolio update TEST detail");
 //		mapper.update(vo);
 //		
 //	}
@@ -65,6 +65,12 @@ public class PortfolioMapperTests {
 //	public void testDelete(){
 //		String targePID="49";
 //		mapper.delete(targePID);
+//	}
+
+//	@Test
+//	public void testDeletePfLang(){
+//		String targePID="34";
+//		mapper.deletePfLang(targePID);
 //	}
 	
 //	@Test
@@ -76,14 +82,18 @@ public class PortfolioMapperTests {
 //	}
 	
 //	@Test
-//	public void testPfLangStat(){
+//	public void testCntMemLang(){
 //		String mID="1";
-//		log.info(mapper.countMemberLanguage(mID));
+//		log.info(mapper.rollupLanguage(mID));
 //	}
-	
+
 //	@Test
-//	public  void testMaxPid(){
-//		log.info(mapper.getPortfolio_max_id());
+//	public void testReadPfLang(){
+//		String portfolio_id = "37";
+//		List<PortfolioLanguage> pfLangList = mapper.readPfLang(portfolio_id);
+//		log.info(pfLangList);
+//		
 //	}
 	
+
 }

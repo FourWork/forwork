@@ -21,11 +21,21 @@
 	</update>
 
 	<select id="detailTask" resultType="org.forwork.domain.Task" parameterType="int">
-		select task_id, task_content, responsibility, writer, name from task_ex where task_id = #{task_id}
+		select * from task_ex where task_id = #{task_id}
 	</select>
 
 	<!-- Sprint CRUD -->
 
-
+	<update id="increaseUpdate">
+		update task_ex set task_index = task_index + 1 where task_index >= #{task_index} and task_type_id = #{task_type_id}
+	</update>
+	
+	<update id="decreaseUpdate">
+		update task_ex set task_index = task_index - 1 where task_index > #{task_index} and task_type_id = #{task_type_id}
+	</update>
+	
+	<update id="moveTask">
+		update task_ex set task_index = #{task_index}, task_type_id = #{task_type_id} where task_id=#{task_id}
+	</update>
 
 </mapper>

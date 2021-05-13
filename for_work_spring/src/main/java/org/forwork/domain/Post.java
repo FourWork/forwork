@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Post {
 
-	private int post_id;
-	private int board_id;
+	private Long post_id;
+	private Long board_id;
 	private String post_writer;
 	private String post_title;
 	private String post_content;
