@@ -30,6 +30,25 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	var ws = new WebSocket("ws://localhost:8081/taskSocket"); // socket 연결
+
+	ws.onopen = function(e){
+		console.log("info : connection opened."); // 정상적으로 연결 시 출력
+	}
+	
+	ws.onmessage = function(e){
+		showList(); // 서버로부터 메세지를 받을 경우 새로고침
+	}
+	
+	ws.onclose = function(e){
+		console.log("info : connection closed");
+	};
+	
+	ws.onerror = function(e){
+		console.log("error")
+	};
+	
+	
 	
 	var task_type_id = '<c:out value="${task.task_type_id}"/>';
 	
@@ -39,6 +58,7 @@ $(document).ready(function(){
 	var listDoneDiv = $("#doneColumn");
 
 	showList();
+	
 	
 	// Task List 불러오기
 	function showList(){
@@ -196,69 +216,58 @@ $(document).ready(function(){
 		});
 	});
 	
-	
-	
-});
+	// task move 기능
+	$(".column").sortable({
+				// 드래그 앤 드롭 단위 css 선택자	
+				connectWith : ".column",
+				// 움직이는 css 선택자	
+				handle : ".card-header",
+				// 움직이지 못하는 css 선택자	
+				cancel : ".no-move",
+				// 이동하려는 location에 추가 되는 클래스	
+				placeholder : "card-placeholder",
+				start : function(event, ui) {
+					$(this).attr('data-previndex', ui.item.index());
+				},
+				update : function(event, ui) {
+					var previdx = $(this).attr('data-previndex');
+					var nowidx = ui.item.index();
+					var task_id = $(ui.item).find('.task_id').html();
+					var col_name = $(ui.item).closest('.column').find(
+							'.card-title').html();
 
-
-
-</script>
-
-
-<script>
-	$(function() { // task move
-		$(".column").sortable(
-				{
-					// 드래그 앤 드롭 단위 css 선택자	
-					connectWith : ".column",
-					// 움직이는 css 선택자	
-					handle : ".card-header",
-					// 움직이지 못하는 css 선택자	
-					cancel : ".no-move",
-					// 이동하려는 location에 추가 되는 클래스	
-					placeholder : "card-placeholder",
-					start : function(event, ui) {
-						$(this).attr('data-previndex', ui.item.index());
-					},
-					update : function(event, ui) {
-						var previdx = $(this).attr('data-previndex');
-						var nowidx = ui.item.index();
-						var task_id = $(ui.item).find('.task_id').html();
-						var col_name = $(ui.item).closest('.column').find(
-								'.card-title').html();
-	
-						
-						if (typeof previdx != 'undefined' && previdx != 0) {
-							var changeData = {
-									"previdx" : previdx,
-									"nowidx" : nowidx,
-									"task_id" : task_id,
-									"col_name" : col_name
-								};
-								console.log(changeData);
-							$.ajax({
-								type : "POST",
-								url : "/task/move",
-								contentType:"application/json",
-								data : JSON.stringify(changeData),
-								success : function(data) {
-									if (data == 'success') {
-										console.log("성공");
-									}
-								},
-								error : function(e) {
-									console.log('error : ' + e);
+					
+					if (typeof previdx != 'undefined' && previdx != 0) {
+						var changeData = {
+								"previdx" : previdx,
+								"nowidx" : nowidx,
+								"task_id" : task_id,
+								"col_name" : col_name
+							};
+							console.log(changeData);
+						$.ajax({
+							type : "PATCH",
+							url : "/task/move",
+							contentType:"application/json",
+							data : JSON.stringify(changeData),
+							success : function(data) {
+								if (data == 'success') {
+									console.log("성공");
+									ws.send("c");
 								}
-							})
-						}
+							},
+							error : function(e) {
+								console.log('error : ' + e);
+							}
+						})
 					}
-				});
-		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
+				}});
+	
 		
 		$('.addRes').click(function(){
 			var task_id = $(this).closest('.card').find('.task_id').html();		
 			var now = $(this).closest('.card').find('#resp').find('b');
-			var myName = "";
+			var myName = ""; // session에서 아이디 가져오기
 			$.ajax({
 				type : "POST",
 				url : "addRes.do",
@@ -271,12 +280,14 @@ $(document).ready(function(){
 				}
 			});
 		});
+});
 
-	});
+
+
 </script>
 </head>
 <style>
-/* 마우스 포인터을 손가락으로 변경 */
+
 .card:not (.no-move ) .card-header {
 	cursor: pointer;
 }
