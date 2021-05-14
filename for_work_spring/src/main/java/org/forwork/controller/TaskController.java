@@ -91,6 +91,11 @@ public class TaskController {
 		}
 	}
 	
+	@PatchMapping(value="/addRes",consumes="application/json")
+	public ResponseEntity<String> addRes(@RequestBody Map<String, String>param){
+		System.out.println(param);
+		return new ResponseEntity<String>("success",HttpStatus.OK);
+	}
 	
 	
 	

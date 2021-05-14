@@ -91,4 +91,12 @@ public class TaskServiceImpl implements TaskService {
 		return mapper.moveTask(task);
 	}
 
+	@Override
+	@Transactional
+	public int addRes(String task_id, String name) {
+		Task task = mapper.detailTask(Integer.parseInt(task_id));
+		task.setResponsibility(name);
+		return mapper.updateTask(task);
+	}
+
 }

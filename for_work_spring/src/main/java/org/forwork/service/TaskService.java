@@ -18,4 +18,6 @@ public interface TaskService {
 	public Task detailTask(int task_id);
 	
 	public int moveTask(Map<String, String> changeData);
+	
+	public int addRes(String task_id, String name);
 }

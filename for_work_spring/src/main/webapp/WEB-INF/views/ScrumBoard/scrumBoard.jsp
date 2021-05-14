@@ -216,6 +216,24 @@ $(document).ready(function(){
 		});
 	});
 	
+	$("#column_container").on("click",".addRes",function(){
+		var task_id = $(this).closest('.card').find(".task_id").html();
+		var now = $(this).closest('.card').find('#resp').find('b');
+		var myName = "test"; // session에서 아이디 가져오기
+		var obj = {"task_id":task_id,"name":myName};
+		
+		$.ajax({
+			type : "PATCH",
+			url : "/task/addRes",
+			contentType:"application/json",
+			data : JSON.stringify(obj),
+			success : function(data){
+				$(now).html(myName);
+			}
+		});
+	});
+	
+	
 	// task move 기능
 	$(".column").sortable({
 				// 드래그 앤 드롭 단위 css 선택자	
@@ -244,7 +262,7 @@ $(document).ready(function(){
 								"task_id" : task_id,
 								"col_name" : col_name
 							};
-							console.log(changeData);
+						
 						$.ajax({
 							type : "PATCH",
 							url : "/task/move",
@@ -263,23 +281,7 @@ $(document).ready(function(){
 					}
 				}});
 	
-		
-		$('.addRes').click(function(){
-			var task_id = $(this).closest('.card').find('.task_id').html();		
-			var now = $(this).closest('.card').find('#resp').find('b');
-			var myName = ""; // session에서 아이디 가져오기
-			$.ajax({
-				type : "POST",
-				url : "addRes.do",
-				data : {
-					"task_id" : task_id,
-					"name" : myName
-				},
-				success : function(data){
-					$(now).html(myName);
-				}
-			});
-		});
+
 });
 
 
