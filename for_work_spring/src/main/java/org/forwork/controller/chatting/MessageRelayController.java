@@ -1,16 +1,14 @@
-package org.forwork.controller;
+package org.forwork.controller.chatting;
 
-import org.forwork.domain.Message;
 import org.forwork.dto.MessageDto;
-import org.forwork.service.ChattingServiceImpl;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-@Controller
+@RestController
 @AllArgsConstructor
 public class MessageRelayController {
 	

@@ -1,4 +1,4 @@
-package org.forwork.service;
+package org.forwork.service.chatting;
 
 import java.util.List;
 

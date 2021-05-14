@@ -1,8 +1,8 @@
-package org.forwork.controller;
+package org.forwork.controller.chatting;
 
 
 import org.forwork.domain.Member;
-import org.forwork.service.ChattingService;
+import org.forwork.service.chatting.ChattingService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
