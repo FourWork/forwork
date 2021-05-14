@@ -1,11 +1,14 @@
 package org.forwork.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.forwork.domain.MyProfileWrapper;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
 import org.forwork.mapper.PortfolioMapper;
@@ -24,11 +27,15 @@ public class PortfolioServiceImpl implements PortfolioService {
 	private PortfolioMapper mapper;
 	
 	
-	
+	@Transactional
 	@Override
-	public Portfolio read(String portfolio_id) {
+	public MyProfileWrapper read(String portfolio_id) {
 		
-		return mapper.read(portfolio_id);
+		MyProfileWrapper wrapper= new MyProfileWrapper();
+		wrapper.setPortfolio(mapper.read(portfolio_id));
+		wrapper.setPfLangList(mapper.readPfLangList(portfolio_id));
+
+		return wrapper;
 	}
 	
 	@Transactional
@@ -48,29 +55,27 @@ public class PortfolioServiceImpl implements PortfolioService {
 	
 	@Transactional
 	@Override
-	public void update(Portfolio portfolio, PortfolioLanguage pfLang) {
+	public int update(Portfolio portfolio, List<PortfolioLanguage> pfLangList) {
 		//PortfolioLanguage가 삭제-삽입 되는 로직 추후에 변경필요
 		log.info("-------------UpdateService------------");
-		mapper.update(portfolio);
+		int returnInteger = mapper.update(portfolio);
 		log.info("-------------UpdateService_update_portfolio----------");
 		mapper.deletePfLang(portfolio.getPortfolio_id());
-		mapper.updatePfLang(pfLang);
+		for(PortfolioLanguage pfLang : pfLangList){
+			mapper.updatePfLang(pfLang);
+		}
+		return returnInteger;
 	}
 	
 	@Transactional
 	@Override
-	public void delete(String portfolio_id) {
+	public int delete(String portfolio_id) {
 		log.info("-------------DeleteService-------------");
 		mapper.deletePfLang(portfolio_id);
-		mapper.delete(portfolio_id);
+		int returnInteger = mapper.delete(portfolio_id);
+		return returnInteger;
 	}
 
-	@Override
-	public List<PortfolioLanguage> readPfLang(String portfolio_id) {
-		log.info("-------------readPfLangService-------------");
-		List<PortfolioLanguage> pfLangList = mapper.readPfLang(portfolio_id);
-		return pfLangList;
-	}
 
 	@Override
 	public List<Map<String, String>> countLang(String member_id) {

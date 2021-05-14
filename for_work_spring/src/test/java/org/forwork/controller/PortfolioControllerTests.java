@@ -1,5 +1,7 @@
 package org.forwork.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.AllArgsConstructor;
@@ -45,39 +50,26 @@ public class PortfolioControllerTests {
 //	@Test
 //	public void testList() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/MyProfile/member_id/2"))
-//				.andReturn()
-//				.getModelAndView()
-//				.getViewName());
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/member_id/2"))
+//				.andExpect(status().isOk()));
 //	}
 	
 //	@Test
-//	public void testRegister() throws Exception{
-////		Portfolio reqPortfolio= new Portfolio();
-////		reqPortfolio.setMember_id("2");
-////		reqPortfolio.setPortfolio_title("controllerTests_title");
-////		reqPortfolio.setPortfolio_detail("controllerTests_detail");
-//
-//		String reqPortfolio="{
-//		    "portfolio_id": "98",
-//		    "member_id": "1",
-//		    "portfolio_title": "Portfolio update TEST title",
-//		    "portfolio_start_date": 1620781522000,
-//		    "portfolio_end_date": 1620781522000,
-//		    "portfolio_detail": "Portfolio update TEST detail"
-//		  }";
-//		
-//		List<PortfolioLanguage> reqList =new ArrayList<PortfolioLanguage>();
-//		PortfolioLanguage lang = new PortfolioLanguage();
-//		for(int i =1; i < 5 ; i++){
-//			lang.setPortfolio_language("language"+i);
-//			reqList.add(lang);
-//		}
-//		
-//		log.info("-------------controllerTests-------------");
-//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/MyProfile/new")
-//				.param("portfolio", reqPortfolio)
-//				.param("pfLang", reqList))
-//				.andRet
+//	public void testGet() throws Exception{
+//		log.info("--------------controllerTests---------------");
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/portfolio_id/183"))
+//				.andExpect(status().isOk()));
 //	}
+	
+//	@Test
+//	public void testDelete() throws Exception{
+//		log.info("---------controllerTests--------------");
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/portfolio_id/183"))
+//				.andExpect(status().isOk()));
+//		
+//		log.info("----------controllerTests end---------------");
+//	}
+	
+
+
 }

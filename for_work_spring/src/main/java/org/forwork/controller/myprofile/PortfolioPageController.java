@@ -1,4 +1,4 @@
-package org.forwork.controller;
+package org.forwork.controller.myprofile;
 
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping(value="/MyProfile/*", 
+@RequestMapping(value="/myprofile/*", 
 produces=MediaType.TEXT_HTML_VALUE)
 public class PortfolioPageController {
 
