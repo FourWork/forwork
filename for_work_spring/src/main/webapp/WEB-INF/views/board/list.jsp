@@ -110,6 +110,19 @@ table {
 	left: 13px;
 }
 
+.col-10 {
+	position: relative;
+}
+
+.pagingBtnArea {
+	position: absolute;
+	right: 30px;
+}
+
+.active {
+	background-color: #6c757d;
+}
+
 </style>
 <title>4WORK | ${board.board_name}</title>
 </head>
@@ -152,7 +165,7 @@ table {
 								<c:forEach var="list" items="${list}">
 									<tr>
 										<td>${list.post_id}</td>
-										<td><a href="post?post_id=${list.post_id}&board_id=${board.board_id}&project_id=${board.project_id}">${list.post_title}</a></td>
+										<td><a href="post?post_id=${list.post_id}&board_id=${board.board_id}&project_id=${board.project_id}&pageNum=${pageMaker.cri.pageNum}">${list.post_title}</a></td>
 										 <td>${list.post_writer}</td>
 										<td><fmt:parseDate var="dt" value="${list.post_date}"
 												pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
@@ -163,8 +176,34 @@ table {
 							</tbody>
 						</table>
 					</div>
+					
+					<div class="pagingBtnArea">
+						<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+							<c:if test="${pageMaker.prev}">
+								<div class="btn-group me-2" role="group" aria-label="First group">
+									<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.startPage - 1}"><button type="button" class="btn btn-outline-secondary">이전</button></a>
+								</div>
+							</c:if>
+						
+							<div class="btn-group me-2" role="group" aria-label="Second group">
+								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+									<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${num}">
+										<button type="button" class="btn btn-outline-secondary ${pageMaker.cri.pageNum == num ? "active" : ""}">${num}</button>
+									</a>
+								</c:forEach>
+							</div>
+							
+							<c:if test="${pageMaker.next}">
+								<div class="btn-group me-2" role="group" aria-label="Third group">
+									<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.endPage + 1}"><button type="button" class="btn btn-outline-secondary">다음</button></a>
+								</div>
+							</c:if>
+						</div>
+					</div>
+					<!-- pagingBtn end -->
 				</div>
 				<!-- col-10 -->
+			
 			</div>
 		</div>
 	</div>

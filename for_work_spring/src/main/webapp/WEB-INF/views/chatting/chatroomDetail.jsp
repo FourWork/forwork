@@ -1,17 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../header.jsp" %>
-<%
-	/* String chatroomId = request.getParameter("chatroomId"); */
-	/* session.setAttribute("userId", "1");
-	session.setAttribute("chatroomId", chatroomId); */
-%>
 <!DOCTYPE html>
 <html>
   <head>
   	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script type="text/javascript" src="/resources/js/chatting.js"></script>
     <title>chatting</title>
     <style type="text/css">
     	#chatroom-title-container {
@@ -102,7 +98,7 @@
   </head>
   <body>
   	<div id="chatroom-title-container">
-  		<span id="chatroom-title">${chatroomName }</span>
+  		<span id="chatroom-title" data-chatroom-id="${chatroomId }" >${chatroomName }</span>
   	</div>
   	<div class="chatbox">
 		<c:forEach var="message" items="${messages}">
@@ -125,14 +121,40 @@
      		<div class="clearfix"></div>
    	</div>
 	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
-	<input type="text" value="1" id="user" style="display:none;">
-	<input type="text" value="sdfsadf" id="userName" style="display:none;">
+	<input type="text" value="${userId }" id="user" style="display:none;">
+	<input type="text" value="${member.name }" id="userName" style="display:none;">
    		
   <script type="text/javascript">
-  	let stompClient = null;
+  	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
   	let sender = document.getElementById("user").value;
-  	let senderName = document.getElementById("userName").value;
-  	/* let webSocket = new WebSocket("ws://localhost:8081/websocket"); */
+  	
+  	document.addEventListener("DOMContentLoaded", function(){
+  		let userId = document.getElementById("user").value;
+  		let chatroomTitle = document.getElementById("chatroom-title");
+  		chattingService.getChatroomName(chatroomId, function(result){
+  			chatroomTitle.innerHTML = result.chatroom_name;
+  		});
+  		
+  		let chatbox = document.querySelector(".chatbox");
+  		chattingService.getMessages(chatroomId, function(messages){
+  			let html = ""
+  			messages.forEach( msg => {
+  				if (msg.sender.member_id == userId){
+  					html += '<span class="bubble my-bubble">' + msg.message + '</span>'
+  				} else {
+  					html += 
+  	  					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
+  						+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">'
+  						+ '<span class="bubble friend-bubble">' + msg.message + '</span>';
+  				}
+  			});
+  			chatbox.innerHTML = html;
+  		});
+	});
+
+
+  	
+  	let stompClient = null;
   	let socket = new SockJS("/websocket");
   	socket.onopen = function () {
   		
@@ -142,57 +164,38 @@
   	stompClient.connect({}, function(frame){
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
-  		stompClient.subscribe("/topic/greetings", function(response){
-  			console.log("sfsdfsd")
-  			console.log(response);
-  			console.log(JSON.parse(response.body));
-  			showGreeting(JSON.parse(response.body));
+  		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
+  			showMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
   	    alert(error);
   	}); 
   	
-  	function showGreeting(message){
-  		alert(message);
+  	function isEnterKey(){
+  		if (window.event.keyCode == 13) {
+        	sendMessage();
+       }
   	}
   	
-  	function sendMessage(){
-  		let message = document.getElementById("message");
-  		console.log(message.value)
-  		stompClient.send("/app/hello", {}, message.value)
-  	}
-  
-  	
-  	/* let message = document.getElementById("message");
-  	
-  	webSocket.onopen = function(){
-  	};
-  	
-  	webSocket.onclose = function(){
-  	}
-  	webSocket.onerror = function(){
-  	}
-  	// 소켓에 들어온 메세지가 있을 때
-  	webSocket.onmessage = function(message){
-  		let parsedMsg = JSON.parse(message.data);
-        let chatBubble = document.createElement('span');
+  	function showMessage(msg){
+		let chatBubble = document.createElement('span');
     	
-        chatBubble.innerHTML =  parsedMsg.content;   
+        chatBubble.innerHTML =  msg.message;   
         chatBubble.classList.add('bubble');
         
-        if (parsedMsg.senderId == sender){
+        if (msg.sender.member_id == sender){
         	chatBubble.classList.add('my-bubble');
   		} else {
   			let name = document.createElement('div');
   	    	let img = document.createElement('img');
   	    	
   			chatBubble.classList.add('friend-bubble');
-  			name.innerHTML = parsedMsg.senderName;
+  			name.innerHTML = msg.sender.name;
   	        name.classList.add('bubble');
   	        name.classList.add('friend-profile');
   	        name.classList.add('friend-name');
   	        
-  	        img.src = '../Img/profile.png';
+  	        img.src = '/resources/Img/profile.png';
   	        img.width = 38;
   	      	img.classList.add('bubble');
 	        img.classList.add('friend-profile');
@@ -202,34 +205,46 @@
         document.querySelector('.chatbox').appendChild(chatBubble);
   	}
   	
-  	// TODO: 시간 단위(1시간?)만큼의 메세지 불러와서 띄워주기
-  	function loadMessage(){
-  		
-  	}
-  	
   	function sendMessage(){
-  		let url = document.location.href;
-  		let param = url.substring(url.indexOf('chatroomId=') + 11);
-  		console.log(param);
+  	  	let senderName = document.getElementById("userName").value;
+  		let message = document.getElementById("message");
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
   		console.log("sender: " + sender);
   		let msg = {
-  			"content": message.value,
-  			"senderId": sender,
-  			"senderName": senderName,
-  			"chatroomId": param,
-  			"sendTime": sendTime
+  			"message": message.value,
+  			"chatroom_id": chatroomId,
+  			"send_time": sendTime,
+  			"sender" : {
+  				"member_id": sender,
+  				"name" : senderName
+  			}
   		}
-		webSocket.send(JSON.stringify(msg));
+  		console.log(message.value)
+  		let saveMsg = {
+  			"message": message.value,
+  			"chatroom_id": chatroomId,
+  			"send_time": sendTime,
+  			"sender": sender
+  		}
+  		chattingService.insertMessage(saveMsg, function(result){
+  			console.log(result);
+  		})
+  		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
+  	}
+  
+  	
+  	/* 
+  	webSocket.onclose = function(){
+  	}
+  	webSocket.onerror = function(){
   	}
   	
-  	function isEnterKey(){
-  		if (window.event.keyCode == 13) {
-        	sendMessage();
-       }
+  	// TODO: 시간 단위(1시간?)만큼의 메세지 불러와서 띄워주기
+  	function loadMessage(){
+  		
   	}
-  	
+
   	function disconnect(){
   		webSocket.close();
   	} */

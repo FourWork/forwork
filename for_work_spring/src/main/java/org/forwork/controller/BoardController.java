@@ -42,12 +42,12 @@ public class BoardController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping(value = "/list/{board_id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<Post>> getList(@PathVariable("board_id") Long board_id) {
-		log.info("게시판별 게시글 목록");
-		
-		return new ResponseEntity<>(postService.getList(board_id), HttpStatus.OK);
-	}
+//	@GetMapping(value = "/list/{board_id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+//	public ResponseEntity<List<Post>> getList(@PathVariable("board_id") Long board_id) {
+//		log.info("게시판별 게시글 목록");
+//		
+//		return new ResponseEntity<>(postService.getList(board_id), HttpStatus.OK);
+//	}
 	
 	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH }, value = "/{board_id}", 
 			consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })

@@ -1,4 +1,4 @@
-package org.forwork.service;
+package org.forwork.service.ScrumBoard;
 
 import java.util.List;
 import java.util.Map;

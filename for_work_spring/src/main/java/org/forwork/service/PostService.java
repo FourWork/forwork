@@ -3,6 +3,7 @@ package org.forwork.service;
 import java.util.List;
 
 import org.forwork.domain.Post;
+import org.forwork.domain.Criteria;
 
 public interface PostService {
 
@@ -18,7 +19,9 @@ public interface PostService {
 	
 	public List<Post> getList(Long board_id);
 	
-//	public List<Post> getList(Criteria cri, Long board_id);
+	public List<Post> getListPage(Criteria cri, Long board_id);
+	
+	public int getTotal(Long board_id);
 	
 	public List<Post> getNotice(int project_id);
 	
