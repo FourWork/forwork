@@ -33,11 +33,11 @@
 <script type="text/javascript">
 
 function list() {
-	window.location.href = "list?project_id=${board.project_id}&board_id=${post.board_id}";
+	window.location.href = "list?project_id=${board.project_id}&board_id=${post.board_id}&pageNum=${cri.pageNum}";
 }
 
 function edit() {
-	window.location.href = "updatePost?post_id=${post.post_id}&board_id=${board.board_id}&project_id=${board.project_id}";
+	window.location.href = "updatePost?post_id=${post.post_id}&board_id=${board.board_id}&project_id=${board.project_id}&pageNum=${cri.pageNum}";
 }
 
 </script>
