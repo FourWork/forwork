@@ -3,6 +3,7 @@ package org.forwork.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.forwork.service.ScrumBoard.TaskService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

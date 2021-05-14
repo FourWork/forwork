@@ -1,10 +1,10 @@
-package org.forwork.controller;
+package org.forwork.controller.ScrumBoard;
 
 import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.Task;
-import org.forwork.service.TaskService;
+import org.forwork.service.ScrumBoard.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
