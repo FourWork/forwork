@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -15,7 +16,8 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- 부트스트랩 4.x를 사용한다. -->
 <script
@@ -27,6 +29,11 @@
 <!-- task.js => js모듈화 -->
 <script type="text/javascript" src="/resources/js/task.js"></script>
 
+<!-- sprint.js -->
+<script type="text/javascript" src="/resources/js/sprint.js"></script>
+
+
+<!-- Task처리 -->
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -58,18 +65,18 @@ $(document).ready(function(){
 			var str4="<h6 class='card-title text-uppercase text-truncate py-2'>Done</h6>";
 			
 			listStoriesDiv.html(str1);
-	        listTodoDiv.html(str2);
-	        listDoingDiv.html(str3);
-	        listDoneDiv.html(str4);
-			
+			listTodoDiv.html(str2);
+			listDoingDiv.html(str3);
+			listDoneDiv.html(str4);
+
 			if(list==null || list.length==0){
-	            listStoriesDiv.html(str1);
-	            listTodoDiv.html(str2);
-	            listDoingDiv.html(str3);
-	            listDoneDiv.html(str4);
-	            
-	            return;
-	         }
+				listStoriesDiv.html(str1);
+				listTodoDiv.html(str2);
+				listDoingDiv.html(str3);
+				listDoneDiv.html(str4);
+				
+				return;
+			}
 			
 			for(var i =0, len=list.length ; i < len ; i++){
 				if(list[i].task_type_id==1){
@@ -77,17 +84,16 @@ $(document).ready(function(){
 					listStoriesDiv.html(str1);
 				}
 				
-				str ="";
 				if(list[i].task_type_id==2){
 					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
 					listTodoDiv.html(str2);
 				}
-				str="";
+				
 				if(list[i].task_type_id==3){
 					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
 					listDoingDiv.html(str3);
 				}
-				str="";
+				
 				if(list[i].task_type_id==4){
 					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
 					listDoneDiv.html(str4);
@@ -134,7 +140,7 @@ $(document).ready(function(){
 	
 	taskService.insertTask(task, function(result) {
 		
-		alert(result);
+		alert("Task가 추가되었습니다.");
 		
 		taskModal.find("input").val("");
 		taskModal.modal("hide");
@@ -176,7 +182,7 @@ $(document).ready(function(){
 		
 		taskService.updateTask(task, function(result){
 			
-			alert(result);
+			alert("Task가 수정되었습니다.");
 			taskModal.modal("hide");
 			showList();
 			
@@ -190,7 +196,7 @@ $(document).ready(function(){
 		
 		taskService.deleteTask(task_id, function(result){
 		
-			alert(result);
+			alert("Task가 삭제되었습니다.");
 			taskModal.modal("hide");
 			showList();
 		});
@@ -201,6 +207,151 @@ $(document).ready(function(){
 });
 
 
+</script>
+
+<!-- Sprint처리 -->
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	var sprintTb = $("#sprintList");
+	
+	showSprints();
+	
+	// sprint List 출력
+	function showSprints() {
+		
+		sprintService.listSprint(function(list){
+			
+			var str = "";
+			if(list==null || list.length==0){
+				sprintTb.html("");
+				
+				return;
+			}
+			for(var i=0, len=list.length||0; i<len;i++){
+				str += "<tr><td data-sprint_id='"+list[i].sprint_id+"'>"+list[i].sprint_title+"</td>";
+				str += "<td>"+list[i].sprint_start_date+"</td>";
+				str += "<td>"+list[i].sprint_end_date+"</td>";
+				str += "<td><button style='background-color: "+list[i].sprint_color+"' id='colorbutton' disabled></td></tr>";
+			}
+			
+			sprintTb.html(str);
+		});//end function
+	}// end showSprints
+	
+	// Sprint 모달 띄우기
+	var sprintModal = $("#sprintAdd");
+	
+	var sprintModalTitle = sprintModal.find("input[name='sprint_title']");
+	var sprintModalStartDate = sprintModal.find("input[name='sprint_start_date']");
+	var sprintModalEndDate = sprintModal.find("input[name='sprint_end_date']");
+	var sprintModalColor = sprintModal.find("input[name='sprint_color']");
+	
+	var sprintModalRegisterBtn = $("#sprintRegisterBtn");
+	var sprintModalUpdateBtn = $("#sprintUpdateBtn");
+	var sprintModalDeleteBtn = $("#sprintDeleteBtn");
+	
+	$("#sprintAddBtn").on("click", function(e){
+		
+		sprintModal.find("input").val("");
+		sprintModal.find("button[id !='sprintModalClose']").hide();
+		
+		sprintModalRegisterBtn.show();
+		
+		$("#sprintAdd").modal("show");
+	});
+	
+	// Sprint 추가 
+	sprintModalRegisterBtn.on("click", function(e) {
+		
+		var sprint ={
+				sprint_title : sprintModalTitle.val(),
+				sprint_start_date : sprintModalStartDate.val(),
+				sprint_end_date : sprintModalEndDate.val(),
+				sprint_color : sprintModalColor.val()
+		};
+	
+		sprintService.insertSprint(sprint, function(result) {
+			
+			alert("Sprint정보가 추가되었습니다.");
+			
+			sprintModal.find("input").val("");
+			sprintModal.modal("hide");
+			
+			showSprints();
+		});
+		
+	});
+	
+	// Sprint 수정&삭제
+	$("#sprintList").on("click","td",function(e){
+		
+		
+		var sprint_id = $(this).data("sprint_id");
+		
+		
+		sprintService.getSprint(sprint_id, function(sprint){
+			
+			sprintModalTitle.val(sprint.sprint_title);
+			
+			var startVal = String(sprint.sprint_start_date).substring(0,10);			
+			sprintModalStartDate.val(startVal);
+			
+			var endVal = String(sprint.sprint_end_date).substring(0,10);	
+			sprintModalEndDate.val(endVal);
+			
+			sprintModalColor.val(sprint.sprint_color);
+			sprintModal.data("sprint_id", sprint.sprint_id);
+			
+			sprintModal.find("button[id !='sprintModalClose']").hide();
+			sprintModalUpdateBtn.show();
+			sprintModalDeleteBtn.show();
+			
+			$("#sprintAdd").modal("show");
+			
+			
+		});
+	
+});
+
+	sprintModalUpdateBtn.on("click", function(e){
+		
+		var startValue = String(sprintModalStartDate.val());
+		var endValue = String(sprintModalEndDate.val());
+		
+		var sprint = {
+				sprint_id : sprintModal.data("sprint_id"), 
+				sprint_title : sprintModalTitle.val(),	
+				sprint_start_date : sprintModalStartDate.val(),	
+				sprint_end_date : sprintModalEndDate.val(),	
+				sprint_color : sprintModalColor.val() 
+				};
+		
+		
+		
+		sprintService.updateSprint(sprint, function(result){
+			
+			alert("Sprint정보가 수정되었습니다.");
+			sprintModal.modal("hide");
+			showSprints();
+		});
+	});
+
+	
+	sprintModalDeleteBtn.on("click", function(e){
+		
+		var sprint_id = sprintModal.data("sprint_id");
+		
+		sprintService.deleteSprint(sprint_id, function(result){
+			
+			alert("Sprint정보가 삭제되었습니다.");
+			sprintModal.modal("hide");
+			showSprints();
+		});
+	});
+	
+});
 
 </script>
 
@@ -226,21 +377,19 @@ $(document).ready(function(){
 						var task_id = $(ui.item).find('.task_id').html();
 						var col_name = $(ui.item).closest('.column').find(
 								'.card-title').html();
-	
-						
-						if (typeof previdx != 'undefined' && previdx != 0) {
-							var changeData = {
+					console.log(previdx);
+					console.log(nowidx);
+
+						if (typeof previdx != 'undefined') {
+							$.ajax({
+								type : "POST",
+								url : "moveTask.do",
+								data : {
 									"previdx" : previdx,
 									"nowidx" : nowidx,
 									"task_id" : task_id,
 									"col_name" : col_name
-								};
-								console.log(changeData);
-							$.ajax({
-								type : "POST",
-								url : "/task/move",
-								contentType:"application/json",
-								data : JSON.stringify(changeData),
+								},
 								success : function(data) {
 									if (data == 'success') {
 										console.log("성공");
@@ -258,16 +407,14 @@ $(document).ready(function(){
 		$('.addRes').click(function(){
 			var task_id = $(this).closest('.card').find('.task_id').html();		
 			var now = $(this).closest('.card').find('#resp').find('b');
-			var myName = "";
-			$.ajax({
+		$.ajax({
 				type : "POST",
 				url : "addRes.do",
 				data : {
-					"task_id" : task_id,
-					"name" : myName
+					"task_id" : task_id
 				},
 				success : function(data){
-					$(now).html(myName);
+					$(now).html('<%=session.getAttribute("name")%>');
 				}
 			});
 		});
@@ -350,6 +497,7 @@ $(document).ready(function(){
 					</table>
 
 				</div>
+				
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트 정보만 -->
 					<table class="table">
@@ -361,32 +509,22 @@ $(document).ready(function(){
 								<th scope="col">Sprint 색</th>
 							</tr>
 						</thead>
-						<c:forEach var="sprint" items="${sprintList }">
-							<tbody>
-								<tr>
-									<td>${sprint.sprint_title }</td>
-									<td>${sprint.sprint_start_date }</td>
-									<td>${sprint.sprint_end_date }</td>
-									<td align=center>
-										<button style="background-color: ${sprint.sprint_color };"
-											id="colorbutton" disabled></button>
-									</td>
-								</tr>
-							</tbody>
-						</c:forEach>
+						<tbody id="sprintList">
+						
+						</tbody>
 					</table>
 				</div>
 				
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트&Task 카드 추가 버튼 div -->
-					<button type="" class="btn btn-primary">Sprint 추가</button>
+					<button id="sprintAddBtn" class="btn btn-primary">Sprint 추가</button>
 						
 					<button id="taskAddBtn" class="btn btn-primary">Task 추가</button>
 					
-					<%-- 
+
 					<!-- sprint add btn -->
-				<jsp:include page="sprintAddModal.jsp" />
---%>
+				<jsp:include page="sprintModal.jsp" />
+				
 					<!-- modal add btn -->
 					<jsp:include page="taskModal.jsp" />
 
