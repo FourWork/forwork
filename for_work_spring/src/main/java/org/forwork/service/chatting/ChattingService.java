@@ -16,5 +16,5 @@ public interface ChattingService {
 	Member findMemberById(String memberId);
 	List<Message> findLastMessagePerChatroomByMemberId(String memberId);
 	String findChatroomName(String chatroomId);
-//	void updateReadStatus(String chatroomId, String memberId);
+	void updateReadStatus(String chatroomId, String memberId);
 }

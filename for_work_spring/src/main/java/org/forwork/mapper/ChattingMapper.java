@@ -17,7 +17,7 @@ public interface ChattingMapper {
 	Member getMemberById(String memberId);
 	List<Message> getLastMessagePerChatroomByMemberId(String memberId);
 	String getChatroomName(String chatroomId);
-	void updateReadStatus(String chatroomId, String memberId);
+	void updateReadStatus(MemberMessageRelation status);
 	void insertUnreadStatus(MemberMessageRelation status);
 	List<String> getMemberByChatroomId(String chatroomId);
 }

@@ -36,14 +36,19 @@ public class ChattingServiceTests {
 //	public void testFindChatroomName() {
 //		service.findChatroomName("3");
 //	}
+//	
+//	@Test
+//	public void testInsertUnreadStatus() {
+//		Message msg = new Message();
+//		msg.setMessage("test message5");
+//		msg.setChatroom_id("1");
+//		msg.setSender("1");
+//		msg.setSend_time("2021-05-11 12:40:00");
+//		service.createMessage(msg);
+//	}
 	
 	@Test
-	public void testInsertUnreadStatus() {
-		Message msg = new Message();
-		msg.setMessage("test message");
-		msg.setChatroom_id("3");
-		msg.setSender("1");
-		msg.setSend_time("2021-05-11 15:40:00");
-		service.createMessage(msg);
+	public void testUpdateReadStatus() {
+		service.updateReadStatus("1", "4");
 	}
 }

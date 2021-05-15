@@ -32,12 +32,15 @@ public class ChattingServiceImpl implements ChattingService {
 		mapper.insertMessage(message);
 		MemberMessageRelation status = new MemberMessageRelation();
 		status.setMessage_id(message.getMessage_id());
-		// TODO: 채팅방에 속한 멤버 얻어와서 모든 멤버에 대해 돌리기 
+		
 		List<String> memberIds = mapper.getMemberByChatroomId(message.getChatroom_id());
 		memberIds.forEach(memberId -> {
 			status.setMember_id(memberId);
 			mapper.insertUnreadStatus(status);
 		});
+		
+		status.setMember_id(message.getSender());
+		mapper.updateReadStatus(status);
 	}
 
 	@Override
@@ -70,10 +73,17 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getChatroomName(chatroomId);
 	}
 
-//	@Override
-//	public void updateReadStatus(String chatroomId, String memberId) {
-//		// TODO Auto-generated method stub
-//		mapper.updateReadStatus(chatroomId, memberId);
-//	}
+	@Transactional(readOnly = true)
+	@Override
+	public void updateReadStatus(String chatroomId, String memberId) {
+		// TODO Auto-generated method stub
+		List<MessageDto> messages = mapper.getMessageByChatroomId(chatroomId);
+		MemberMessageRelation status = new MemberMessageRelation();
+		status.setMember_id(memberId);
+		messages.forEach(msg -> {
+			status.setMessage_id(msg.getMessage_id());
+			mapper.updateReadStatus(status);
+		});
+	}
 
 }

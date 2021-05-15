@@ -70,9 +70,9 @@
 	<update id="updateReadStatus">
 		update member_message_relation
 		set is_read = 'y'
-		where chatroom_id = #{chatroom_id}
-		and member_id = #{member_id}
+		where message_id = #{message_id}
 		and is_read = 'n'
+		and member_id = #{member_id}
 	</update>
 	
 	<insert id="insertUnreadStatus">
