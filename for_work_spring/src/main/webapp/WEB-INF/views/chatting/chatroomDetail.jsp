@@ -162,6 +162,9 @@
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
+  			// TODO: 읽음 처리 DB 구조 개선
+  			// TODO: 처음에 접속했을 때는 메세지 다 읽음 처리
+  			// TODO: 이후에는 메세지 하나 받아서 해당 메세지 읽음 처리
   			readMessages();
   			showMessage(JSON.parse(response.body));
   		});
@@ -232,6 +235,7 @@
   	}
   
   	function readMessages(){
+  		console.log("sender: " + sender);
   		chattingService.updateReadStatus(chatroomId, sender, function(result){
   			console.log(result);
   		})

@@ -21,7 +21,7 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration(classes={org.forwork.config.RootConfig.class, org.forwork.config.ServletConfig.class})
 @Log4j
 @WebAppConfiguration
-public class CharoomControllerTests {
+public class ChatroomControllerTests {
 
 	@Setter(onMethod_ = {@Autowired})
 	private WebApplicationContext ctx;

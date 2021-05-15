@@ -79,10 +79,10 @@ let chattingService = (function() {
 		})
 	}
 	
-	function updateReadStatus(chatroomId, userId, callback, error){
+	function updateReadStatus(chatroomId, memberId, callback, error){
 		$.ajax({
 			type : 'put',
-			url : '/read/chatroom/' + chatroomId + '/member/' + memberId,
+			url : '/message/read/chatroom/' + chatroomId + '/member/' + memberId,
 			success : function(result, status, xhr) {
 				if (callback) {
 					callback(result);
