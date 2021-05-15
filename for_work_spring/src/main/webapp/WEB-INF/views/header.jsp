@@ -153,3 +153,11 @@
       </div>
     </nav>
 
+<script type="text/javascript" src="/resources/js/chatting.js"></script>
+<script type="text/javascript">
+	// TODO: userId 받아와서 채팅방 목록 꾸려주기
+	
+	/* chattingService.getChatrooms(1, function(chatrooms){
+		
+	}); */
+</script>

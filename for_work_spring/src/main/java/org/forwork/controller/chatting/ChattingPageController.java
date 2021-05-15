@@ -26,4 +26,6 @@ public class ChattingPageController {
 		return "/chatting/chatroomDetail";
 	}
 	
+
+	
 }

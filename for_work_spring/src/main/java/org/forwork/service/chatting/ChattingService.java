@@ -10,10 +10,11 @@ import org.forwork.dto.MessageDto;
 
 public interface ChattingService {
 	List<ChatroomMemberRelation> findChatroomMemberRelations();
-	int createMessage(Message message);
+	void createMessage(Message message);
 	List<MessageDto> findMessageByChatroomId(String chatroomId);
 	List<Chatroom> findChatroomByMemberId(String memberId);
 	Member findMemberById(String memberId);
 	List<Message> findLastMessagePerChatroomByMemberId(String memberId);
 	String findChatroomName(String chatroomId);
+//	void updateReadStatus(String chatroomId, String memberId);
 }

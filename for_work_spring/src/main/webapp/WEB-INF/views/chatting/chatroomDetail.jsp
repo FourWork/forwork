@@ -156,15 +156,13 @@
   	
   	let stompClient = null;
   	let socket = new SockJS("/websocket");
-  	socket.onopen = function () {
-  		
-  		console.log("connected");
-  	}
+
   	stompClient = Stomp.over(socket);
   	stompClient.connect({}, function(frame){
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
+  			readMessages();
   			showMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
@@ -233,6 +231,11 @@
   		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
   	}
   
+  	function readMessages(){
+  		chattingService.updateReadStatus(chatroomId, sender, function(result){
+  			console.log(result);
+  		})
+  	}
   	
   	/* 
   	webSocket.onclose = function(){

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +35,16 @@ public class MessageController {
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody Message msg) {
-		int count = service.createMessage(msg);
+		service.createMessage(msg);
 		
-		return count == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
-				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
+	
+//	@PutMapping(value = "/read/chatroom/{chatroomId}/member/{memberId}")
+//	public ResponseEntity<String> checkRead(@PathVariable String chatroomId, String memberId){
+//		service.updateReadStatus(chatroomId, memberId);
+//		
+//		return new ResponseEntity<String>("success", HttpStatus.OK);
+//	}
 	
 }

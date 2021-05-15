@@ -60,11 +60,48 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function getChatrooms(userId, callback, error) {
+		$.ajax({
+			type : 'get',
+			url : '/chatroom/member' + userId,
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+	
+	function updateReadStatus(chatroomId, userId, callback, error){
+		$.ajax({
+			type : 'put',
+			url : '/read/chatroom/' + chatroomId + '/member/' + memberId,
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
 		getChatroomName : getChatroomName,
 		insertMessage : insertMessage,
+		getChatrooms : getChatrooms,
+		updateReadStatus : updateReadStatus,
 	};
 
 })();
