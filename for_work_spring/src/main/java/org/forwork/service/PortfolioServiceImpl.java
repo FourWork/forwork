@@ -62,6 +62,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 		log.info("-------------UpdateService_update_portfolio----------");
 		mapper.deletePfLang(portfolio.getPortfolio_id());
 		for(PortfolioLanguage pfLang : pfLangList){
+			pfLang.setPortfolio_id(portfolio.getPortfolio_id());
 			mapper.updatePfLang(pfLang);
 		}
 		return returnInteger;

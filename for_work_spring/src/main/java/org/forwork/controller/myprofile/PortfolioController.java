@@ -79,7 +79,7 @@ public class PortfolioController {
 	
 	@DeleteMapping(value = "/portfolio_id/{portfolio_id}",
 			produces = { MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@PathVariable("portfolio_id")String portfolio_id){
+	public ResponseEntity<String> delete(@PathVariable("portfolio_id")String portfolio_id){
 		
 		log.info("remove:" +portfolio_id);
 		
@@ -97,6 +97,7 @@ public class PortfolioController {
 									@PathVariable("portfolio_id") String portfolio_id){
 		wrapper.getPortfolio().setPortfolio_id(portfolio_id);
 		log.info("modify:"+portfolio_id);
+		
 		
 		return service.update(wrapper.getPortfolio(), wrapper.getPfLangList()) ==1
 				? new ResponseEntity<>("success",HttpStatus.OK)

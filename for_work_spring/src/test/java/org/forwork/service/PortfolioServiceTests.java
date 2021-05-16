@@ -57,10 +57,14 @@ public class PortfolioServiceTests {
 		PortfolioLanguage pfLang = new PortfolioLanguage();
 		String portfolio_id=portfolio.getPortfolio_id();
 		pfLang.setPortfolio_id(portfolio_id);
-		for(int i = 0 ; i <5;i++){
-			pfLang.setPortfolio_language("서비스테스트_update_language"+i);
+
+			pfLang.setPortfolio_language("서비스테스트_update_language1");
 			pfLangList.add(pfLang);
-		}
+			pfLang.setPortfolio_language("서비스테스트_update_language2");
+			pfLangList.add(pfLang);
+			pfLang.setPortfolio_language("서비스테스트_update_language3");
+			pfLangList.add(pfLang);
+
 
 		service.update(portfolio, pfLangList);
 	}
