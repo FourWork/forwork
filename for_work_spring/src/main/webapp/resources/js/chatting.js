@@ -1,7 +1,3 @@
-/**
- * 
- */
- 
  // 즉시 실행되는 함수
 let chattingService = (function() {
 
@@ -64,7 +60,7 @@ let chattingService = (function() {
 	function getChatrooms(userId, callback, error) {
 		$.ajax({
 			type : 'get',
-			url : '/chatroom/member' + userId,
+			url : '/chatroom/member/' + userId,
 			dataType : "json",
 			success : function(result, status, xhr) {
 				if (callback) {
@@ -112,6 +108,24 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function getLastMessages(memberId, callback, error){
+		$.ajax({
+			type : 'get',
+			url : '/message/last/member/' + memberId,
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -120,6 +134,7 @@ let chattingService = (function() {
 		getChatrooms : getChatrooms,
 		updateReadStatus : updateReadStatus,
 		updateReadAll : updateReadAll,
+		getLastMessages : getLastMessages,
 	};
 
 })();

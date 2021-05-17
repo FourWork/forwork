@@ -55,4 +55,9 @@ public class MessageController {
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/last/member/{memberId}")
+	public ResponseEntity<List<Message>> getLastMessage(@PathVariable String memberId){
+		return new ResponseEntity<List<Message>>(service.findLastMessagePerChatroomByMemberId(memberId), HttpStatus.OK);
+	}
 }

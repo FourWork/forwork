@@ -26,6 +26,9 @@ public class ChattingPageController {
 		return "/chatting/chatroomDetail";
 	}
 	
-
+	@GetMapping("/tmpMain")
+	public String main(@ModelAttribute("userId") String userId) {
+		return "/chatting/tmpMain";
+	}
 	
 }

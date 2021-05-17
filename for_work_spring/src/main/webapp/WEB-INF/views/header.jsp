@@ -66,44 +66,11 @@
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
 
-                  <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">${chatrooms.chatrooms.size() }</strong> chatrooms.</h6>
+                  <h6 class="text-sm text-muted m-0">You have <strong class="text-primary" id="n-chatroom"></strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
-                <!-- 세션에 저장된 chatroomDto에서 chatrooms 받아서 리스트 돌리기 -->
-                <c:forEach var="chatroom" items="${chatrooms.chatrooms}">
-                <div class="list-group list-group-flush">
-                  <a href="ChatroomDetail.do?chatroomId=${chatroom.chatroom_id}" class="list-group-item list-group-item-action">
-                    <div class="row align-items-center">
-                      <div class="col-auto">
-                        <!-- Avatar -->
-                        <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg" class="avatar rounded-circle">
-                      </div>
-                      <div class="col ml--2">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <div>
-
-                            <h4 class="mb-0 text-sm">${chatroom.chatroom_name }</h4>
-                          </div>
-                          <div class="text-right text-muted">
-                          	<c:forEach var="message" items="${previewMessages}">
-                        		<c:if test="${message.chatroom_id == chatroom.chatroom_id}">
-                            		<small>${message.send_time}</small>
-                            	</c:if>
-                       		</c:forEach>
-                          </div>
-                        </div>
-                        <c:forEach var="message" items="${previewMessages}">
-                        	<c:if test="${message.chatroom_id == chatroom.chatroom_id}">
-                        		<p class="text-sm mb-0">${message.message }</p>
-                        	</c:if>
-                        </c:forEach>
-
-                      </div>
-                    </div>
-                  </a>
+                <div id="listChat">
                 </div>
-
-                </c:forEach>
                 <!-- View all -->
                 <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
               </div>
@@ -152,12 +119,48 @@
         </div>
       </div>
     </nav>
-
+<input type="text" value="${userId }" id="user" style="display:none;">
+<script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/chatting.js"></script>
 <script type="text/javascript">
 	// TODO: userId 받아와서 채팅방 목록 꾸려주기
+	let userId = document.getElementById("user").value;
 	
-	/* chattingService.getChatrooms(1, function(chatrooms){
-		
-	}); */
+	chattingService.getChatrooms(userId, function(chatrooms){
+		chattingService.getLastMessages(userId, function(lastMessages){
+			console.log(lastMessages);
+			let chatroomBox = document.querySelector("#listChat");
+			let chatroomNumber = document.querySelector("#n-chatroom");
+			chatroomNumber.innerHTML = chatrooms.length;
+			let html = "";
+			chatrooms.forEach(chatroom => {
+				let lastMessageOfChatroom = lastMessages.find(m => m.chatroom_id === chatroom.chatroom_id);
+				if (!lastMessageOfChatroom){
+					lastMessageOfChatroom = {
+						"chatroom_id" : "",
+						"message" : "대화를 시작해보세요",
+						"message_id" : "",
+						"send_time" : "",
+						"sender" : ""
+					}
+				}
+				html += 
+				'<div class="list-group list-group-flush">' + 
+					'<a href="/chatting/chatroomDetail?userId=' + userId + '&chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
+						'<div class="row align-items-center">'+
+							'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/assets/img/theme/team-1.jpg" class="avatar rounded-circle">'+'</div>' +
+							'<div class="col ml--2">' +
+								'<div class="d-flex justify-content-between align-items-center">' +
+									'<div>' +'<h4 class="mb-0 text-sm">' + chatroom.chatroom_name + '</h4>' +'</div>' +
+									'<div class="text-right text-muted">' +'<small>' + lastMessageOfChatroom.send_time + '</small>' + '</div>' +
+								'</div>' +
+								'<p class="text-sm mb-0">' + lastMessageOfChatroom.message + '</p>' +
+							'</div>' +
+						'</div>' +
+					'</a>' +
+				'</div>'
+			})
+			chatroomBox.innerHTML = html;
+		})
+	});
 </script>

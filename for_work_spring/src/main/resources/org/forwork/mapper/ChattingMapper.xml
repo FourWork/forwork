@@ -52,14 +52,14 @@
 	
 	<select id="getLastMessagePerChatroomByMemberId" resultType="org.forwork.domain.Message">
 		select *
-			from (select chatroom_id, max(send_time) as max_send_time
+			from (select chatroom_id, max(message_id) as last_sent_id
 					from message
 					where chatroom_id in (select chatroom_id
 											from chatroom_vw
 											where member_id = #{member_id})
 					group by chatroom_id) c, message m
 			where c.chatroom_id = m.chatroom_id
-			and c.max_send_time = m.send_time
+			and c.last_sent_id = m.message_id
 	</select>
 	
 	<select id="getChatroomName" resultType="String">
