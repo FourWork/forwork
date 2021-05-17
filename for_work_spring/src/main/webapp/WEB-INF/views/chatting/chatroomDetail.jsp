@@ -241,6 +241,7 @@
   		  		}
   		  		console.log(msg);
   		  		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
+  		  		message.value = "";
   		})
   	}
   
