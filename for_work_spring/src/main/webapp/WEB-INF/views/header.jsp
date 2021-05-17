@@ -148,7 +148,7 @@
 				'<div class="list-group list-group-flush">' + 
 					'<a href="/chatting/chatroomDetail?userId=' + userId + '&chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
 						'<div class="row align-items-center">'+
-							'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/assets/img/theme/team-1.jpg" class="avatar rounded-circle">'+'</div>' +
+							'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/Img/chatroom.png" class="avatar rounded-circle">'+'</div>' +
 							'<div class="col ml--2">' +
 								'<div class="d-flex justify-content-between align-items-center">' +
 									'<div>' +'<h4 class="mb-0 text-sm">' + chatroom.chatroom_name + '</h4>' +'</div>' +
