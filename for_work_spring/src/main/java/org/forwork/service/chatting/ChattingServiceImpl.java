@@ -27,7 +27,7 @@ public class ChattingServiceImpl implements ChattingService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public void createMessage(Message message) {
+	public String createMessage(Message message) {
 		// TODO Auto-generated method stub
 		mapper.insertMessage(message);
 		MemberMessageRelation status = new MemberMessageRelation();
@@ -44,6 +44,7 @@ public class ChattingServiceImpl implements ChattingService {
 		
 		status.setMember_id(message.getSender());
 		mapper.updateReadStatus(status);
+		return message.getMessage_id();
 	}
 
 	@Override

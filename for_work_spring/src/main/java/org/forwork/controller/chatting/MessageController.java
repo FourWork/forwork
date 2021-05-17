@@ -35,9 +35,11 @@ public class MessageController {
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody Message msg) {
-		service.createMessage(msg);
+		String messageId = service.createMessage(msg);
+		System.out.println("create----------------------");
+		System.out.println(messageId);
 		
-		return new ResponseEntity<String>("success", HttpStatus.OK);
+		return new ResponseEntity<String>(messageId, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/read/{messageId}/member/{memberId}")

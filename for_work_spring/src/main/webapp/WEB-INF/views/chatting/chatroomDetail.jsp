@@ -166,9 +166,6 @@
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
-  			// TODO: 읽음 처리 DB 구조 개선
-  			// TODO: 처음에 접속했을 때는 메세지 다 읽음 처리
-  			// TODO: 이후에는 메세지 하나 받아서 해당 메세지 읽음 처리
   			showMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
@@ -216,16 +213,8 @@
   		let message = document.getElementById("message");
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  		let messageId = "";
   		console.log("sender: " + sender);
-  		let msg = {
-  			"message": message.value,
-  			"chatroom_id": chatroomId,
-  			"send_time": sendTime,
-  			"sender" : {
-  				"member_id": sender,
-  				"name" : senderName
-  			}
-  		}
   		console.log(message.value)
   		let saveMsg = {
   			"message": message.value,
@@ -233,10 +222,26 @@
   			"send_time": sendTime,
   			"sender": sender
   		}
+  		// ajax는 비동기로 데이터 가져오는 걸 시킨 후 다른 일들을 수행하기 때문에
+  		// ajax에서 받아온 데이터로 할 작업은 callback에서 해줘야 함
   		chattingService.insertMessage(saveMsg, function(result){
-  			console.log(result);
+  			console.log("result: " +result);
+  			messageId = result;
+  			console.log("messageId: " + messageId);
+  			
+  			let msg = {
+  		  			"message_id" : messageId,
+  		  			"message": message.value,
+  		  			"chatroom_id": chatroomId,
+  		  			"send_time": sendTime,
+  		  			"sender" : {
+  		  				"member_id": sender,
+  		  				"name" : senderName
+  		  			}
+  		  		}
+  		  		console.log(msg);
+  		  		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
   		})
-  		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
   	}
   
   	// 받은 메세지 하나 읽음 처리 
