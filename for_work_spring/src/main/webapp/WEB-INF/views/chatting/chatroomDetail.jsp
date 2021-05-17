@@ -167,6 +167,7 @@
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
   			showMessage(JSON.parse(response.body));
+  			notify(JSON.parse(response.body));
   		});
   	}, function(error) {
   	    alert(error);
@@ -252,6 +253,21 @@
   		chattingService.updateReadStatus(messageId, sender, function(result){
   			console.log(result);
   		})
+  	}
+  	
+  	function notify(msg){
+  		if (msg.sender.member_id !== sender){
+  			const img = '/resources/Img/forworklogo.JPG';
+  	  		if (Notification.permission !== "denied") {
+  	  		    Notification.requestPermission(permission => {
+  	  		      if (permission === "granted") {
+  	  		    	const option = { body: msg.message, icon: img };
+  	  		    	new Notification(msg.sender.name, option);
+  	  		      } else {
+  	  		      }
+  	  		    });
+  	  		  }
+  		}
   	}
   	
   	/* 
