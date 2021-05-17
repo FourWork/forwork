@@ -94,4 +94,10 @@ public class ChattingServiceImpl implements ChattingService {
 		chatroomMember.setMember_id(memberId);
 		mapper.updateReadStatusPerChatroomByMemberId(chatroomMember);
 	}
+
+	@Override
+	public List<String> findMemberByChatroomId(String chatroomId) {
+		// TODO Auto-generated method stub
+		return mapper.getMemberByChatroomId(chatroomId);
+	}
 }

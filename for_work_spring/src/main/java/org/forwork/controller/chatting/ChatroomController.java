@@ -36,4 +36,5 @@ public class ChatroomController {
 		List<Chatroom> chatrooms = service.findChatroomByMemberId(userId);
 		return new ResponseEntity<>(chatrooms, HttpStatus.OK);
 	}
+
 }

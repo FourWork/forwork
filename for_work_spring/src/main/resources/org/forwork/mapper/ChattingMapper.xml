@@ -96,5 +96,5 @@
 			from chatroom_member_relation
 			where chatroom_id = #{chatroom_id}
 	</select>
-
+	
 </mapper>

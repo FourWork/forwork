@@ -126,6 +126,24 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function getMembers(chatroomId, callback, error){
+		$.ajax({
+			type : 'get',
+			url : '/member/chatroom/' + chatroomId,
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -135,6 +153,7 @@ let chattingService = (function() {
 		updateReadStatus : updateReadStatus,
 		updateReadAll : updateReadAll,
 		getLastMessages : getLastMessages,
+		getMembers : getMembers,
 	};
 
 })();

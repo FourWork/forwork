@@ -120,10 +120,15 @@
       </div>
     </nav>
 <input type="text" value="${userId }" id="user" style="display:none;">
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/chatting.js"></script>
 <script type="text/javascript">
-	// TODO: userId 받아와서 채팅방 목록 꾸려주기
+	let stompClient2 = null;
+	let socket2 = new SockJS("/websocket");
+
+	stompClient2 = Stomp.over(socket2);
 	let userId = document.getElementById("user").value;
 	
 	chattingService.getChatrooms(userId, function(chatrooms){
@@ -152,9 +157,9 @@
 							'<div class="col ml--2">' +
 								'<div class="d-flex justify-content-between align-items-center">' +
 									'<div>' +'<h4 class="mb-0 text-sm">' + chatroom.chatroom_name + '</h4>' +'</div>' +
-									'<div class="text-right text-muted">' +'<small>' + lastMessageOfChatroom.send_time + '</small>' + '</div>' +
+									'<div class="text-right text-muted">' +'<small id="last-sent-time' + chatroom.chatroom_id + '">' + lastMessageOfChatroom.send_time + '</small>' + '</div>' +
 								'</div>' +
-								'<p class="text-sm mb-0">' + lastMessageOfChatroom.message + '</p>' +
+								'<p class="text-sm mb-0"  id="last-sent-msg' + chatroom.chatroom_id + '">' + lastMessageOfChatroom.message + '</p>' +
 							'</div>' +
 						'</div>' +
 					'</a>' +
@@ -163,4 +168,38 @@
 			chatroomBox.innerHTML = html;
 		})
 	});
+	
+	stompClient2.connect({}, function(frame){
+  		/* setConnected(true); */
+  		console.log('connected: ' + frame);
+  		stompClient2.subscribe("/topic/user/" + userId, function(response){
+  			notify(JSON.parse(response.body));
+  			updateLastMessage(JSON.parse(response.body));
+  		});
+  	}, function(error) {
+  	    alert(error);
+  	}); 
+  	
+  	function notify(msg){
+  		if (msg.sender.member_id !== userId){
+  			const img = '/resources/Img/forworklogo.JPG';
+  	  		if (Notification.permission !== "denied") {
+  	  		    Notification.requestPermission(permission => {
+  	  		      if (permission === "granted") {
+  	  		    	const option = { body: msg.message, icon: img };
+  	  		    	new Notification(msg.sender.name, option);
+  	  		      } else {
+  	  		      }
+  	  		    });
+  	  		  }
+  		}
+  	}
+  	
+  	function updateLastMessage(msg){
+  		let lastSentTime = document.querySelector("#last-sent-time" + msg.chatroom_id);
+  		lastSentTime.innerHTML = msg.send_time;
+  		
+  		let lastSentMsg = document.querySelector("#last-sent-msg" + msg.chatroom_id);
+  		lastSentMsg.innerHTML = msg.message;
+  	}
 </script>

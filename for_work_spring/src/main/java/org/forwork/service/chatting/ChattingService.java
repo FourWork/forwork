@@ -18,4 +18,5 @@ public interface ChattingService {
 	String findChatroomName(String chatroomId);
 	void updateReadStatus(String messageId, String memberId);
 	void updateReadAll(String chatroomId, String memberId);
+	List<String> findMemberByChatroomId(String chatroomId);
 }

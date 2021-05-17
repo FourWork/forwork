@@ -15,20 +15,17 @@ public class MessageRelayController {
 	// 각 사용자들은 자기가 속한 채팅방을 구독 (/topic/chatroom/{id})
 	// 메세지 종류 : 채팅방 입장,퇴장 메세 / 채팅 메세지
 
-    @MessageMapping("/message/{chatroomId}")
+    @MessageMapping("/chatroom/{chatroomId}")
     @SendTo("/topic/chatroom/{chatroomId}")
-    public MessageDto sendUsualMessage(@DestinationVariable String chatroomId, MessageDto message) throws Exception {
-//        System.out.println(message);
-//        Message saveMessage = new Message();
-//        saveMessage.setMessage(message.getMessage());
-//        saveMessage.setChatroom_id(chatroomId);
-//        saveMessage.setSend_time(message.getSend_time());
-//        saveMessage.setSender(message.getSender().getMember_id());
-//        service.createMessage(saveMessage);
+    public MessageDto sendToChatroom(@DestinationVariable String chatroomId, MessageDto message) throws Exception {
         return message;
     }
     
-    
+    @MessageMapping("/user/{userId}")
+    @SendTo("/topic/user/{userId}")
+    public MessageDto sendToUser(@DestinationVariable String userId, MessageDto message) throws Exception {
+        return message;
+    }
     
     
 

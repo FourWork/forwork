@@ -127,6 +127,7 @@
   <script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
   	let sender = document.getElementById("user").value;
+  	let members;
   	
   	document.addEventListener("DOMContentLoaded", function(){
   		let userId = document.getElementById("user").value;
@@ -154,6 +155,11 @@
   		chattingService.updateReadAll(chatroomId, sender, function(result){
   			console.log(result);
   		})
+  		
+  		chattingService.getMembers(chatroomId, function(result){
+  			console.log(result);
+  			members = result;
+  		})
 	});
 
 
@@ -167,7 +173,6 @@
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
   			showMessage(JSON.parse(response.body));
-  			notify(JSON.parse(response.body));
   		});
   	}, function(error) {
   	    alert(error);
@@ -241,7 +246,10 @@
   		  			}
   		  		}
   		  		console.log(msg);
-  		  		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
+  		  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg))
+  		  		members.forEach(mem => {
+  		  			stompClient.send("/app/user/" + mem, {}, JSON.stringify(msg))
+  		  		})
   		  		message.value = "";
   		})
   	}
@@ -254,21 +262,7 @@
   			console.log(result);
   		})
   	}
-  	
-  	function notify(msg){
-  		if (msg.sender.member_id !== sender){
-  			const img = '/resources/Img/forworklogo.JPG';
-  	  		if (Notification.permission !== "denied") {
-  	  		    Notification.requestPermission(permission => {
-  	  		      if (permission === "granted") {
-  	  		    	const option = { body: msg.message, icon: img };
-  	  		    	new Notification(msg.sender.name, option);
-  	  		      } else {
-  	  		      }
-  	  		    });
-  	  		  }
-  		}
-  	}
+
   	
   	/* 
   	webSocket.onclose = function(){
