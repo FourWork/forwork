@@ -1,19 +1,10 @@
 
 package org.forwork.socket;
 
-import static org.junit.Assert.fail;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -22,19 +13,12 @@ import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.forwork.domain.ChatroomMemberRelation;
-import org.forwork.domain.Message;
-import org.forwork.service.ChattingServiceImpl;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@ServerEndpoint(value = "/taskSocket", configurator = HttpSessionConfigurator.class) // socket connection url
+@ServerEndpoint(value = "/taskSocket") // socket connection url
 @Log4j
 public class TaskWebSocketServer {
 	//추가 사항 : project별로 구분 필요 
@@ -65,7 +49,7 @@ public class TaskWebSocketServer {
 				}
 			}
 		} catch (Exception e) {
-			fail(e.getMessage());
+			log.info(e.getMessage());
 		}
 	}
 	
