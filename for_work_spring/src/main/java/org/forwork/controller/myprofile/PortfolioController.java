@@ -1,14 +1,11 @@
 package org.forwork.controller.myprofile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.forwork.domain.MyProfileWrapper;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
 import org.forwork.service.PortfolioService;
-import org.json.simple.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -35,15 +30,17 @@ public class PortfolioController {
 
 	private PortfolioService service;
 	
-	@PostMapping(value="/new",
+	@PostMapping(value="/{member_id}/new",
 			consumes = "application/json",
 			produces = { MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> create(@RequestBody MyProfileWrapper wrapper){
+	public ResponseEntity<String> create(@PathVariable("member_id") String member_id,
+										@RequestBody MyProfileWrapper wrapper){
 		log.info("------------Controller_start----------------");
 	
 		log.info("Portfolio-PfLang wrapper: "+wrapper);
 		
 		Portfolio portfolio=wrapper.getPortfolio();
+		portfolio.setMember_id(member_id);
 		List<PortfolioLanguage> pfLangList = wrapper.getPfLangList();
 		
 		int insertCount = service.register(portfolio, pfLangList);
@@ -55,7 +52,8 @@ public class PortfolioController {
 
 	}
 	
-	@GetMapping(value = "/member_id/{member_id}",
+	
+	@GetMapping(value = "/{member_id}/list",
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -64,11 +62,13 @@ public class PortfolioController {
 		return new ResponseEntity<List<Portfolio>>(service.getList(member_id),HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/portfolio_id/{portfolio_id}",
+	
+	@GetMapping(value="/{member_id}/{portfolio_id}",
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<MyProfileWrapper> get(@PathVariable("portfolio_id") String portfolio_id){
+	public ResponseEntity<MyProfileWrapper> get(@PathVariable("member_id") String member_id,
+												@PathVariable("portfolio_id") String portfolio_id){
 		log.info("-------------Controller_GET------------");
 		log.info("Get: "+portfolio_id);
 		MyProfileWrapper wrapper = new MyProfileWrapper();
@@ -77,7 +77,8 @@ public class PortfolioController {
 		return new ResponseEntity<MyProfileWrapper>(wrapper,HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/portfolio_id/{portfolio_id}",
+	
+	@DeleteMapping(value = "/{portfolio_id}",
 			produces = { MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> delete(@PathVariable("portfolio_id")String portfolio_id){
 		
@@ -89,12 +90,14 @@ public class PortfolioController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	
 	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
-			value="/portfolio_id/{portfolio_id}",
+			value="/{portfolio_id}",
 			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify(@RequestBody MyProfileWrapper wrapper,
-									@PathVariable("portfolio_id") String portfolio_id){
+										//@PathVariable("member_id") String member_id,
+										@PathVariable("portfolio_id") String portfolio_id){
 		wrapper.getPortfolio().setPortfolio_id(portfolio_id);
 		log.info("modify:"+portfolio_id);
 		

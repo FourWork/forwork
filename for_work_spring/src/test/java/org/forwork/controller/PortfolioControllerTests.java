@@ -50,21 +50,21 @@ public class PortfolioControllerTests {
 //	@Test
 //	public void testList() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/member_id/2"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/2"))
 //				.andExpect(status().isOk()));
 //	}
 	
 //	@Test
 //	public void testGet() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/portfolio_id/183"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/76"))
 //				.andExpect(status().isOk()));
 //	}
 	
 //	@Test
 //	public void testDelete() throws Exception{
 //		log.info("---------controllerTests--------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/portfolio_id/183"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/202"))
 //				.andExpect(status().isOk()));
 //		
 //		log.info("----------controllerTests end---------------");
