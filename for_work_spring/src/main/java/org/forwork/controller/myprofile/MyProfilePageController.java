@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value="/myprofile/*", 
 produces=MediaType.TEXT_HTML_VALUE)
-public class PortfolioPageController {
+public class MyProfilePageController {
 
 	@GetMapping("/main")
 	public void main(String member_id, String portfolio_id, Model model){

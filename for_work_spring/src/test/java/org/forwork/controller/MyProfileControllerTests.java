@@ -35,7 +35,7 @@ import lombok.extern.log4j.Log4j;
 		org.forwork.config.RootConfig.class,
 		org.forwork.config.ServletConfig.class})
 @Log4j
-public class PortfolioControllerTests {
+public class MyProfileControllerTests {
 	
 	@Setter(onMethod_= {@Autowired})
 	private WebApplicationContext ctx;
@@ -50,14 +50,14 @@ public class PortfolioControllerTests {
 //	@Test
 //	public void testList() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/2"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/2/list"))
 //				.andExpect(status().isOk()));
 //	}
 	
 //	@Test
 //	public void testGet() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/76"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
 //				.andExpect(status().isOk()));
 //	}
 	

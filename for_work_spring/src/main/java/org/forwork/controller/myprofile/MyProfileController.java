@@ -5,7 +5,7 @@ import java.util.List;
 import org.forwork.domain.MyProfileWrapper;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.service.PortfolioService;
+import org.forwork.service.MyProfileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +26,9 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @Log4j
 @AllArgsConstructor
-public class PortfolioController {
+public class MyProfileController {
 
-	private PortfolioService service;
+	private MyProfileService service;
 	
 	@PostMapping(value="/{member_id}/new",
 			consumes = "application/json",
@@ -57,9 +57,12 @@ public class PortfolioController {
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Portfolio>> getList(@PathVariable("member_id") String member_id){
+	public ResponseEntity<MyProfileWrapper> getList(@PathVariable("member_id") String member_id){
+		MyProfileWrapper wrapper = new MyProfileWrapper();
 		log.info("-------------Controller_GetList------------");
-		return new ResponseEntity<List<Portfolio>>(service.getList(member_id),HttpStatus.OK);
+		wrapper.setMember(service.getMemberInfo(member_id));
+		wrapper.setPortfolioList(service.getList(member_id));
+		return new ResponseEntity<MyProfileWrapper>(wrapper,HttpStatus.OK);
 	}
 	
 	
@@ -106,5 +109,7 @@ public class PortfolioController {
 				? new ResponseEntity<>("success",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+
 	
 }

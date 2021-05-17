@@ -40,7 +40,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css">
-
+	
+	<style>
+		.alert-heading{
+		 cursor:pointer;
+		}
+		.alert-heading-content {
+		 display:none;
+		}
+	</style>
 </head>
 <body>
 <div class="header_myProfile">
@@ -49,7 +57,7 @@
           <div class="col-lg-7 col-md-10">
             <h1 class="display-2 text-white">Hello 달러 중괄호 member.name 중괄호</h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-         	<button type="button" class="btn btn-primary">Add Portfolio</button></a>
+         	<button type="button" class="btn btn-primary">Add Portfolio</button>
           </div>
         </div>
       </div>

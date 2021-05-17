@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.forwork.domain.Member;
 import org.forwork.domain.MyProfileWrapper;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.mapper.PortfolioMapper;
+import org.forwork.mapper.MyProfileMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +23,9 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @Log4j
 @Service
-public class PortfolioServiceImpl implements PortfolioService {
+public class MyProfileServiceImpl implements MyProfileService {
 	
-	private PortfolioMapper mapper;
+	private MyProfileMapper mapper;
 	
 	
 	@Transactional
@@ -100,6 +101,12 @@ public class PortfolioServiceImpl implements PortfolioService {
 	public List<Portfolio> getList(String member_id) {
 	 
 		return mapper.listPortfolio(member_id);
+	}
+
+	@Override
+	public Member getMemberInfo(String member_id) {
+
+		return mapper.memberInfo(member_id);
 	}
 	
 	

@@ -7,7 +7,8 @@ import lombok.Data;
 public class MyProfileWrapper {
 	
 	private Portfolio portfolio;
+	private List<Portfolio> portfolioList;
 	private List<PortfolioLanguage> pfLangList;
 	private PortfolioLanguage pfLang;
-
+	private Member member;
 }

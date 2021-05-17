@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 import org.forwork.domain.PortfolioLanguage;
 import org.forwork.domain.Portfolio;
-import org.forwork.mapper.PortfolioMapper;
+import org.forwork.mapper.MyProfileMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes={ org.forwork.config.RootConfig.class})
 @Log4j
-public class PortfolioMapperTests {
+public class MyProfileMapperTests {
 
 	private String[] memArr={"1","2","3","4"};
 	
 	@Setter(onMethod_= @Autowired)
-	private PortfolioMapper mapper;
+	private MyProfileMapper mapper;
 	
 	@Test
 	public void testMapper(){

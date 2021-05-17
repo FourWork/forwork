@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.PortfolioLanguage;
+import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
 
-public interface PortfolioMapper {
+public interface MyProfileMapper {
 
 	public int insert(Portfolio vo);
 	public Portfolio read(String portfolio_id);
@@ -20,5 +21,5 @@ public interface PortfolioMapper {
 	public int deletePfLang(String portfolio_id);
 	
 	public List<Map<String,Object>> rollupLanguage(String member_id);
-
+	public Member memberInfo(String member_id);
 }
