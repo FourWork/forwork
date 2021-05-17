@@ -264,8 +264,8 @@ $(document).ready(function(){
 	$("#column_container").on("click",".addRes",function(){
 		var task_id = $(this).closest('.card').find(".task_id").html();
 		var now = $(this).closest('.card').find('#resp').find('b');
-		var myName = "test"; // session에서 아이디 가져오기
-		var obj = {"task_id":task_id,"name":myName};
+		var member_id = "1"; // session에서 아이디 가져오기
+		var obj = {"task_id":task_id,"member_id":member_id};
 		
 		$.ajax({
 			type : "PATCH",

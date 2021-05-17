@@ -94,7 +94,7 @@ public class TaskController {
 	
 	@PatchMapping(value="/addRes",consumes="application/json")
 	public ResponseEntity<String> addRes(@RequestBody Map<String, String>param){
-		service.addRes(Integer.parseInt(param.get("task_id")), param.get("name"));
+		service.addRes(Integer.parseInt(param.get("task_id")), param.get("member_id"));
 		return new ResponseEntity<String>("success",HttpStatus.OK);
 	}
 	

@@ -121,10 +121,13 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int addRes(int task_id, String name) {
+	public int addRes(int task_id, String member_id) {
+		log.info("add Res");
+		String name = "null"; // 담당자 이름 가져오기
 		Task task = mapper.detailTask(task_id);
-		task.setResponsibility(name);
-		return mapper.updateTask(task);
+		task.setResponsibility(member_id);
+		task.setName(name);
+		return mapper.addResponsibility(task);
 	}
 
 	@Override
