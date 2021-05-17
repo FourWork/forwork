@@ -20,6 +20,17 @@
   <!-- Page plugins -->
   <!-- Argon CSS -->
   <link rel="stylesheet" href="../../resources/assets/css/argon.css?v=1.2.0" type="text/css">
+  <style type="text/css">
+  	.unread-color {
+  		background-color: #FD7860;
+  		color: white;
+  		padding: 3px;
+  		font-size: 1px;
+  		padding-left: 8px;
+  		padding-right: 8px;
+  		border-radius: 300px;
+  	}
+  </style>
 </head>   
   
 <body>
@@ -131,43 +142,56 @@
 	stompClient2 = Stomp.over(socket2);
 	let userId = document.getElementById("user").value;
 	
-	chattingService.getChatrooms(userId, function(chatrooms){
-		chattingService.getLastMessages(userId, function(lastMessages){
-			console.log(lastMessages);
-			let chatroomBox = document.querySelector("#listChat");
-			let chatroomNumber = document.querySelector("#n-chatroom");
-			chatroomNumber.innerHTML = chatrooms.length;
-			let html = "";
-			chatrooms.forEach(chatroom => {
-				let lastMessageOfChatroom = lastMessages.find(m => m.chatroom_id === chatroom.chatroom_id);
-				if (!lastMessageOfChatroom){
-					lastMessageOfChatroom = {
-						"chatroom_id" : "",
-						"message" : "대화를 시작해보세요",
-						"message_id" : "",
-						"send_time" : "",
-						"sender" : ""
+	chattingService.getUnreadCount(userId, function(unreadCountPerChatroom){
+		chattingService.getChatrooms(userId, function(chatrooms){
+			chattingService.getLastMessages(userId, function(lastMessages){
+				console.log(lastMessages);
+				let chatroomBox = document.querySelector("#listChat");
+				let chatroomNumber = document.querySelector("#n-chatroom");
+				chatroomNumber.innerHTML = chatrooms.length;
+				let html = "";
+				chatrooms.forEach(chatroom => {
+					let lastMessageOfChatroom = lastMessages.find(m => m.chatroom_id === chatroom.chatroom_id);
+					let unreadCountOfChatroom = unreadCountPerChatroom.find(data => data.chatroomId === chatroom.chatroom_id);
+					if (!lastMessageOfChatroom){
+						lastMessageOfChatroom = {
+							"chatroom_id" : "",
+							"message" : "대화를 시작해보세요",
+							"message_id" : "",
+							"send_time" : "",
+							"sender" : ""
+						}
 					}
-				}
-				html += 
-				'<div class="list-group list-group-flush">' + 
-					'<a href="/chatting/chatroomDetail?userId=' + userId + '&chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
-						'<div class="row align-items-center">'+
-							'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/Img/chatroom.png" class="avatar rounded-circle">'+'</div>' +
-							'<div class="col ml--2">' +
-								'<div class="d-flex justify-content-between align-items-center">' +
-									'<div>' +'<h4 class="mb-0 text-sm">' + chatroom.chatroom_name + '</h4>' +'</div>' +
-									'<div class="text-right text-muted">' +'<small id="last-sent-time' + chatroom.chatroom_id + '">' + lastMessageOfChatroom.send_time + '</small>' + '</div>' +
+					if (!unreadCountOfChatroom){
+						unreadCountOfChatroom = {
+							"unreadCount" : 0
+						}
+					}
+					html += 
+					'<div class="list-group list-group-flush">' + 
+						'<a href="/chatting/chatroomDetail?userId=' + userId + '&chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
+							'<div class="row align-items-center">'+
+								'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/Img/chatroom.png" class="avatar rounded-circle">'+'</div>' +
+								'<div class="col ml--2">' +
+									'<div class="d-flex justify-content-between align-items-center">' +
+										'<div>' +'<h4 class="mb-0 text-sm">' + chatroom.chatroom_name + '</h4>' +'</div>' +
+										'<div class="text-right text-muted">' +'<small id="last-sent-time' + chatroom.chatroom_id + '">' + lastMessageOfChatroom.send_time + '</small>' + '</div>' +
+									'</div>' +
+									'<p class="text-sm mb-0"  id="last-sent-msg' + chatroom.chatroom_id + '">';
+					if (unreadCountOfChatroom.unreadCount !== 0){
+						html += '<span class="unread-color" id="unread' + chatroom.chatroom_id + '">' + unreadCountOfChatroom.unreadCount + '</span>&nbsp;&nbsp;&nbsp;'
+					}
+					html += lastMessageOfChatroom.message + '</p>' +
 								'</div>' +
-								'<p class="text-sm mb-0"  id="last-sent-msg' + chatroom.chatroom_id + '">' + lastMessageOfChatroom.message + '</p>' +
 							'</div>' +
-						'</div>' +
-					'</a>' +
-				'</div>'
+						'</a>' +
+					'</div>'
+				})
+				chatroomBox.innerHTML = html;
 			})
-			chatroomBox.innerHTML = html;
-		})
-	});
+		});
+	})
+	
 	
 	stompClient2.connect({}, function(frame){
   		/* setConnected(true); */

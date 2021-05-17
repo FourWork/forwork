@@ -1,6 +1,7 @@
 package org.forwork.service.chatting;
 
 import java.util.List;
+import java.util.Map;
 
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
@@ -19,4 +20,5 @@ public interface ChattingService {
 	void updateReadStatus(String messageId, String memberId);
 	void updateReadAll(String chatroomId, String memberId);
 	List<String> findMemberByChatroomId(String chatroomId);
+	List<Map<String, String>> findUnreadCountPerChatroomByMemberId(String memberId);
 }

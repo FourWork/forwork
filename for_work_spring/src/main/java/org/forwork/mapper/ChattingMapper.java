@@ -1,6 +1,7 @@
 package org.forwork.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
@@ -21,4 +22,5 @@ public interface ChattingMapper {
 	void insertUnreadStatus(MemberMessageRelation status);
 	List<String> getMemberByChatroomId(String chatroomId);
 	void updateReadStatusPerChatroomByMemberId(ChatroomMemberRelation chatroomMember);
+	List<Map<String, String>> countUnreadPerChatroomByMemberId(String memberId);
 }

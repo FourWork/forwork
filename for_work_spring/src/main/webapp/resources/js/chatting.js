@@ -144,6 +144,24 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function getUnreadCount(memberId, callback, error) {
+		$.ajax({
+			type : 'get',
+			url : '/message/unread/member/' + memberId,
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -154,6 +172,7 @@ let chattingService = (function() {
 		updateReadAll : updateReadAll,
 		getLastMessages : getLastMessages,
 		getMembers : getMembers,
+		getUnreadCount : getUnreadCount,
 	};
 
 })();

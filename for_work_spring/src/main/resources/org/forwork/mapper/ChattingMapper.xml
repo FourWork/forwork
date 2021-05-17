@@ -14,6 +14,11 @@
 		</collection>
 	</resultMap>
 	
+	<resultMap type="map" id="unreadCountResultMap">
+		<result column="unread_count" property="unreadCount"/>
+		<result column="chatroom_id" property="chatroomId"/>
+	</resultMap>
+	
 	<select id="getChatroomMemberRelation" resultType="org.forwork.domain.ChatroomMemberRelation">
 		select * from chatroom_member_relation
 	</select>
@@ -96,5 +101,15 @@
 			from chatroom_member_relation
 			where chatroom_id = #{chatroom_id}
 	</select>
+	
+	<select id="countUnreadPerChatroomByMemberId" resultMap="unreadCountResultMap">
+		select count(mmr.is_read) as unread_count, m.chatroom_id
+			from message m, member_message_relation mmr
+			where m.message_id = mmr.message_id
+			and mmr.is_read = 'n'
+			and mmr.member_id = #{member_id}
+			group by m.chatroom_id
+	</select>
+	
 	
 </mapper>

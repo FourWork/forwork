@@ -1,6 +1,7 @@
 package org.forwork.controller.chatting;
 
 import java.util.List;
+import java.util.Map;
 
 import org.forwork.domain.Message;
 import org.forwork.dto.MessageDto;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
 
@@ -59,5 +62,10 @@ public class MessageController {
 	@GetMapping(value = "/last/member/{memberId}")
 	public ResponseEntity<List<Message>> getLastMessage(@PathVariable String memberId){
 		return new ResponseEntity<List<Message>>(service.findLastMessagePerChatroomByMemberId(memberId), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/unread/member/{memberId}")
+	public ResponseEntity<String> getUnreadCount(@PathVariable String memberId){
+		return new ResponseEntity<>(new Gson().toJson(service.findUnreadCountPerChatroomByMemberId(memberId)), HttpStatus.OK);
 	}
 }

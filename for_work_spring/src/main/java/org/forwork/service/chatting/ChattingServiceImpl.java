@@ -1,6 +1,7 @@
 package org.forwork.service.chatting;
 
 import java.util.List;
+import java.util.Map;
 
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
@@ -99,5 +100,11 @@ public class ChattingServiceImpl implements ChattingService {
 	public List<String> findMemberByChatroomId(String chatroomId) {
 		// TODO Auto-generated method stub
 		return mapper.getMemberByChatroomId(chatroomId);
+	}
+
+	@Override
+	public List<Map<String, String>> findUnreadCountPerChatroomByMemberId(String memberId) {
+		// TODO Auto-generated method stub
+		return mapper.countUnreadPerChatroomByMemberId(memberId);
 	}
 }
