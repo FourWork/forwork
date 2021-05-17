@@ -1,10 +1,11 @@
-package org.forwork.controller;
+package org.forwork.controller.ScrumBoard;
 
 import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.Task;
-import org.forwork.service.TaskService;
+import org.forwork.domain.TaskLog;
+import org.forwork.service.ScrumBoard.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -93,14 +94,22 @@ public class TaskController {
 	
 	@PatchMapping(value="/addRes",consumes="application/json")
 	public ResponseEntity<String> addRes(@RequestBody Map<String, String>param){
-		System.out.println(param);
+		service.addRes(Integer.parseInt(param.get("task_id")), param.get("name"));
 		return new ResponseEntity<String>("success",HttpStatus.OK);
 	}
 	
 	
+	@GetMapping(value="/log/{task_id}")
+	public ResponseEntity<String> getLog(@PathVariable("task_id") int task_id){
+		String str = service.getLog(task_id);
+		return new ResponseEntity<String>(str,HttpStatus.OK);
+	}
 	
-	
-	
+	@GetMapping(value="/logs/get/{task_id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<TaskLog>> getLogs(@PathVariable("task_id") int task_id){
+		List<TaskLog> list = service.getLogs(task_id);
+		return new ResponseEntity<List<TaskLog>>(list,HttpStatus.OK);
+	}
 	
 	
 	

@@ -59,6 +59,9 @@
 			and c.max_send_time = m.send_time
 	</select>
 	
-	
+	<select id="getChatroomName" resultType="String">
+		select chatroom_name from chatroom
+		where chatroom_id = #{chatroom_id}
+	</select>	
 
 </mapper>

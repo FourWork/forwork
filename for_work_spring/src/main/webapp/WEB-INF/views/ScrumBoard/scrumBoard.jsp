@@ -15,7 +15,8 @@
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- 부트스트랩 4.x를 사용한다. -->
 <script
@@ -27,6 +28,11 @@
 <!-- task.js => js모듈화 -->
 <script type="text/javascript" src="/resources/js/task.js"></script>
 
+<!-- sprint.js -->
+<script type="text/javascript" src="/resources/js/sprint.js"></script>
+
+
+<!-- Task처리 -->
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -70,7 +76,8 @@ $(document).ready(function(){
 			var part3="'>Task수정&삭제</a></div> </div> </div><div class='card-text'><p id='taskContent'>";
 			var part4=" <br> </p><h6 class='font-weight-light text-black' id='resp'> 담당 : <b>";
 			var part5="</b></h6><h6 class='font-weight-light text-black' id='taskWriter'>created by <b>";
-			var part6="</b></h6></div> </div> </div>";	
+			var part6="</b></h6></div> </div>";	
+
 			
 			var str1="<h6 class='card-title text-uppercase text-truncate py-2'>Stories</h6>";
 			var str2="<h6 class='card-title text-uppercase text-truncate py-2'>To-Do</h6>";
@@ -78,40 +85,57 @@ $(document).ready(function(){
 			var str4="<h6 class='card-title text-uppercase text-truncate py-2'>Done</h6>";
 			
 			listStoriesDiv.html(str1);
-	        listTodoDiv.html(str2);
-	        listDoingDiv.html(str3);
-	        listDoneDiv.html(str4);
-			
+			listTodoDiv.html(str2);
+			listDoingDiv.html(str3);
+			listDoneDiv.html(str4);
+
 			if(list==null || list.length==0){
-	            listStoriesDiv.html(str1);
-	            listTodoDiv.html(str2);
-	            listDoingDiv.html(str3);
-	            listDoneDiv.html(str4);
-	            
-	            return;
-	         }
+				listStoriesDiv.html(str1);
+				listTodoDiv.html(str2);
+				listDoingDiv.html(str3);
+				listDoneDiv.html(str4);
+				
+				return;
+			}
 			
 			for(var i =0, len=list.length ; i < len ; i++){
+				var log = "";
+	
+				log = function(){
+					var str ="";
+					$.ajax({
+						url:"/task/log/"+list[i].task_id,
+						method : "GET",
+						async:false,
+						success:function(data){
+							str += "<div class='card-footer text-gray'>"+ data + " <button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
+						}
+					});
+					
+					return str;
+				}();
+
+			
 				if(list[i].task_type_id==1){
-					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;				
+					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;				
 					listStoriesDiv.html(str1);
 				}
 				
-				str ="";
 				if(list[i].task_type_id==2){
-					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
+					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listTodoDiv.html(str2);
 				}
-				str="";
+				
 				if(list[i].task_type_id==3){
-					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
+					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listDoingDiv.html(str3);
 				}
-				str="";
+				
 				if(list[i].task_type_id==4){
-					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
+					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listDoneDiv.html(str4);
 				}	
+				log=null;
 			}		
 		}); // end function
 	}// end showList
@@ -154,7 +178,7 @@ $(document).ready(function(){
 	
 	taskService.insertTask(task, function(result) {
 		
-		alert(result);
+		alert("Task가 추가되었습니다.");
 		
 		taskModal.find("input").val("");
 		taskModal.modal("hide");
@@ -196,8 +220,9 @@ $(document).ready(function(){
 		
 		taskService.updateTask(task, function(result){
 			
-			alert(result);
+			alert("Task가 수정되었습니다.");
 			taskModal.modal("hide");
+			ws.send("c");
 			showList();
 			
 		});
@@ -210,12 +235,14 @@ $(document).ready(function(){
 		
 		taskService.deleteTask(task_id, function(result){
 		
-			alert(result);
+			alert("Task가 삭제되었습니다.");
 			taskModal.modal("hide");
 			showList();
 		});
 	});
 	
+	
+	// 담당자 추가
 	$("#column_container").on("click",".addRes",function(){
 		var task_id = $(this).closest('.card').find(".task_id").html();
 		var now = $(this).closest('.card').find('#resp').find('b');
@@ -229,11 +256,13 @@ $(document).ready(function(){
 			data : JSON.stringify(obj),
 			success : function(data){
 				$(now).html(myName);
+				ws.send("c");
 			}
 		});
 	});
 	
 	
+
 	// task move 기능
 	$(".column").sortable({
 				// 드래그 앤 드롭 단위 css 선택자	
@@ -272,17 +301,23 @@ $(document).ready(function(){
 								if (data == 'success') {
 									console.log("성공");
 									ws.send("c");
-								}
-							},
+								}},
 							error : function(e) {
 								console.log('error : ' + e);
 							}
 						})
 					}
-				}});
+				}
+		});
 	
-
+	// log 더보기
+	$("#column_container").on("click",".log-more",function(){
+		var task_id = $(this).closest(".card").find(".task_id").html();
+		window.open ('/task/logs/'+task_id,'','location=no, directories=no, resizable=no, status=no, toolbar=no,menubar=no, width=500, height=400, left=0, top=0, scrollbars=no');
+	});
+	
 });
+
 
 
 
@@ -332,6 +367,19 @@ $(document).ready(function(){
 	margin-right: 0 !important;
 	margin-left: 0 !important;
 }
+.card-footer{
+	overflow-y: scroll;
+	height: 30px;
+	padding-top: 2px;
+}
+
+.card-footer::-webkit-scrollbar {
+    display: none;
+}
+
+.log-more{
+	padding-top: 0px;
+}
 </style>
 <body>
 	<div class="container-fluid pt-1 px-0">
@@ -363,6 +411,7 @@ $(document).ready(function(){
 					</table>
 
 				</div>
+				
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트 정보만 -->
 					<table class="table">
@@ -374,32 +423,22 @@ $(document).ready(function(){
 								<th scope="col">Sprint 색</th>
 							</tr>
 						</thead>
-						<c:forEach var="sprint" items="${sprintList }">
-							<tbody>
-								<tr>
-									<td>${sprint.sprint_title }</td>
-									<td>${sprint.sprint_start_date }</td>
-									<td>${sprint.sprint_end_date }</td>
-									<td align=center>
-										<button style="background-color: ${sprint.sprint_color };"
-											id="colorbutton" disabled></button>
-									</td>
-								</tr>
-							</tbody>
-						</c:forEach>
+						<tbody id="sprintList">
+						
+						</tbody>
 					</table>
 				</div>
 				
 				<div class="row flex-row flex-sm-nowrap py-1">
 					<!-- 스프린트&Task 카드 추가 버튼 div -->
-					<button type="" class="btn btn-primary">Sprint 추가</button>
+					<button id="sprintAddBtn" class="btn btn-primary">Sprint 추가</button>
 						
 					<button id="taskAddBtn" class="btn btn-primary">Task 추가</button>
 					
-					<%-- 
+
 					<!-- sprint add btn -->
-				<jsp:include page="sprintAddModal.jsp" />
---%>
+				<jsp:include page="sprintModal.jsp" />
+				
 					<!-- modal add btn -->
 					<jsp:include page="taskModal.jsp" />
 
@@ -447,4 +486,3 @@ $(document).ready(function(){
 
 </body>
 </html>
-

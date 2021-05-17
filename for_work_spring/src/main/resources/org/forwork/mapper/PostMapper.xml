@@ -23,12 +23,18 @@
 			from
 				(
 				select /*+INDEX_DESC(post post_id_pk)*/
-					rownum rn, post_id, board_id, post_writer, post_title, post_date
-					from post where rownum <= #{pageNum} * #{amount} and board_id = #{board_id}
+					rownum rn, post_id, board_id, post_writer, post_title, post_date from post 
+					where board_id = #{board_id} and post_id > 0 and rownum <= #{cri.pageNum} * #{cri.amount}
 				)
-			where rn > (#{pageNum} - 1) * #{amount} and board_id = #{board_id}
+			where rn > (#{cri.pageNum} - 1) * #{cri.amount}
 		]]>
 	</select>
+
+	<select id="getCountByBno" resultType="int">
+		<![CDATA[
+			select count(post_id) from post where board_id = #{board_id}
+		]]>
+	</select>	
 	
 	<!-- 공지 사항 미리 보기 -->
 	<select id="listNotice" resultType="org.forwork.domain.Post">
@@ -45,9 +51,13 @@
 	<!-- 최신 글 목록 -->
 	<select id="listBoard" resultType="org.forwork.domain.Post">
 		<![CDATA[
-		select ROWNUM, b.board_id, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
-			from post p, board b where p.board_id = b.board_id and b.project_id = #{project_id}
-			and ROWNUM <= 15 order by p.post_id desc
+		select distinct rownum, board_id, post_id, post_title, post_writer, post_date, hitcount
+			from 
+				(
+				select distinct p.board_id, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
+					from board b, post p where b.project_id = #{project_id} order by p.post_id desc
+				)
+			where rownum <= 7 order by post_id desc
 		]]>
 	</select>
 	

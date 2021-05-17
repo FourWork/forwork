@@ -52,4 +52,10 @@ public class ChattingServiceImpl implements ChattingService {
 		// TODO Auto-generated method stub
 		return mapper.getLastMessagePerChatroomByMemberId(memberId);
 	}
+
+	@Override
+	public String findChatroomName(String chatroomId) {
+		// TODO Auto-generated method stub
+		return mapper.getChatroomName(chatroomId);
+	}
 }

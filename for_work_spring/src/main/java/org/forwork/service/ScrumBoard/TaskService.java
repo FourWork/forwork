@@ -1,9 +1,10 @@
-package org.forwork.service;
+package org.forwork.service.ScrumBoard;
 
 import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.Task;
+import org.forwork.domain.TaskLog;
 
 public interface TaskService {
 
@@ -19,5 +20,9 @@ public interface TaskService {
 	
 	public int moveTask(Map<String, String> changeData);
 	
-	public int addRes(String task_id, String name);
+	public int addRes(int task_id, String name);
+	
+	public String getLog(int task_id);
+	
+	public List<TaskLog> getLogs(int task_id);
 }
