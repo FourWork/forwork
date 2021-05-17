@@ -127,6 +127,9 @@ public class TaskServiceImpl implements TaskService {
 		Task task = mapper.detailTask(task_id);
 		task.setResponsibility(member_id);
 		task.setName(name);
+		int project_id = 1;
+		String content = "담당자 변경 Before : " + task.getName() + " Now : "+name;
+		logMapper.insertLog(task_id+"", content, project_id);
 		return mapper.addResponsibility(task);
 	}
 

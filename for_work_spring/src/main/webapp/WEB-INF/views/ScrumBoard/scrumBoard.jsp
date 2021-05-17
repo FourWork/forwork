@@ -150,6 +150,7 @@ $(document).ready(function(){
 			}
 			// project progress 기능
 			var percent = ((doneCount/count)*100).toFixed(0);
+			percent = percent < 0 ? 0 : percent;
 			var progress = "<div class= 'progress' style ='width:100%;height:20px'><div class='progress-bar'"
 			+'style ="width:'+percent+'%; height:20px" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100">'
 			+percent+"%</div></div>"
