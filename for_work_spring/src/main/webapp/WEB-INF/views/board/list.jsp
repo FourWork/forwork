@@ -110,13 +110,21 @@ table {
 	left: 13px;
 }
 
-.col-10 {
+.listFooterArea {
 	position: relative;
+	min-height: 50px;
 }
 
 .pagingBtnArea {
 	position: absolute;
+	top: 55px;
 	right: 30px;
+}
+
+.searchArea {
+	position: absolute;
+	top: 10px;
+	left: 40px;
 }
 
 .active {
@@ -176,31 +184,54 @@ table {
 							</tbody>
 						</table>
 					</div>
-					
-					<div class="pagingBtnArea">
-						<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
-							<c:if test="${pageMaker.prev}">
-								<div class="btn-group me-2" role="group" aria-label="First group">
-									<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.startPage - 1}"><button type="button" class="btn btn-outline-secondary">이전</button></a>
-								</div>
-							</c:if>
-						
-							<div class="btn-group me-2" role="group" aria-label="Second group">
-								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-									<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${num}">
-										<button type="button" class="btn btn-outline-secondary ${pageMaker.cri.pageNum == num ? "active" : ""}">${num}</button>
-									</a>
-								</c:forEach>
-							</div>
-							
-							<c:if test="${pageMaker.next}">
-								<div class="btn-group me-2" role="group" aria-label="Third group">
-									<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.endPage + 1}"><button type="button" class="btn btn-outline-secondary">다음</button></a>
-								</div>
-							</c:if>
+					<!-- post list end -->
+ 					
+					<div class="listFooterArea">
+						<div class="searchArea">
+							<form id="searchForm" action="/board/list" method="get">
+								<select name='type'>
+									<option value="">--</option>
+									<option value="T">제목</option>
+									<option value="C">내용</option>
+									<option value="W">작성자</option>
+									<option value="TC">제목+내용</option>
+									<option value="TW">제목+작성자</option>
+									<option value="TCW">제목+내용+작성자</option>
+								</select>
+								<input type="text" name="keyword"/>
+								<input type="hidden" name="project_id" value="${board.project_id}">
+								<input type="hidden" name="board_id" value="${board.board_id}">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+								<button class="btn btn-default">검색</button>
+							</form>	
 						</div>
+						<!-- SearchArea end -->
+ 						
+						<div class="pagingBtnArea">
+							<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+								<c:if test="${pageMaker.prev}">
+									<div class="btn-group me-2" role="group" aria-label="First group">
+										<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.startPage - 1}"><button type="button" class="btn btn-outline-secondary">이전</button></a>
+									</div>
+								</c:if>
+							
+								<div class="btn-group me-2" role="group" aria-label="Second group">
+									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+										<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${num}">
+											<button type="button" class="btn btn-outline-secondary ${pageMaker.cri.pageNum == num ? "active" : ""}">${num}</button>
+										</a>
+									</c:forEach>
+								</div>
+								
+								<c:if test="${pageMaker.next}">
+									<div class="btn-group me-2" role="group" aria-label="Third group">
+										<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.endPage + 1}"><button type="button" class="btn btn-outline-secondary">다음</button></a>
+									</div>
+								</c:if>
+							</div>
+						</div>
+						<!-- pagingBtn end -->
 					</div>
-					<!-- pagingBtn end -->
 				</div>
 				<!-- col-10 -->
 			
