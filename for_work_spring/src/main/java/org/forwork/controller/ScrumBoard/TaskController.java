@@ -99,10 +99,10 @@ public class TaskController {
 	}
 	
 	
-	@GetMapping(value="/log/{task_id}")
-	public ResponseEntity<String> getLog(@PathVariable("task_id") int task_id){
-		String str = service.getLog(task_id);
-		return new ResponseEntity<String>(str,HttpStatus.OK);
+	@GetMapping(value="/log/{task_id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<TaskLog> getLog(@PathVariable("task_id") int task_id){
+		TaskLog task = service.getLog(task_id);
+		return new ResponseEntity<TaskLog>(task,HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/logs/get/{task_id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -128,12 +128,12 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public String getLog(int task_id) {
-		TaskLog tl = logMapper.getLog(task_id+"");
-		if(tl == null){
-			return "null";
+	public TaskLog getLog(int task_id) {
+		TaskLog log = logMapper.getLog(task_id+"");
+		if(log == null){
+			return new TaskLog();
 		}
-		return tl.getLog_detail() + "  <br>" + tl.getLog_time().toGMTString();
+		return log;
 	}
 
 	@Override

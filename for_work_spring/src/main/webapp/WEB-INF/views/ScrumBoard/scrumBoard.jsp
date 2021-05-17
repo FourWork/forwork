@@ -101,15 +101,20 @@ $(document).ready(function(){
 
 			for(var i =0, len=list.length ; i < len ; i++){
 				var log = "";
-	
+				//log값 가져오기
 				log = function(){
 					var str ="";
 					$.ajax({
 						url:"/task/log/"+list[i].task_id,
 						method : "GET",
+						dataType : "json",
 						async:false,
 						success:function(data){
-							str += "<div class='card-footer text-gray'>"+ data + " <button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
+							if(data.log_detail == null){								
+								str += "<div class='card-footer text-gray'>null<button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
+							}else{
+								str += "<div class='card-footer text-gray'>"+ data.log_detail+"<br>"+new Date(data.log_time) + " <button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
+							}
 						}
 					});
 					

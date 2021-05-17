@@ -5,7 +5,7 @@
 		insert into task_log values(task_log_seq.nextval,#{task_id},#{content},SYSDATE,#{project_id})
 	</insert>
 	<select id="getLogList" resultType="org.forwork.domain.TaskLog">
-		<!-- hint 추가해서 성능 올리기 -->
+		<!-- hint 추가해서 성능 올리기  -->
 		select * from task_log where task_id = #{task_id} order by log_id desc
 	</select>
 	

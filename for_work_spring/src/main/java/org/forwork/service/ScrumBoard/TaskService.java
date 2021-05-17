@@ -22,7 +22,7 @@ public interface TaskService {
 	
 	public int addRes(int task_id, String name);
 	
-	public String getLog(int task_id);
+	public TaskLog getLog(int task_id);
 	
 	public List<TaskLog> getLogs(int task_id);
 }
