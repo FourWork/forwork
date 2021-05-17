@@ -4,7 +4,11 @@ import org.forwork.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.forwork.domain.Criteria;
+import org.forwork.dto.PageDto;
 import org.forwork.service.PostService;
 
 import lombok.AllArgsConstructor;
@@ -32,36 +36,46 @@ public class BoardPageController {
 	}
 	
 	@GetMapping("/list")
-	public void list(int project_id, Long board_id, Model model) {
+	public void list(int project_id, Long board_id, Criteria cri, Model model) {
 		log.info("게시판별 게시글 목록");
+		log.info("cri: " + cri);
+		
+		int total = postService.getTotal(cri, board_id);
+		
+		if (total < 10) {
+			cri.setAmount(total);
+		} else {
+			cri.setAmount(10);
+		}
 		
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); // 게시판 이름
-		model.addAttribute("list", postService.getList(board_id)); // 게시글 목록
+		model.addAttribute("list", postService.getListPage(cri, board_id)); // 게시글 목록
+		model.addAttribute("pageMaker", new PageDto(cri, total));
 	}
 
 	@GetMapping("/manager")
 	public void manager(int project_id, Long board_id, Model model) {
-		log.info("게시판 관리");
+		log.info("게시판 관리 페이지");
 		
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("project_id", project_id);
 	}
 	
 	@GetMapping("/post")
-	public void post(int project_id, Long board_id, Long post_id, Model model) {
+	public void post(@RequestParam("project_id") int project_id, @RequestParam("board_id") Long board_id, 
+			@RequestParam("post_id") Long post_id, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("게시글 상세 보기");
-		
+		postService.addHitcount(post_id); // 조회 수
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); 
 		model.addAttribute("post", postService.get(post_id));
-		postService.addHitcount(post_id); // 조회 수
 	}
-	
+
 	@GetMapping("/updatePost")
-	public void updatePost(int project_id, Long board_id, Long post_id, Model model) {
+	public void updatePost(@RequestParam("project_id") int project_id, @RequestParam("board_id") Long board_id, 
+			@RequestParam("post_id") Long post_id, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("게시글 수정 페이지");
-		
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); 
 		model.addAttribute("post", postService.get(post_id));

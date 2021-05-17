@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.forwork.domain.Post;
+import org.forwork.domain.Criteria;
 
 public interface PostMapper {
 
@@ -13,7 +14,9 @@ public interface PostMapper {
 	
 	public List<Post> listPost(@Param("board_id") Long board_id);
 	
-//	public List<Post> listPostWithPaging(@Param("cri") Criteria cri, @Param("board_id") Long board_id);
+	public List<Post> listPostWithPaging(@Param("cri") Criteria cri, @Param("board_id") Long board_id);
+
+	public int getCountByBno(@Param("cri") Criteria cri, @Param("board_id") Long board_id);
 	
 	public List<Post> listNotice(@Param("project_id") int project_id);
 	

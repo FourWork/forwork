@@ -1,4 +1,4 @@
-package org.forwork.controller;
+package org.forwork.controller.ScrumBoard;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,11 @@ public class TaskPageController {
 	public String taskPage(){
 		
 		return "/ScrumBoard/scrumBoard";
+	}
+	
+	@GetMapping("/logs/*")
+	public String logsPage(){
+		return "/ScrumBoard/logs";
 	}
 
 }

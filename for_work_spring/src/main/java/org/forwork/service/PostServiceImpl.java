@@ -3,6 +3,7 @@ package org.forwork.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.forwork.domain.Criteria;
 import org.forwork.domain.Post;
 import org.forwork.mapper.PostMapper;
 
@@ -58,6 +59,17 @@ public class PostServiceImpl implements PostService {
 		return mapper.listPost(board_id);
 	}
 
+	@Override
+	public List<Post> getListPage(Criteria cri, Long board_id) {
+		return mapper.listPostWithPaging(cri, board_id);
+	}
+	
+	@Override
+	public int getTotal(Criteria cri, Long board_id) {
+		log.info("get total count");
+		return mapper.getCountByBno(cri, board_id);
+	}	
+	
 	@Override
 	public List<Post> getNotice(int project_id) {
 		log.info("프로젝트별 공지 사항 미리 보기...");
