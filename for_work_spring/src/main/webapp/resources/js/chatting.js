@@ -79,10 +79,27 @@ let chattingService = (function() {
 		})
 	}
 	
-	function updateReadStatus(chatroomId, memberId, callback, error){
+	function updateReadStatus(messageId, memberId, callback, error){
 		$.ajax({
 			type : 'put',
-			url : '/message/read/chatroom/' + chatroomId + '/member/' + memberId,
+			url : '/message/read/' + messageId + '/member/' + memberId,
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+	
+	function updateReadAll(chatroomId, memberId, callback, error){
+		$.ajax({
+			type : 'put',
+			url : '/message/read/' + '/member/' + memberId + '/chatroom/' + chatroomId,
 			success : function(result, status, xhr) {
 				if (callback) {
 					callback(result);
@@ -102,6 +119,7 @@ let chattingService = (function() {
 		insertMessage : insertMessage,
 		getChatrooms : getChatrooms,
 		updateReadStatus : updateReadStatus,
+		updateReadAll : updateReadAll,
 	};
 
 })();

@@ -40,11 +40,17 @@ public class MessageController {
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/read/chatroom/{chatroomId}/member/{memberId}")
-	public ResponseEntity<String> checkRead(@PathVariable String chatroomId, @PathVariable String memberId){
-		service.updateReadStatus(chatroomId, memberId);
+	@PutMapping(value = "/read/{messageId}/member/{memberId}")
+	public ResponseEntity<String> checkRead(@PathVariable String messageId, @PathVariable String memberId){
+		service.updateReadStatus(messageId, memberId);
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
+	@PutMapping(value = "/read/member/{memberId}/chatroom/{chatroomId}")
+	public ResponseEntity<String> checkReadAll(@PathVariable String memberId, @PathVariable String chatroomId){
+		service.updateReadAll(chatroomId, memberId);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
 }

@@ -35,8 +35,11 @@ public class ChattingServiceImpl implements ChattingService {
 		
 		List<String> memberIds = mapper.getMemberByChatroomId(message.getChatroom_id());
 		memberIds.forEach(memberId -> {
-			status.setMember_id(memberId);
-			mapper.insertUnreadStatus(status);
+			// 보낸 사람 빼고 안읽음 상태 insert
+			if (!memberId.equals(message.getSender())) {
+				status.setMember_id(memberId);
+				mapper.insertUnreadStatus(status);
+			}
 		});
 		
 		status.setMember_id(message.getSender());
@@ -73,17 +76,21 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getChatroomName(chatroomId);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public void updateReadStatus(String chatroomId, String memberId) {
+	public void updateReadStatus(String messageId, String memberId) {
 		// TODO Auto-generated method stub
-		List<MessageDto> messages = mapper.getMessageByChatroomId(chatroomId);
 		MemberMessageRelation status = new MemberMessageRelation();
 		status.setMember_id(memberId);
-		messages.forEach(msg -> {
-			status.setMessage_id(msg.getMessage_id());
-			mapper.updateReadStatus(status);
-		});
+		status.setMessage_id(messageId);
+		mapper.updateReadStatus(status);
 	}
 
+	@Override
+	public void updateReadAll(String chatroomId, String memberId) {
+		// TODO Auto-generated method stub
+		ChatroomMemberRelation chatroomMember = new ChatroomMemberRelation();
+		chatroomMember.setChatroom_id(chatroomId);
+		chatroomMember.setMember_id(memberId);
+		mapper.updateReadStatusPerChatroomByMemberId(chatroomMember);
+	}
 }

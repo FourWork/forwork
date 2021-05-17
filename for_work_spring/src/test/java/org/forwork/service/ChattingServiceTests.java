@@ -38,17 +38,22 @@ public class ChattingServiceTests {
 //	}
 //	
 //	@Test
-//	public void testInsertUnreadStatus() {
+//	public void testInsertMessage() {
 //		Message msg = new Message();
-//		msg.setMessage("test message5");
+//		msg.setMessage("test message4");
 //		msg.setChatroom_id("1");
-//		msg.setSender("1");
-//		msg.setSend_time("2021-05-11 12:40:00");
+//		msg.setSender("3");
+//		msg.setSend_time("2021-05-11 10:40:00");
 //		service.createMessage(msg);
+//	}
+//	
+//	@Test
+//	public void testUpdateReadStatus() {
+//		service.updateReadStatus("267", "4");
 //	}
 	
 	@Test
-	public void testUpdateReadStatus() {
-		service.updateReadStatus("1", "4");
+	public void testUpdateReadAll() {
+		service.updateReadAll("1", "2");
 	}
 }

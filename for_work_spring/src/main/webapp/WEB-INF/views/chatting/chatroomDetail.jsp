@@ -150,6 +150,10 @@
   			});
   			chatbox.innerHTML = html;
   		});
+  		
+  		chattingService.updateReadAll(chatroomId, sender, function(result){
+  			console.log(result);
+  		})
 	});
 
 
@@ -165,7 +169,6 @@
   			// TODO: 읽음 처리 DB 구조 개선
   			// TODO: 처음에 접속했을 때는 메세지 다 읽음 처리
   			// TODO: 이후에는 메세지 하나 받아서 해당 메세지 읽음 처리
-  			readMessages();
   			showMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
@@ -179,6 +182,7 @@
   	}
   	
   	function showMessage(msg){
+  		console.log(msg);
 		let chatBubble = document.createElement('span');
     	
         chatBubble.innerHTML =  msg.message;   
@@ -204,6 +208,7 @@
 	        document.querySelector('.chatbox').appendChild(img);
   		}
         document.querySelector('.chatbox').appendChild(chatBubble);
+        readMessage(msg.message_id);
   	}
   	
   	function sendMessage(){
@@ -234,9 +239,11 @@
   		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
   	}
   
-  	function readMessages(){
+  	// 받은 메세지 하나 읽음 처리 
+  	function readMessage(messageId){
   		console.log("sender: " + sender);
-  		chattingService.updateReadStatus(chatroomId, sender, function(result){
+  		console.log("message id: " + messageId)
+  		chattingService.updateReadStatus(messageId, sender, function(result){
   			console.log(result);
   		})
   	}

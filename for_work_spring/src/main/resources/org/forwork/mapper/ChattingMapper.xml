@@ -71,8 +71,19 @@
 		update member_message_relation
 		set is_read = 'y'
 		where message_id = #{message_id}
-		and is_read = 'n'
 		and member_id = #{member_id}
+	</update>
+	
+	<update id="updateReadStatusPerChatroomByMemberId">
+		update (
+			select *
+			from member_message_relation mmr, message m
+			where mmr.message_id = m.message_id
+			and mmr.member_id = #{member_id}
+			and m.chatroom_id = #{chatroom_id}
+			and mmr.is_read = 'n'
+		) 
+		set is_read = 'y'
 	</update>
 	
 	<insert id="insertUnreadStatus">
