@@ -173,7 +173,7 @@ table {
 								<c:forEach var="list" items="${list}">
 									<tr>
 										<td>${list.post_id}</td>
-										<td><a href="post?post_id=${list.post_id}&board_id=${board.board_id}&project_id=${board.project_id}&pageNum=${pageMaker.cri.pageNum}">${list.post_title}</a></td>
+										<td><a href="${list.post_id}" class="postBtn">${list.post_title}</a></td>
 										 <td>${list.post_writer}</td>
 										<td><fmt:parseDate var="dt" value="${list.post_date}"
 												pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
@@ -190,13 +190,13 @@ table {
 						<div class="searchArea">
 							<form id="searchForm" action="/board/list" method="get">
 								<select name='type'>
-									<option value="">--</option>
-									<option value="T">제목</option>
-									<option value="C">내용</option>
-									<option value="W">작성자</option>
-									<option value="TC">제목+내용</option>
-									<option value="TW">제목+작성자</option>
-									<option value="TCW">제목+내용+작성자</option>
+									<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}"/>>--</option>
+									<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : ''}"/>>제목</option>
+									<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : ''}"/>>내용</option>
+									<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : ''}"/>>작성자</option>
+									<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : ''}"/>>제목+내용</option>
+									<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : ''}"/>>제목+작성자</option>
+									<option value="TCW" <c:out value="${pageMaker.cri.type eq 'TCW' ? 'selected' : ''}"/>>제목+내용+작성자</option>
 								</select>
 								<input type="text" name="keyword"/>
 								<input type="hidden" name="project_id" value="${board.project_id}">
@@ -211,21 +211,21 @@ table {
 							<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
 								<c:if test="${pageMaker.prev}">
 									<div class="btn-group me-2" role="group" aria-label="First group">
-										<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.startPage - 1}"><button type="button" class="btn btn-outline-secondary">이전</button></a>
+										<a href="${pageMaker.startPage - 1}"><button type="button" class="btn btn-outline-secondary pagingBtn">이전</button></a>
 									</div>
 								</c:if>
 							
 								<div class="btn-group me-2" role="group" aria-label="Second group">
 									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-										<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${num}">
-											<button type="button" class="btn btn-outline-secondary ${pageMaker.cri.pageNum == num ? "active" : ""}">${num}</button>
+										<a href="${num}">
+											<button type="button" class="btn btn-outline-secondary pagingBtn ${pageMaker.cri.pageNum == num ? "active" : ""}">${num}</button>
 										</a>
 									</c:forEach>
 								</div>
 								
 								<c:if test="${pageMaker.next}">
 									<div class="btn-group me-2" role="group" aria-label="Third group">
-										<a href="list?project_id=${board.project_id}&board_id=${board.board_id}&pageNum=${pageMaker.endPage + 1}"><button type="button" class="btn btn-outline-secondary">다음</button></a>
+										<a href="${pageMaker.endPage + 1}"><button type="button" class="btn btn-outline-secondary pagingBtn">다음</button></a>
 									</div>
 								</c:if>
 							</div>
@@ -234,11 +234,80 @@ table {
 					</div>
 				</div>
 				<!-- col-10 -->
-			
+				
+				<form id="actionForm" action="/board/list" method="get">
+					<input type="hidden" name="project_id" value="${board.project_id}">
+					<input type="hidden" name="board_id" value="${board.board_id}">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+					<input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+				</form>
+				
+				<form id="actionPostForm" action="/board/post" method="get">
+					<input type="hidden" name="project_id" value="${board.project_id}">
+					<input type="hidden" name="board_id" value="${board.board_id}">
+					<input type="hidden" name="post_id" value="">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					<input type="hidden" name="type" value='<c:out value="${pageMaker.cri.type}"/>'>
+					<input type="hidden" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"/>'>
+				</form>
+				
 			</div>
 		</div>
 	</div>
 
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			
+			var actionForm = $("#actionForm");
+			
+			$('.pagingBtn').on("click", function(e) {
+				
+				e.preventDefault();
+				console.log("click");
+				
+				actionForm.find("input[name='pageNum']").val($(this).parent().attr("href"));
+	
+				actionForm.submit();
+
+			});
+			
+			
+			var searchForm = $("#searchForm");
+			
+			$("#searchForm button").on("click", function(e) {
+				
+				if(!searchForm.find("option:selected").val()) {
+					alert("검색 종류를 선택하세요.");
+					return false;
+				}
+				
+				if(!searchForm.find("input[name='keyword']").val()) {
+					alert("검색 키워드를 입력하세요.");
+				}
+				
+				searchForm.find("input[name='pageNum']").val("1");
+				e.preventDefault();
+				
+				searchForm.submit();
+				
+			});
+			
+			var actionPostForm = $("#actionPostForm");
+			
+			$(".postBtn").on("click", function(e) {
+				
+				e.preventDefault();
+				
+				actionPostForm.find("input[name='post_id']").val($(this).attr("href"));
+				
+				actionPostForm.submit();
+			});
+			
+		});
+		
+	</script>
 </body>
 </html>
 
