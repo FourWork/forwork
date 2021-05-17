@@ -68,7 +68,8 @@ $(document).ready(function(){
 	
 	// Task List 불러오기
 	function showList(){
-		
+		var count = 0;
+		var doneCount = 0;
 		taskService.listTask(function(list){
 			
 			var part1="<div class='card draggable shadow-sm' id='task1'><div class='card-header'></div><div class='card-body p-2 ui-sortable-handle'><div class='card-title'><p class='task_id'>";			 
@@ -97,7 +98,7 @@ $(document).ready(function(){
 				
 				return;
 			}
-			
+
 			for(var i =0, len=list.length ; i < len ; i++){
 				var log = "";
 	
@@ -119,25 +120,37 @@ $(document).ready(function(){
 				if(list[i].task_type_id==1){
 					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;				
 					listStoriesDiv.html(str1);
+					count += 1;
 				}
 				
 				if(list[i].task_type_id==2){
 					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listTodoDiv.html(str2);
+					count += 1;
 				}
 				
 				if(list[i].task_type_id==3){
 					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listDoingDiv.html(str3);
+					count += 1;
 				}
 				
 				if(list[i].task_type_id==4){
 					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listDoneDiv.html(str4);
+					doneCount += 1;
+					count +=1;
 				}	
 				log=null;
-			}		
+			}
+			// project progress 기능
+			var percent = ((doneCount/count)*100).toFixed(0);
+			var progress = "<div class= 'progress' style ='width:100%;height:20px'><div class='progress-bar'"
+			+'style ="width:'+percent+'%; height:20px" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100">'
+			+percent+"%</div></div>"
+			$("#project-progress").html(progress);
 		}); // end function
+			
 	}// end showList
 	
 	// Task 추가 Modal 띄우기
@@ -457,7 +470,7 @@ $(document).ready(function(){
 					</thead>
 					<tbody>
 						<tr>
-							<td>50%</td>
+							<td id="project-progress"></td>
 							<td>20%</td>
 						</tr>
 					</tbody>
