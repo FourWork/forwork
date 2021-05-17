@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.Task;
+import org.forwork.domain.TaskLog;
 import org.forwork.service.ScrumBoard.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,7 +81,7 @@ public class TaskController {
 	}
 	
 	
-	@PostMapping(value="/move", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PatchMapping(value="/move", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> moveTask(@RequestBody Map<String, String>param){
 		
 		System.out.println(param);
@@ -90,11 +92,24 @@ public class TaskController {
 		}
 	}
 	
+	@PatchMapping(value="/addRes",consumes="application/json")
+	public ResponseEntity<String> addRes(@RequestBody Map<String, String>param){
+		service.addRes(Integer.parseInt(param.get("task_id")), param.get("member_id"));
+		return new ResponseEntity<String>("success",HttpStatus.OK);
+	}
 	
 	
+	@GetMapping(value="/log/{task_id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<TaskLog> getLog(@PathVariable("task_id") int task_id){
+		TaskLog task = service.getLog(task_id);
+		return new ResponseEntity<TaskLog>(task,HttpStatus.OK);
+	}
 	
-	
-	
+	@GetMapping(value="/logs/get/{task_id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<TaskLog>> getLogs(@PathVariable("task_id") int task_id){
+		List<TaskLog> list = service.getLogs(task_id);
+		return new ResponseEntity<List<TaskLog>>(list,HttpStatus.OK);
+	}
 	
 	
 	
