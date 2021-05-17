@@ -16,8 +16,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@ComponentScan(basePackages={"org.forwork.service"})
-@ComponentScan(basePackages="org.forwork.aop")
+@ComponentScan(basePackages={"org.forwork.service", "org.forwork.aop"})
 @EnableAspectJAutoProxy
 
 @EnableTransactionManagement

@@ -1,3 +1,7 @@
 /.metadata/
 Servers/
 .DS_Store
+<<<<<<< HEAD
+=======
+.classpath
+>>>>>>> 5626163a96df97ff58e39e557055fdf7f80c3755

@@ -29,4 +29,9 @@ public class ChattingServiceTests {
 	public void testFindChatroomMemberRelations() {
 		service.findChatroomMemberRelations().forEach(relation -> log.info(relation));
 	}
+	
+	@Test
+	public void testFindChatroomName() {
+		service.findChatroomName("3");
+	}
 }

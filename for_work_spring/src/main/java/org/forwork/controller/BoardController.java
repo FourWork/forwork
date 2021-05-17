@@ -1,68 +1,76 @@
 package org.forwork.controller;
 
-import org.forwork.domain.Board;
-import org.forwork.service.BoardService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.forwork.domain.Board;
+import org.forwork.domain.Post;
+import org.forwork.service.BoardService;
+import org.forwork.service.PostService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@Controller
+@RequestMapping("/board/")
+@RestController
 @Log4j
-@RequestMapping("/board/*")
 @AllArgsConstructor
 public class BoardController {
 
-	private BoardService service;
+	private BoardService boardService;
+	private PostService postService;
 	
-	@GetMapping("/menu")
-	public void menu(Model model, int project_id) {
-		log.info("board menu");
-		model.addAttribute("menu", service.getList(project_id));
+	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> create(@RequestBody Board board) {
+		log.info("Board: " + board);
+		
+		int insertCount = boardService.register(board);
+		log.info("게시판 추가: " + insertCount);
+		
+		return insertCount == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@PostMapping("/register")
-	public String register(Board board, RedirectAttributes rttr) {
-		log.info("board register: " + board);
+//	@GetMapping(value = "/list/{board_id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+//	public ResponseEntity<List<Post>> getList(@PathVariable("board_id") Long board_id) {
+//		log.info("게시판별 게시글 목록");
+//		
+//		return new ResponseEntity<>(postService.getList(board_id), HttpStatus.OK);
+//	}
+	
+	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH }, value = "/{board_id}", 
+			consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> modify(@RequestBody Board board, @PathVariable("board_id") Long board_id) {
+		board.setBoard_id(board_id);
+		log.info("board_id: " + board_id);
+		log.info("게시판 수정: " + board);
 		
-		service.register(board);
-		
-		rttr.addFlashAttribute("result", board.getBoard_id());
-		
-		return "redirect:/board/menu";
+		return boardService.modify(board) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@PostMapping("/modify")
-	public String modify(Board board, RedirectAttributes rttr) {
-		log.info("board modify: " + board);
+	@DeleteMapping(value = "/{board_id}", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> remove(@PathVariable("board_id") Long board_id) {
+		log.info("게시판 삭제: " + board_id);
 		
-		if (service.modify(board)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		return "redirect:/board/menu";
+		return boardService.remove(board_id) == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@PostMapping("/remove")
-	public String remove(@RequestParam("board_id") Long board_id, RedirectAttributes rttr) {
-		log.info("board remove: " + board_id);
-		
-		if (service.remove(board_id)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		return "redirect:/board/menu";
-	}
 	
-	@GetMapping("/main")
-	public void main() {
-
-	}
 	
 	
 	
