@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.forwork.mapper.TaskMapper">
+
+	<!-- Task CRUD -->
+
+	<insert id="insertTask">
+	insert into task_ex(TASK_CONTENT,task_type_id,task_id,task_index,writer) values(#{task_content},1,task_ex_seq.nextval,#{task_index},#{writer})
+	</insert>
+
+	<select id="listTask" resultType="org.forwork.domain.Task">
+		select * from task_ex order by task_index
+	</select>
+
+	<delete id="deleteTask" parameterType="int">
+		delete from task_ex where task_id = #{task_id}
+	</delete>
+
+	<update id="updateTask" parameterType="org.forwork.domain.Task">
+		update task_ex set task_content=#{task_content} where task_id = #{task_id}
+	</update>
+
+	<select id="detailTask" resultType="org.forwork.domain.Task" parameterType="int">
+		select * from task_ex where task_id = #{task_id}
+	</select>
+
+	<!-- Sprint CRUD -->
+
+	<update id="increaseUpdate">
+		update task_ex set task_index = task_index + 1 where task_index >= #{task_index} and task_type_id = #{task_type_id}
+	</update>
+	
+	<update id="decreaseUpdate">
+		update task_ex set task_index = task_index - 1 where task_index > #{task_index} and task_type_id = #{task_type_id}
+	</update>
+	
+	<update id="moveTask">
+		update task_ex set task_index = #{task_index}, task_type_id = #{task_type_id} where task_id=#{task_id}
+	</update>
+
+</mapper>

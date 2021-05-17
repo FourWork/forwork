@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.forwork.mapper.ChattingMapper">
+	<cache />
+	<resultMap id="messageResult" type="org.forwork.dto.MessageDto">
+		<id property="message_id" column="message_id"/>
+		<result property="message" column="message"/>
+		<result property="send_time" column="send_time"/>
+		<result property="chatroom_id" column="chatroom_id"/>
+		<collection property="sender" ofType="org.forwork.domain.Member" column="sender">
+			<id property="member_id" column="member_id"/>
+			<result property="name" column="name"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getChatroomMemberRelation" resultType="org.forwork.domain.ChatroomMemberRelation">
+		select * from chatroom_member_relation
+	</select>
+	
+	<insert id="insertMessage">
+		insert into message(message_id, message, send_time, sender, chatroom_id)
+			values(message_id_seq.nextval, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id})
+	</insert>
+	
+	<!-- TODO: 요청한 시간대에 맞는 메세지 보내주도록 수정 -->
+	<select id="getMessageByChatroomId" resultMap="messageResult">
+		select * 
+			from message m, member u
+			where m.sender = u.member_id(+)
+			and m.chatroom_id = #{chatroom_id}
+			order by m.send_time
+	</select>
+	
+	<!-- 유저가 가진 채팅방 목록 -->
+	<select id="getChatroomByMemberId" resultType="org.forwork.domain.Chatroom">
+		select *
+			from chatroom_vw
+			where member_id = #{member_id}
+	</select>
+	
+	<!-- 로그인 유지하면 필요 없음 -->
+	<select id="getMemberById" resultType="org.forwork.domain.Member">
+		select *
+			from member
+			where member_id = #{member_id}
+	</select>
+	
+	
+	<select id="getLastMessagePerChatroomByMemberId" resultType="org.forwork.domain.Message">
+		select *
+			from (select chatroom_id, max(send_time) as max_send_time
+					from message
+					where chatroom_id in (select chatroom_id
+											from chatroom_vw
+											where member_id = #{member_id})
+					group by chatroom_id) c, message m
+			where c.chatroom_id = m.chatroom_id
+			and c.max_send_time = m.send_time
+	</select>
+	
+	<select id="getChatroomName" resultType="String">
+		select chatroom_name from chatroom
+		where chatroom_id = #{chatroom_id}
+	</select>	
+
+</mapper>
