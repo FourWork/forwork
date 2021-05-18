@@ -36,5 +36,9 @@ public class MyProfilePageController {
 	public void update(String portfolio_id, Model model){
 		model.addAttribute("portfolio_id",portfolio_id);
 	}
-
+	
+	@GetMapping("/chart")
+	public void chart(String member_id, Model model){
+		model.addAttribute("member_id", member_id);
+	}
 }

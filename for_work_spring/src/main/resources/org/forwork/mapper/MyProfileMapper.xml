@@ -75,11 +75,10 @@
 	</resultMap>
 
 	<select id="rollupLanguage" resultMap="langStatMap">
-		select portfolio_language, count(*)
-			from portfolio_language_view
-			where member_id=#{member_id}
-			group by rollup(portfolio_language)
-			order by portfolio_language
+		select portfolio_language, count(*) as language_count
+		      from portfolio_language_view
+		      where member_id=#{member_id}
+		      group by grouping sets(portfolio_language)
 	</select>
 	
 	<select id="memberInfo" resultType="org.forwork.domain.Member">

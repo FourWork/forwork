@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.forwork.domain.Member;
-import org.forwork.domain.MyProfileWrapper;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
+import org.forwork.dto.MyProfileDto;
 import org.forwork.mapper.MyProfileMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +30,9 @@ public class MyProfileServiceImpl implements MyProfileService {
 	
 	@Transactional
 	@Override
-	public MyProfileWrapper read(String portfolio_id) {
+	public MyProfileDto read(String portfolio_id) {
 		
-		MyProfileWrapper wrapper= new MyProfileWrapper();
+		MyProfileDto wrapper= new MyProfileDto();
 		wrapper.setPortfolio(mapper.read(portfolio_id));
 		wrapper.setPfLangList(mapper.readPfLangList(portfolio_id));
 
@@ -107,6 +107,11 @@ public class MyProfileServiceImpl implements MyProfileService {
 	public Member getMemberInfo(String member_id) {
 
 		return mapper.memberInfo(member_id);
+	}
+
+	@Override
+	public List<PortfolioLanguage> getPfLangList(String portfolio_id) {
+		return mapper.readPfLangList(portfolio_id);
 	}
 	
 	

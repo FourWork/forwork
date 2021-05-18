@@ -3,9 +3,9 @@ package org.forwork.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.forwork.domain.MyProfileWrapper;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
+import org.forwork.dto.MyProfileDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,11 +76,11 @@ public class MyProfileServiceTests {
 //		service.delete(portfolio_id);
 //	}
 	
-	@Test
-	public void testRead(){
-		String portfolio_id = "37";
-		log.info(service.read(portfolio_id));
-	}
+//	@Test
+//	public void testRead(){
+//		String portfolio_id = "37";
+//		log.info(service.read(portfolio_id));
+//	}
 	
 //	@Test
 //	public void testCountLang(){

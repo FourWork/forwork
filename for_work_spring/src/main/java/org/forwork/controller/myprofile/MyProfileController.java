@@ -1,10 +1,12 @@
 package org.forwork.controller.myprofile;
 
 import java.util.List;
+import java.util.Map;
 
-import org.forwork.domain.MyProfileWrapper;
+import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
+import org.forwork.dto.MyProfileDto;
 import org.forwork.service.MyProfileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,7 +36,7 @@ public class MyProfileController {
 			consumes = "application/json",
 			produces = { MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@PathVariable("member_id") String member_id,
-										@RequestBody MyProfileWrapper wrapper){
+										@RequestBody MyProfileDto wrapper){
 		log.info("------------Controller_start----------------");
 	
 		log.info("Portfolio-PfLang wrapper: "+wrapper);
@@ -57,29 +59,43 @@ public class MyProfileController {
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<MyProfileWrapper> getList(@PathVariable("member_id") String member_id){
-		MyProfileWrapper wrapper = new MyProfileWrapper();
+	public ResponseEntity<List<Portfolio>> getList(@PathVariable("member_id") String member_id){
 		log.info("-------------Controller_GetList------------");
-		wrapper.setMember(service.getMemberInfo(member_id));
-		wrapper.setPortfolioList(service.getList(member_id));
-		return new ResponseEntity<MyProfileWrapper>(wrapper,HttpStatus.OK);
+		return new ResponseEntity<List<Portfolio>>(service.getList(member_id),HttpStatus.OK);
 	}
 	
-	
-	@GetMapping(value="/{member_id}/{portfolio_id}",
+	@GetMapping(value = "/{member_id}/info",
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<MyProfileWrapper> get(@PathVariable("member_id") String member_id,
+	public ResponseEntity<Member> getInfo(@PathVariable("member_id") String member_id){
+		log.info("-------------Controller_GetList------------");
+		return new ResponseEntity<Member>(service.getMemberInfo(member_id),HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value="/{portfolio_id}/portfolio",
+			produces={
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<MyProfileDto> get(@PathVariable("member_id") String member_id,
 												@PathVariable("portfolio_id") String portfolio_id){
 		log.info("-------------Controller_GET------------");
 		log.info("Get: "+portfolio_id);
-		MyProfileWrapper wrapper = new MyProfileWrapper();
+		MyProfileDto wrapper = new MyProfileDto();
 		wrapper.setPfLangList(service.read(portfolio_id).getPfLangList());
 		wrapper.setPortfolio(service.read(portfolio_id).getPortfolio());
-		return new ResponseEntity<MyProfileWrapper>(wrapper,HttpStatus.OK);
+		return new ResponseEntity<MyProfileDto>(wrapper,HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/{portfolio_id}/language",
+			produces={
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<PortfolioLanguage>> getPfLangList(@PathVariable("portfolio_id") String portfolio_id){
+		log.info("-------------Controller_GetList------------");
+		return new ResponseEntity<List<PortfolioLanguage>>(service.getPfLangList(portfolio_id),HttpStatus.OK);
+	}
 	
 	@DeleteMapping(value = "/{portfolio_id}",
 			produces = { MediaType.TEXT_PLAIN_VALUE})
@@ -98,7 +114,7 @@ public class MyProfileController {
 			value="/{portfolio_id}",
 			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@RequestBody MyProfileWrapper wrapper,
+	public ResponseEntity<String> modify(@RequestBody MyProfileDto wrapper,
 										//@PathVariable("member_id") String member_id,
 										@PathVariable("portfolio_id") String portfolio_id){
 		wrapper.getPortfolio().setPortfolio_id(portfolio_id);
@@ -110,6 +126,14 @@ public class MyProfileController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@GetMapping(value = "/{member_id}/chart",
+			produces={
+					MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Map<String,String>>> langChart(@PathVariable("member_id") String member_id){
 
+		return new ResponseEntity<List<Map<String,String>>>(service.countLang(member_id),HttpStatus.OK);
+	}
+	
 	
 }

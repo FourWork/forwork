@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
@@ -10,25 +12,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-<!-- Favicon -->
-	<link rel="icon" href="../../../resources/assets/img/brand/favicon.png" type="image/png">
-  
-	<!-- Fonts -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  
-	<!-- Icons -->
-	<link rel="stylesheet" href="../../resources/assets/vendor/nucleo/css/nucleo.css" type="text/css">
-	<link rel="stylesheet" href="../../../resources/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-  
-	<!-- Argon CSS -->
-	<link rel="stylesheet" href="../../../resources/assets/css/argon.css?v=1.2.0" type="text/css">
 
- 	<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
+	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -39,31 +26,152 @@
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css"> -->
 	
-	<style>
-		.alert-heading{
-		 cursor:pointer;
-		}
-		.alert-heading-content {
-		 display:none;
-		}
-	</style>
+<style>
+	
+.grid-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.7fr;
+  grid-template-rows: 300px 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "title-container title-container"
+    "portfolio-container myprofile-title-container";
+}
+
+.portfolio-container { padding:10px;
+padding-right:20px;
+grid-area: portfolio-container; }
+
+.myprofile-title-container { grid-area: myprofile-title-container; }
+
+.title-container { grid-area: title-container; display: grid;
+  grid-template-columns: 1.2fr 0.7fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    ". ."
+    ". ."
+    "add-portfolio .";}
+
+ul{
+list-style:none;
+padding-left:0px;
+}
+
+.grid-container2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.8fr 1.4fr 0.8fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "portfolio-term"
+    "portfolio-detail"
+    "portfolio_language_List";
+}
+.portfolio-term { grid-area: portfolio-term; }
+.portfolio-detail { grid-area: portfolio-detail; }
+.portfolio_language_List { grid-area: portfolio_language_List; }
+
+
+.add-portfolio { grid-area: add-portfolio;
+padding:10px;
+padding-right:25px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #303c6c;
+    border-color: #303c6c;
+    float:right;
+    position:relative;
+	top:55px;
+}
+
+</style>
 </head>
 <body>
-<div class="header_myProfile">
-      <div class="container_myProfile">
-        <div class="row">
-          <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello 달러 중괄호 member.name 중괄호</h1>
-            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
-         	<button type="button" class="btn btn-primary">Add Portfolio</button>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="grid-container">
+  <div class="portfolio-container">
+  
+	  <div id="accordion">
+<!-- portfolio-list ul 시작 -->
+	  <ul class="portfolio-list">
+	  <div class="card">
+	  <li class="left clearfix" portfolio_id='1'>
+	    <div class="card-header" id="headingOne">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          	포트폴리오 제목
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	      <div class="card-body">
+			<div class="grid-container2">
+				<div class="portfolio-term">
+				포트폴리오 기간
+				</div>
+	 			<div class="portfolio-detail">
+	 			포트폴리오 상세
+	 			</div>
+	  			<div class="portfolio_language_List">
+	  			<span class="badge badge-pill badge-primary">Java</span>
+	  			<span class="badge badge-pill badge-primary">CSS</span>
+	  			<span class="badge badge-pill badge-primary">JavaScript</span>
+	  			</div>
+			</div>
+	      </div>
+	    </div>
+	   </li>
+	  </div>
 
-<script type="text/javascript">
+	  <div class="card">
+	  	<li class="left clearfix" portfolio_id='2'>
+	    <div class="card-header" id="headingTwo">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	          	포트폴리오2 제목
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+	      <div class="card-body">
+			<div class="grid-container2">
+				<div class="portfolio-term">
+				포트폴리오2 기간
+				</div>
+	 			<div class="portfolio-detail">
+	 			포트폴리오2 상세
+	 			</div>
+	  			<div class="portfolio_language_List">
+	  			포트폴리오2 언어
+	  			</div>
+			</div>
+	      </div>
+	    </div>
+		</li>
+	  </div>
+	  </ul> 
+	  <!-- portfolio-list ul 끝 -->	 
+	</div>
+  </div>
+  <div class="myprofile-title-container">
+
+  </div>
+  <div class="title-container">
+		<div class="add-portfolio">
+			<button class="btn btn-primary" type="submit">Add Portfolio</button>
+		</div>
+  </div>
+</div>
+	<div class="card-body">
+		<!-- 차트 들어갈 곳.. -->
+		<div id="piechart" style="width: 500px; height: 400px;"></div>
+	</div>
+
+	<script type="text/javascript">
 $(document).ready(function(){
 	console.log(portfolioService);
 	
@@ -73,21 +181,62 @@ $(document).ready(function(){
 	var p_id = '<c:out value ="${portfolio_id}"/>';
 	console.log("p_id"+p_id);
 	
+	var portfolioUL = $(".portfolio-list");
+	
+	showPfList();
+function showPfList(){
 	portfolioService.getList({
 		member_id : m_id
 		}, function(list){
-			//리스트를 콘솔에 찍음
-		for(var i=0, len = list.length||0; i<len ;i++){
-			console.log(list[i]);
-		}
+
+			console.log("list"+list);
+			var str="";
+			if(list == null || list.length ==0){
+			}
+			
+			for(var i = 0, len = list.length||0;i<len;i++){
+				str +="<li class= 'left clearfix' portfolio_id="+list[i].portfolio_id+"'>";
+				str +="	<div class='card-header' id='heading"+i+"'>";
+				str +="	  <h5 class='mb-0'>";
+				if(i == 0){
+				str +="	     <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'>";
+				}else{
+				str +="	     <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='false' aria-controls='collapse"+i+"'>";
+				}
+				str +=list[i].portfolio_title;
+				str +="		 </button>";
+				str +="		</h5>";
+				str +="	</div>";
+				if(i==0){
+				str +="<div id='collapse"+i+"' class='collapse show' aria-labelledby='heading"+i+"' data-parent=''#accordion'>";
+				}else{
+				str +="<div id='collapse"+i+"' class='collapse' aria-labelledby='heading"+i+"' data-parent=''#accordion'>";
+				}
+				str +="	<div class='card-body'>";
+				str +="		<div class='grid-container2'>";
+				str +="			<div class='portfolio-term'>";
+				str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
+				str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
+				str +="<div class='portfolio_language_List'>"
+				
+				portfolioService.getPfLangList({
+					portfolio_id: list[i].portfolio_id
+				}, function(listLang){
+					for(var j = 0, len1 = listLang.length||0;i<len1;j++){
+						console.log(listLang[i].portfolio_language);
+						str += "<span class='badge badge-pill badge-primary'>"+listLang[i].portfolio_language+"</span>";
+					}
+				})
+				str +="</div></div></div></div></li>";
+				console.log(list[i].portfolio_title);
+			}
+			portfolioUL.html(str);
 	});
+}//end showPfList
+
+
 	
-	portfolioService.get({
-		portfolio_id : p_id
-	}, function(wrapper){
-		console.log(wrapper.portfolio);
-		console.log(wrapper.pfLangList);
-	})
+	
 });
 </script>
 </body>
