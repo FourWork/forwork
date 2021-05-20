@@ -1,4 +1,4 @@
-package org.forwork.service;
+package org.forwork.service.board;
 
 import java.util.List;
 

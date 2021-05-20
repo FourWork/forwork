@@ -1,4 +1,4 @@
-package org.forwork.controller;
+package org.forwork.controller.board;
 
 
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.forwork.domain.Post;
-import org.forwork.service.PostService;
+import org.forwork.service.board.PostService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;

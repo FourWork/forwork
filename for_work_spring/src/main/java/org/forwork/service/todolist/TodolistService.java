@@ -1,4 +1,4 @@
-package org.forwork.service;
+package org.forwork.service.todolist;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ public interface TodolistService {
 	
 	public int updateDone(int todolist_id);
 	
-	public List<Todolist> doingList(int member_id); // í•´ì•¼ í•  ì¼ ëª©ë¡
+	public List<Todolist> doingList(int member_id); // ?•´?•¼ ?•  ?¼ ëª©ë¡
 	
-	public List<Todolist> doneList(int member_id); // ì™„ë£Œëœ í•  ì¼ ëª©ë¡
+	public List<Todolist> doneList(int member_id); // ?™„ë£Œëœ ?•  ?¼ ëª©ë¡
 	
 	public int delete(int todolist_id);
 	

@@ -1,1 +1,6 @@
-/target/
+/.project
+/.settings/
+/.springBeans
+/eclipse-workspace/
+/pom.xml
+/src/
