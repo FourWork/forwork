@@ -15,8 +15,8 @@ public interface PostMapper {
 	public List<Post> listPost(@Param("board_id") Long board_id);
 	
 	public List<Post> listPostWithPaging(@Param("cri") Criteria cri, @Param("board_id") Long board_id);
-	
-	public int getCountByBno(Long board_id);
+
+	public int getCountByBno(@Param("cri") Criteria cri, @Param("board_id") Long board_id);
 	
 	public List<Post> listNotice(@Param("project_id") int project_id);
 	

@@ -22,4 +22,6 @@ public interface TaskMapper {
 	public int decreaseUpdate(@Param("task_index")String idx,@Param("task_type_id")String type_id );
 	
 	public int moveTask(Task task);
+	
+	public int addResponsibility(Task task);
 }
