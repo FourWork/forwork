@@ -12,5 +12,4 @@ public class Member implements Serializable {
 	private String pw;
 	private String status_id;
 
-
 }

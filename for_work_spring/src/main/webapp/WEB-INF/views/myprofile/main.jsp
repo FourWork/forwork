@@ -44,7 +44,14 @@
 padding-right:20px;
 grid-area: portfolio-container; }
 
-.myprofile-title-container { grid-area: myprofile-title-container; }
+.myprofile-title-container { grid-area: myprofile-title-container; display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.2fr 0.6fr 1.2fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "profile_photo"
+    "profile_info"
+    "profile_chart";}
 
 .title-container { grid-area: title-container; display: grid;
   grid-template-columns: 1.2fr 0.7fr;
@@ -88,6 +95,10 @@ padding-right:25px;
     position:relative;
 	top:55px;
 }
+
+.profile_photo { grid-area: profile_photo; }
+.profile_info { grid-area: profile_info; }
+.profile_chart { grid-area: profile_chart; }
 
 </style>
 </head>
@@ -158,7 +169,9 @@ padding-right:25px;
 	</div>
   </div>
   <div class="myprofile-title-container">
-
+	  <div class="profile_photo"></div>
+	  <div class="profile_info"></div>
+	  <div class="profile_chart"></div>
   </div>
   <div class="title-container">
 		<div class="add-portfolio">
@@ -178,12 +191,21 @@ $(document).ready(function(){
 	var m_id = '<c:out value ="${member_id}"/>';
 	console.log("m_id" + m_id);
 	
-	var p_id = '<c:out value ="${portfolio_id}"/>';
-	console.log("p_id"+p_id);
+	var p_id='';
 	
+	var profileInfoDIV = $(".profile_info");
 	var portfolioUL = $(".portfolio-list");
 	
+	showInfo();
 	showPfList();
+function showInfo(){
+	portfolioService.getIfno({
+		member_id : m_id
+	}, function(member){
+		var str="<h1>"+member.name+"<h1/>"
+		
+	})
+}
 function showPfList(){
 	portfolioService.getList({
 		member_id : m_id
@@ -218,16 +240,16 @@ function showPfList(){
 				str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
 				str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
 				str +="<div class='portfolio_language_List'>"
-				
+				console.log(list[i].portfolio_id);
+				p_id=list[i].portfolio_id;
+				console.log(p_id);
 				portfolioService.getPfLangList({
-					portfolio_id: list[i].portfolio_id
+					portfolio_id: p_id
 				}, function(listLang){
 					for(var j = 0, len1 = listLang.length||0;i<len1;j++){
-						console.log(listLang[i].portfolio_language);
-						str += "<span class='badge badge-pill badge-primary'>"+listLang[i].portfolio_language+"</span>";
+					str+= "<span class='badge badge-pill badge-primary'>"+listLang[i].portfolio_language+"</span></div></div></div></div></li>";
 					}
-				})
-				str +="</div></div></div></div></li>";
+				});
 				console.log(list[i].portfolio_title);
 			}
 			portfolioUL.html(str);

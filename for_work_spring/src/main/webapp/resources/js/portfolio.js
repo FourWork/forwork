@@ -103,6 +103,19 @@ var portfolioService=(function(){
 			});
 		}
 	
+	function getInfo(param,callback,error){
+		var member_id = param.member_id;
+		$.getJSON("/myprofile/"+member_id+"/info.json",
+			function(data){
+			if(callback){
+				callback(data);
+			}
+		}).fail(function(xhr,status,err){
+			if(error){
+				error();
+			}
+		});
+	}
 	function displayTime(timeValue){
 		
 		var dateObj = new Date(timeValue);
