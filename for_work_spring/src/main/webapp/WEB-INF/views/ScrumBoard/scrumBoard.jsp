@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -37,6 +36,25 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	var ws = new WebSocket("ws://localhost:8081/taskSocket"); // socket 연결
+
+	ws.onopen = function(e){
+		console.log("info : connection opened."); // 정상적으로 연결 시 출력
+	}
+	
+	ws.onmessage = function(e){
+		showList(); // 서버로부터 메세지를 받을 경우 새로고침
+	}
+	
+	ws.onclose = function(e){
+		console.log("info : connection closed");
+	};
+	
+	ws.onerror = function(e){
+		console.log("error")
+	};
+	
+	
 	
 	var task_type_id = '<c:out value="${task.task_type_id}"/>';
 	
@@ -47,9 +65,11 @@ $(document).ready(function(){
 
 	showList();
 	
+	
 	// Task List 불러오기
 	function showList(){
-		
+		var count = 0;
+		var doneCount = 0;
 		taskService.listTask(function(list){
 			
 			var part1="<div class='card draggable shadow-sm' id='task1'><div class='card-header'></div><div class='card-body p-2 ui-sortable-handle'><div class='card-title'><p class='task_id'>";			 
@@ -57,7 +77,8 @@ $(document).ready(function(){
 			var part3="'>Task수정&삭제</a></div> </div> </div><div class='card-text'><p id='taskContent'>";
 			var part4=" <br> </p><h6 class='font-weight-light text-black' id='resp'> 담당 : <b>";
 			var part5="</b></h6><h6 class='font-weight-light text-black' id='taskWriter'>created by <b>";
-			var part6="</b></h6></div> </div> </div>";	
+			var part6="</b></h6></div> </div>";	
+
 			
 			var str1="<h6 class='card-title text-uppercase text-truncate py-2'>Stories</h6>";
 			var str2="<h6 class='card-title text-uppercase text-truncate py-2'>To-Do</h6>";
@@ -77,29 +98,65 @@ $(document).ready(function(){
 				
 				return;
 			}
-			
+
 			for(var i =0, len=list.length ; i < len ; i++){
+				var log = "";
+				//log값 가져오기
+				log = function(){
+					var str ="";
+					$.ajax({
+						url:"/task/log/"+list[i].task_id,
+						method : "GET",
+						dataType : "json",
+						async:false,
+						success:function(data){
+							if(data.log_detail == null){								
+								str += "<div class='card-footer text-gray'>null<button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
+							}else{
+								str += "<div class='card-footer text-gray'>"+ data.log_detail+"<br>"+new Date(data.log_time) + " <button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
+							}
+						}
+					});
+					
+					return str;
+				}();
+
+			
 				if(list[i].task_type_id==1){
-					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;				
+					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;				
 					listStoriesDiv.html(str1);
+					count += 1;
 				}
 				
 				if(list[i].task_type_id==2){
-					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
+					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listTodoDiv.html(str2);
+					count += 1;
 				}
 				
 				if(list[i].task_type_id==3){
-					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
+					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listDoingDiv.html(str3);
+					count += 1;
 				}
 				
 				if(list[i].task_type_id==4){
-					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6;	
+					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
 					listDoneDiv.html(str4);
+					doneCount += 1;
+					count +=1;
 				}	
-			}		
+				log=null;
+			}
+			// project progress 기능
+			var percent = ((doneCount/count)*100).toFixed(0);
+			percent = percent < 0 ? 0 : percent;
+			var progress = "<div class= 'progress' style ='width:100%;height:20px'><div class='progress-bar'"
+			+'style ="width:'+percent+'%; height:20px" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100">'
+			+percent+"%</div></div>"
+			$("#project-progress").html(progress);
 		}); // end function
+			
 	}// end showList
 	
 	// Task 추가 Modal 띄우기
@@ -184,6 +241,7 @@ $(document).ready(function(){
 			
 			alert("Task가 수정되었습니다.");
 			taskModal.modal("hide");
+			ws.send("c");
 			showList();
 			
 		});
@@ -203,227 +261,89 @@ $(document).ready(function(){
 	});
 	
 	
-	
-});
-
-
-</script>
-
-<!-- Sprint처리 -->
-<script type="text/javascript">
-
-$(document).ready(function() {
-	
-	var sprintTb = $("#sprintList");
-	
-	showSprints();
-	
-	// sprint List 출력
-	function showSprints() {
+	// 담당자 추가
+	$("#column_container").on("click",".addRes",function(){
+		var task_id = $(this).closest('.card').find(".task_id").html();
+		var now = $(this).closest('.card').find('#resp').find('b');
+		var member_id = "1"; // session에서 아이디 가져오기
+		var obj = {"task_id":task_id,"member_id":member_id};
 		
-		sprintService.listSprint(function(list){
-			
-			var str = "";
-			if(list==null || list.length==0){
-				sprintTb.html("");
-				
-				return;
-			}
-			for(var i=0, len=list.length||0; i<len;i++){
-				str += "<tr><td data-sprint_id='"+list[i].sprint_id+"'>"+list[i].sprint_title+"</td>";
-				str += "<td>"+list[i].sprint_start_date+"</td>";
-				str += "<td>"+list[i].sprint_end_date+"</td>";
-				str += "<td><button style='background-color: "+list[i].sprint_color+"' id='colorbutton' disabled></td></tr>";
-			}
-			
-			sprintTb.html(str);
-		});//end function
-	}// end showSprints
-	
-	// Sprint 모달 띄우기
-	var sprintModal = $("#sprintAdd");
-	
-	var sprintModalTitle = sprintModal.find("input[name='sprint_title']");
-	var sprintModalStartDate = sprintModal.find("input[name='sprint_start_date']");
-	var sprintModalEndDate = sprintModal.find("input[name='sprint_end_date']");
-	var sprintModalColor = sprintModal.find("input[name='sprint_color']");
-	
-	var sprintModalRegisterBtn = $("#sprintRegisterBtn");
-	var sprintModalUpdateBtn = $("#sprintUpdateBtn");
-	var sprintModalDeleteBtn = $("#sprintDeleteBtn");
-	
-	$("#sprintAddBtn").on("click", function(e){
-		
-		sprintModal.find("input").val("");
-		sprintModal.find("button[id !='sprintModalClose']").hide();
-		
-		sprintModalRegisterBtn.show();
-		
-		$("#sprintAdd").modal("show");
-	});
-	
-	// Sprint 추가 
-	sprintModalRegisterBtn.on("click", function(e) {
-		
-		var sprint ={
-				sprint_title : sprintModalTitle.val(),
-				sprint_start_date : sprintModalStartDate.val(),
-				sprint_end_date : sprintModalEndDate.val(),
-				sprint_color : sprintModalColor.val()
-		};
-	
-		sprintService.insertSprint(sprint, function(result) {
-			
-			alert("Sprint정보가 추가되었습니다.");
-			
-			sprintModal.find("input").val("");
-			sprintModal.modal("hide");
-			
-			showSprints();
-		});
-		
-	});
-	
-	// Sprint 수정&삭제
-	$("#sprintList").on("click","td",function(e){
-		
-		
-		var sprint_id = $(this).data("sprint_id");
-		
-		
-		sprintService.getSprint(sprint_id, function(sprint){
-			
-			sprintModalTitle.val(sprint.sprint_title);
-			
-			var startVal = String(sprint.sprint_start_date).substring(0,10);			
-			sprintModalStartDate.val(startVal);
-			
-			var endVal = String(sprint.sprint_end_date).substring(0,10);	
-			sprintModalEndDate.val(endVal);
-			
-			sprintModalColor.val(sprint.sprint_color);
-			sprintModal.data("sprint_id", sprint.sprint_id);
-			
-			sprintModal.find("button[id !='sprintModalClose']").hide();
-			sprintModalUpdateBtn.show();
-			sprintModalDeleteBtn.show();
-			
-			$("#sprintAdd").modal("show");
-			
-			
-		});
-	
-});
-
-	sprintModalUpdateBtn.on("click", function(e){
-		
-		var startValue = String(sprintModalStartDate.val());
-		var endValue = String(sprintModalEndDate.val());
-		
-		var sprint = {
-				sprint_id : sprintModal.data("sprint_id"), 
-				sprint_title : sprintModalTitle.val(),	
-				sprint_start_date : sprintModalStartDate.val(),	
-				sprint_end_date : sprintModalEndDate.val(),	
-				sprint_color : sprintModalColor.val() 
-				};
-		
-		
-		
-		sprintService.updateSprint(sprint, function(result){
-			
-			alert("Sprint정보가 수정되었습니다.");
-			sprintModal.modal("hide");
-			showSprints();
-		});
-	});
-
-	
-	sprintModalDeleteBtn.on("click", function(e){
-		
-		var sprint_id = sprintModal.data("sprint_id");
-		
-		sprintService.deleteSprint(sprint_id, function(result){
-			
-			alert("Sprint정보가 삭제되었습니다.");
-			sprintModal.modal("hide");
-			showSprints();
-		});
-	});
-	
-});
-
-</script>
-
-
-<script>
-	$(function() { // task move
-		$(".column").sortable(
-				{
-					// 드래그 앤 드롭 단위 css 선택자	
-					connectWith : ".column",
-					// 움직이는 css 선택자	
-					handle : ".card-header",
-					// 움직이지 못하는 css 선택자	
-					cancel : ".no-move",
-					// 이동하려는 location에 추가 되는 클래스	
-					placeholder : "card-placeholder",
-					start : function(event, ui) {
-						$(this).attr('data-previndex', ui.item.index());
-					},
-					update : function(event, ui) {
-						var previdx = $(this).attr('data-previndex');
-						var nowidx = ui.item.index();
-						var task_id = $(ui.item).find('.task_id').html();
-						var col_name = $(ui.item).closest('.column').find(
-								'.card-title').html();
-					console.log(previdx);
-					console.log(nowidx);
-
-						if (typeof previdx != 'undefined') {
-							$.ajax({
-								type : "POST",
-								url : "moveTask.do",
-								data : {
-									"previdx" : previdx,
-									"nowidx" : nowidx,
-									"task_id" : task_id,
-									"col_name" : col_name
-								},
-								success : function(data) {
-									if (data == 'success') {
-										console.log("성공");
-									}
-								},
-								error : function(e) {
-									console.log('error : ' + e);
-								}
-							})
-						}
-					}
-				});
-		// 해당 클래스 하위의 텍스트 드래그를 막는다.	
-		
-		$('.addRes').click(function(){
-			var task_id = $(this).closest('.card').find('.task_id').html();		
-			var now = $(this).closest('.card').find('#resp').find('b');
 		$.ajax({
-				type : "POST",
-				url : "addRes.do",
-				data : {
-					"task_id" : task_id
-				},
-				success : function(data){
-					$(now).html('<%=session.getAttribute("name")%>');
-				}
-			});
+			type : "PATCH",
+			url : "/task/addRes",
+			contentType:"application/json",
+			data : JSON.stringify(obj),
+			success : function(data){
+				$(now).html(myName);
+				ws.send("c");
+			}
 		});
-
 	});
+	
+	
+
+	// task move 기능
+	$(".column").sortable({
+				// 드래그 앤 드롭 단위 css 선택자	
+				connectWith : ".column",
+				// 움직이는 css 선택자	
+				handle : ".card-header",
+				// 움직이지 못하는 css 선택자	
+				cancel : ".no-move",
+				// 이동하려는 location에 추가 되는 클래스	
+				placeholder : "card-placeholder",
+				start : function(event, ui) {
+					$(this).attr('data-previndex', ui.item.index());
+				},
+				update : function(event, ui) {
+					var previdx = $(this).attr('data-previndex');
+					var nowidx = ui.item.index();
+					var task_id = $(ui.item).find('.task_id').html();
+					var col_name = $(ui.item).closest('.column').find(
+							'.card-title').html();
+
+					
+					if (typeof previdx != 'undefined' && previdx != 0) {
+						var changeData = {
+								"previdx" : previdx,
+								"nowidx" : nowidx,
+								"task_id" : task_id,
+								"col_name" : col_name
+							};
+						
+						$.ajax({
+							type : "PATCH",
+							url : "/task/move",
+							contentType:"application/json",
+							data : JSON.stringify(changeData),
+							success : function(data) {
+								if (data == 'success') {
+									console.log("성공");
+									ws.send("c");
+								}},
+							error : function(e) {
+								console.log('error : ' + e);
+							}
+						})
+					}
+				}
+		});
+	
+	// log 더보기
+	$("#column_container").on("click",".log-more",function(){
+		var task_id = $(this).closest(".card").find(".task_id").html();
+		window.open ('/task/logs/'+task_id,'','location=no, directories=no, resizable=no, status=no, toolbar=no,menubar=no, width=500, height=400, left=0, top=0, scrollbars=no');
+	});
+	
+});
+
+
+
+
 </script>
 </head>
 <style>
-/* 마우스 포인터을 손가락으로 변경 */
+
 .card:not (.no-move ) .card-header {
 	cursor: pointer;
 }
@@ -465,6 +385,19 @@ $(document).ready(function() {
 .px-0 {
 	margin-right: 0 !important;
 	margin-left: 0 !important;
+}
+.card-footer{
+	overflow-y: scroll;
+	height: 30px;
+	padding-top: 2px;
+}
+
+.card-footer::-webkit-scrollbar {
+    display: none;
+}
+
+.log-more{
+	padding-top: 0px;
 }
 </style>
 <body>
@@ -543,7 +476,7 @@ $(document).ready(function() {
 					</thead>
 					<tbody>
 						<tr>
-							<td>50%</td>
+							<td id="project-progress"></td>
 							<td>20%</td>
 						</tr>
 					</tbody>
@@ -572,4 +505,3 @@ $(document).ready(function() {
 
 </body>
 </html>
-

@@ -37,5 +37,9 @@
 	<update id="moveTask">
 		update task_ex set task_index = #{task_index}, task_type_id = #{task_type_id} where task_id=#{task_id}
 	</update>
+	
+	<update id="addResponsibility" parameterType="org.forwork.domain.Task">
+		update task_ex set responsibility=#{responsibility}, name = #{name} where task_id = #{task_id}
+	</update>
 
 </mapper>

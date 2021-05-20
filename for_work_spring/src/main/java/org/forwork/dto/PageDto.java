@@ -1,4 +1,6 @@
-package org.forwork.domain;
+package org.forwork.dto;
+
+import org.forwork.domain.Criteria;
 
 import lombok.Getter;
 import lombok.ToString;

@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.forwork.domain.Criteria;
-import org.forwork.domain.PageDto;
+
+import org.forwork.dto.PageDto;
+
 import org.forwork.service.PostService;
 
 import lombok.AllArgsConstructor;
@@ -38,11 +40,24 @@ public class BoardPageController {
 	@GetMapping("/list")
 	public void list(int project_id, Long board_id, Criteria cri, Model model) {
 		log.info("게시판별 게시글 목록");
+<<<<<<< HEAD
 		log.info("list: " + cri);
 		
 		int total = postService.getTotal(board_id);
 		
 		cri.setAmount(10);
+=======
+		log.info("cri: " + cri);
+		
+		int total = postService.getTotal(cri, board_id);
+		
+		if (total < 10) {
+			cri.setAmount(total);
+		} else {
+			cri.setAmount(10);
+		}
+		
+>>>>>>> refs/remotes/origin/beom
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); // 게시판 이름
 		model.addAttribute("list", postService.getListPage(cri, board_id)); // 게시글 목록
@@ -51,7 +66,11 @@ public class BoardPageController {
 
 	@GetMapping("/manager")
 	public void manager(int project_id, Long board_id, Model model) {
+<<<<<<< HEAD
 		log.info("게시판 관리");
+=======
+		log.info("게시판 관리 페이지");
+>>>>>>> refs/remotes/origin/beom
 		
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("project_id", project_id);

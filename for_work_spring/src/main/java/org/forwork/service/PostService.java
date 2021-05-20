@@ -21,7 +21,7 @@ public interface PostService {
 	
 	public List<Post> getListPage(Criteria cri, Long board_id);
 	
-	public int getTotal(Long board_id);
+	public int getTotal(Criteria cri, Long board_id);
 	
 	public List<Post> getNotice(int project_id);
 	

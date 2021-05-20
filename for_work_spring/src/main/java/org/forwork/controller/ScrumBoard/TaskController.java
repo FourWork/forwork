@@ -79,7 +79,11 @@ public class TaskController {
 	}
 	
 	
+<<<<<<< HEAD
 	@PostMapping(value="/move", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+=======
+	@PatchMapping(value="/move", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+>>>>>>> refs/remotes/origin/beom
 	public ResponseEntity<String> moveTask(@RequestBody Map<String, String>param){
 		
 		System.out.println(param);
@@ -90,11 +94,32 @@ public class TaskController {
 		}
 	}
 	
+<<<<<<< HEAD
 	
 	
 	
 	
 	
+=======
+	@PatchMapping(value="/addRes",consumes="application/json")
+	public ResponseEntity<String> addRes(@RequestBody Map<String, String>param){
+		service.addRes(Integer.parseInt(param.get("task_id")), param.get("member_id"));
+		return new ResponseEntity<String>("success",HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value="/log/{task_id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<TaskLog> getLog(@PathVariable("task_id") int task_id){
+		TaskLog task = service.getLog(task_id);
+		return new ResponseEntity<TaskLog>(task,HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/logs/get/{task_id}", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<TaskLog>> getLogs(@PathVariable("task_id") int task_id){
+		List<TaskLog> list = service.getLogs(task_id);
+		return new ResponseEntity<List<TaskLog>>(list,HttpStatus.OK);
+	}
+>>>>>>> refs/remotes/origin/beom
 	
 	
 	

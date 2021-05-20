@@ -30,32 +30,17 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-function list() {
-	window.location.href = "list?project_id=${board.project_id}&board_id=${post.board_id}&pageNum=${cri.pageNum}";
-}
-
-function edit() {
-	window.location.href = "updatePost?post_id=${post.post_id}&board_id=${board.board_id}&project_id=${board.project_id}&pageNum=${cri.pageNum}";
-}
-
-</script>
 
 <style type="text/css">
-
 * {
 	box-sizing: border-box;
 }
-
 .container {
 	margin: 0px;
 }
-
 .list-group-item {
 	height: 37px;
 }
-
 .boardMenuList {
 	border: 2px solid gray;
 	min-height: 450px;
@@ -68,73 +53,59 @@ function edit() {
 	position: relative;
 	left: 10px;
 }
-
 .boardManagerBtn {
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
 }
-
 .container a {
 	text-decoration: none;
 	color: #000;
 }
-
 .container a:hover {
 	font-weight: bold;
 }
-
 .postWrap {
 	margin-top: 30px;
 	padding-left: 40px;
 	position: relative;
 }
-
 .title {
 	font-size: 15px;
 	margin-bottom: 20px;
 }
-
 .postTitle {
 	font-weight: bold;
 	font-size: 20px;
 	width: 900px;
 }
-
 table {
 	border-collapse: collapse;
 	margin-bottom: 20px;
 }
-
 td {
 	border-bottom: 1px solid gray;
 	padding: 5px;
 }
-
 .contentBox {
 	min-height: 300px;
 	padding: 20px;
 }
-
 .btnArea {
 	position: relative;
 }
-
 .editBtn {
 	position: absolute;
 	top: 0px;
 	right: 10px;
 }
-
 .listBtn {
 	position: absolute;
 	left: 10px;
 }
-
 .editBtn button {
 	margin-left: 15px;
 }
-
 </style>
 <title>Insert title here</title>
 </head>
@@ -181,10 +152,10 @@ td {
 						
 						<div class="btnArea">
 							<div class="listBtn">
-								<button onclick="list()">목록</button>
+								<button>목록</button>
 							</div>
 							<div class="editBtn">
-								<button onclick="edit()">수정</button>
+								<button class="realEditBtn">수정</button>
 								<button id="removeBtn" type="button">삭제</button>
 							</div>
 						</div>
@@ -195,6 +166,23 @@ td {
 			</div>
 		</div>
 	</div>
+	
+	<form id="actionForm" action="/board/list" method="get">
+		<input type="hidden" name="project_id" value="${board.project_id}">
+		<input type="hidden" name="board_id" value="${board.board_id}">
+		<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
+		<input type="hidden" name="type" value='<c:out value="${cri.type}"/>'>
+		<input type="hidden" name="keyword" value='<c:out value="${cri.keyword}"/>'>
+	</form>
+	
+	<form id="actionUpdateForm" action="/board/updatePost" method="get">
+		<input type="hidden" name="project_id" value="${board.project_id}">
+		<input type="hidden" name="board_id" value="${board.board_id}">
+		<input type="hidden" name="post_id" value="${post.post_id}">
+		<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
+		<input type="hidden" name="type" value='<c:out value="${cri.type}"/>'>
+		<input type="hidden" name="keyword" value='<c:out value="${cri.keyword}"/>'>
+	</form>
 	
 		<!-- board modal -->
 	<div class="modal" tabindex="-1">
@@ -221,7 +209,6 @@ td {
 	<script type="text/javascript">
 	
 		$(document).ready(function() {
-			
 			var post_id = '<c:out value="${post.post_id}"/>';
 			var removeBtn = $("#removeBtn");
 			var realRemoveBtn = $("#realRemoveBtn");
@@ -241,13 +228,22 @@ td {
 						if (result == "success") alert("게시글이 삭제되었습니다.");
 						modal.modal("hide");
 						
-						list();
+						$("#actionForm").submit();
 					});
 					
 				});
 				
 			});
 			
+			$(".listBtn button").on("click", function(e) {
+				e.preventDefault();
+				$("#actionForm").submit();
+			});
+			
+			$(".realEditBtn").on("click", function(e) {
+				e.preventDefault();
+				$("#actionUpdateForm").submit();
+			});
 		});
 	
 	</script>

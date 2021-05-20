@@ -65,9 +65,9 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-	public int getTotal(Long board_id) {
+	public int getTotal(Criteria cri, Long board_id) {
 		log.info("get total count");
-		return mapper.getCountByBno(board_id);
+		return mapper.getCountByBno(cri, board_id);
 	}	
 	
 	@Override

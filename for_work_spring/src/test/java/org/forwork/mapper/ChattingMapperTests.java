@@ -53,9 +53,13 @@ public class ChattingMapperTests {
 //		log.info(mapper.getMemberById("1"));
 //	}
 //	
-	// 문제: 동시에 온 메세지가 있으면 다 나옴!
+//	@Test
+//	public void testGetLastMessagePerChatroomByMemberId() {
+//		log.info(mapper.getLastMessagePerChatroomByMemberId("1"));
+//	}
+	
 	@Test
-	public void testGetLastMessagePerChatroomByMemberId() {
-		log.info(mapper.getLastMessagePerChatroomByMemberId("1"));
+	public void testUnreadCount() {
+		log.info(mapper.countUnreadPerChatroomByMemberId("1"));
 	}
 }

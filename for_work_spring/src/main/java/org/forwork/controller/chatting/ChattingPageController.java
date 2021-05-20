@@ -1,8 +1,8 @@
-package org.forwork.controller;
+package org.forwork.controller.chatting;
 
 
 import org.forwork.domain.Member;
-import org.forwork.service.ChattingService;
+import org.forwork.service.chatting.ChattingService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +24,11 @@ public class ChattingPageController {
 		// TODO: userId 세션에서 받아오기 
 		model.addAttribute("member", service.findMemberById(userId));
 		return "/chatting/chatroomDetail";
+	}
+	
+	@GetMapping("/tmpMain")
+	public String main(@ModelAttribute("userId") String userId) {
+		return "/chatting/tmpMain";
 	}
 	
 }

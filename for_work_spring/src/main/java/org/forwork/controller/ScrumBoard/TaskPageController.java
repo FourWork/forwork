@@ -14,5 +14,10 @@ public class TaskPageController {
 		
 		return "/ScrumBoard/scrumBoard";
 	}
+	
+	@GetMapping("/logs/*")
+	public String logsPage(){
+		return "/ScrumBoard/logs";
+	}
 
 }
