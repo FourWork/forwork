@@ -1,0 +1,2162 @@
+[33mcommit dcd4983ff31b02ed7d338ad3ab7d13e7c66fbba9[m[33m ([m[1;36mHEAD -> [m[1;32mbeom[m[33m, [m[1;31morigin/beom[m[33m)[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Thu May 20 15:28:27 2021 +0900
+
+    docs: gitignore 수정
+
+[33mcommit f55f1ed91a07774a90f733e13cf826a14884b5d9[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Thu May 20 15:27:17 2021 +0900
+
+    Apply .gitignore
+
+[33mcommit db9e080bd43cf36afd66859ab59a55fe22495f68[m
+Merge: a355556 72f231c
+Author: beom1843 <beom1843@gmail.com>
+Date:   Thu May 20 15:12:16 2021 +0900
+
+    Merge branch 'beom' of https://github.com/FourWork/forwork into beom
+
+[33mcommit a355556f7e4bdc3bea76d05c0a482851c6d18f51[m
+Merge: 6bdef68 a342a00
+Author: beom1 <beom1843@gmail.com>
+Date:   Thu May 20 14:53:02 2021 +0900
+
+    chore: merge 시도
+
+[33mcommit 72f231c24aafc4354a45b6c5a766b4b06f13d183[m
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 20 14:13:22 2021 +0900
+
+    Delete org.eclipse.wst.common.component
+
+[33mcommit 17341c91725484f3f8dcbf60f6cfdc153a995054[m
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 20 14:13:15 2021 +0900
+
+    Delete .gitignore
+
+[33mcommit 6bdef68a74cecfcb6b5586873073f6498302fa66[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Thu May 20 13:55:11 2021 +0900
+
+    feat. PMO페이지 mapper 구현 시작
+
+[33mcommit a342a000475b4d6bad1c0a372c88be7122c57bd2[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/Seungyub[m[33m)[m
+Merge: 5626163 99bf5e2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 20 09:22:34 2021 +0900
+
+    Merge pull request #90 from FourWork/dev
+    
+    dev -> master merge
+
+[33mcommit 9bf458813e5a6f84f3f12e9cf2a0dded207ad104[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Tue May 18 23:55:03 2021 +0900
+
+    feat: main jsp 페이지 구현중(portfolio list)
+
+[33mcommit 99bf5e21f41178c72474bba9fc0808c4a23680d1[m[33m ([m[1;31morigin/dev[m[33m)[m
+Merge: f182427 c2de29e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 17 17:46:26 2021 +0900
+
+    Merge pull request #87 from FourWork/june-spring
+    
+    채팅 읽음 처리, 알림 기능 구현
+
+[33mcommit c2de29ec31633ceadbaaea244254309c38432613[m
+Merge: 644eb04 f182427
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 17:44:05 2021 +0900
+
+    chore: 충돌 해결
+
+[33mcommit d4876d5bba5d130e0335a986faba1ae8971931ba[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Mon May 17 17:31:21 2021 +0900
+
+    refactor: 파일 이름 명명법에 맞게 수정
+
+[33mcommit f182427166a1f8a1f47755dc77ab43e35c0d5879[m
+Merge: 32cf430 b7728ee
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 17 17:11:18 2021 +0900
+
+    Merge pull request #86 from FourWork/Seungyub
+    
+    feat: task log 추가 기능 구현
+
+[33mcommit b7728ee47655d3d6fab390e5af7ed6e59271625d[m
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 17 17:09:28 2021 +0900
+
+    Update org.eclipse.core.resources.prefs
+
+[33mcommit c265cc519d5ddb232d9ea33a8f1462e7bbd02f42[m
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 17 17:08:42 2021 +0900
+
+    Delete .gitignore
+
+[33mcommit 32cf43066719b2477dd7e1291cf16adc9c25433f[m
+Merge: bd755c6 193c9b3
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 17 17:08:13 2021 +0900
+
+    Merge pull request #85 from FourWork/rang
+    
+    feat: 게시글 검색 기능 구현
+
+[33mcommit cc8d136d1940d84e6b29585eb47dd23daf140e36[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon May 17 17:06:04 2021 +0900
+
+    feat : addRes log 기능 추가
+
+[33mcommit bddbc9bf72e4abfdf706aa21bdb4fe88a1c3f100[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon May 17 16:58:27 2021 +0900
+
+    refactor : addRes refactor
+
+[33mcommit 9fbbc8724e26446c963d3fd1a3b22104fe2c17c9[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon May 17 16:45:25 2021 +0900
+
+    fix : log 한글 출력 및 기타 오류 해결
+
+[33mcommit 193c9b3721c15990c2b78131e3fe512e6a0a26d0[m[33m ([m[1;31morigin/rang[m[33m)[m
+Author: yoonir <hozrool@gmail.com>
+Date:   Mon May 17 16:23:42 2021 +0900
+
+    feat: 검색 페이징 처리
+
+[33mcommit 0b2abe116b82d501edf56641daadca75a10fb402[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Mon May 17 16:18:46 2021 +0900
+
+    feat. view-controller javascript 코드 구현
+
+[33mcommit 7c6924ae90e3ebd4e6c07f356e70e0d0fead43b1[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon May 17 16:16:53 2021 +0900
+
+    feat : project progress bar 구현
+
+[33mcommit d26f6a4501c4f02a0c770e064b0d0a16a8623237[m
+Merge: afae56e 5626163
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon May 17 15:39:06 2021 +0900
+
+    feat : task log 추가 기능 구현
+
+[33mcommit 644eb048e646430d70b6afa2c47b71185aa53e0e[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 15:38:31 2021 +0900
+
+    feat: 안읽은 메세지 숫자 표시 추가
+
+[33mcommit 0922ab2b30f98a99f8e42a14e54a782fa6d97508[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 14:29:38 2021 +0900
+
+    feat: 유저별 구독 추가
+
+[33mcommit 2fe10aef8966802f12e9865f0b706c59f0045866[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 13:48:25 2021 +0900
+
+    feat: 채팅방 로고 변경
+
+[33mcommit 09361580cfccf9ebcbef854a664f1413fdca0908[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 13:45:20 2021 +0900
+
+    feat: 헤더에 채팅방 목록, 마지막 메세지 불러오기
+
+[33mcommit 68c85f23f500b922edd11fa1fcaa7080f81e92e7[m
+Author: yoonir <hozrool@gmail.com>
+Date:   Mon May 17 12:16:31 2021 +0900
+
+    fear: 게시글 검색 기능 구현
+
+[33mcommit 3071736b415efee6b75c439074571f42ded3e02c[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 11:31:07 2021 +0900
+
+    feat: 메세지 알림 기능
+
+[33mcommit 0baefd8227b51ec161d201d81e56c2dd43a2e7f9[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 11:11:49 2021 +0900
+
+    fix: 메세지 보낸 후 input창 clear
+
+[33mcommit 156e413824ed18c1430268c9abd83c8f94ce653c[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 11:09:25 2021 +0900
+
+    fix: 메세지 insert 후 id 받아와서 id까지 같이 보내도록 수정
+
+[33mcommit 40847b06d5ab42e42ea9c8e31ca0e9620710749b[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 17 10:38:27 2021 +0900
+
+    feat: 메세지 읽음 처리 쿼리문 개선
+
+[33mcommit a8dec4f9ceafe8bed00bf8af920328504e4caf65[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Sun May 16 21:55:42 2021 +0900
+
+    feat: portfolio Controller 구현, 테스트 완료
+
+[33mcommit 399344697f60f48c457fbd83487011b55539ce7d[m
+Author: june <joonie811@naver.com>
+Date:   Sun May 16 00:39:34 2021 +0900
+
+    feat: 메세지 읽음 처리 프론트 수정
+
+[33mcommit febb2b793be737ef7a6a7442ca5188eef8a128e3[m
+Author: june <joonie811@naver.com>
+Date:   Sat May 15 23:44:46 2021 +0900
+
+    feat: 메세지 읽음 처리 &  메세지 보낸 사람은 바로 읽음 처리
+
+[33mcommit 85119e4f77e7f193eb7431f1099db4f6050f5ab6[m
+Author: june <joonie811@naver.com>
+Date:   Sat May 15 22:55:32 2021 +0900
+
+    feat: 메세지 저장할 때 읽음 상태도 저장
+
+[33mcommit 5626163a96df97ff58e39e557055fdf7f80c3755[m
+Merge: b462154 bd755c6
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 14 17:18:33 2021 +0900
+
+    Merge pull request #84 from FourWork/dev
+    
+    dev ->master merge
+
+[33mcommit bd755c68733a7058730bb5ebdc9231b2f52806e4[m
+Merge: 1161037 5b0edd6
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 14 17:18:00 2021 +0900
+
+    Merge pull request #83 from FourWork/beom
+    
+    컨트롤러 구현
+
+[33mcommit 5b0edd65e7d70d09bdb97796463ffc9b5684064d[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Fri May 14 17:10:29 2021 +0900
+
+    feat: Controller 구현(register, get, delete
+
+[33mcommit 3625822ca222ec9e51b8388658c810b6de889aa4[m
+Author: june <joonie811@naver.com>
+Date:   Fri May 14 17:08:44 2021 +0900
+
+    chore: pull 받기 전 commit
+
+[33mcommit afae56e5144652565f33a01279a2ff168b7b13b4[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri May 14 17:03:30 2021 +0900
+
+    refactor : task 담담자 등록 spring 수정
+
+[33mcommit 116103723b6e0eaec22773a77a25850e9347c33f[m[33m ([m[1;32mdev[m[33m)[m
+Merge: 7297d97 46fd9a2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 14 17:02:12 2021 +0900
+
+    Merge pull request #82 from FourWork/rang
+    
+    feat: 게시글 페이징 처리
+
+[33mcommit 7297d974a0869e210d2871dcd6ff6061e4153774[m
+Merge: d240cd0 ab43c1a
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 14 17:01:57 2021 +0900
+
+    Merge pull request #81 from FourWork/gayoung
+    
+    create : sprint files
+
+[33mcommit d240cd0f7f58eb65b6a4dfded18989608f58ba88[m
+Merge: 13e92bf d41c78c
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 14 17:01:39 2021 +0900
+
+    Merge pull request #80 from FourWork/june-spring
+    
+    채팅 모듈 스프링 변환 완료
+
+[33mcommit 46fd9a234e98618347a57c6a5cc8b6591848a8f6[m
+Author: yoonir <hozrool@gmail.com>
+Date:   Fri May 14 16:20:38 2021 +0900
+
+    feat: 게시글 목록 페이징 처리
+
+[33mcommit ab43c1aeafd5fdbc44641943747a054d9b0af636[m[33m ([m[1;31morigin/gayoung[m[33m)[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Fri May 14 10:12:13 2021 +0900
+
+    create : sprint files / chore : add folders
+
+[33mcommit d41c78ce3acf7715c217ee689adfa2d2c099d495[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 22:05:27 2021 +0900
+
+    chore: git ignore에 classpath 추가
+
+[33mcommit d4b45f991e09f26e27264c49c0fe554ab3091d18[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 21:59:55 2021 +0900
+
+    chore: classpath 깃이그노어에 추가
+
+[33mcommit f85476ee9cc3596adfd65106c35a16171e1c587d[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu May 13 18:01:56 2021 +0900
+
+    feat : websocket을 통한 동시 처리 구현
+
+[33mcommit b9168d6d510aa9a41b765904c2c727f50f0d8080[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 17:50:13 2021 +0900
+
+    feat: 메세지 저장
+
+[33mcommit 9daea6dba422c7b780d9f50b454a90b4e85fa8e0[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 17:19:46 2021 +0900
+
+    feat: 메세지 받았을 때 사용자 이름도 같이 띄워주기
+
+[33mcommit ca5a02472c5030a75204dd2795842f3569f1c7de[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 17:00:17 2021 +0900
+
+    feat: STOMP로 채팅 메세지 전달, 메세지 왔을 때 뷰 완성
+
+[33mcommit fe1a6c4e30d62e360ab866ab9a6c7338b9c15993[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 16:24:16 2021 +0900
+
+    feat: 채팅방 이름 가져오기
+
+[33mcommit 42df4de6d134d2b2a1b83093db1f8fa9f4a0eda7[m
+Merge: 871359e b462154
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 15:49:36 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into june-spring
+
+[33mcommit 871359e4da3eb4a26fcd64bccb87e96b6291007f[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 15:49:28 2021 +0900
+
+    chore: commit before merge
+
+[33mcommit b462154a7f6bf818d4da38ad922d8a55000d8219[m
+Merge: 028f980 13e92bf
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 13 15:09:34 2021 +0900
+
+    Merge pull request #79 from FourWork/dev
+    
+    dev -> master merge
+
+[33mcommit 13e92bf19e031a96a0e0052a408a711562c48bac[m
+Merge: 86a72ed 1238f5b
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 13 15:08:42 2021 +0900
+
+    Merge pull request #78 from FourWork/Seungyub
+    
+    feat : task move 구현
+
+[33mcommit 48a6d4aaa91ed9ca58f32326c3b3a692f7cee31e[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 15:05:27 2021 +0900
+
+    feat: 메세지 띄워주는 기능 ajax로 수정
+
+[33mcommit 1a5e8b54b254950545f99e67af97106e8e6450e3[m
+Merge: 0abd137 86a72ed
+Author: beom1843 <beom1843@gmail.com>
+Date:   Thu May 13 14:34:29 2021 +0900
+
+    Merge branch 'dev' of https://github.com/FourWork/forwork.git into beom
+
+[33mcommit 0abd1379b53d0798ed326a95bb56bebfff2bb95e[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Thu May 13 14:32:55 2021 +0900
+
+    test:Controller 테스트, 중간 저장용 커밋
+
+[33mcommit 1238f5b346287164e412eef44b1768f51bc93c0b[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu May 13 10:50:36 2021 +0900
+
+    feat : task move 기능 구현
+
+[33mcommit 838160ba19c530718c69f357f14bb8e8d9bbc95a[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu May 13 09:38:07 2021 +0900
+
+    feat : task move 일부 구현
+
+[33mcommit 86a72edf0a3e042edd88985694a3086618cb3ea8[m
+Merge: b261705 da646e7
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 13 09:37:13 2021 +0900
+
+    Merge pull request #77 from FourWork/beom
+    
+    서비스 (update, delete, pfLang 조회, rollup)구현
+
+[33mcommit da646e7ac6773c9f3179feaa05f030ac5075540a[m
+Merge: 6a4a362 b261705
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 13 09:37:05 2021 +0900
+
+    Merge branch 'dev' into beom
+
+[33mcommit b2617059fa585523008ac23e5b1b6c7805bf19ea[m
+Merge: cad22fa daf5b81
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 13 09:33:40 2021 +0900
+
+    Merge pull request #76 from FourWork/june-spring
+    
+    채팅 모듈 STOMP 테스트
+
+[33mcommit cad22fae07c2972936fa7accbdc6bd329fd4cb93[m
+Merge: c8dd4ff f2b8107
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu May 13 09:23:43 2021 +0900
+
+    Merge pull request #75 from FourWork/rang
+    
+    board, post 일부 스프링 변환
+
+[33mcommit daf5b81ce3db579ce95234f34ab6622d0142f94c[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 02:34:51 2021 +0900
+
+    chore: transaction 관련 라이브러리 누락된 것 추가
+
+[33mcommit b439df2e1afed42792ad3763961c7dc0500f9285[m
+Merge: 5e7e419 028f980
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 02:21:03 2021 +0900
+
+    chore: 충돌 해결
+
+[33mcommit 5e7e4192dc0db41ab2fdaff09a8a037bb4b31e03[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 02:13:06 2021 +0900
+
+    chore: 불필요한 테스트 파일 삭제
+
+[33mcommit bcadaa995329ae1c9897a51414de03a41cbc3175[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 02:12:53 2021 +0900
+
+    chore: 불필요한 테스트 파일 삭제
+
+[33mcommit a0d7c4c315ad5d0414ca4a3e5849bd7ccf2b8efc[m
+Author: june <joonie811@naver.com>
+Date:   Thu May 13 00:40:33 2021 +0900
+
+    feat: stomp, socket js 이용 테스트
+
+[33mcommit f2b8107d4a5fc01e1febadfd8d87af56dc3d995c[m
+Author: yoonir <hozrool@gmail.com>
+Date:   Wed May 12 17:59:05 2021 +0900
+
+    feat: board, post 일부 수정 / board, post, todolist 스프링 변환
+
+[33mcommit 6a4a362576ea7080118d14c9ae30cf7e0de83f76[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Wed May 12 12:07:18 2021 +0900
+
+    feat: pfLang 조회, Rollup 서비스 구현
+
+[33mcommit 8f69d0a1acf10e8949dcf658ba8e15b4ca3566b5[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Wed May 12 10:45:10 2021 +0900
+
+    feat: delete 기능 구현
+
+[33mcommit bcb9513ef3b7f29ec9de1e2c2f4bc7e534891fd0[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Wed May 12 10:29:45 2021 +0900
+
+    feat: update 기능 구현(Service)
+
+[33mcommit 01f72b5287de4ba68e8b6edced3a6af78c519ac4[m
+Author: yoonir <hozrool@gmail.com>
+Date:   Wed May 12 10:26:26 2021 +0900
+
+    feat: board, post 일부 스프링 변환
+
+[33mcommit 028f9809b32aa43cb4b8bc598e6af9c05b065e7c[m
+Merge: c7f6a6e c8dd4ff
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed May 12 09:48:01 2021 +0900
+
+    Merge pull request #74 from FourWork/dev
+    
+    dev -> master merge
+
+[33mcommit c8dd4ffe8d215da5eddb922c6eae1fc65fb17869[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed May 12 09:38:58 2021 +0900
+
+    fix : 기타 오류 수정
+
+[33mcommit 2bd099f68a808e0994d8adebff2fff8f956236a5[m
+Merge: e2a5981 120a0d2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed May 12 09:31:44 2021 +0900
+
+    Merge pull request #73 from FourWork/gayoung
+    
+    feat : task files
+
+[33mcommit e2a5981198250434b683be8d522d768c6f8ed07d[m
+Merge: ad32647 3f8eed4
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed May 12 09:31:04 2021 +0900
+
+    Merge pull request #72 from FourWork/beom
+    
+    Service,ServiceImpl,ServiceTests 일부구현, pom.xml 라이브러리 추가
+
+[33mcommit 3f8eed4d1e7d634fb52696ec6f1184ea431ea13f[m
+Merge: 02b8abc ad32647
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed May 12 09:30:55 2021 +0900
+
+    Merge branch 'dev' into beom
+
+[33mcommit 120a0d20ce41e07c165e9220efe92ce2f93085b0[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Wed May 12 09:28:16 2021 +0900
+
+    feat : task files
+    docs : delete resource
+
+[33mcommit 02b8abc43ef0f1645bc1ee9cdb1a438fbf480d21[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Wed May 12 09:28:14 2021 +0900
+
+    chore: 인코딩 설정 변경 (UTF8)
+
+[33mcommit 9e9c0b4f138886372d3073c665984cdb627952c8[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Wed May 12 09:23:52 2021 +0900
+
+    chore: 중복 폴더 삭제(resource폴더)
+
+[33mcommit ad32647ed83141b97ed7aaec476b1ebfc7cec591[m
+Merge: 2f8f0ac 3ff19e7
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed May 12 09:15:50 2021 +0900
+
+    Merge pull request #71 from FourWork/june-spring
+    
+    채팅 모듈 스프링 변환
+
+[33mcommit fcd9672c58c97d39b002ed2b1caf6a521f3aabd6[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Wed May 12 00:30:03 2021 +0900
+
+    feat: Portfolio-Service,ServiceImpl, ServiceTests 구현,
+    
+    [pom.xml aspectjweaver라이브러리 추가 했습니다.]
+
+[33mcommit 3ff19e7fb88bfe81c4282a41f787ffadf47bf2a4[m
+Author: june <joonie811@naver.com>
+Date:   Tue May 11 19:07:01 2021 +0900
+
+    chore: 맥 임시 파일 gitignore에 추가
+
+[33mcommit 8b1f45ae0dcc80e916b3c6159691f75ad3cb978c[m
+Author: june <joonie811@naver.com>
+Date:   Tue May 11 19:05:48 2021 +0900
+
+    chore: Servers gitignore에 추가
+
+[33mcommit b2cf539e50c7ce77c8b0d0107a2d2627c6ad140c[m
+Author: june <joonie811@naver.com>
+Date:   Tue May 11 17:58:08 2021 +0900
+
+    refactor: websocket 제외 스프링 변환
+
+[33mcommit c7f6a6ef14bb9d349867d8a26535c6342bb56e3d[m
+Merge: 4dc84dc 2f8f0ac
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue May 11 15:58:08 2021 +0900
+
+    Merge pull request #70 from FourWork/dev
+    
+    spring convert 중간 merge
+
+[33mcommit 2f8f0acbbd4c4fe0ddcee03412e7ac2cc4508407[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue May 11 15:57:16 2021 +0900
+
+    reource folder delete
+
+[33mcommit 802458c443dd3ff0d9547ca9a2ba4045d6893e94[m
+Merge: e3dbcf6 584dd35
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue May 11 15:55:44 2021 +0900
+
+    Merge pull request #65 from FourWork/Seungyub
+    
+    attendance 일부 구현
+
+[33mcommit 584dd35007407528291ff3ad0c0fe8d67b3f6ff4[m
+Merge: 35985ce e3dbcf6
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue May 11 15:55:39 2021 +0900
+
+    Merge branch 'dev' into Seungyub
+
+[33mcommit 35985ce45263aa8c89bd9f87121e3500ae840019[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue May 11 15:53:34 2021 +0900
+
+    attendace spring convert
+
+[33mcommit 18522734a1142547872a829f6acbbf7628f4b3c5[m
+Merge: 86b3eef 4dc84dc
+Author: june <joonie811@naver.com>
+Date:   Tue May 11 13:58:36 2021 +0900
+
+    chore: PortfolioMapper.xml 충돌 해결
+
+[33mcommit ca0458a09aef936378c4804ac431570ee3c0a8bb[m
+Merge: 20c52cc 4dc84dc
+Author: beom1843 <beom1843@gmail.com>
+Date:   Tue May 11 10:39:25 2021 +0900
+
+    fix: Portfoliomapper conflict 수정
+
+[33mcommit 20c52cc09a879f4ee34aebe4fc27afd2e013b817[m
+Author: beom1843 <beom1843@gmail.com>
+Date:   Tue May 11 09:58:23 2021 +0900
+
+    fix: Portfoliomapper 수정
+
+[33mcommit 4dc84dc50dd09c3398d232ff0add9ecaf14fe764[m[33m ([m[1;32mmaster[m[33m)[m
+Merge: b218aea e3dbcf6
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue May 11 09:37:16 2021 +0900
+
+    Merge pull request #68 from FourWork/dev
+    
+    dev -> master update
+
+[33mcommit e3dbcf6a0e908ca59818014547db2ae507bfa966[m
+Merge: 24612cf 5d896b9
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue May 11 09:36:40 2021 +0900
+
+    Merge pull request #67 from FourWork/rang
+    
+    Rang: boardMapper.xml, PortfolioMapper.xml 수정
+
+[33mcommit 24612cfce362c929a8db3a5fb53d0de766f77630[m
+Merge: 4cea48d d177fb3
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue May 11 09:36:30 2021 +0900
+
+    Merge pull request #66 from FourWork/gayoung
+    
+    Create : Task.java // add VO
+
+[33mcommit 86b3eefd8107014e444aa8408e5526df6cc04072[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 10 23:09:24 2021 +0900
+
+    chore: git에서 Server 폴더 삭제
+
+[33mcommit 86d9d48bcc87eb925d8a80a471c87b29efa375cf[m
+Author: june <joonie811@naver.com>
+Date:   Mon May 10 22:59:09 2021 +0900
+
+    refactor: spring 1차 변환
+
+[33mcommit 5d896b98daae91a8c77e4e106a23a05b5e284dde[m
+Author: yoonir <hozrool@gmail.com>
+Date:   Mon May 10 18:53:51 2021 +0900
+
+    fix: boardMapper.xml, PortfolioMapper.xml 수정
+
+[33mcommit d177fb38b431d387edde854c42f6884a55c98fde[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Mon May 10 17:33:43 2021 +0900
+
+    create : Task.java
+
+[33mcommit b218aeaaf36b3d00c4d9681aa6ba126896e51785[m
+Merge: ac78447 4cea48d
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 10 16:49:57 2021 +0900
+
+    Merge pull request #64 from FourWork/dev
+    
+    Merge pull request #63 from FourWork/master
+
+[33mcommit 4cea48d326a7c6304aef1b2f691f8d0a344e91b0[m
+Merge: 7c7f1d5 ac78447
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 10 16:44:58 2021 +0900
+
+    Merge pull request #63 from FourWork/master
+    
+    feat: view 관련 파일 / board 기본 설정
+
+[33mcommit ac784476b8e728d1036f76107758efed06b0ef8c[m
+Merge: 59f8b0c 7c7f1d5
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 10 16:44:53 2021 +0900
+
+    Merge branch 'dev' into master
+
+[33mcommit 7c7f1d58fc3b253635d37d54a8ae53b0fed0fb82[m
+Merge: a677e6b 8e0b990
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Mon May 10 16:35:45 2021 +0900
+
+    Merge pull request #62 from FourWork/beom
+    
+    Beom
+
+[33mcommit 25a972663423583f196beb0aa224d00494d1533d[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon May 10 16:30:27 2021 +0900
+
+    attendance 일부 구현
+
+[33mcommit 8e0b990dc17faa0569cbe82dc037130cdaf57e23[m
+Author: beom1 <beom1843@gmail.com>
+Date:   Mon May 10 16:22:04 2021 +0900
+
+    feat: member 도메인 및 portfolio, portfolioLanguage 도메인, mapper 구축
+
+[33mcommit 97fcfef1a7838859ed894289183cb97e3bd24623[m
+Author: beom1 <beom1843@gmail.com>
+Date:   Mon May 10 12:30:46 2021 +0900
+
+    feat: 초기 구축
+
+[33mcommit 59f8b0cc508b39b498bd5d0edf2f641d7fd75b0e[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Mon May 10 12:19:53 2021 +0900
+
+    feat: view 관련 파일 / board 기본 설정
+
+[33mcommit 4b9e03c3a2003848c2b928bcdd7a243b2bd064c0[m
+Merge: 0321eb4 a677e6b
+Author: beom1 <beom1843@gmail.com>
+Date:   Fri May 7 17:49:50 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork.git into beom
+
+[33mcommit a677e6b50500de4c4fffaf77c9657fc989a94e7d[m
+Merge: 4029a16 b820e70
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 7 17:34:17 2021 +0900
+
+    Merge pull request #60 from FourWork/dev
+    
+    Version update
+
+[33mcommit b820e700cdd4a7f418c2432f6c33c766530608d5[m
+Merge: 6cbcece 4e3caf0
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 7 17:33:28 2021 +0900
+
+    Merge pull request #59 from FourWork/Seungyub
+    
+    Seungyub
+
+[33mcommit 6cbcecea841d500140e4b6541441bd9c2efbd258[m
+Merge: 75f2a32 01bb146
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri May 7 17:32:09 2021 +0900
+
+    Merge pull request #58 from FourWork/Hyunho
+    
+    Hyunho
+
+[33mcommit 4e3caf00467bcfda2fcc8af74df3fa9afabf3426[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri May 7 16:09:58 2021 +0900
+
+    spring java config update
+
+[33mcommit 55c8db41026ccc5408ce9235288a6e4aba64a295[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri May 7 15:33:50 2021 +0900
+
+    파일 변경
+
+[33mcommit e2abbe2a938ba7affc97cd2b6a0f615466f1f232[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue May 4 17:43:52 2021 +0900
+
+    설정 변경
+
+[33mcommit bd8a02f5d17db05cec36d739f44cfdb8554850be[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue May 4 17:38:43 2021 +0900
+
+    spring project add
+
+[33mcommit 01bb14681a56bdd7272100121098c358dc2819d0[m[33m ([m[1;31morigin/Hyunho[m[33m)[m
+Merge: b8159a0 4029a16
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Fri Apr 16 14:20:51 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into Hyunho
+
+[33mcommit b8159a011bab6ef20399a93f3131f061a2b370d3[m
+Merge: e753d8d c302692
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Fri Apr 16 14:20:15 2021 +0900
+
+    fix: 머지오류수정
+
+[33mcommit 4029a1657a2b7e7eaab6fde3b9a7c20f80209a3d[m
+Merge: 51930e2 75f2a32
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 14:03:49 2021 +0900
+
+    Merge pull request #57 from FourWork/dev
+    
+    dev -> master 04.16 중간 merge
+
+[33mcommit 75f2a323a6dd3164d6fcf61962810dde83a3c2eb[m
+Merge: 80b746b df2eccc
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 12:48:06 2021 +0900
+
+    Merge pull request #56 from FourWork/gayoung
+    
+    Gayoung
+
+[33mcommit df2eccc736c559738bea343c138a66233657aeb0[m
+Merge: 7ffa447 80b746b
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 12:47:59 2021 +0900
+
+    Merge branch 'dev' into gayoung
+
+[33mcommit 7ffa44749094f2f3e77f06d13d9bac2ab0c1744d[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Fri Apr 16 12:46:23 2021 +0900
+
+    style : taskUpdatePage.jsp
+
+[33mcommit 2c940096326bde9368f10dcb4ee09363c2da0993[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Fri Apr 16 12:42:09 2021 +0900
+
+    style : scrum board project & sprint info style edited
+
+[33mcommit 0321eb454581589583ca29845aa4062d8887efa5[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Fri Apr 16 12:33:28 2021 +0900
+
+    feat:포트폴리오 수정기능 구현중
+
+[33mcommit 80b746b45cf164cf368556cdadac66c78ddb021a[m
+Merge: 94cb1e8 a2eefb3
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 12:33:08 2021 +0900
+
+    Merge pull request #55 from FourWork/june
+    
+    채팅방 프리뷰 수정, 채팅방 디테일 페이지 스타일 수정
+
+[33mcommit 94cb1e893fea8719537d2efe623b3ea94802ce25[m
+Merge: d227f9f 5221a9d
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 12:32:59 2021 +0900
+
+    Merge pull request #54 from FourWork/beom
+    
+    feat: 포트폴리오 언어 차트 구현(test jsp 삭제)
+
+[33mcommit d227f9fef44021c3b0d2714c61c4884e12dcf5b5[m
+Merge: 02fb7c4 2942ffe
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 12:32:41 2021 +0900
+
+    Merge pull request #53 from FourWork/Seungyub
+    
+    attendance 세부사항 추가
+
+[33mcommit 6b01c63c1346a81a0ba0fb98c71b9d95484fb2f1[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Fri Apr 16 12:28:10 2021 +0900
+
+    style : scrumBoard style edited
+
+[33mcommit e753d8d47833472aa2c3965522872c893511843d[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Fri Apr 16 12:26:44 2021 +0900
+
+    feat: logo.png추가 fix: join.jsp 비밀번호확인수정,로그인회원가입css수정
+
+[33mcommit a2eefb3f0220d318843274f2e350787d0b63c2fa[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 16 12:25:20 2021 +0900
+
+    style: userId, userName 인풋 숨기기
+
+[33mcommit 2942ffe26107ef2b8868172686e9a1b781157d7d[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 16 12:23:30 2021 +0900
+
+    attendance 세부사항 수정
+
+[33mcommit 652e7db0a462fa1fe7dfc4b475ba13a30a708ba0[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 16 12:07:53 2021 +0900
+
+    fix: 세션에 저장된 messages와 previewMessages 이름이 중복되어 수정
+
+[33mcommit f720ccdfa351bfc7db4487c7da042c7d1b5556c5[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 16 12:03:21 2021 +0900
+
+    fix: chatroom_member_relation 테이블 칼럼 이름 수정에 따라 바꿔야할 변수 이름 수정
+
+[33mcommit fdef61b4cae153ff2c609d8ccc491747c8a7a9b4[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 16 11:24:38 2021 +0900
+
+    feat: 채팅방별 마지막 메세지 가져오기, 채팅방DTO 만들어서 세션에 저장
+
+[33mcommit 5221a9d4e362cf948e23f12a8c518460bde494e6[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Fri Apr 16 10:40:28 2021 +0900
+
+    feat: 포트폴리오 언어 차트 구현(test jsp 삭제)
+
+[33mcommit 02fb7c42d747baca3de6a50b6507a47a944eff9a[m
+Merge: 044915a c302692
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 10:11:21 2021 +0900
+
+    Merge pull request #52 from FourWork/Hyunho
+    
+    fix: login 뷰 수정
+
+[33mcommit c30269204f3c336a33205bd8c33207eb5b97a6d3[m
+Merge: 92490c8 044915a
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 10:11:13 2021 +0900
+
+    Merge branch 'dev' into Hyunho
+
+[33mcommit 6bebc096a1f2a9a53cb780044fb01106f9dd0ff6[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 16 10:10:28 2021 +0900
+
+    attendance 세부사항 추가
+
+[33mcommit 92490c8e4a1da20ef3d3b43db678120b5ceaf399[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Fri Apr 16 09:32:18 2021 +0900
+
+    fix: login 뷰 수정
+
+[33mcommit 044915a7b1de120272e20c30407dc907685a23f1[m
+Merge: 5caa67f ba4823e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 09:21:22 2021 +0900
+
+    Merge pull request #51 from FourWork/Seungyub
+    
+    Seungyub
+
+[33mcommit 5caa67f717852d4a98049bbcbe4ec721633a55d4[m
+Merge: 5739d0c 11f9096
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 09:21:12 2021 +0900
+
+    Merge pull request #50 from FourWork/beom
+    
+    Beom
+
+[33mcommit 5739d0cf57d3c67d69801ac8bf1b24df9dd36efa[m
+Merge: 90a26f2 7eebeed
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 09:21:02 2021 +0900
+
+    Merge pull request #49 from FourWork/rang
+    
+    Rang
+
+[33mcommit 90a26f29b344ba109344298e1a030e26e5c26cd1[m
+Merge: 2053c43 9e4961a
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 16 09:20:44 2021 +0900
+
+    Merge pull request #48 from FourWork/gayoung
+    
+    Gayoung
+
+[33mcommit 7eebeed37d15a43646bcd09be74b6730232c3f82[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Fri Apr 16 00:36:49 2021 +0900
+
+    fix: board.xml 수정
+
+[33mcommit 685d4af43e50772417fe15ead04e30e1f3e85342[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Fri Apr 16 00:19:25 2021 +0900
+
+    fix: BoardMainAction, ListAction 수정
+
+[33mcommit 11f9096c3d9a97b88b1d534e3b0a09c28fd1e464[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Thu Apr 15 23:54:04 2021 +0900
+
+    feat: 포트폴리오 언어 소계 반영
+
+[33mcommit 6c83957ce24d61664072f33f9d8b3648a6a03cd2[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Thu Apr 15 22:53:13 2021 +0900
+
+    feat: views / fix: 일부 action 및 board.xml
+
+[33mcommit 9e4961a609f1f542c7ae2739e5ea9609eaa1a1ea[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Thu Apr 15 17:58:25 2021 +0900
+
+    feat : InsertSprintAction.java / Sprint.java
+    docs : ScrumBoard files
+
+[33mcommit ba4823e6da8438f0e5bdabea9777558f9e7c4203[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 17:06:45 2021 +0900
+
+    task 생성 시 사용자 이름 추가 기능 구현
+
+[33mcommit f5e2051bbcb82aeb34e21de86bb1e46c0c5903b4[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 16:58:40 2021 +0900
+
+    attendacne 주간 그래프 구현 완료
+
+[33mcommit bcf69f2d04b06bc6540abcafc7e0d09f94afffbe[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 16:17:06 2021 +0900
+
+    fix : Scrumboard.jsp add responsibility 오류 수정
+
+[33mcommit 7e65f1e9ac9dbdbb7a4ec185882f799724e1d251[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 16:12:48 2021 +0900
+
+    add responsibility 완성
+
+[33mcommit 1582d1dae945ae3b8ecf9dcf1c481d5478b0ab78[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Thu Apr 15 15:36:29 2021 +0900
+
+    feat: 포트폴리오 언어 받아오기 수정
+
+[33mcommit 51930e29ca0f2d33486daf912501c4b79d054d0d[m
+Merge: 4ff58c3 2053c43
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 15:09:48 2021 +0900
+
+    Merge pull request #47 from FourWork/dev
+    
+    dev -> master 중간 merge
+
+[33mcommit 2053c432e9db14a987d61db55e4493c4ff3459c1[m
+Merge: e00b84a 3413e01
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 15:04:03 2021 +0900
+
+    Merge pull request #46 from FourWork/Seungyub
+    
+    set responsibility 기능 일부 구현
+
+[33mcommit e00b84a2c1bb614f77159c7ae9f34c9e9a5e4617[m
+Merge: 32b6f26 ca5b354
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 15:03:40 2021 +0900
+
+    Merge pull request #45 from FourWork/gayoung
+    
+    Gayoung
+
+[33mcommit 3413e01640e2a07f8391a2d2c23271ebacd58de1[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 15:03:13 2021 +0900
+
+    set responsibility 기능 일부 구현
+
+[33mcommit ca5b3544e0bb0c05292c8849883ef63948b17ae6[m
+Merge: 3416a3b 32b6f26
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 15:02:19 2021 +0900
+
+    Merge branch 'dev' into gayoung
+
+[33mcommit 3416a3bf6b6b599d9f7322f6c9268923398ad8aa[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Thu Apr 15 14:54:14 2021 +0900
+
+    style : taskUpdatePage.jsp , taskDeletePage.jsp => edit form
+    docs : ScrumBoard.xml => add column to detailTask
+
+[33mcommit 32b6f26b35bce5edcee2e8665db0712a5cc53cf0[m
+Merge: 57e660e d40513a
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:18:28 2021 +0900
+
+    Merge pull request #44 from FourWork/rang
+    
+    feat: to do list, board manager / fix: board, post
+
+[33mcommit d40513af50d5d446d2744c3d34ec3bc162744255[m
+Merge: a526754 57e660e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:18:14 2021 +0900
+
+    Merge branch 'dev' into rang
+
+[33mcommit 57e660e556d8cadbdbcaa00cb6bbd851379a4808[m
+Merge: a2c0f2c ac2c64e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:16:14 2021 +0900
+
+    Merge pull request #43 from FourWork/beom
+    
+    Beom
+
+[33mcommit ac2c64e4b1a9d606f3eb280fa871e21c7e5f097a[m
+Merge: bb9c5a0 a2c0f2c
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:16:08 2021 +0900
+
+    Merge branch 'dev' into beom
+
+[33mcommit a2c0f2c363733ff902a55531a47583c72f5f102f[m
+Merge: a280949 85ffd81
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:14:58 2021 +0900
+
+    Merge pull request #40 from FourWork/june
+    
+    채팅 스타일 일부 완성, mybatis query 수정
+
+[33mcommit a325095dda3a2353a0d4225f499f0354ee20185a[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 14:14:28 2021 +0900
+
+    merge 완료
+
+[33mcommit c0cc72388b85452551d79421ef87385ef575dafe[m
+Merge: 56dfe68 a3193b4
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:04:34 2021 +0900
+
+    Merge pull request #42 from FourWork/gayoung
+    
+    Gayoung
+
+[33mcommit a3193b44808c603a1a4fc1f7cbd87155a7883058[m
+Merge: 5f3d45c 56dfe68
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 14:04:28 2021 +0900
+
+    Merge branch 'task_test' into gayoung
+
+[33mcommit a526754896ae92b3afe803544dd707fd8cd4476c[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Thu Apr 15 12:48:30 2021 +0900
+
+    feat: to do list, board manager / fix: board, post
+
+[33mcommit bb9c5a0b0364168d902ffcb1610f293a274cddd5[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Thu Apr 15 12:44:26 2021 +0900
+
+    feat: 포트폴리오 생성시 포트폴리오 언어 추가 기능 구현
+    
+    mybatis-config.xml- portfolio_language 도메인 추가
+    이외 포트폴리오-언어 추가 코드 수정
+
+[33mcommit 5f3d45c49fb7d028b16d72063e21bf49d59739ef[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Thu Apr 15 12:38:09 2021 +0900
+
+    feat : DetaildeleteAction, DetailUpdateAction, UpdateTaskAction
+    
+    docs : ScrumBoard files
+
+[33mcommit 56dfe68633fd84e1ddb45350266d9e3d4c51c5e8[m
+Merge: 282753a b402d2c
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 15 12:13:03 2021 +0900
+
+    Merge pull request #41 from FourWork/Seungyub
+    
+    merge 전 저장
+
+[33mcommit b402d2c0d90a5738a8b8e84adc425fac58d769bc[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 12:11:44 2021 +0900
+
+    merge 전 저장
+
+[33mcommit 282753a1e00e7faff0641c5ac999f4211a983c9b[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 15 11:04:17 2021 +0900
+
+    task move 기능 완성
+
+[33mcommit 85ffd81a3733588cc0befbc07f3da44073fe7396[m
+Author: june <joonie811@naver.com>
+Date:   Wed Apr 14 17:22:20 2021 +0900
+
+    fix: session에 있는 멤버 이름 받아서 연결 중 보낸 메세지의 보낸사람 표시
+
+[33mcommit c413b56d4738357d84673ae1c9afd6e3e177bbe5[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 14 17:12:01 2021 +0900
+
+    task move query문 추가
+
+[33mcommit 594e2f7d9e8a99aa32beaf91b69a1e7da47934df[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 14 16:47:04 2021 +0900
+
+    task move 일부 구현
+
+[33mcommit 16fcc9235a50e816330d8bd623d13f94c72496fd[m
+Author: june <joonie811@naver.com>
+Date:   Wed Apr 14 16:39:23 2021 +0900
+
+    refactor: member 객체 자체를 가지고 있는 messageDto 추가해서 메세지마다 보낸 사람 불러오기
+
+[33mcommit 7b956de33c1ab90bcdeb68148b71358b2982e23c[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 14 14:34:37 2021 +0900
+
+    feat : ScrumBoard task 이동 기능 구현
+
+[33mcommit b31afb44a9439ec74230a1d2b1b11f2970578369[m
+Author: june <joonie811@naver.com>
+Date:   Wed Apr 14 12:59:59 2021 +0900
+
+    style: 채팅방 프로필, 사용자 번호 추가
+
+[33mcommit 42d0ba26df2bd73baab8f4fef164772c260cff9e[m
+Author: june <joonie811@naver.com>
+Date:   Wed Apr 14 12:21:28 2021 +0900
+
+    style: 채팅방 스타일 일부 완성-채팅 대사에 따라 말풍선 스타일 다르게 적용
+
+[33mcommit e306718bf1feb1bdaaa0db93b70cb9f4d2330dac[m
+Author: june <joonie811@naver.com>
+Date:   Wed Apr 14 11:31:15 2021 +0900
+
+    style: 채팅 아이콘 클릭했을 때 모달에 채팅 리스트 불러오기
+
+[33mcommit e89596812bda1a9803e9cc936c46c519e3ffa59e[m
+Merge: 155192e 4ff58c3
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Wed Apr 14 09:36:14 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into gayoung
+
+[33mcommit 155192ee7ff3320752bd75127b60df01f8d99992[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Wed Apr 14 09:36:05 2021 +0900
+
+    merge전 저장
+
+[33mcommit 4ff58c3c0a69b4e4fd9472f5aa62e03e6990a1ee[m
+Merge: 6a9a0c8 a280949
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:30:14 2021 +0900
+
+    Merge pull request #39 from FourWork/dev
+    
+    feat : 진행 사항 반영
+
+[33mcommit a2809495f2563ec5148dc2fc59d0774dca140fad[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 14 09:25:43 2021 +0900
+
+    docs: ChatController 수정
+
+[33mcommit e957b0428da6b83bca55ecdefefef8d16d67c0ef[m
+Merge: ef46ae0 fc6900e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:20:14 2021 +0900
+
+    Merge pull request #38 from FourWork/Seungyub
+    
+    Seungyub
+
+[33mcommit fc6900ec50b61250a368ab05c348b193f60d93a1[m
+Merge: a39a723 ef46ae0
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:20:06 2021 +0900
+
+    Merge branch 'dev' into Seungyub
+
+[33mcommit ef46ae0b8efb3a7c0cd87c2f36f2e7de059994f2[m
+Merge: cc3b854 5b91ffb
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:19:11 2021 +0900
+
+    Merge pull request #37 from FourWork/Hyunho
+    
+    Hyunho
+
+[33mcommit cc3b8548ebbd4a7f878617ea33e936f649a1fe3c[m
+Merge: 6f66f91 0942c57
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:19:00 2021 +0900
+
+    Merge pull request #36 from FourWork/rang
+    
+    feat: 게시판 일부 기능 구현
+
+[33mcommit 0942c57cb046c0de9c85756e29825c6d22cfd104[m
+Merge: e6fdead 6f66f91
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:18:52 2021 +0900
+
+    Merge branch 'dev' into rang
+
+[33mcommit 6f66f91af2c65c80d6653ac8f662d934cb77762f[m
+Merge: bdfa74b 774a9af
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:18:17 2021 +0900
+
+    Merge pull request #35 from FourWork/gayoung
+    
+    feat : ScrumBoard files / docs : delete scrum.jsp / change Task.java
+
+[33mcommit 774a9af0fda50e84e35dfd064c74d3304f7bf1ed[m
+Merge: 340f744 bdfa74b
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:18:05 2021 +0900
+
+    Merge branch 'dev' into gayoung
+
+[33mcommit bdfa74bfa7196ad0748f2469c48f92e99de8e096[m
+Merge: 5f74d22 ace78e2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:17:38 2021 +0900
+
+    Merge pull request #34 from FourWork/beom
+    
+    feat:
+
+[33mcommit ace78e275dc8c3e9e95f924863a6af6a6b3a9824[m
+Merge: 65f3641 5f74d22
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:17:31 2021 +0900
+
+    Merge branch 'dev' into beom
+
+[33mcommit 5f74d22b4d275722279db4b6cf75d673b606d0dd[m
+Merge: 818d412 7f1f0ab
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 14 09:10:30 2021 +0900
+
+    Merge pull request #33 from FourWork/june
+    
+    채팅 기능 일부 구현 완료
+
+[33mcommit 21b3c9ad403c5b07054a7e3852f7a9b178969115[m
+Merge: 340f744 6a9a0c8
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Wed Apr 14 08:59:55 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork.git into gayoung
+
+[33mcommit 5b91ffbe2ebd25aca3400b8638bea8abea3345dd[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Wed Apr 14 00:01:49 2021 +0900
+
+    fix: gitignore file *.classpath 추가
+
+[33mcommit b1676faa42475ecb73d51dca776d74d9a3df6c39[m
+Merge: 9769949 6a9a0c8
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Tue Apr 13 23:37:45 2021 +0900
+
+    fix: 충돌 수정
+
+[33mcommit e6fdeadf8226c6e8a877de38dbc74db028bfb9d9[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Tue Apr 13 23:27:11 2021 +0900
+
+    feat: 게시판 일부 기능 구현
+
+[33mcommit 97699490fb451d9be34db7fb836d48f67dd29ce9[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Tue Apr 13 23:21:12 2021 +0900
+
+    feat: login 페이지 join페이지
+
+[33mcommit 340f7445004e2c6e629f87c4de10ff8b88521fd9[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Tue Apr 13 22:05:45 2021 +0900
+
+    feat : DeleteTaskAction.java / InsertTaskAction.java / scrumBoard.jsp /
+    ScrumBoard.xml / scrumBoardAction.java / ScrumBoardDao.java /
+    ScrumBoardMapper.java / ScrumBoardService.java / ScrumController.java /
+    sprintAddModal.jsp / taskAddModal.jsp / taskDeleteModal.jsp
+    
+    docs : delete scrum.jsp / change Task.java
+
+[33mcommit 65f364125df434f1a65a35d9d1a48c03e96ad1f4[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Tue Apr 13 17:43:43 2021 +0900
+
+    feat:
+    insert, read 구현했으나,
+    read 세션 오류발생
+
+[33mcommit 7f1f0abdbfda7de17296a53ef2b19a9d6070070e[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 17:09:30 2021 +0900
+
+    chore: test용 파일 삭제
+
+[33mcommit 28a6d310e4c760a1c2ef8c3c22b897e8bf0d0d63[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 17:03:17 2021 +0900
+
+    feat: userId(memberId)도 불러와서 넣기
+
+[33mcommit 5e50149198c268ab8c194af82bd8d5aa83a7860d[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 16:26:34 2021 +0900
+
+    feat: 메세지 불러온 것과 연결 중에 보낸 메세지 합침, 누구에게 온 메세지인지 표시, setAttribute Action쪽으로 이동
+
+[33mcommit 5462820419ad3f6f5fc138ba011321f0202d235b[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 15:52:21 2021 +0900
+
+    fix: 시간은 12 이하여야한다는 에러 수정
+
+[33mcommit a39a723d5ad0191581a935b4d418089e28176946[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue Apr 13 15:33:58 2021 +0900
+
+    attendance 그래프 기능 추가
+
+[33mcommit df55b26f4a4cea3640750969e5a83bee6df27daa[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 15:25:40 2021 +0900
+
+    feat: 채팅방 별 메세지 불러오기
+
+[33mcommit b5ed4754a31d5bda14c316e3e4e55fcc4e0d5293[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 14:46:31 2021 +0900
+
+    feat: 유저별 채팅방 목록 불러오기
+
+[33mcommit cb542cb2c943ce611e369282bd03293d3580dad2[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 12:12:37 2021 +0900
+
+    feat: 소켓 세션에 채팅방 id 추가 -> 채팅방 id, 유저 id에 따라 메세지 전송
+
+[33mcommit e948404d4f5b01db7e8e148e31b045890d90df50[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 11:36:54 2021 +0900
+
+    fix: 현재 접속 중이지 않은 유저 관련 Null pointer exception 처리
+
+[33mcommit 78c056a272bae20459f0609d376e7c1d730f5a56[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 11:29:05 2021 +0900
+
+    feat: DB에메세지 저장
+
+[33mcommit 9c009c6d5a32927166b0562ab48ad989f4e0f8fd[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 10:31:35 2021 +0900
+
+    feat: 유저가 보낸 메세지를 해당 채팅방에 있는 모든 유저에게 전달
+
+[33mcommit 66cb3c30475e433a58392b3cd8a74fb629f93922[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 10:11:11 2021 +0900
+
+    chore: serializable 추가
+
+[33mcommit 573ee92aa9072028b31ad41a86a72e2e3b64d59c[m
+Merge: 2a38b02 6a9a0c8
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue Apr 13 09:43:26 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into Seungyub
+
+[33mcommit 6a9a0c8df86850dc3bcf5654239d28fbf39c6433[m
+Merge: 12fcbc1 818d412
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue Apr 13 09:43:09 2021 +0900
+
+    Merge pull request #31 from FourWork/dev
+    
+    fix : classpath error
+
+[33mcommit 2a38b027bc4386c33a20c1efd2281aa765981d30[m
+Merge: 80d5c46 818d412
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue Apr 13 09:40:07 2021 +0900
+
+    Merge branch 'dev' of https://github.com/FourWork/forwork into Seungyub
+
+[33mcommit 818d412d0afcff3e81337324c801ba422b8a2eb9[m
+Merge: 1866fdd 6364cf1
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue Apr 13 09:39:40 2021 +0900
+
+    Merge pull request #30 from FourWork/june
+    
+    클래스패스에서 jar 삭제
+
+[33mcommit 6364cf182a5870076dc33168ecaa7777fc943c09[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 09:37:02 2021 +0900
+
+    chore: jar파일 클래스 패스에서 삭제
+
+[33mcommit 7f970181a784ef9cafdbaa10c0d80e50f756d0fd[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 09:35:40 2021 +0900
+
+    chore: jar파일 클래스 패스에서 삭제
+
+[33mcommit 80d5c463be4f6090eaadf5c4be3ada0996e38485[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Tue Apr 13 09:30:23 2021 +0900
+
+    중간저장
+
+[33mcommit 1866fdd741c88dd65af51495ad36d7581aaa6961[m
+Merge: 97f4d29 ef6f76a
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Tue Apr 13 09:29:16 2021 +0900
+
+    Merge pull request #28 from FourWork/june
+    
+    jar 파일 폴더 추가
+
+[33mcommit ef6f76ae0e2897f41c59770906bce40bf9faf345[m
+Author: june <joonie811@naver.com>
+Date:   Tue Apr 13 09:27:29 2021 +0900
+
+    chore: 라이브러리 폴더 추가
+
+[33mcommit 5232570043ca3d9aa4f45cce91358b8c6be0db5f[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Mon Apr 12 15:09:01 2021 +0900
+
+    off 기능 구현완료
+
+[33mcommit be99b74935f4cab40cbba563994ee88f52d689a0[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 17:51:25 2021 +0900
+
+    off 기능 일부 구현
+
+[33mcommit a3d575b4ea203d9c4ec2dfdca53053b0c41644f1[m
+Merge: aebb7f9 12fcbc1
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 17:26:58 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into Seungyub
+
+[33mcommit 12fcbc1737f0f873a39e1e2562f3412aa616ff73[m
+Merge: db94b25 97f4d29
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 17:26:34 2021 +0900
+
+    Merge pull request #27 from FourWork/dev
+    
+    dev -> master merge
+
+[33mcommit 97f4d29b3f490c9455fbb1defa6c6da19b61218b[m
+Merge: 58d903e f394785
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 17:24:27 2021 +0900
+
+    Merge pull request #26 from FourWork/beom
+    
+    Beom
+
+[33mcommit f394785bd8ee99e767a2042d7e3b62e4b2ce8c06[m
+Merge: 69574ae 58d903e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 17:24:16 2021 +0900
+
+    Merge branch 'dev' into beom
+
+[33mcommit 69574ae2b67f340b5c8a0fcf6d23f2c4a900d9ee[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Fri Apr 9 17:07:36 2021 +0900
+
+    feat:
+    사용하지 않는 html 파일 삭제
+    (board.html, Member.html, scrumBoard.html)
+
+[33mcommit 58d903e0d35e36b2081098ceb62334b62512d766[m
+Merge: 19a5303 95db19f
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 17:07:13 2021 +0900
+
+    Merge pull request #25 from FourWork/june
+    
+    mybatis config, asset 수정
+
+[33mcommit 95db19f211fee815f830e522e5dbfc518e6757b0[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 9 16:56:44 2021 +0900
+
+    chore: asset에 에러나는 거 수정, mybatis config 수정
+
+[33mcommit aebb7f9918dbc074d4c88087fa2f6ba025bd48e4[m
+Merge: 3df47e6 db94b25
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 16:52:01 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into Seungyub
+
+[33mcommit 76c5fed36a44d3ad02cea8b1de0de388e672f81d[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 9 16:48:32 2021 +0900
+
+    chore: merge master
+
+[33mcommit db94b25af9eeb7aefeae2dd01cb8703f8bb0b1d2[m
+Merge: fae0bd0 19a5303
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:46:57 2021 +0900
+
+    Merge pull request #24 from FourWork/dev
+    
+    dev->master merge
+
+[33mcommit 19a53034c836e576fdf7b486f9eeacac7745145d[m
+Merge: e5ff3bc 6123733
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:45:35 2021 +0900
+
+    Merge pull request #19 from FourWork/Seungyub
+    
+    feat : commute 기능 완성
+
+[33mcommit e5ff3bc0bbb1528608b10bd5ba2d954843f8e886[m
+Merge: 0b2c2dc d7ccba2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:45:26 2021 +0900
+
+    Merge pull request #23 from FourWork/Hyunho
+    
+    feat:join.jsp login.jsp
+
+[33mcommit 0b2c2dc37c0ba820de4ead75238b37c2ab1b3dd4[m
+Merge: 80c0a2c 14cd9f6
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:34:40 2021 +0900
+
+    Merge pull request #22 from FourWork/gayoung
+    
+    docs : scrum.jsp
+
+[33mcommit 14cd9f602e37f56e7e85c5c3a1a4a20c6992ad36[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Fri Apr 9 16:32:43 2021 +0900
+
+    docs : scrum.jsp
+
+[33mcommit 80c0a2cc11393fa09512b6113d10369ac82e89c8[m
+Merge: cbc35dc 85c4387
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:31:01 2021 +0900
+
+    Merge pull request #21 from FourWork/rang
+    
+    feat: boardMain
+
+[33mcommit 85c43878838b137426f699af9a46e872b4e6ae90[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Fri Apr 9 16:27:48 2021 +0900
+
+    feat: boardMain
+
+[33mcommit d7ccba278b899e6c22e9644acd1539c93d75de74[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Fri Apr 9 16:26:36 2021 +0900
+
+    feat:join.jsp login.jsp
+
+[33mcommit cbc35dc7e12ed8e5a0657ba0b787a46e52557966[m
+Merge: 2fd7787 935ce9d
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:25:40 2021 +0900
+
+    Merge pull request #20 from FourWork/gayoung
+    
+    feat : scrum.jsp
+
+[33mcommit 935ce9d029933c49b9b04e4bab1446c3c7f21a09[m
+Author: ga0-lee <lleun8956@naver.com>
+Date:   Fri Apr 9 16:23:18 2021 +0900
+
+    feat : scrum.jsp
+
+[33mcommit 9ae997d5a8e6ce040c587611e1462a14ae552bed[m
+Author: beom1 <beom1@DESKTOP-EI32HL0>
+Date:   Fri Apr 9 16:21:26 2021 +0900
+
+    feat:
+    view jsp 생성(myprofile_addPortfolio.jsp, myprofile_main.jsp)
+    view css 생성(myprofile.css)
+    컨트롤러 생성(PortfolioController.java)
+    도메인 생성(Portfolio.java)
+
+[33mcommit 3df47e690f8e92608316fb98c2cab575f01cab3e[m
+Merge: 6123733 fae0bd0
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 16:16:33 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into Seungyub
+
+[33mcommit fae0bd04fb72acf07a9015d9221ac73bebaf4bd7[m
+Merge: 29562d0 2fd7787
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:15:58 2021 +0900
+
+    Merge pull request #18 from FourWork/dev
+    
+    june branch merge
+
+[33mcommit 2fd778709365d3926295a2719efd7a1a7fcf74ec[m
+Merge: 961ca5d 95a1d07
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 16:14:34 2021 +0900
+
+    Merge pull request #17 from FourWork/june
+    
+    채팅 일부 구현, json 라이브러리 추가
+
+[33mcommit 6123733aef534621d8d8bb3ea857037471297c02[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 16:13:44 2021 +0900
+
+    attendance page commute 기능 완성
+
+[33mcommit 95a1d07aca35b147a47c937b7dec5d53f704d70e[m
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 9 16:13:05 2021 +0900
+
+    feat: 1:N 채팅 기능 일부 구현
+
+[33mcommit 189021264b95945636e3e7d2f7fd94304380fc10[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 12:39:29 2021 +0900
+
+    add attendance page chart
+
+[33mcommit 1d8bbaa19474135e61fa0d7530301853b0fc786f[m
+Merge: 6dcc47a 29562d0
+Author: Seungyub <iiwvii@naver.com>
+Date:   Fri Apr 9 10:21:56 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into Seungyub
+
+[33mcommit e372ada146020f34c55e271ec39d019b57683b72[m
+Merge: 1667496 29562d0
+Author: june <joonie811@naver.com>
+Date:   Fri Apr 9 10:21:43 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork into june
+
+[33mcommit 29562d00ea77ab4079a78ef4ad490773bb30b098[m
+Merge: 0febca9 961ca5d
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 10:21:04 2021 +0900
+
+    Merge pull request #16 from FourWork/dev
+    
+    add side bar
+
+[33mcommit 961ca5d0e6732aa952e1a17121d375a079c7a0bc[m
+Merge: e8ddcf2 85de45f
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Fri Apr 9 10:20:18 2021 +0900
+
+    Merge pull request #15 from FourWork/Hyunho
+    
+    사이드바
+
+[33mcommit 85de45f35fa74a1c6bb005f513e793382e2449e2[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Fri Apr 9 10:14:52 2021 +0900
+
+    사이드바
+
+[33mcommit 6dcc47aa4f11d4f1954975a2f9a2cc82b6938bd1[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 8 17:45:54 2021 +0900
+
+    attendance 일부 구현
+
+[33mcommit 166749632b46d3a258548f983dad6f01b2e8b6e5[m
+Author: june <joonie811@naver.com>
+Date:   Thu Apr 8 16:56:20 2021 +0900
+
+    feat: 웹소켓 테스트
+
+[33mcommit eba58da4e64db17a549f4ce062abc4293db73e45[m
+Author: june <joonie811@naver.com>
+Date:   Thu Apr 8 14:48:01 2021 +0900
+
+    chore: 채팅 구현 세팅 작업, domain 받아옴
+
+[33mcommit 0febca9049de033e22f95be2dd7027dcbd7921e3[m
+Merge: c9c7032 e8ddcf2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 14:45:32 2021 +0900
+
+    Merge pull request #14 from FourWork/dev
+    
+    [2021.04.08] dev -> master
+
+[33mcommit e8ddcf24a37927670c25b09c914701d45991df2a[m
+Merge: a542665 da714d9
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 14:44:45 2021 +0900
+
+    Merge pull request #13 from FourWork/Seungyub
+    
+    기본 파일 추가 Seungyub -> dev
+
+[33mcommit da714d9bf4f1863ab4d0d89b4f431f23657bdf60[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 8 14:43:35 2021 +0900
+
+    기본 파일 추가
+
+[33mcommit a542665800e685af78070da329c5a2c55edbb708[m
+Merge: 22810a3 6b752e3
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 14:39:30 2021 +0900
+
+    Merge pull request #12 from FourWork/june
+    
+    Action, ActionForward 추가
+
+[33mcommit 6b752e31b2a6e7acc8e39742f42099766d3ed570[m
+Author: june <joonie811@naver.com>
+Date:   Thu Apr 8 14:36:30 2021 +0900
+
+    chore: Action, ActionForward 추가
+
+[33mcommit c9c703216c439c75b60d82b9adc3f69643f8448c[m
+Merge: 1c62071 22810a3
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 12:08:00 2021 +0900
+
+    Merge pull request #11 from FourWork/dev
+    
+    2021.04.08 pull request test  dev->master
+
+[33mcommit 22810a3048773e59d2d90e39290dc038824cc5b5[m
+Merge: 832d387 a4f4e15
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 12:07:10 2021 +0900
+
+    Merge pull request #10 from FourWork/Hyunho
+    
+    test
+
+[33mcommit a4f4e1593d891e923ad6731b52f09dd3ac695290[m
+Author: hyunhocho <92_0521chh@naver.com>
+Date:   Thu Apr 8 12:04:13 2021 +0900
+
+    test
+
+[33mcommit 832d3878d8a3d7188a85cd99c139ad8e3fc3155b[m
+Merge: fb8a757 f22da8b
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 12:01:33 2021 +0900
+
+    Merge pull request #9 from FourWork/Seungyub
+    
+    add test file Seungyub -> dev
+
+[33mcommit fb8a757ecc75261cefbbb8788faba08020507655[m
+Merge: b031586 f00dc13
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 12:01:24 2021 +0900
+
+    Merge pull request #8 from FourWork/gayoung
+    
+    feat : scrum board.html
+
+[33mcommit b03158611318b2b956b174a0b1c4fc45a6b3bb38[m
+Merge: e68ecad 969fd22
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 12:01:14 2021 +0900
+
+    Merge pull request #7 from FourWork/beom
+    
+    feat: Mypage.html 생성
+
+[33mcommit e68ecad1c4dc9e592c11d93a7a3c19be97e66d9e[m
+Merge: fe2cc06 934603e
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 12:00:40 2021 +0900
+
+    Merge pull request #6 from FourWork/rang
+    
+    pull request test rang -> dev
+
+[33mcommit fe2cc06fc6891bf12b178f5cc8ec330dc39cc9b7[m
+Merge: 1c62071 ee62a2f
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Thu Apr 8 11:58:46 2021 +0900
+
+    Merge pull request #5 from FourWork/june
+    
+    pull request test june -> dev
+
+[33mcommit f00dc13c52eb648c1df731ef789d910e568705d5[m
+Author: gayoung <lleun8956@naver.com>
+Date:   Thu Apr 8 11:55:27 2021 +0900
+
+    feat : scrum board.html
+
+[33mcommit 934603e79d17ad995f6a15991cfb7b5bc9117ff7[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Thu Apr 8 11:53:58 2021 +0900
+
+    add test
+
+[33mcommit f22da8bcc8a14aeb80627696da97bd562a28eba9[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Thu Apr 8 11:53:56 2021 +0900
+
+    add test file
+
+[33mcommit ee62a2fa88a6bf18a2127becf4e455766bd2e219[m
+Author: june <joonie811@naver.com>
+Date:   Thu Apr 8 11:52:16 2021 +0900
+
+    pull request test
+
+[33mcommit 969fd22b56859f1199875a8ac6fc73d33553ad9c[m
+Author: myeoung beom <beom1843@gmail.com>
+Date:   Thu Apr 8 11:51:52 2021 +0900
+
+    feat: Mypage.html 생성
+
+[33mcommit 1c620715bc8cd93d2fc13887677b8e0fa664ca5b[m
+Author: june <joonie811@naver.com>
+Date:   Thu Apr 8 11:10:52 2021 +0900
+
+    clear project
+
+[33mcommit 9f257de002db7223d265d58198f202e322ce255f[m
+Author: june <joonie811@naver.com>
+Date:   Thu Apr 8 11:09:18 2021 +0900
+
+    clear project
+
+[33mcommit a8f749c99dfd5787505fe865a29899698eeefd73[m
+Merge: 5907a1a 8bbe29e
+Author: yoonir <73222541+yoonir@users.noreply.github.com>
+Date:   Thu Apr 8 10:43:20 2021 +0900
+
+    Merge pull request #4 from FourWork/rang
+    
+    Rang
+
+[33mcommit 8bbe29e4bdf85c37de5b509e8d5c9335735a6979[m
+Merge: d2040db 5907a1a
+Author: irang hong <hozrool@gmail.com>
+Date:   Thu Apr 8 10:42:24 2021 +0900
+
+    test
+
+[33mcommit 5907a1ad5239eaa826a68958271b30c39a7d69cc[m
+Merge: caaa0f4 faf5bb3
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 7 17:53:10 2021 +0900
+
+    Merge pull request #3 from FourWork/gayoung
+    
+    가영 수정2
+
+[33mcommit faf5bb3d141bb40a08aa4db26d500edb7bf4e692[m
+Merge: 4099dd4 caaa0f4
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 7 17:53:03 2021 +0900
+
+    Merge branch 'master' into gayoung
+
+[33mcommit d2040dbf550fb2af8d32839833aa552e7f8c73dc[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Wed Apr 7 17:52:43 2021 +0900
+
+    ssss
+
+[33mcommit 4099dd480ae0ce60d56444013212dc6b345a140e[m
+Author: gayoung <lleun8956@naver.com>
+Date:   Wed Apr 7 17:51:59 2021 +0900
+
+    가영 수정2
+
+[33mcommit 087a79e913b5248181467099cc28392202e20f7f[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Wed Apr 7 17:51:51 2021 +0900
+
+    testtestest
+
+[33mcommit caaa0f4a28112638d1c270499af61bf2067611d2[m
+Merge: 95c8be1 f3752c9
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 7 17:49:59 2021 +0900
+
+    Merge pull request #2 from FourWork/june
+    
+    test2
+
+[33mcommit f3752c97c9e9220a38af44a6b091041707dae655[m
+Author: bahar-j <joonie811@naver.com>
+Date:   Wed Apr 7 17:46:40 2021 +0900
+
+    test2
+
+[33mcommit 95c8be17a3e25de8de6764dc261017b093857ad1[m
+Merge: 5500a86 6430dda
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 7 17:44:01 2021 +0900
+
+    Merge branch 'master' of https://github.com/FourWork/forwork.git
+    
+    Conflicts:
+            for_work/WebContent/views/Sample.jsp
+
+[33mcommit 5500a8668ed74d4a95a0aaf45b56f8fcedead86b[m
+Merge: 8ae00b2 2d5264f
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 7 17:41:11 2021 +0900
+
+    Merge remote-tracking branch 'origin/june'
+    
+    Conflicts:
+            for_work/WebContent/views/Sample.jsp
+
+[33mcommit 6430dda49055f6a45faa63365449b31c9b4696cc[m
+Merge: 8ae00b2 37198b5
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 7 17:39:48 2021 +0900
+
+    Merge pull request #1 from FourWork/june
+    
+    June
+
+[33mcommit 37198b536df2f679935da2d57b33bc3dbfc92d72[m
+Merge: 2d5264f 8ae00b2
+Author: seung1110 <54969299+seung1110@users.noreply.github.com>
+Date:   Wed Apr 7 17:39:30 2021 +0900
+
+    Merge branch 'master' into june
+
+[33mcommit 60304e191be8d89644e8634e6a36ca91c291cd83[m
+Merge: 2186c9a 029ab32
+Author: irang hong <hozrool@gmail.com>
+Date:   Wed Apr 7 17:36:43 2021 +0900
+
+    Merge branch 'gayoung' of https://github.com/FourWork/forwork.git into
+    rang
+    
+    Conflicts:
+            for_work/WebContent/views/Sample.jsp
+
+[33mcommit 8ae00b2a0110235890bcad5dea1a87cbb38435aa[m
+Merge: 2186c9a 029ab32
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 7 17:36:19 2021 +0900
+
+    Merge remote-tracking branch 'origin/gayoung'
+    
+    Conflicts:
+            for_work/WebContent/views/Sample.jsp
+
+[33mcommit 2d5264f02ee2c875db0f72afe878b4f6d2d12704[m
+Author: bahar-j <joonie811@naver.com>
+Date:   Wed Apr 7 17:33:42 2021 +0900
+
+    test2
+
+[33mcommit 029ab32c982795bca0d63a4ff7e8837273d8978b[m
+Author: gayoung <lleun8956@naver.com>
+Date:   Wed Apr 7 17:32:38 2021 +0900
+
+    가영 수정
+
+[33mcommit f013844f6c91f29be7a3a1c7b91432c524705816[m
+Author: bahar-j <joonie811@naver.com>
+Date:   Wed Apr 7 17:31:29 2021 +0900
+
+    test
+
+[33mcommit 2186c9a19e8ef60710e396d5eddcd953c3949e80[m
+Merge: 0e4d9e4 2f298e4
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 7 17:28:25 2021 +0900
+
+    Merge remote-tracking branch 'origin/rang'
+
+[33mcommit 0e4d9e4412b55c34e71c4f2ecd5150af92054c2a[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 7 17:24:48 2021 +0900
+
+    setting v0.2
+
+[33mcommit 2f298e4b1851711d8ac870867bb69c721c4e7c9e[m
+Author: irang hong <hozrool@gmail.com>
+Date:   Wed Apr 7 17:24:46 2021 +0900
+
+    test1
+
+[33mcommit 9afc258165489f31785fb2f91030c64b6ca184f1[m
+Author: Seungyub <iiwvii@naver.com>
+Date:   Wed Apr 7 17:20:07 2021 +0900
+
+    setting v0.1
