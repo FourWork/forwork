@@ -11,6 +11,9 @@ update project
 </update>
 
 <select id="getProjectList">
+select *
+	from project
+	where project_id = #{project_id}
 </select>
 
 <select id="getAttendanceList">
