@@ -7,7 +7,6 @@
   	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-	<script type="text/javascript" src="/resources/js/chatting.js"></script>
     <title>chatting</title>
     <style type="text/css">
     	#chatroom-title-container {
@@ -127,6 +126,7 @@
   <script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
   	let sender = document.getElementById("user").value;
+  	let members;
   	
   	document.addEventListener("DOMContentLoaded", function(){
   		let userId = document.getElementById("user").value;
@@ -149,17 +149,31 @@
   				}
   			});
   			chatbox.innerHTML = html;
+  			deleteColorOfUnread();
   		});
+  		
+  		chattingService.updateReadAll(chatroomId, sender, function(result){
+  			console.log(result);
+  		})
+  		
+  		chattingService.getMembers(chatroomId, function(result){
+  			console.log(result);
+  			members = result;
+  		})
 	});
+  	
+  	function deleteColorOfUnread(){
+  		let unread = document.querySelector('#unread' + chatroomId);
+  		if (unread){
+  			unread.remove("unread-color");
+  		}
+  	}
 
 
   	
   	let stompClient = null;
   	let socket = new SockJS("/websocket");
-  	socket.onopen = function () {
-  		
-  		console.log("connected");
-  	}
+
   	stompClient = Stomp.over(socket);
   	stompClient.connect({}, function(frame){
   		/* setConnected(true); */
@@ -178,6 +192,7 @@
   	}
   	
   	function showMessage(msg){
+  		console.log(msg);
 		let chatBubble = document.createElement('span');
     	
         chatBubble.innerHTML =  msg.message;   
@@ -203,6 +218,7 @@
 	        document.querySelector('.chatbox').appendChild(img);
   		}
         document.querySelector('.chatbox').appendChild(chatBubble);
+        readMessage(msg.message_id);
   	}
   	
   	function sendMessage(){
@@ -210,16 +226,8 @@
   		let message = document.getElementById("message");
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
+  		let messageId = "";
   		console.log("sender: " + sender);
-  		let msg = {
-  			"message": message.value,
-  			"chatroom_id": chatroomId,
-  			"send_time": sendTime,
-  			"sender" : {
-  				"member_id": sender,
-  				"name" : senderName
-  			}
-  		}
   		console.log(message.value)
   		let saveMsg = {
   			"message": message.value,
@@ -227,12 +235,41 @@
   			"send_time": sendTime,
   			"sender": sender
   		}
+  		// ajax는 비동기로 데이터 가져오는 걸 시킨 후 다른 일들을 수행하기 때문에
+  		// ajax에서 받아온 데이터로 할 작업은 callback에서 해줘야 함
   		chattingService.insertMessage(saveMsg, function(result){
-  			console.log(result);
+  			console.log("result: " +result);
+  			messageId = result;
+  			console.log("messageId: " + messageId);
+  			
+  			let msg = {
+  		  			"message_id" : messageId,
+  		  			"message": message.value,
+  		  			"chatroom_id": chatroomId,
+  		  			"send_time": sendTime,
+  		  			"sender" : {
+  		  				"member_id": sender,
+  		  				"name" : senderName
+  		  			}
+  		  		}
+  		  		console.log(msg);
+  		  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg))
+  		  		members.forEach(mem => {
+  		  			stompClient.send("/app/user/" + mem, {}, JSON.stringify(msg))
+  		  		})
+  		  		message.value = "";
   		})
-  		stompClient.send("/app/message/" + chatroomId, {}, JSON.stringify(msg))
   	}
   
+  	// 받은 메세지 하나 읽음 처리 
+  	function readMessage(messageId){
+  		console.log("sender: " + sender);
+  		console.log("message id: " + messageId)
+  		chattingService.updateReadStatus(messageId, sender, function(result){
+  			console.log(result);
+  		})
+  	}
+
   	
   	/* 
   	webSocket.onclose = function(){

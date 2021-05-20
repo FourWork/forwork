@@ -2,3 +2,5 @@
 Servers/
 .DS_Store
 .classpath
+/for_work_spring/
+.settings/
