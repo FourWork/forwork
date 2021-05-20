@@ -2,3 +2,6 @@
 Servers/
 .DS_Store
 .classpath
+org.eclipse.wst.common.component
+MANIFEST.MF
+pom.properties
