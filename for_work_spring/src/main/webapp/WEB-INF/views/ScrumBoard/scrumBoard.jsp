@@ -110,6 +110,7 @@ $(document).ready(function(){
 						dataType : "json",
 						async:false,
 						success:function(data){
+							console.log("data : " + data);
 							if(data.log_detail == null){								
 								str += "<div class='card-footer text-gray'>null<button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
 							}else{
@@ -117,31 +118,30 @@ $(document).ready(function(){
 							}
 						}
 					});
-					
 					return str;
 				}();
 
-			
+				list[i].name = list[i].name == null ? "":list[i].name;
 				if(list[i].task_type_id==1){
-					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;				
+					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;				
 					listStoriesDiv.html(str1);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==2){
-					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
+					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listTodoDiv.html(str2);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==3){
-					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
+					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listDoingDiv.html(str3);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==4){
-					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer + part6 + log;	
+					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listDoneDiv.html(str4);
 					doneCount += 1;
 					count +=1;
@@ -189,8 +189,11 @@ $(document).ready(function(){
 		
 		var task = {
 				task_content :taskModalContent.val(),
-				task_index : 1,
-				writer : "홍길동"
+				task_index : 2,
+				writer : 1,
+				project_id : 1,
+				task_type_id :1,
+				writer_name : "test"
 		};
 				
 		

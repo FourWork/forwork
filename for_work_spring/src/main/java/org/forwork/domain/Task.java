@@ -19,5 +19,5 @@ public class Task {
 	private String task_content;
 	private String task_index;
 	private String name;
-	private Date leadTime;
+	private String writer_name;
 }
