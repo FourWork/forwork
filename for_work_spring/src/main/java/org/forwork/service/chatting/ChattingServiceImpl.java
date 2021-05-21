@@ -30,6 +30,11 @@ public class ChattingServiceImpl implements ChattingService {
 	@Override
 	public String createMessage(Message message) {
 		// TODO Auto-generated method stub
+		System.out.println(message.getFile_path());
+		System.out.println("sdfdsddddddddddd");
+		if (message.getFile_path() == null) {
+			message.setFile_path("");
+		}
 		mapper.insertMessage(message);
 		MemberMessageRelation status = new MemberMessageRelation();
 		status.setMessage_id(message.getMessage_id());

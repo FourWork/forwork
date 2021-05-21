@@ -8,6 +8,7 @@
 		<result property="message" column="message"/>
 		<result property="send_time" column="send_time"/>
 		<result property="chatroom_id" column="chatroom_id"/>
+		<result property="file_path" column="file_path"/>
 		<collection property="sender" ofType="org.forwork.domain.Member" column="sender">
 			<id property="member_id" column="member_id"/>
 			<result property="name" column="name"/>
@@ -27,11 +28,10 @@
 		<selectKey keyProperty="message_id" order="BEFORE" resultType="String">
 			select message_id_seq.nextval from dual
 		</selectKey>
-		insert into message(message_id, message, send_time, sender, chatroom_id)
-			values(#{message_id}, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id})
+		insert into message(message_id, message, send_time, sender, chatroom_id, file_path)
+			values(#{message_id}, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id}, #{file_path})
 	</insert>
 	
-	<!-- TODO: 요청한 시간대에 맞는 메세지 보내주도록 수정 -->
 	<select id="getMessageByChatroomId" resultMap="messageResult">
 		select * 
 			from message m, member u
@@ -39,6 +39,17 @@
 			and m.chatroom_id = #{chatroom_id}
 			order by m.send_time
 	</select>
+	
+	<!-- <select id="getMessageByChatroomIdWithPaging" resultMap="messageResult">
+		<![CDATA[
+			select /*+INDEX_ASC(message message_id_pk)*/
+				rownum, ms.*, mb.*
+				from message ms, member mb
+				where ms.sender = mb.member_id(+)
+				and ms.chatroom_id = #{chatroom_id}
+				and rownum <= 1 * 10
+		]]>
+	</select> -->
 	
 	<!-- 유저가 가진 채팅방 목록 -->
 	<select id="getChatroomByMemberId" resultType="org.forwork.domain.Chatroom">

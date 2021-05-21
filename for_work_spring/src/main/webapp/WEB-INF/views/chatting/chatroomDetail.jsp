@@ -93,6 +93,32 @@
 		  padding: 10px;
 		  font-size: 14px;
 		}
+		
+		.filebox label { 
+			display: inline-block; 
+			padding: .5em .75em; 
+			color: white; 
+			font-size: inherit; 
+			line-height: normal; 
+			vertical-align: middle; 
+			background-color: #4a90e2; 
+			cursor: pointer; 
+			border: 1px solid #ebebeb; 
+			border-bottom-color: #e2e2e2; 
+			border-radius: .25em; 
+		} 
+		
+		.filebox input[type="file"] { /* 파일 필드 숨기기 */ 
+			position: absolute; 
+			width: 1px; 
+			height: 1px; 
+			padding: 0; 
+			margin: -1px; 
+			overflow: hidden; 
+			clip:rect(0,0,0,0); 
+			border: 0; 
+		}
+
     </style>
   </head>
   <body>
@@ -114,6 +140,11 @@
 		</c:forEach>
 	</div>
 
+	<div class="filebox"> 
+		<label for="ex_filename">업로드</label> 
+		<input type="file" id="ex_filename" class="upload-hidden" onchange="sendFile()"> 
+	</div>
+
    	<div class="text-box">
    		<input type="text" onkeyup="isEnterKey()" id="message" />
    		<input type="button" onclick="sendMessage()" value="send" id="chat-send" />
@@ -122,7 +153,8 @@
 	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
 	<input type="text" value="${userId }" id="user" style="display:none;">
 	<input type="text" value="${member.name }" id="userName" style="display:none;">
-   		
+   	<div id="filePath" style="display:none;"></div>
+   	
   <script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
   	let sender = document.getElementById("user").value;
@@ -140,12 +172,21 @@
   			let html = ""
   			messages.forEach( msg => {
   				if (msg.sender.member_id == userId){
-  					html += '<span class="bubble my-bubble">' + msg.message + '</span>'
+  					console.log(msg)
+  					if (msg.file_path){
+  						html += '<a href="/message/file/download?fileName=' + msg.file_path + '">' + '<span class="bubble my-bubble">' + msg.message + '</span></a>'
+  					} else {
+  						html += '<span class="bubble my-bubble">' + msg.message + '</span>'
+  					}
   				} else {
   					html += 
-  	  					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
-  						+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">'
-  						+ '<span class="bubble friend-bubble">' + msg.message + '</span>';
+	  	  					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
+	  						+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">';
+  					if (msg.file_path){
+  						html += '<a href="/message/file/download?fileName=' + msg.file_path + '"><span class="bubble friend-bubble">' + msg.message + '</span><a/>';
+  					} else{
+  						html += '<span class="bubble friend-bubble">' + msg.message + '</span>';
+  					}
   				}
   			});
   			chatbox.innerHTML = html;
@@ -223,18 +264,21 @@
   	
   	function sendMessage(){
   	  	let senderName = document.getElementById("userName").value;
-  		let message = document.getElementById("message");
+  	  	let filePath = document.getElementById("filePath").innerHTML;
+  	  	console.log(filePath);
+  		let message = (document.getElementById("message").value || document.getElementById('ex_filename').files[0].name);
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
   		let messageId = "";
   		console.log("sender: " + sender);
-  		console.log(message.value)
   		let saveMsg = {
-  			"message": message.value,
-  			"chatroom_id": chatroomId,
-  			"send_time": sendTime,
-  			"sender": sender
-  		}
+  		  			"message": message,
+  		  			"chatroom_id": chatroomId,
+  		  			"send_time": sendTime,
+  		  			"sender": sender,
+  		  			"file_path": filePath,
+  		 }
+  		
   		// ajax는 비동기로 데이터 가져오는 걸 시킨 후 다른 일들을 수행하기 때문에
   		// ajax에서 받아온 데이터로 할 작업은 callback에서 해줘야 함
   		chattingService.insertMessage(saveMsg, function(result){
@@ -244,7 +288,7 @@
   			
   			let msg = {
   		  			"message_id" : messageId,
-  		  			"message": message.value,
+  		  			"message": message,
   		  			"chatroom_id": chatroomId,
   		  			"send_time": sendTime,
   		  			"sender" : {
@@ -257,8 +301,19 @@
   		  		members.forEach(mem => {
   		  			stompClient.send("/app/user/" + mem, {}, JSON.stringify(msg))
   		  		})
-  		  		message.value = "";
+  		  		document.getElementById("message").value = "";
   		})
+  	}
+  	
+  	function sendFile(){
+  		let formData = new FormData();
+  		formData.append("file", document.getElementById('ex_filename').files[0]);
+  		chattingService.saveFile(formData, function(result){
+  			console.log("here")
+  			console.log(result);
+  			document.getElementById("filePath").innerHTML = result;
+  			sendMessage();
+  		});
   	}
   
   	// 받은 메세지 하나 읽음 처리 
