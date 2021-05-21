@@ -28,6 +28,14 @@
 	border: 1px solid rgb(212, 211, 211);
 }
 
+.chatroom-title {
+	padding-left: 2%;
+	width: 20%;
+	height: 40px;
+	margin-top: 30px;
+	border: 1px solid rgb(212, 211, 211);
+}
+
 .search:focus {
 	outline: none !important;
 	border: 1px solid #5a1ac0;
@@ -97,22 +105,29 @@
 			<div class="title">대화상대 초대</div>
 		</div>
 		<input type="text" class="search" placeholder="이름으로 검색해보세요" />
+		<input type="text" class="chatroom-title" placeholder="채팅방 제목을 입력해주세요" />
 		<div id="member"></div>
 		<div id="footer">
-			<a class="btn">취소</a><a class="btn"><span id="num-member">0</span>명 초대</a>
+			<a href="/chatting/tmpMain?userId=${userId }" class="btn">취소</a><a href="#" class="btn" onclick="createChatroom(this)"><span id="num-member">0</span>명 초대</a>
 		</div>
 	</div>
+	<input type="text" value="${userId }" id="user" style="display:none;">
 </body>
 <script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/chatting.js"></script>
 <script>
-	let selectedMembers = [];
 	let memberContainer = document.querySelector("#member");
 	let numSelected = document.querySelector("#num-member");
+	let chatroomTitle = document.querySelector(".chatroom-title");
+	let userId = document.getElementById("user").value;
+	let selectedMembers = [userId];
+	
 	chattingService.getAllMembers(function(members){
 		html = "<ul class='member-list'>";
 		members.forEach(member => {
-			html += '<img class="bubble profile" src="/resources/Img/profile.png" width="38"><li class="member" data-member-id="' + member.member_id + '" onclick="addMember(this)">' + member.name + "</li>"
+			if(member.member_id !== userId){
+				html += '<img class="bubble profile" src="/resources/Img/profile.png" width="38"><li class="member" data-member-id="' + member.member_id + '" onclick="addMember(this)">' + member.name + "</li>"	
+			}
 		})
 		html += "</ul>"
 		memberContainer.innerHTML = html
@@ -128,7 +143,28 @@
 			selectedMembers.push(memberId);
 			e.classList.add("bold");
 		}
-		numSelected.innerHTML = selectedMembers.length;
+		numSelected.innerHTML = selectedMembers.length-1;
+	}
+	
+	function createChatroom(e){
+		if (!chatroomTitle.value){
+			alert("제목을 입력해주세요!");
+			chatroomTitle.focus();
+			return;
+		}
+		if (selectedMembers.length == 1){
+			alert("초대할 멤버를 선택해주세요!");
+			return;
+		}
+		let data = {
+			"title": [chatroomTitle.value],
+			"memberIds": selectedMembers
+		}
+		chattingService.createChatroom(data, function(result){
+			console.log(result);
+			let url = "/chatting/tmpMain?userId=" + userId;
+			window.location.href = url;
+		})	
 	}
 	
 </script>

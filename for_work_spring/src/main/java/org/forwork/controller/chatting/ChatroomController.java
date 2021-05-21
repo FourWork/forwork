@@ -1,8 +1,10 @@
 package org.forwork.controller.chatting;
 
 import java.util.List;
+import java.util.Map;
 
 import org.forwork.domain.Chatroom;
+import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 import org.forwork.service.chatting.ChattingService;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,4 +41,9 @@ public class ChatroomController {
 		return new ResponseEntity<>(chatrooms, HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/new")
+	public ResponseEntity<String> create(@RequestBody Map<String, List<String>> data) {
+		service.createChatroom(data.get("title").get(0), data.get("memberIds"));
+		return new ResponseEntity<>("create chatroom success", HttpStatus.OK);
+	}
 }

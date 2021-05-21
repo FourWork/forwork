@@ -222,7 +222,24 @@ let chattingService = (function() {
 		})
 	}
 	
-	
+	function createChatroom(data, callback, error){
+		$.ajax({
+			type : 'post',
+			url : '/chatroom/new',
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -236,7 +253,8 @@ let chattingService = (function() {
 		getMembers : getMembers,
 		getUnreadCount : getUnreadCount,
 		saveFile : saveFile,
-		getAllMembers : getAllMembers
+		getAllMembers : getAllMembers,
+		createChatroom : createChatroom,
 	};
 
 })();

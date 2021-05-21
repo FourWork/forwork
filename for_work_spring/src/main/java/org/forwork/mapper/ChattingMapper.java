@@ -27,4 +27,6 @@ public interface ChattingMapper {
 	List<Map<String, String>> countUnreadPerChatroomByMemberId(String memberId);
 	List<MessageDto> getMessageByChatroomIdWithPaging(@Param("cri") MessageCriteria cri, @Param("chatroom_id") String chatroomId);
 	List<Member> getAllMembers();
+	int createChatroom(Chatroom chatroom);
+	int insertChatroomMemberRelation(ChatroomMemberRelation chatroomMember);
 }

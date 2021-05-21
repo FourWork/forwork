@@ -81,7 +81,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-					<a href="/chatting/searchMember"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
+					<a href="/chatting/searchMember?userId=${userId }"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary" id="n-chatroom"></strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->

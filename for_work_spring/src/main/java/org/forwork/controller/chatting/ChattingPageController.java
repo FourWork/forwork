@@ -32,7 +32,7 @@ public class ChattingPageController {
 	}
 	
 	@GetMapping("/searchMember")
-	public String search() {
+	public String search(@ModelAttribute("userId") String userId) {
 		return "/chatting/searchMember";
 	}
 	

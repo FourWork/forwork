@@ -33,7 +33,6 @@ public class ChattingServiceImpl implements ChattingService {
 	public String createMessage(Message message) {
 		// TODO Auto-generated method stub
 		System.out.println(message.getFile_path());
-		System.out.println("sdfdsddddddddddd");
 		if (message.getFile_path() == null) {
 			message.setFile_path("");
 		}
@@ -127,5 +126,21 @@ public class ChattingServiceImpl implements ChattingService {
 	public List<Member> findAllMembers() {
 		// TODO Auto-generated method stub
 		return mapper.getAllMembers();
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public void createChatroom(String chatroomTitle, List<String> memberIds) {
+		// TODO Auto-generated method stub
+		Chatroom chatroom = new Chatroom();
+		chatroom.setChatroom_name(chatroomTitle);
+		mapper.createChatroom(chatroom);
+		ChatroomMemberRelation relation = new ChatroomMemberRelation();
+		relation.setChatroom_id(chatroom.getChatroom_id());
+		memberIds.forEach(id -> {
+			relation.setMember_id(id);
+			mapper.insertChatroomMemberRelation(relation);
+		});
+		return;
 	}
 }
