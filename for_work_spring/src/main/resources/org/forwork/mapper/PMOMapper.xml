@@ -12,8 +12,7 @@ update project
 
 <select id="getProjectList">
 select *
-	from project
-	where project_id = #{project_id}
+	from project 
 </select>
 
 <select id="getAttendanceList">

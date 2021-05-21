@@ -30,13 +30,13 @@ public class MyProfileServiceImpl implements MyProfileService {
 	
 	@Transactional
 	@Override
-	public MyProfileDto read(String portfolio_id) {
+	public Portfolio read(String portfolio_id) {
 		
-		MyProfileDto wrapper= new MyProfileDto();
-		wrapper.setPortfolio(mapper.read(portfolio_id));
-		wrapper.setPfLangList(mapper.readPfLangList(portfolio_id));
-
-		return wrapper;
+		Portfolio portfolio= new Portfolio();
+		portfolio=mapper.read(portfolio_id);
+		portfolio.setPortfolioLanguage(mapper.readPfLangList(portfolio_id));
+		
+		return portfolio;
 	}
 	
 	@Transactional
@@ -78,6 +78,19 @@ public class MyProfileServiceImpl implements MyProfileService {
 		return returnInteger;
 	}
 
+	@Transactional
+	@Override
+	public List<Portfolio> getList(String member_id) {
+	 
+		List<Portfolio> list = mapper.listPortfolio(member_id);
+		List<Portfolio> list0 = new ArrayList<Portfolio>();
+		for(Portfolio portfolio : list){
+			String pfId = portfolio.getPortfolio_id();
+			portfolio.setPortfolioLanguage(mapper.readPfLangList(pfId));
+			list0.add(portfolio);
+		}
+		return list0;
+	}
 
 	@Override
 	public List<Map<String, String>> countLang(String member_id) {
@@ -97,11 +110,7 @@ public class MyProfileServiceImpl implements MyProfileService {
 		return statLangList;
 	}
 
-	@Override
-	public List<Portfolio> getList(String member_id) {
-	 
-		return mapper.listPortfolio(member_id);
-	}
+
 
 	@Override
 	public Member getMemberInfo(String member_id) {
@@ -109,11 +118,6 @@ public class MyProfileServiceImpl implements MyProfileService {
 		return mapper.memberInfo(member_id);
 	}
 
-	@Override
-	public List<PortfolioLanguage> getPfLangList(String portfolio_id) {
-		return mapper.readPfLangList(portfolio_id);
-	}
-	
 	
 	
 	

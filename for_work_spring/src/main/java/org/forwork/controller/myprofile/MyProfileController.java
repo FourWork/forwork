@@ -78,24 +78,13 @@ public class MyProfileController {
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<MyProfileDto> get(@PathVariable("member_id") String member_id,
-												@PathVariable("portfolio_id") String portfolio_id){
+	public ResponseEntity<Portfolio> get(@PathVariable("portfolio_id") String portfolio_id){
 		log.info("-------------Controller_GET------------");
 		log.info("Get: "+portfolio_id);
-		MyProfileDto wrapper = new MyProfileDto();
-		wrapper.setPfLangList(service.read(portfolio_id).getPfLangList());
-		wrapper.setPortfolio(service.read(portfolio_id).getPortfolio());
-		return new ResponseEntity<MyProfileDto>(wrapper,HttpStatus.OK);
+		
+		return new ResponseEntity<Portfolio>(service.read(portfolio_id),HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/{portfolio_id}/language",
-			produces={
-					MediaType.APPLICATION_XML_VALUE,
-					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<PortfolioLanguage>> getPfLangList(@PathVariable("portfolio_id") String portfolio_id){
-		log.info("-------------Controller_GetList------------");
-		return new ResponseEntity<List<PortfolioLanguage>>(service.getPfLangList(portfolio_id),HttpStatus.OK);
-	}
 	
 	@DeleteMapping(value = "/{portfolio_id}",
 			produces = { MediaType.TEXT_PLAIN_VALUE})

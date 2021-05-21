@@ -33,11 +33,12 @@
 	</update>
 
 
+
 	<select id="listPortfolio" resultType="org.forwork.domain.Portfolio">
 		select *
 			from portfolio
 			where member_id = #{member_id}
-			order by portfolio_id desc
+			order by to_number(portfolio_id) desc
 	</select>
 
 	<insert id="updatePfLang">
@@ -56,6 +57,7 @@
 			where portfolio_id=#{portfolio_id}
 			order by PORTFOLIO_LANGUAGE
 	</select>
+
 	
 	<insert id="insertPfLang">
 		insert into portfolio_language(portfolio_id, portfolio_language,portfolio_language_seq)

@@ -47,19 +47,19 @@ public class MyProfileControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
-	@Test
-	public void testList() throws Exception{
-		log.info("--------------controllerTests---------------");
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/list"))
-				.andExpect(status().isOk()));
-	}
-	
 //	@Test
-//	public void testGet() throws Exception{
+//	public void testStatList() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/list"))
 //				.andExpect(status().isOk()));
 //	}
+	
+	@Test
+	public void testGet() throws Exception{
+		log.info("--------------controllerTests---------------");
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
+				.andExpect(status().isOk()));
+	}
 	
 //	@Test
 //	public void testDelete() throws Exception{

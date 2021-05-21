@@ -196,17 +196,18 @@ $(document).ready(function(){
 	var profileInfoDIV = $(".profile_info");
 	var portfolioUL = $(".portfolio-list");
 	
-	showInfo();
+/* 	showInfo(); */
 	showPfList();
-function showInfo(){
-	portfolioService.getIfno({
+/* function showInfo(){
+	portfolioService.getInfo({
 		member_id : m_id
 	}, function(member){
 		var str="<h1>"+member.name+"<h1/>"
 		
 	})
-}
+} */
 function showPfList(){
+	//배열선언
 	portfolioService.getList({
 		member_id : m_id
 		}, function(list){
@@ -254,6 +255,7 @@ function showPfList(){
 			}
 			portfolioUL.html(str);
 	});
+	
 }//end showPfList
 
 

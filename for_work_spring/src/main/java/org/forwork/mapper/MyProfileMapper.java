@@ -14,8 +14,10 @@ public interface MyProfileMapper {
 	
 	public int delete(String portfolio_id);
 	public int update(Portfolio vo);
+	
 	public List<Portfolio> listPortfolio(String member_id);
 	public List<PortfolioLanguage> readPfLangList(String portfolio_id);
+	
 	public int insertPfLang(PortfolioLanguage vo);
 	public int updatePfLang(PortfolioLanguage vo);
 	public int deletePfLang(String portfolio_id);
