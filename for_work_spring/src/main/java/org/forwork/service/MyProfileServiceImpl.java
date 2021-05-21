@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.forwork.domain.MyProfileWrapper;
+import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.mapper.PortfolioMapper;
+import org.forwork.dto.MyProfileDto;
+import org.forwork.mapper.MyProfileMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,20 +23,20 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @Log4j
 @Service
-public class PortfolioServiceImpl implements PortfolioService {
+public class MyProfileServiceImpl implements MyProfileService {
 	
-	private PortfolioMapper mapper;
+	private MyProfileMapper mapper;
 	
 	
 	@Transactional
 	@Override
-	public MyProfileWrapper read(String portfolio_id) {
+	public Portfolio read(String portfolio_id) {
 		
-		MyProfileWrapper wrapper= new MyProfileWrapper();
-		wrapper.setPortfolio(mapper.read(portfolio_id));
-		wrapper.setPfLangList(mapper.readPfLangList(portfolio_id));
-
-		return wrapper;
+		Portfolio portfolio= new Portfolio();
+		portfolio=mapper.read(portfolio_id);
+		portfolio.setPortfolioLanguage(mapper.readPfLangList(portfolio_id));
+		
+		return portfolio;
 	}
 	
 	@Transactional
@@ -62,6 +63,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 		log.info("-------------UpdateService_update_portfolio----------");
 		mapper.deletePfLang(portfolio.getPortfolio_id());
 		for(PortfolioLanguage pfLang : pfLangList){
+			pfLang.setPortfolio_id(portfolio.getPortfolio_id());
 			mapper.updatePfLang(pfLang);
 		}
 		return returnInteger;
@@ -76,6 +78,19 @@ public class PortfolioServiceImpl implements PortfolioService {
 		return returnInteger;
 	}
 
+	@Transactional
+	@Override
+	public List<Portfolio> getList(String member_id) {
+	 
+		List<Portfolio> list = mapper.listPortfolio(member_id);
+		List<Portfolio> list0 = new ArrayList<Portfolio>();
+		for(Portfolio portfolio : list){
+			String pfId = portfolio.getPortfolio_id();
+			portfolio.setPortfolioLanguage(mapper.readPfLangList(pfId));
+			list0.add(portfolio);
+		}
+		return list0;
+	}
 
 	@Override
 	public List<Map<String, String>> countLang(String member_id) {
@@ -95,12 +110,14 @@ public class PortfolioServiceImpl implements PortfolioService {
 		return statLangList;
 	}
 
+
+
 	@Override
-	public List<Portfolio> getList(String member_id) {
-	 
-		return mapper.listPortfolio(member_id);
+	public Member getMemberInfo(String member_id) {
+
+		return mapper.memberInfo(member_id);
 	}
-	
+
 	
 	
 	

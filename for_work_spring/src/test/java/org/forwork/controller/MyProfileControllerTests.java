@@ -35,7 +35,7 @@ import lombok.extern.log4j.Log4j;
 		org.forwork.config.RootConfig.class,
 		org.forwork.config.ServletConfig.class})
 @Log4j
-public class PortfolioControllerTests {
+public class MyProfileControllerTests {
 	
 	@Setter(onMethod_= {@Autowired})
 	private WebApplicationContext ctx;
@@ -48,27 +48,35 @@ public class PortfolioControllerTests {
 	}
 	
 //	@Test
-//	public void testList() throws Exception{
+//	public void testStatList() throws Exception{
 //		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/member_id/2"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/list"))
 //				.andExpect(status().isOk()));
 //	}
 	
-//	@Test
-//	public void testGet() throws Exception{
-//		log.info("--------------controllerTests---------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/portfolio_id/183"))
-//				.andExpect(status().isOk()));
-//	}
+	@Test
+	public void testGet() throws Exception{
+		log.info("--------------controllerTests---------------");
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
+				.andExpect(status().isOk()));
+	}
 	
 //	@Test
 //	public void testDelete() throws Exception{
 //		log.info("---------controllerTests--------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/portfolio_id/183"))
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/202"))
 //				.andExpect(status().isOk()));
 //		
 //		log.info("----------controllerTests end---------------");
 //	}
+	
+	@Test
+	public void testLangChart() throws Exception{
+		log.info("-------controllerTests---------");
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/chart"))
+		.andExpect(status().isOk()));
+		
+	}
 	
 
 
