@@ -104,7 +104,7 @@
 		<div class="title-container">
 			<div class="title">대화상대 초대</div>
 		</div>
-		<input type="text" class="search" placeholder="이름으로 검색해보세요" />
+		<input type="text" class="search" placeholder="이름으로 검색해보세요" onkeyup="search()" />
 		<input type="text" class="chatroom-title" placeholder="채팅방 제목을 입력해주세요" />
 		<div id="member"></div>
 		<div id="footer">
@@ -121,16 +121,12 @@
 	let chatroomTitle = document.querySelector(".chatroom-title");
 	let userId = document.getElementById("user").value;
 	let selectedMembers = [userId];
+	let allMembers = [];
 	
 	chattingService.getAllMembers(function(members){
-		html = "<ul class='member-list'>";
-		members.forEach(member => {
-			if(member.member_id !== userId){
-				html += '<img class="bubble profile" src="/resources/Img/profile.png" width="38"><li class="member" data-member-id="' + member.member_id + '" onclick="addMember(this)">' + member.name + "</li>"	
-			}
-		})
-		html += "</ul>"
-		memberContainer.innerHTML = html
+		showMember(members);
+		allMembers = members;
+		console.log(allMembers);
 	})
 	
 	function addMember(e){
@@ -165,6 +161,24 @@
 			let url = "/chatting/tmpMain?userId=" + userId;
 			window.location.href = url;
 		})	
+	}
+	
+	function showMember(members){
+		html = "<ul class='member-list'>";
+		members.forEach(member => {
+			if(member.member_id !== userId){
+				html += '<img class="bubble profile" src="/resources/Img/profile.png" width="38"><li class="member" data-member-id="' + member.member_id + '" onclick="addMember(this)">' + member.name + "</li>"	
+			}
+		})
+		console.log(allMembers);
+		html += "</ul>";
+		memberContainer.innerHTML = html;
+	}
+	
+	function search(){
+		let query = document.querySelector(".search").value;
+		console.log(query);
+		showMember(allMembers.filter(m => m.name.startsWith(query)));
 	}
 	
 </script>

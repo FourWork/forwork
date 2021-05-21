@@ -87,8 +87,6 @@
                 <!-- List group -->
                 <div id="listChat">
                 </div>
-                <!-- View all -->
-                <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
               </div>
             </li>
           </ul>
