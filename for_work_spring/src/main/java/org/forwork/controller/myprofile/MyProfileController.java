@@ -1,12 +1,12 @@
 package org.forwork.controller.myprofile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.dto.MyProfileDto;
 import org.forwork.service.MyProfileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,14 +36,13 @@ public class MyProfileController {
 			consumes = "application/json",
 			produces = { MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@PathVariable("member_id") String member_id,
-										@RequestBody MyProfileDto wrapper){
+										@RequestBody Portfolio portfolio){
 		log.info("------------Controller_start----------------");
 	
-		log.info("Portfolio-PfLang wrapper: "+wrapper);
+		log.info("Portfolio-PfLang: "+portfolio);
 		
-		Portfolio portfolio=wrapper.getPortfolio();
 		portfolio.setMember_id(member_id);
-		List<PortfolioLanguage> pfLangList = wrapper.getPfLangList();
+		List<PortfolioLanguage> pfLangList = portfolio.getPortfolioLanguage();
 		
 		int insertCount = service.register(portfolio, pfLangList);
 		log.info("------------Controller_end----------------");	
@@ -103,14 +102,23 @@ public class MyProfileController {
 			value="/{portfolio_id}",
 			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@RequestBody MyProfileDto wrapper,
-										//@PathVariable("member_id") String member_id,
+	public ResponseEntity<String> modify(@RequestBody Portfolio portfolio,
+										@PathVariable("member_id") String member_id,
 										@PathVariable("portfolio_id") String portfolio_id){
-		wrapper.getPortfolio().setPortfolio_id(portfolio_id);
+		portfolio.setPortfolio_id(portfolio_id);
+		portfolio.setMember_id(member_id);
+		List<PortfolioLanguage> list = portfolio.getPortfolioLanguage();
+		List<PortfolioLanguage> list0 = new ArrayList<PortfolioLanguage>();
+		for(PortfolioLanguage pfLang: list){
+			pfLang.setPortfolio_id(portfolio_id);
+			list0.add(pfLang);
+		}
+		
+		portfolio.setPortfolioLanguage(list0);
 		log.info("modify:"+portfolio_id);
 		
 		
-		return service.update(wrapper.getPortfolio(), wrapper.getPfLangList()) ==1
+		return service.update(portfolio,portfolio.getPortfolioLanguage()) ==1
 				? new ResponseEntity<>("success",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

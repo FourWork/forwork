@@ -16,12 +16,28 @@
 	<!-- JSON 값 받아와서 차트그리기 -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-	var m_id = '<c:out value ="${member_id}"/>';
+
+    
+    var m_id = '<c:out value ="${member_id}"/>';
 	console.log("m_id" + m_id);
-	
-		portfolioService.chart{
-			member_id: m_id
-		}, function()
+
+	drawChart();
+	function drawChart(){
+		var str="";
+		portfolioService.chart({
+			member_id : m_id
+		}, function(list){
+			console.log(list.length);
+			for(var i = 0, len = list.length||0;i<len;i++){
+				str+="['"+list[i].language+","+list[i].LANGUAGE_COUNT+"']";
+			}
+			console.log(str);
+			return str;
+		})
+		console.log("out"+str);
+		
+	}
+
 	</script>
 </head>
 <body>

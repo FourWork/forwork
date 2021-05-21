@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.dto.MyProfileDto;
 import org.forwork.domain.Member;
 
 public interface MyProfileService {

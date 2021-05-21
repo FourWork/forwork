@@ -130,7 +130,7 @@ var portfolioService=(function(){
 	
 	function chart(param,callback,error){
 		var member_id = param.member_id;
-		console.log("member_id@portfolio.js"+member_id)
+		console.log("member_id @portfolio.js"+member_id)
 		$.getJSON("/myprofile/"+member_id+"/chart.json",
 			function(data){
 			if(callback){

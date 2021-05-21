@@ -1,8 +1,8 @@
-<%@page import="java.util.Map"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -96,6 +96,10 @@ padding-right:25px;
 	top:55px;
 }
 
+.badge badge-pill badge-primary{
+padding:3px;
+}
+
 .profile_photo { grid-area: profile_photo; }
 .profile_info { grid-area: profile_info; }
 .profile_chart { grid-area: profile_chart; }
@@ -175,7 +179,7 @@ padding-right:25px;
   </div>
   <div class="title-container">
 		<div class="add-portfolio">
-			<button class="btn btn-primary" type="submit">Add Portfolio</button>
+			<button id="addBtn" class="btn btn-primary" type="submit">Add Portfolio</button>
 		</div>
   </div>
 </div>
@@ -196,16 +200,21 @@ $(document).ready(function(){
 	var profileInfoDIV = $(".profile_info");
 	var portfolioUL = $(".portfolio-list");
 	
-/* 	showInfo(); */
-	showPfList();
-/* function showInfo(){
+	$("#addBtn").on("click",function(){
+		self.location="/myprofile/add"
+	})
+/*  showInfo();  */
+ function showInfo(){
 	portfolioService.getInfo({
 		member_id : m_id
 	}, function(member){
-		var str="<h1>"+member.name+"<h1/>"
-		
-	})
-} */
+		console.log("test"+member.name);
+		var str="<div class='member_name'>"+member.name+"</div>";
+		str+="<div clas='member_email'>"+member.email+"</div>";
+		profileInfoDIV.html(str);
+	});
+} 
+showPfList();
 function showPfList(){
 	//배열선언
 	portfolioService.getList({
@@ -216,7 +225,7 @@ function showPfList(){
 			}
 			
 			for(var i = 0, len = list.length||0;i<len;i++){
-				console.log("list"+list[i].portfolio_title);
+				/* console.log("list"+list[i].portfolio_title); */
 				str +="<li class= 'left clearfix' portfolio_id="+list[i].portfolio_id+"'>";
 				str +="	<div class='card-header' id='heading"+i+"'>";
 				str +="	  <h5 class='mb-0'>";
@@ -240,16 +249,17 @@ function showPfList(){
 				str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
 				str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
 				
-				console.log(list[i].portfolio_id);
+				/* console.log(list[i].portfolio_id); */
 				p_id=list[i].portfolio_id;
-				console.log(p_id);
-				for(var j =0 ,len0 = list[i].portfolioLanguage.length || 0 ; j < len0 ; j++){
-					console.log(list[i])
+				/* console.log(p_id); */
 				str +="<div class='portfolio_language_List'>";
-				str+= "<span class='badge badge-pill badge-primary'>"+list[i].portfolioLanguage[j].portfolio_language+"</span></div>";
+				for(var j =0 ,len0 = list[i].portfolioLanguage.length || 0 ; j < len0 ; j++){
+					/* console.log(list[i]) */
+
+				str+= "<span class='badge badge-pill badge-primary'>"+list[i].portfolioLanguage[j].portfolio_language+"</span>";
 				};
-				str+="</div></div></div></li>";
-				console.log(list[i].portfolio_title);
+				str+="</div></div></div></div></li>";
+				/* console.log(list[i].portfolio_title); */
 			}
 			portfolioUL.html(str);
 
