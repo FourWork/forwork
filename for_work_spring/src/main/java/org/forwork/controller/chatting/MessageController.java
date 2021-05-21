@@ -2,7 +2,7 @@ package org.forwork.controller.chatting;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -112,9 +113,17 @@ public class MessageController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(uploadFolderPath + "/" + uploadFileName);
+		String path = uploadFolderPath + "/" + uploadFileName;
 		
-		return new ResponseEntity<String>(uploadFolderPath + "/" + uploadFileName, HttpStatus.OK);
+		try {
+			path = URLDecoder.decode(path, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		return new ResponseEntity<String>(path, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/file/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
