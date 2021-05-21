@@ -126,5 +126,8 @@
 			group by m.chatroom_id
 	</select>
 	
-	
+	<!-- 다른 곳에서 가져오기 -->
+	<select id="getAllMembers" resultType="org.forwork.domain.Member">
+		select * from member
+	</select>
 </mapper>

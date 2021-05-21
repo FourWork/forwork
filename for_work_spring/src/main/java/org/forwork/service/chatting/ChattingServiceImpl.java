@@ -122,4 +122,10 @@ public class ChattingServiceImpl implements ChattingService {
 		Collections.reverse(messages);
 		return messages;
 	}
+
+	@Override
+	public List<Member> findAllMembers() {
+		// TODO Auto-generated method stub
+		return mapper.getAllMembers();
+	}
 }

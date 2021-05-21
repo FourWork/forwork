@@ -203,6 +203,26 @@ let chattingService = (function() {
 	}
 	
 	
+	// TODO: 다른 js에서 가져오기
+	function getAllMembers(callback, error){
+		$.ajax({
+			type : 'get',
+			url : '/member/all',
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+	
+	
 
 	return {
 		getMessages : getMessages,
@@ -215,7 +235,8 @@ let chattingService = (function() {
 		getLastMessages : getLastMessages,
 		getMembers : getMembers,
 		getUnreadCount : getUnreadCount,
-		saveFile : saveFile
+		saveFile : saveFile,
+		getAllMembers : getAllMembers
 	};
 
 })();
