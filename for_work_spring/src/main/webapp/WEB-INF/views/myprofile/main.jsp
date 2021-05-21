@@ -211,13 +211,12 @@ function showPfList(){
 	portfolioService.getList({
 		member_id : m_id
 		}, function(list){
-
-			console.log("list"+list);
 			var str="";
 			if(list == null || list.length ==0){
 			}
 			
 			for(var i = 0, len = list.length||0;i<len;i++){
+				console.log("list"+list[i].portfolio_title);
 				str +="<li class= 'left clearfix' portfolio_id="+list[i].portfolio_id+"'>";
 				str +="	<div class='card-header' id='heading"+i+"'>";
 				str +="	  <h5 class='mb-0'>";
@@ -240,20 +239,20 @@ function showPfList(){
 				str +="			<div class='portfolio-term'>";
 				str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
 				str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
-				str +="<div class='portfolio_language_List'>"
+				
 				console.log(list[i].portfolio_id);
 				p_id=list[i].portfolio_id;
 				console.log(p_id);
-				portfolioService.getPfLangList({
-					portfolio_id: p_id
-				}, function(listLang){
-					for(var j = 0, len1 = listLang.length||0;i<len1;j++){
-					str+= "<span class='badge badge-pill badge-primary'>"+listLang[i].portfolio_language+"</span></div></div></div></div></li>";
-					}
-				});
+				for(var j =0 ,len0 = list[i].portfolioLanguage.length || 0 ; j < len0 ; j++){
+					console.log(list[i])
+				str +="<div class='portfolio_language_List'>";
+				str+= "<span class='badge badge-pill badge-primary'>"+list[i].portfolioLanguage[j].portfolio_language+"</span></div>";
+				};
+				str+="</div></div></div></li>";
 				console.log(list[i].portfolio_title);
 			}
 			portfolioUL.html(str);
+
 	});
 	
 }//end showPfList
