@@ -188,7 +188,28 @@ padding:3px;
 		<div id="piechart" style="width: 500px; height: 400px;"></div>
 	</div>
 
-	<script type="text/javascript">
+<script type="text/javascript">
+
+$(document).ready(function(){
+	var profileInfoDIV = $(".profile_info");
+	var m_id = '<c:out value ="${member_id}"/>';
+	
+	
+	function showInfo(){
+		portfolioService.getInfo({
+			member_id : m_id
+		}, function(member){
+			console.log("test"+member.name);
+			var str="<div class='member_name'>"+member.name+"</div>";
+			str+="<div clas='member_email'>"+member.email+"</div>";
+			profileInfoDIV.html(str);
+		});
+	 } 
+	
+	showInfo(); 	
+});	
+	
+	
 $(document).ready(function(){
 	console.log(portfolioService);
 	
@@ -197,80 +218,73 @@ $(document).ready(function(){
 	
 	var p_id='';
 	
-	var profileInfoDIV = $(".profile_info");
+
 	var portfolioUL = $(".portfolio-list");
 	
 	$("#addBtn").on("click",function(){
 		self.location="/myprofile/add"
 	})
-/*  showInfo();  */
- function showInfo(){
-	portfolioService.getInfo({
-		member_id : m_id
-	}, function(member){
-		console.log("test"+member.name);
-		var str="<div class='member_name'>"+member.name+"</div>";
-		str+="<div clas='member_email'>"+member.email+"</div>";
-		profileInfoDIV.html(str);
-	});
-} 
-showPfList();
-function showPfList(){
-	//배열선언
-	portfolioService.getList({
-		member_id : m_id
-		}, function(list){
-			var str="";
-			if(list == null || list.length ==0){
-			}
-			
-			for(var i = 0, len = list.length||0;i<len;i++){
-				/* console.log("list"+list[i].portfolio_title); */
-				str +="<li class= 'left clearfix' portfolio_id="+list[i].portfolio_id+"'>";
-				str +="	<div class='card-header' id='heading"+i+"'>";
-				str +="	  <h5 class='mb-0'>";
-				if(i == 0){
-				str +="	     <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'>";
-				}else{
-				str +="	     <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='false' aria-controls='collapse"+i+"'>";
+	
+	showPfList();	
+	
+	function showPfList(){
+		//배열선언
+		portfolioService.getList({
+			member_id : m_id
+			}, function(list){
+				var str="";
+				if(list == null || list.length ==0){
 				}
-				str +=list[i].portfolio_title;
-				str +="		 </button>";
-				str +="		</h5>";
-				str +="	</div>";
-				if(i==0){
-				str +="<div id='collapse"+i+"' class='collapse show' aria-labelledby='heading"+i+"' data-parent=''#accordion'>";
-				}else{
-				str +="<div id='collapse"+i+"' class='collapse' aria-labelledby='heading"+i+"' data-parent=''#accordion'>";
-				}
-				str +="	<div class='card-body'>";
-				str +="		<div class='grid-container2'>";
-				str +="			<div class='portfolio-term'>";
-				str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
-				str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
 				
-				/* console.log(list[i].portfolio_id); */
-				p_id=list[i].portfolio_id;
-				/* console.log(p_id); */
-				str +="<div class='portfolio_language_List'>";
-				for(var j =0 ,len0 = list[i].portfolioLanguage.length || 0 ; j < len0 ; j++){
-					/* console.log(list[i]) */
+				for(var i = 0, len = list.length||0;i<len;i++){
+					/* console.log("list"+list[i].portfolio_title); */
+					str +="<li class= 'left clearfix' portfolio_id="+list[i].portfolio_id+"'>";
+					str +="	<div class='card-header' id='heading"+i+"'>";
+					str +="	  <h5 class='mb-0'>";
+					if(i == 0){
+					str +="	     <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'>";
+					}else{
+					str +="	     <button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='false' aria-controls='collapse"+i+"'>";
+					}
+					str +=list[i].portfolio_title;
+					str +="		 </button>";
+					str +="		</h5>";
+					str +="	</div>";
+					if(i==0){
+					str +="<div id='collapse"+i+"' class='collapse show' aria-labelledby='heading"+i+"' data-parent=''#accordion'>";
+					}else{
+					str +="<div id='collapse"+i+"' class='collapse' aria-labelledby='heading"+i+"' data-parent=''#accordion'>";
+					}
+					str +="	<div class='card-body'>";
+					str +="		<div class='grid-container2'>";
+					str +="			<div class='portfolio-term'>";
+					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
+					str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
+					
+					/* console.log(list[i].portfolio_id); */
+					p_id=list[i].portfolio_id;
+					/* console.log(p_id); */
+					str +="<div class='portfolio_language_List'>";
+					for(var j =0 ,len0 = list[i].portfolioLanguage.length || 0 ; j < len0 ; j++){
+						/* console.log(list[i]) */
 
-				str+= "<span class='badge badge-pill badge-primary'>"+list[i].portfolioLanguage[j].portfolio_language+"</span>";
-				};
-				str+="</div></div></div></div></li>";
-				/* console.log(list[i].portfolio_title); */
-			}
-			portfolioUL.html(str);
+					str+= "<span class='badge badge-pill badge-primary'>"+list[i].portfolioLanguage[j].portfolio_language+"</span>";
+					};
+					str+="</div></div></div></div></li>";
+					/* console.log(list[i].portfolio_title); */
+				}
+				portfolioUL.html(str);
 
-	});
-	
-}//end showPfList
-
-
-	
-	
+		});
+		
+	}//end showPfList
 });
+
+
+
+ 
+
+
 </script>
 </body>
 </html>

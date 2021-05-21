@@ -21,23 +21,40 @@
     var m_id = '<c:out value ="${member_id}"/>';
 	console.log("m_id" + m_id);
 
+
 	drawChart();
 	function drawChart(){
 		var str="";
+		
 		portfolioService.chart({
 			member_id : m_id
 		}, function(list){
+
 			console.log(list.length);
 			for(var i = 0, len = list.length||0;i<len;i++){
 				str+="['"+list[i].language+","+list[i].LANGUAGE_COUNT+"']";
 			}
 			console.log(str);
-			return str;
-		})
-		console.log("out"+str);
-		
-	}
+			var data = new google.visualization.arrayToDataTable([
+				['Programming Language','Count'],str]);
+			var options = {'title': 'Portfolio_language'}; 
+			
+			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+	        chart.draw(data, options);
+			
 
+		});
+	}
+		$(document).ready(function(){
+			$(".alert-heading").click(function(){
+				var submenu = $(".alert-heading-content");
+				if( submenu.is(":visible")){
+				submenu.slideUp();
+				}else{
+				submenu.slideDown();
+				}
+			});
+		});
 	</script>
 </head>
 <body>
