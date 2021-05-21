@@ -50,7 +50,7 @@
 			)
 	</insert>
 	
-	<select id="readPfLang" resultType="org.forwork.domain.PortfolioLanguage">
+	<select id="readPfLangList" resultType="org.forwork.domain.PortfolioLanguage">
 		select *
 			from portfolio_language
 			where portfolio_id=#{portfolio_id}
