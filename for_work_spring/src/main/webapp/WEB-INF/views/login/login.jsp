@@ -4,18 +4,19 @@
 <html>
 <head>
 <title>ForWork</title>
-<link rel="stylesheet" href="/views/CSS/login.css">
+<link rel="stylesheet" type="text/css"
+	href="../../../resources/assets/css/login.css">
 
 </head>
 <body>
 	<!-- header -->
 	<div id="header">
-		<img src="/Img/forworklogo.JPG" id="logo">
+		<img src="../../../resources/Img/forworklogo.JPG" id="logo">
 	</div>
 
 	<!-- wrapper -->
 	<div id="wrapper">
-		<form method="get">
+		<form method="post">
 			<!-- content-->
 			<div id="content">
 				<!-- EMAIL -->
@@ -35,7 +36,8 @@
 					</h3>
 					<span class="box int_pass"> <input type="text" id="pswd1"
 						class="int" maxlength="20"> <span id="alertTxt">사용불가</span>
-						<img src="/Img/pw.jpg" id="pswd1_img1" class="pswdImg">
+						<img src="../../../resources/Img/pw.jpg" id="pswd1_img1"
+						class="pswdImg">
 					</span> <span class="error_next_box"></span>
 				</div>
 
@@ -49,12 +51,12 @@
 
 				<!-- JOIN BTN-->
 				<div class="btn_area">
-					<button type="submit" id="btnJoin" value="회원가입"
-						formaction="/member/join.do">
+					<button type="button" id="btnJoin" value="회원가입"
+						onclick="location.href='signUp'">
 						<span>회원가입</span>
 					</button>
 				</div>
-				
+
 			</div>
 			<!-- content-->
 		</form>

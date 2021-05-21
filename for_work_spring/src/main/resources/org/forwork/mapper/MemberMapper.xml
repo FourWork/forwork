@@ -6,8 +6,8 @@
 
 <mapper namespace="org.forwork.mapper.MemberMapper">
 	<cache />
-	<!-- parameterType  예시! 수정 필요합니다.-->
-	<insert id="insertMember" parameterType="Member">
+	
+	<insert id="insertMember" parameterType="org.forwork.domain.Member">
 		insert into Member(
 			member_id, name, email, pw
 		)
@@ -15,10 +15,19 @@
 			MEMBER_SEQ.NEXTVAL, #{name}, #{email}, #{pw}
 		)
 	</insert>
+	<insert id="insertAuth" parameterType="org.forwork.domain.Member">
+		insert into member_auth(
+			member_id, auth
+		)
+		values(
+			email,auth
+		)
+	</insert>
 	
-	<select id="getMember" parameterType="String" resultType="Member">
+	
+	<!-- <select id="getMember" parameterType="String" resultType="Member">
 		select * from member where member_id = #{member_id}
-	</select>
+	</select> -->
 	
 </mapper>
 
