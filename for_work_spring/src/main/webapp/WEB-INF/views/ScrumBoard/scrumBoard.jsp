@@ -547,6 +547,14 @@ $(document).ready(function() {
 .log-more{
 	padding-top: 0px;
 }
+
+#doneColumn .card{
+	background-color: lightgray;
+}
+
+div.container-fluid{
+	padding-left: 3px;
+}
 </style>
 <body>
 	<div class="container-fluid pt-1 px-0">
