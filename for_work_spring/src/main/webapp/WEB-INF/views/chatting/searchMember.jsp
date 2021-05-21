@@ -178,7 +178,7 @@
 	function search(){
 		let query = document.querySelector(".search").value;
 		console.log(query);
-		showMember(allMembers.filter(m => m.name.startsWith(query)));
+		showMember(allMembers.filter(m => m.name.includes(query)));
 	}
 	
 </script>

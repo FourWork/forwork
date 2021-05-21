@@ -143,4 +143,8 @@
 		insert into chatroom_member_relation (chatroom_id, member_id)
 		values (#{chatroom_id}, #{member_id})
 	</insert>
+	
+<!-- 	<delete id="">
+	
+	</delete> -->
 </mapper>
