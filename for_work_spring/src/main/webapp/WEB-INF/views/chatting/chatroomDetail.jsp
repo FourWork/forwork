@@ -118,6 +118,13 @@
 			clip:rect(0,0,0,0); 
 			border: 0; 
 		}
+		.more {
+			text-align: center;
+			background-color: rgb(190, 194, 236);
+			color: white;
+			height: 50px;
+			line-height: 50px;
+		}
 
     </style>
   </head>
@@ -125,6 +132,7 @@
   	<div id="chatroom-title-container">
   		<span id="chatroom-title" data-chatroom-id="${chatroomId }" >${chatroomName }</span>
   	</div>
+  	<div class="more"><a onclick="loadMore()">더 보기</a></div>
   	<div class="chatbox">
 		<c:forEach var="message" items="${messages}">
 			<div>
@@ -158,7 +166,10 @@
   <script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
   	let sender = document.getElementById("user").value;
+  	let page = 1;
+  	const AMOUNT = 20;
   	let members;
+  	let chatbox = document.querySelector(".chatbox");
   	
   	document.addEventListener("DOMContentLoaded", function(){
   		let userId = document.getElementById("user").value;
@@ -167,27 +178,15 @@
   			chatroomTitle.innerHTML = result.chatroom_name;
   		});
   		
-  		let chatbox = document.querySelector(".chatbox");
-  		chattingService.getMessages(chatroomId, function(messages){
+  		let criteria = {
+  			"pageNum" : page,
+  			"amount" : AMOUNT
+  		}
+  		page += 1;
+  		chattingService.getMessagesWithPaging(criteria, chatroomId, function(messages){
   			let html = ""
   			messages.forEach( msg => {
-  				if (msg.sender.member_id == userId){
-  					console.log(msg)
-  					if (msg.file_path){
-  						html += '<a href="/message/file/download?fileName=' + msg.file_path + '">' + '<span class="bubble my-bubble">' + msg.message + '</span></a>'
-  					} else {
-  						html += '<span class="bubble my-bubble">' + msg.message + '</span>'
-  					}
-  				} else {
-  					html += 
-	  	  					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
-	  						+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">';
-  					if (msg.file_path){
-  						html += '<a href="/message/file/download?fileName=' + msg.file_path + '"><span class="bubble friend-bubble">' + msg.message + '</span><a/>';
-  					} else{
-  						html += '<span class="bubble friend-bubble">' + msg.message + '</span>';
-  					}
-  				}
+  				html += showMessage(msg);
   			});
   			chatbox.innerHTML = html;
   			deleteColorOfUnread();
@@ -203,6 +202,21 @@
   		})
 	});
   	
+  	function loadMore(){
+  		let criteria = {
+  	  			"pageNum" : page,
+  	  			"amount" : AMOUNT
+  	  	}
+  		page += 1;
+  		chattingService.getMessagesWithPaging(criteria, chatroomId, function(messages){
+  			let html = ""
+  			messages.forEach( msg => {
+  				html += showMessage(msg);
+  			});
+  			chatbox.innerHTML = html + chatbox.innerHTML;
+  		});
+  	}
+  	
   	function deleteColorOfUnread(){
   		let unread = document.querySelector('#unread' + chatroomId);
   		if (unread){
@@ -210,8 +224,6 @@
   		}
   	}
 
-
-  	
   	let stompClient = null;
   	let socket = new SockJS("/websocket");
 
@@ -220,7 +232,9 @@
   		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
-  			showMessage(JSON.parse(response.body));
+  			let msg = JSON.parse(response.body);
+  			document.querySelector(".chatbox").innerHTML += showMessage(msg);
+  			readMessage(msg.message_id);
   		});
   	}, function(error) {
   	    alert(error);
@@ -233,33 +247,25 @@
   	}
   	
   	function showMessage(msg){
-  		console.log(msg);
-		let chatBubble = document.createElement('span');
-    	
-        chatBubble.innerHTML =  msg.message;   
-        chatBubble.classList.add('bubble');
-        
-        if (msg.sender.member_id == sender){
-        	chatBubble.classList.add('my-bubble');
-  		} else {
-  			let name = document.createElement('div');
-  	    	let img = document.createElement('img');
-  	    	
-  			chatBubble.classList.add('friend-bubble');
-  			name.innerHTML = msg.sender.name;
-  	        name.classList.add('bubble');
-  	        name.classList.add('friend-profile');
-  	        name.classList.add('friend-name');
-  	        
-  	        img.src = '/resources/Img/profile.png';
-  	        img.width = 38;
-  	      	img.classList.add('bubble');
-	        img.classList.add('friend-profile');
-	  	    document.querySelector('.chatbox').appendChild(name);
-	        document.querySelector('.chatbox').appendChild(img);
-  		}
-        document.querySelector('.chatbox').appendChild(chatBubble);
-        readMessage(msg.message_id);
+  		let html = "";
+  		if (msg.sender.member_id == userId){
+			console.log(msg)
+			if (msg.file_path){
+				html += '<a href="/message/file/download?fileName=' + msg.file_path + '">' + '<span class="bubble my-bubble">' + msg.message + '</span></a>'
+			} else {
+				html += '<span class="bubble my-bubble">' + msg.message + '</span>'
+			}
+		} else {
+			html += 
+  					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
+					+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">';
+			if (msg.file_path){
+				html += '<a href="/message/file/download?fileName=' + msg.file_path + '"><span class="bubble friend-bubble">' + msg.message + '</span><a/>';
+			} else{
+				html += '<span class="bubble friend-bubble">' + msg.message + '</span>';
+			}
+		}
+  		return html;
   	}
   	
   	function sendMessage(){
@@ -309,8 +315,6 @@
   		let formData = new FormData();
   		formData.append("file", document.getElementById('ex_filename').files[0]);
   		chattingService.saveFile(formData, function(result){
-  			console.log("here")
-  			console.log(result);
   			document.getElementById("filePath").innerHTML = result;
   			sendMessage();
   		});
@@ -332,11 +336,6 @@
   	webSocket.onerror = function(){
   	}
   	
-  	// TODO: 시간 단위(1시간?)만큼의 메세지 불러와서 띄워주기
-  	function loadMessage(){
-  		
-  	}
-
   	function disconnect(){
   		webSocket.close();
   	} */

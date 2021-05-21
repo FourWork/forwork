@@ -1,5 +1,6 @@
 package org.forwork.service.chatting;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.forwork.domain.ChatroomMemberRelation;
 import org.forwork.domain.Member;
 import org.forwork.domain.MemberMessageRelation;
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 import org.forwork.mapper.ChattingMapper;
 import org.springframework.stereotype.Service;
@@ -111,5 +113,13 @@ public class ChattingServiceImpl implements ChattingService {
 	public List<Map<String, String>> findUnreadCountPerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub
 		return mapper.countUnreadPerChatroomByMemberId(memberId);
+	}
+
+	@Override
+	public List<MessageDto> findMessageByChatroomIdWithPaging(MessageCriteria cri, String chatroomId) {
+		// TODO Auto-generated method stub
+		List<MessageDto> messages = mapper.getMessageByChatroomIdWithPaging(cri, chatroomId);
+		Collections.reverse(messages);
+		return messages;
 	}
 }

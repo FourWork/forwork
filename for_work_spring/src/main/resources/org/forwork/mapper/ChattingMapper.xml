@@ -40,16 +40,20 @@
 			order by m.send_time
 	</select>
 	
-	<!-- <select id="getMessageByChatroomIdWithPaging" resultMap="messageResult">
+	<!-- ISSUE: SQL Hint 적용 안됨 -->
+	<select id="getMessageByChatroomIdWithPaging" resultMap="messageResult">
 		<![CDATA[
-			select /*+INDEX_ASC(message message_id_pk)*/
-				rownum, ms.*, mb.*
-				from message ms, member mb
-				where ms.sender = mb.member_id(+)
-				and ms.chatroom_id = #{chatroom_id}
-				and rownum <= 1 * 10
+			select *
+				from (select rownum as rn, tmp.* 
+						from (SELECT *
+								from message ms, member mb
+								where ms.sender = mb.member_id(+)
+								and ms.chatroom_id = 1
+								order by message_id desc) tmp
+						where rownum <= (#{cri.pageNum} * #{cri.amount}))
+			where rn > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
-	</select> -->
+	</select>
 	
 	<!-- 유저가 가진 채팅방 목록 -->
 	<select id="getChatroomByMemberId" resultType="org.forwork.domain.Chatroom">

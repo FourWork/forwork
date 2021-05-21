@@ -19,6 +19,25 @@ let chattingService = (function() {
 		})
 	}
 	
+	function getMessagesWithPaging(criteria, chatroomId, callback, error){
+		$.ajax({
+			type : 'post',
+			url : '/message/chatroom/' + chatroomId,
+			data : JSON.stringify(criteria),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+	
 	function getChatroomName(chatroomId, callback, error) {
 		$.ajax({
 			type : 'get',
@@ -182,9 +201,12 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	
 
 	return {
 		getMessages : getMessages,
+		getMessagesWithPaging : getMessagesWithPaging,
 		getChatroomName : getChatroomName,
 		insertMessage : insertMessage,
 		getChatrooms : getChatrooms,

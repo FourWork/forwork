@@ -7,12 +7,14 @@ import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
 import org.forwork.domain.Member;
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 
 public interface ChattingService {
 	List<ChatroomMemberRelation> findChatroomMemberRelations();
 	String createMessage(Message message);
 	List<MessageDto> findMessageByChatroomId(String chatroomId);
+	List<MessageDto> findMessageByChatroomIdWithPaging(MessageCriteria cri, String chatroomId);
 	List<Chatroom> findChatroomByMemberId(String memberId);
 	Member findMemberById(String memberId);
 	List<Message> findLastMessagePerChatroomByMemberId(String memberId);
