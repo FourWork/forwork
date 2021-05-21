@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -29,6 +31,9 @@
   		padding-left: 8px;
   		padding-right: 8px;
   		border-radius: 300px;
+  	}
+  	.add-chat {
+  		margin-left: 350px;
   	}
   </style>
 </head>   
@@ -76,7 +81,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-
+					<a href="/chatting/searchMember"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary" id="n-chatroom"></strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->

@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -130,22 +129,10 @@
   </head>
   <body>
   	<div id="chatroom-title-container">
-  		<span id="chatroom-title" data-chatroom-id="${chatroomId }" >${chatroomName }</span>
+  		<span id="chatroom-title" data-chatroom-id="${chatroomId }" ></span>
   	</div>
   	<div class="more"><a onclick="loadMore()">더 보기</a></div>
   	<div class="chatbox">
-		<c:forEach var="message" items="${messages}">
-			<div>
-				<c:if test="${message.sender.member_id == userId }">
-					<span class="bubble my-bubble">${message.message }</span>
-				</c:if>
-				<c:if test="${message.sender.member_id != userId }">
-					<div class="bubble friend-profile friend-name">${message.sender.name }</div>
-					<img class="bubble friend-profile" src="../Img/profile.png" width="38">
-					<span class="bubble friend-bubble">${message.message }</span>
-				</c:if>
-			</div>
-		</c:forEach>
 	</div>
 
 	<div class="filebox"> 
