@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
+Built-By: Gayoung
+=======
 Built-By: beom1
+>>>>>>> 6084b5bc6370deb16d872edd176af0e48a940ec9
 Build-Jdk: 1.8.0_45
 Created-By: Maven Integration for Eclipse
 
