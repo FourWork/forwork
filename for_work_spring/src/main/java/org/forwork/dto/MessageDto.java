@@ -13,4 +13,5 @@ public class MessageDto implements Serializable {
 	private String send_time;
 	private String chatroom_id;
 	private Member sender;	
+	private String file_path;
 }

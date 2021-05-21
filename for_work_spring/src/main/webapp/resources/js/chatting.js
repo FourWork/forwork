@@ -162,6 +162,26 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function saveFile(file, callback, error) {
+		$.ajax({
+			url: '/message/file/new',
+			processData : false,
+			contentType : false,
+			data : file,
+			type : 'POST',
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -173,6 +193,7 @@ let chattingService = (function() {
 		getLastMessages : getLastMessages,
 		getMembers : getMembers,
 		getUnreadCount : getUnreadCount,
+		saveFile : saveFile
 	};
 
 })();
