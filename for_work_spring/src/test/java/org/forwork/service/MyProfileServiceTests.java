@@ -29,19 +29,22 @@ public class MyProfileServiceTests {
 		log.info(service);
 	}
 	
-//	@Test
-//	public void testRegister(){
-//	Portfolio portfolio = new Portfolio();
-//	PortfolioLanguage pfLang = new PortfolioLanguage();
-//	portfolio.setMember_id("1");
-//	portfolio.setPortfolio_title("서비스 테스트_register_Portfolio 210512");
-//	portfolio.setPortfolio_detail("서비스 테스트_register_Detail 210512");
-//	
-//	pfLang.setPortfolio_language("서비스 테스트_register_language 210512");
-//	
-//	service.register(portfolio, pfLang);
-//	
-//	}
+	@Test
+	public void testRegister(){
+	Portfolio portfolio = new Portfolio();
+	PortfolioLanguage pfLang = new PortfolioLanguage();
+	portfolio.setMember_id("1");
+	portfolio.setPortfolio_title("서비스 테스트_register_Portfolio 210512");
+	portfolio.setPortfolio_detail("서비스 테스트_register_Detail 210512");
+	
+	List<PortfolioLanguage> list = new ArrayList<PortfolioLanguage>();
+	
+	pfLang.setPortfolio_language("서비스 테스트_register_language 210512");
+	list.add(pfLang);
+	
+	service.register(portfolio, list);
+	
+	}
 	
 //	@Test
 //	public void testUpdate(){

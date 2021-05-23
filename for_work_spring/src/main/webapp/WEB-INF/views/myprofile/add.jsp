@@ -27,7 +27,7 @@
                   <h3 class="mb-0">포트폴리오 추가하기</h3>
                 </div>
                 <div class="col-4 text-right">
-                   <input id="PortfolioSubmit" class="btn btn-primary" type="submit" value="제출하기">
+                   <button id="PortfolioSubmit" class="btn btn-primary" type="button" value="제출하기">제출하기</button>
                 </div>
               </div>
             </div>
@@ -154,36 +154,50 @@ $(document).ready(function(){
 	console.log("===================");
 	console.log("JS TEST");
 	
-	var m_id = '<c:out value ="${member_id}"/>';
+	var m_id ='<c:out value ="${member_id}"/>';
 	console.log("m_id" + m_id);
-	var formInputTitle= $("input[name='portfolio_title']").val();
-	console.log("제목!!"+ formInputTitle);
-	var formInputDetail=$("textarea[name='portfolio_detail']").val();
-	var formInputStartDate=$("input[name='portfolio_start_date']").val();
-	var formInputEndDate=$("input[name='portfolio_end_date']").val();
 	
-	$("#PortfolioSubmit").click(function(){
+	
+	function list() {
+		window.location.href = "main?member_id="+m_id;
+	}
+	
+	$("#PortfolioSubmit").on("click",(function(e){
+		e.preventDefault();
 		var langArray = [];
-		
+		var formInputTitle= $("input[name='portfolio_title']").val();
+		console.log("제목!!"+ formInputTitle);
+		var formInputDetail=$("textarea[name='portfolio_detail']").val();
+		var formInputStartDate=$("input[name='portfolio_start_date']").val();
+		var formInputEndDate=$("input[name='portfolio_end_date']").val();
+
+		function PortfolioLanguage(portfolio_language){
+	         this.portfolio_language = portfolio_language;
+	      }
+	      var pfLang = new PortfolioLanguage();
 		$('input[name="portfolio_language"]:checked').each(function(i){
-			langArray.push($(this).val());
+			/* pfLang.portfolio_language($(this)); */
+			pfLang['portfolio_language'] = ($(this).val());
+			console.log($(this).val());
+			langArray.push(pfLang);
 		});
+		console.log(langArray);
 		//for portfolioService add 
-		 portfolioService.add({
-			portfolio: { 
-		        "portfolio_title":formInputTitle,
-		        "portfolio_detail":formInputDetail,
-		        "portfolio_start_date":formInputStartDate,
-		        "portfolio_end_date":formInputEndDate,
-		        },
-		    pfLangList:langArray,
-		    member_id : m_id},
+		 portfolioService.add(
+				 {
+					    portfolio_title:formInputTitle,
+					    member_id:m_id,
+/* 					    portfolio_start_date:null,
+					    portfolio_end_date:null, */
+					    portfolio_detail:formInputDetail,
+					    portfolioLanguage:langArray
+					        },
 		 function(result){
 	    	 alert("RESULT: "+result);
 	     }
 		); 
 		
-	})
+	}));
 	
 
 	

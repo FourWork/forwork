@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +55,12 @@ public class MyProfileControllerTests {
 //				.andExpect(status().isOk()));
 //	}
 	
-	@Test
-	public void testGet() throws Exception{
-		log.info("--------------controllerTests---------------");
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
-				.andExpect(status().isOk()));
-	}
+//	@Test
+//	public void testGet() throws Exception{
+//		log.info("--------------controllerTests---------------");
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
+//				.andExpect(status().isOk()));
+//	}
 	
 //	@Test
 //	public void testDelete() throws Exception{
@@ -70,12 +71,34 @@ public class MyProfileControllerTests {
 //		log.info("----------controllerTests end---------------");
 //	}
 	
+//	@Test
+//	public void testLangChart() throws Exception{
+//		log.info("-------controllerTests---------");
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/chart"))
+//		.andExpect(status().isOk()));
+//		
+//	}
+	
 	@Test
-	public void testLangChart() throws Exception{
-		log.info("-------controllerTests---------");
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/chart"))
-		.andExpect(status().isOk()));
+	public void testIsnert() throws Exception{
+		Portfolio portfolio = new Portfolio();
+		portfolio.setMember_id("1");
+		portfolio.setPortfolio_title("제발 되는 포트폴리오");
+		portfolio.setPortfolio_detail("과연 될 것인지?");
+		List<PortfolioLanguage> list = new ArrayList<PortfolioLanguage>();
+		PortfolioLanguage pfLang = new PortfolioLanguage();
+		for(int i = 0 ; i<5; i++){
+			pfLang.setPortfolio_language("language"+i);
+			list.add(pfLang);
+		}
+		log.info(list);
+		portfolio.setPortfolioLanguage(list);
 		
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonInString = mapper.writeValueAsString(portfolio);
+		
+		log.info(jsonInString);
+
 	}
 	
 

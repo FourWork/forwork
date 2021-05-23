@@ -11,50 +11,24 @@
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script type="text/javascript" src="/resources/js/portfolio.js"></script>
+
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- JSON 값 받아와서 차트그리기 -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-    
-    var m_id = '<c:out value ="${member_id}"/>';
-	console.log("m_id" + m_id);
+    function showChart(){
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        
+        function drawChart(){
+	 	   	var data = new google.visualization.DataTable();
+	 	   	data.addColumn('string', 'Language');
+	 	   	data.addColumn('number', )
+        }
+    }
 
-
-	drawChart();
-	function drawChart(){
-		var str="";
-		
-		portfolioService.chart({
-			member_id : m_id
-		}, function(list){
-
-			console.log(list.length);
-			for(var i = 0, len = list.length||0;i<len;i++){
-				str+="['"+list[i].language+","+list[i].LANGUAGE_COUNT+"']";
-			}
-			console.log(str);
-			var data = new google.visualization.arrayToDataTable([
-				['Programming Language','Count'],str]);
-			var options = {'title': 'Portfolio_language'}; 
-			
-			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-	        chart.draw(data, options);
-			
-
-		});
-	}
-		$(document).ready(function(){
-			$(".alert-heading").click(function(){
-				var submenu = $(".alert-heading-content");
-				if( submenu.is(":visible")){
-				submenu.slideUp();
-				}else{
-				submenu.slideDown();
-				}
-			});
-		});
 	</script>
 </head>
 <body>
