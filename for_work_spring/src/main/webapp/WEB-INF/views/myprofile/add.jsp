@@ -176,12 +176,15 @@ $(document).ready(function(){
 	      }
 	      var pfLang = new PortfolioLanguage();
 		$('input[name="portfolio_language"]:checked').each(function(i){
-			/* pfLang.portfolio_language($(this)); */
+		    var pfLang = new PortfolioLanguage();
 			pfLang['portfolio_language'] = ($(this).val());
+			langArray.push(pfLang); 
 			console.log($(this).val());
-			langArray.push(pfLang);
+			console.log("들어갔니?"+pfLang['portfolio_language']);
 		});
+		
 		console.log(langArray);
+		
 		//for portfolioService add 
 		 portfolioService.add(
 				 {
