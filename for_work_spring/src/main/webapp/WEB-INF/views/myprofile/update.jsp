@@ -31,14 +31,15 @@
            </div>
          </div>
          <div class="portfolio">
-   
-             <h6 class="heading-small text-muted mb-4">Portfolio information</h6>
+             <h6 class="heading-small text-muted mb-4">포트폴리오 정보</h6>
+             
              <div class="pl-lg-4">
                <div class="row">
                  <div class="col-lg-6">
                    <div class="form-group">
                      <label class="form-control-label">포트폴리오 제목</label>
-                     <input type="text" name="portfolio_title" value="${portfolio.portfolio_title}">
+                     <input id="portfolio_title" type="text" name="portfolio_title" value="">
+                     <input type="hidden" id="member_id" value="">
                    </div>
                  </div>
 
@@ -49,10 +50,10 @@
                      <label class="form-control-label">포트폴리오 기간</label><br>
                      <label class="form-control-label">
                      	<div class="portfolio_date">시작 날짜</div></label>
-                     <input type="date" name="portfolio_start_date" value="${portfolio.portfolio_start_date}">
+                     <input id= "portfolio_start_date" type="date" name="portfolio_start_date" value="">
                       <label class="form-control-label">
                      	<div class="portfolio_date">종료 날짜</div></label>
-                     <input type="date" name="portfolio_end_date" value="${portfolio.portfolio_end_date}">
+                     <input id= "portfolio_end_date" type="date" name="portfolio_end_date" value="">
                    </div>
                  </div>
                </div>
@@ -64,7 +65,7 @@
 		<div class="col-lg-6">
                    <div class="form-group">
                      <label class="form-control-label">포트폴리오 요약</label>
-                     <textarea rows="4" class="form-control"  name="portfolio_detail" value="${portfolio.portfolio_detail}">
+                     <textarea id="portfolio_detail" rows="4" class="form-control"  name="portfolio_detail" value="">
                      </textarea>
                    </div>
                  </div>
@@ -151,45 +152,82 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 	console.log("======TEST========")
-		
-	/* var p_id = '<c:out value ="${portfolio_id}"/>';
-		console.log("p_id" + p_id); 
+	var langArray = [];
+
 	
-		portfolioService.delete(
-				{
-		portfolio_id : p_id
-		} , function(count){
-			console.log("count"+count);
-			if(count === "success"){
-				alert("삭제완료");
+	var p_id = '<c:out value ="${portfolio_id}"/>';
+	
+	var langArray=[];
+		portfolioService.get({
+			portfolio_id: p_id,
+		}, function(portfolio){
+			
+			document.getElementById("portfolio_title").value=portfolio.portfolio_title;
+			document.getElementById("portfolio_detail").value=portfolio.portfolio_detail;
+			document.getElementById("portfolio_start_date").value=portfolioService.displayTime(portfolio.portfolio_start_date);
+			document.getElementById("portfolio_end_date").value=portfolioService.displayTime(portfolio.portfolio_end_date);
+			document.getElementById("member_id").value=portfolio.member_id;
+			var list=portfolio.portfolioLanguage;
+			console.log(list);
+			for(var i = 0 ; i< list.length; i++){
+				langArray.push(list[i].portfolio_language);
+				console.log(list[i].portfolio_language)
 			}
-		}, function(err){
-			alert("error");
-		});  */
+			
+			console.log(langArray);
+			
+			 for (var lang  in langArray) {
+
+                 $("input[name=portfolio_language][value="+langArray[lang]+"]").prop("checked",true);
+				 }    
+		})
 		
-		portfolioService.update({
-				portfolio_id: 76,
-				portfolio: { 
-			        "portfolio_title":"HaHa ControllerTest_Title",
-			        "portfolio_detail":"HaHa ControllerTest_Detail"
-			        },
-			    pfLangList:[
-			            {
-			                "portfolio_language":"HaHa language1"
-			             },
-			            {
-			                "portfolio_language":"HaHa language2"
-			             },
-			            {
-			                "portfolio_language":"HaHa language3"
-			             },
-			            {
-			                "portfolio_language":"HaHa language4"
-			            }
-			         ]   }
-				, function(result){
-			console.log("수정완료");
-		}); 
+/* add에서 가져온 코드 */
+
+	
+	$("#PortfolioSubmit").on("click",(function(e){
+		e.preventDefault();
+		var langArray = [];
+		var formInputTitle= $("input[name='portfolio_title']").val();
+		var formInputDetail=$("textarea[name='portfolio_detail']").val();
+		var formInputStartDate=$("input[name='portfolio_start_date']").val();
+		var formInputEndDate=$("input[name='portfolio_end_date']").val();
+		var m_id = document.getElementById("member_id").value;
+		
+		function main() {
+			window.location.href = "main?member_id="+m_id;
+		}
+		console.log("아이디");
+		console.log(m_id);
+		function PortfolioLanguage(portfolio_language){
+	         this.portfolio_language = portfolio_language;
+	      }
+	      var pfLang = new PortfolioLanguage();
+		$('input[name="portfolio_language"]:checked').each(function(i){
+		    var pfLang = new PortfolioLanguage();
+			pfLang['portfolio_language'] = ($(this).val());
+			langArray.push(pfLang); 
+		});
+		
+		console.log(langArray);
+		
+		//for portfolioService update
+		 portfolioService.update(
+				 {
+						portfolio_id:p_id,   
+						portfolio_title:formInputTitle,
+					    member_id:m_id,
+			   			portfolio_start_date:formInputStartDate,
+					    portfolio_end_date:formInputEndDate, 
+					    portfolio_detail:formInputDetail,
+					    portfolioLanguage:langArray
+					        },
+		 function(result){
+	    	 alert("RESULT: "+result);
+	     }
+		); 
+		/* main(); */
+	}));
 		
 		
 	});

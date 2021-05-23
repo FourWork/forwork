@@ -22,6 +22,7 @@
 	
 	<!-- Popper JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- Portfolio.js -->
 	<script type="text/javascript" src="/resources/js/portfolio.js"></script>
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -77,7 +78,8 @@ padding-left:0px;
     "portfolio-detail"
     "portfolio_language_List";
 }
-.portfolio-term { grid-area: portfolio-term; }
+.portfolio-term { grid-area: portfolio-term; 
+position: relative;}
 .portfolio-detail { grid-area: portfolio-detail; }
 .portfolio_language_List { grid-area: portfolio_language_List; }
 
@@ -103,6 +105,19 @@ padding:3px;
 .profile_photo { grid-area: profile_photo; }
 .profile_info { grid-area: profile_info; }
 .profile_chart { grid-area: profile_chart; }
+
+
+#icon_edit{
+position: absolute;
+right: 3px;
+top: 3px;
+}
+
+#icon_delete{
+position: absolute;
+right: 28px;
+top: 3px;
+}
 
 </style>
 
@@ -188,15 +203,21 @@ padding:3px;
 		<!-- 차트 들어갈 곳.. -->
 		<div id="piechart" style="width: 500px; height: 400px;"></div>
 	</div>
+	
+
 
 <script type="text/javascript">
+
+
 
 $(document).ready(function(){
 	var profileInfoDIV = $(".profile_info");
 	var m_id = '<c:out value ="${member_id}"/>';
-	
+	console.log("@ShowInfo"+portfolioService);
+	showInfo(); 
 	
 	function showInfo(){
+		
 		portfolioService.getInfo({
 			member_id : m_id
 		}, function(member){
@@ -207,12 +228,11 @@ $(document).ready(function(){
 		});
 	 } 
 	
-	showInfo(); 	
 });	
 	
 	
 $(document).ready(function(){
-	console.log(portfolioService);
+	console.log("@showPfList"+portfolioService);
 	
 	var m_id = '<c:out value ="${member_id}"/>';
 	console.log("m_id" + m_id);
@@ -230,9 +250,26 @@ $(document).ready(function(){
 		self.location="add?member_id="+m_id;
 	})
 	
-	showPfList();	
+		$(document).on("click", "li", function(e){
+		var p_id = $(this).data("portfolio_id");
+		/* alert(p_id); */
+		var editBtn = $("#icon_edit");
+		var delteBtn = $("#icon_delete");
+		editBtn.on("click",function(e){
+			self.location="update?portfolio_id="+p_id;	
+		});
+	/* 	deleteBtn.on("click",function(){
+			self.location=""
+		}) */
+
+		})
+	
 	
 
+	
+
+	
+	showPfList();	
 	
 	function showPfList(){
 		//배열선언
@@ -245,7 +282,7 @@ $(document).ready(function(){
 				
 				for(var i = 0, len = list.length||0;i<len;i++){
 					/* console.log("list"+list[i].portfolio_title); */
-					str +="<li class= 'left clearfix' portfolio_id="+list[i].portfolio_id+"'>";
+					str +="<li class= 'left clearfix' data-portfolio_id="+list[i].portfolio_id+">";
 					str +="	<div class='card-header' id='heading"+i+"'>";
 					str +="	  <h5 class='mb-0'>";
 					if(i == 0){
@@ -265,7 +302,19 @@ $(document).ready(function(){
 					str +="	<div class='card-body'>";
 					str +="		<div class='grid-container2'>";
 					str +="			<div class='portfolio-term'>";
-					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date)+"</div>";
+					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date);
+					
+					str +="<a><div id='icon_delete'>";
+					str +="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>";
+					str +="<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>";
+					str +="<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>";	
+					str +="</svg>"+"</div></a>";
+					
+					str +="<a><div id='icon_edit'>";
+					str += "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>";
+					str +="<path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>";
+					str +="<path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/>";
+					str +="</svg>"+"</div></a></div>";
 					str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
 					
 					/* console.log(list[i].portfolio_id); */
@@ -285,6 +334,8 @@ $(document).ready(function(){
 		});
 		
 	}//end showPfList
+	
+
 });
 
 

@@ -79,27 +79,35 @@ public class MyProfileControllerTests {
 //		
 //	}
 	
+	
 	@Test
-	public void testIsnert() throws Exception{
-		Portfolio portfolio = new Portfolio();
-		portfolio.setMember_id("1");
-		portfolio.setPortfolio_title("제발 되는 포트폴리오");
-		portfolio.setPortfolio_detail("과연 될 것인지?");
-		List<PortfolioLanguage> list = new ArrayList<PortfolioLanguage>();
-		PortfolioLanguage pfLang = new PortfolioLanguage();
-		for(int i = 0 ; i<5; i++){
-			pfLang.setPortfolio_language("language"+i);
-			list.add(pfLang);
-		}
-		log.info(list);
-		portfolio.setPortfolioLanguage(list);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonInString = mapper.writeValueAsString(portfolio);
-		
-		log.info(jsonInString);
-
+	public void testGetInfo() throws Exception{
+		log.info("-------controllerTests---------");
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/info"))
+		.andExpect(status().isOk()));
 	}
+	
+//	@Test
+//	public void testInsert() throws Exception{
+//		Portfolio portfolio = new Portfolio();
+//		portfolio.setMember_id("1");
+//		portfolio.setPortfolio_title("제발 되는 포트폴리오");
+//		portfolio.setPortfolio_detail("과연 될 것인지?");
+//		List<PortfolioLanguage> list = new ArrayList<PortfolioLanguage>();
+//		PortfolioLanguage pfLang = new PortfolioLanguage();
+//		for(int i = 0 ; i<5; i++){
+//			pfLang.setPortfolio_language("language"+i);
+//			list.add(pfLang);
+//		}
+//		log.info(list);
+//		portfolio.setPortfolioLanguage(list);
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		String jsonInString = mapper.writeValueAsString(portfolio);
+//		
+//		log.info(jsonInString);
+//
+//	}
 	
 
 

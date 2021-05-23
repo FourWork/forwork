@@ -89,6 +89,7 @@ var portfolioService=(function(){
 			}
 		});
 	}
+	
 	function getPfLangList(param,callback,error){
 		var portfolio_id = param.portfolio_id;
 		$.getJSON("/myprofile/"+portfolio_id+"/language.json",
@@ -116,6 +117,7 @@ var portfolioService=(function(){
 			}
 		});
 	}
+	
 	function displayTime(timeValue){
 		
 		var dateObj = new Date(timeValue);
@@ -124,7 +126,7 @@ var portfolioService=(function(){
 		var mm = dateObj.getMonth()+1;
 		var dd = dateObj.getDate();
 		
-		return[yy,'.',(mm > 9 ? '' : '0')+mm,'/',
+		return[yy,'-',(mm > 9 ? '' : '0')+mm,'-',
 			(dd>9 ?'' :'0')+dd].join('');
 	}
 	
@@ -148,6 +150,7 @@ var portfolioService=(function(){
 		remove: remove,
 		update: update,
 		get: get,
+		getInfo: getInfo,
 		displayTime: displayTime,
 		chart: chart,
 		getPfLangList:getPfLangList
