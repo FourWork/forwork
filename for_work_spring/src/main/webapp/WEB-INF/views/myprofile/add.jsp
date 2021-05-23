@@ -16,7 +16,6 @@
 </head>
 <body>
     
-						<!-- 수정영역 -->
 			<!-- <form action="insertPortfolioAction.do" method="post"> -->
 <input type="hidden" name="member_id" value="">
 	<div class="column_left" style="width:66.6%">
@@ -155,10 +154,9 @@ $(document).ready(function(){
 	console.log("JS TEST");
 	
 	var m_id ='<c:out value ="${member_id}"/>';
-	console.log("m_id" + m_id);
 	
 	
-	function list() {
+	function main() {
 		window.location.href = "main?member_id="+m_id;
 	}
 	
@@ -166,7 +164,6 @@ $(document).ready(function(){
 		e.preventDefault();
 		var langArray = [];
 		var formInputTitle= $("input[name='portfolio_title']").val();
-		console.log("제목!!"+ formInputTitle);
 		var formInputDetail=$("textarea[name='portfolio_detail']").val();
 		var formInputStartDate=$("input[name='portfolio_start_date']").val();
 		var formInputEndDate=$("input[name='portfolio_end_date']").val();
@@ -179,8 +176,6 @@ $(document).ready(function(){
 		    var pfLang = new PortfolioLanguage();
 			pfLang['portfolio_language'] = ($(this).val());
 			langArray.push(pfLang); 
-			console.log($(this).val());
-			console.log("들어갔니?"+pfLang['portfolio_language']);
 		});
 		
 		console.log(langArray);
@@ -190,8 +185,8 @@ $(document).ready(function(){
 				 {
 					    portfolio_title:formInputTitle,
 					    member_id:m_id,
-/* 					    portfolio_start_date:null,
-					    portfolio_end_date:null, */
+			    portfolio_start_date:formInputStartDate,
+					    portfolio_end_date:formInputEndDate, 
 					    portfolio_detail:formInputDetail,
 					    portfolioLanguage:langArray
 					        },
@@ -199,7 +194,7 @@ $(document).ready(function(){
 	    	 alert("RESULT: "+result);
 	     }
 		); 
-		
+		main();
 	}));
 	
 

@@ -105,6 +105,7 @@ padding:3px;
 .profile_chart { grid-area: profile_chart; }
 
 </style>
+
 </head>
 <body>
 <div class="grid-container">
@@ -216,16 +217,22 @@ $(document).ready(function(){
 	var m_id = '<c:out value ="${member_id}"/>';
 	console.log("m_id" + m_id);
 	
+	function add() {
+		window.location.href = "add?member_id="+m_id;
+	}
+
 	var p_id='';
 	
 
 	var portfolioUL = $(".portfolio-list");
 	
 	$("#addBtn").on("click",function(){
-		self.location="/myprofile/add"
+		self.location="add?member_id="+m_id;
 	})
 	
 	showPfList();	
+	
+
 	
 	function showPfList(){
 		//배열선언

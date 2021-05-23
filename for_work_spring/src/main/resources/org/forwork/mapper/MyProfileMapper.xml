@@ -9,7 +9,7 @@
 			(portfolio_id, member_id, portfolio_title, portfolio_start_date, portfolio_end_date,
 			portfolio_detail)
 			values
-			(portfolio_seq.nextval,#{member_id},#{portfolio_title},sysdate,sysdate,#{portfolio_detail})
+			(portfolio_seq.nextval,#{member_id},#{portfolio_title},#{portfolio_start_date},#{portfolio_end_date},#{portfolio_detail})
 	</insert>
 
 	<select id="read" resultType="org.forwork.domain.Portfolio">
