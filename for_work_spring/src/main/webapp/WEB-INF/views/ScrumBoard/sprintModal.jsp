@@ -32,7 +32,7 @@
 								<tr>
 
 									<td class="form-group"><input type="text" class="form-control"
-										id="sprintTitle" name="sprint_title" ></td>
+										id="sprintTitle" name="sprint_title" autocomplete="off"></td>
 									<td class="form-group"><input type="date" class="form-control"
 										id="sprintStartDate" name="sprint_start_date"></td>
 									<td class="form-group"><input type="date" class="form-control"

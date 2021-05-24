@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.forwork.service.PostService;
-import org.forwork.service.TodolistService;
+import org.forwork.service.board.PostService;
+import org.forwork.service.todolist.TodolistService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -26,9 +26,9 @@ public class MainPageController {
 		model.addAttribute("member_id", member_id);
 		model.addAttribute("project_id", project_id);
 		
-		model.addAttribute("notice", postService.getNotice(project_id)); // 공지 사항
-		model.addAttribute("doing", todolistService.doingList(member_id)); // 해야 할 일 목록
-		model.addAttribute("done", todolistService.doneList(member_id)); // 완료된 할 일 목록
+		model.addAttribute("notice", postService.getNotice(project_id)); // 怨듭� �궗�빆
+		model.addAttribute("doing", todolistService.doingList(member_id)); // �빐�빞 �븷 �씪 紐⑸줉
+		model.addAttribute("done", todolistService.doneList(member_id)); // �셿猷뚮맂 �븷 �씪 紐⑸줉
 		
 	}
 }

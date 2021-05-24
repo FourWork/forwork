@@ -149,7 +149,7 @@ let chattingService = (function() {
 	function getMembers(chatroomId, callback, error){
 		$.ajax({
 			type : 'get',
-			url : '/member/chatroom/' + chatroomId,
+			url : '/chattingMember/chatroom/' + chatroomId,
 			dataType : "json",
 			success : function(result, status, xhr) {
 				if (callback) {
@@ -207,7 +207,7 @@ let chattingService = (function() {
 	function getAllMembers(callback, error){
 		$.ajax({
 			type : 'get',
-			url : '/member/all',
+			url : '/chattingMember/all',
 			dataType : "json",
 			success : function(result, status, xhr) {
 				if (callback) {
