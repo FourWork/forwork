@@ -2,7 +2,6 @@ package org.forwork.controller.myprofile;
 
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.service.BoardService;
 import org.forwork.service.PortfolioService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
