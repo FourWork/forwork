@@ -49,5 +49,10 @@
 	<select id="getSprint" resultType="int">
 		select sprint_id from task_sprint_relation where task_id = #{task_id}
 	</select>
+	
+	
+	<select id="maxIndex" resultType="int">
+		select /*+ INDEX_DESC(task task_index)*/ task_index from task where rownum=1 and TASK_TYPE_ID = 1
+	</select>
 
 </mapper>

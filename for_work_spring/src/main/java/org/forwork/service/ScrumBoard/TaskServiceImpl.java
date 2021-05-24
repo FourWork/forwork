@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
+import org.forwork.mapper.SprintMapper;
 import org.forwork.mapper.TaskLogMapper;
 import org.forwork.mapper.TaskMapper;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class TaskServiceImpl implements TaskService {
 
 	private TaskMapper mapper;
 	private TaskLogMapper logMapper;
+	private SprintMapper sprintMapper;
 
 	@Override
 	@Transactional
@@ -28,7 +30,11 @@ public class TaskServiceImpl implements TaskService {
 		int project_id = Integer.parseInt(task.getProject_id());
 		String content = "create task by." + task.getWriter_name();
 		log.info("INSERT TASK.....!!!!" + task);
+		task.setTask_index((mapper.maxIndex()+1)+"");
+		
+		int sprint_id = sprintMapper.todaySprint(task.getProject_id());
 		mapper.insertTask(task);
+		sprintMapper.addTaskSprintRelation(task.getTask_id(), sprint_id+"");
 		return logMapper.insertLog(task.getTask_id(), content, project_id);
 	}
 

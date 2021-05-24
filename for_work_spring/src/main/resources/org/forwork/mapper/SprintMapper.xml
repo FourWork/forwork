@@ -27,4 +27,14 @@
 	where sprint_id = #{sprint_id}
 </update>
 
+<select id="todaySprint" resultType="int">
+	<![CDATA[
+	select sprint_id from sprint where SPRINT_START_DATE <= SYSDATE and SYSDATE <=SPRINT_END_DATE and project_id=#{project_id}
+	]]>
+</select>
+
+<insert id="addTaskSprintRelation">
+	insert into task_sprint_relation values(#{sprint_id},#{task_id})
+</insert>
+
 </mapper>

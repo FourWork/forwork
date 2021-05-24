@@ -143,19 +143,19 @@ $(document).ready(function(){
 				}
 				
 				if(list[i].task_type_id==2){
-					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
+					str2 += part1 + list[i].task_id + sprint_part +part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listTodoDiv.html(str2);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==3){
-					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
+					str3 += part1 + list[i].task_id + sprint_part+ part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listDoingDiv.html(str3);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==4){
-					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
+					str4 += part1 + list[i].task_id + sprint_part + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listDoneDiv.html(str4);
 					doneCount += 1;
 					count +=1;
@@ -223,11 +223,9 @@ $(document).ready(function(){
 		
 		var task = {
 				task_content :taskModalContent.val(),
-				task_index : 2,
-				writer : 1,
-				project_id : 1,
-				task_type_id :1,
-				writer_name : "test"
+				writer : 1,	// writer id
+				writer_name : "test",
+				project_id : 1
 		};
 				
 		
