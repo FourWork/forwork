@@ -1,11 +1,10 @@
-package org.forwork.service;
+package org.forwork.service.myprofile;
 
 import java.util.List;
 import java.util.Map;
 
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.dto.MyProfileDto;
 import org.forwork.domain.Member;
 
 public interface MyProfileService {
