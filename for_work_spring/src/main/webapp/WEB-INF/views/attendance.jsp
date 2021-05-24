@@ -144,20 +144,21 @@ svg {
 		 	   		url:"/attendance/getWeek/"+ago,
 		 	   		method : "get",
 		 	   		success:function(week){
-		 	   			console.log(week);
 		 	   			for(var i = 0; i < week.length; i++){
-		  	   				if(week[i].week == data.getValue(i, 0)){
-		 	   					data.setValue(i, 1, week[i].workTime);
-		 	   				} 
+		 	   				for(var j = 0; j < 7; j++){
+		  	   					if(week[i].week == data.getValue(j, 0)){
+		 	   						data.setValue(i, 1, week[i].workTime);
+		 	   					} 
+		 	   				}
 		 	   			}
 		 				var options = {
-		 						title : '주간 근무 현황',
+		 						title : '주간 근무 현황 ',
 		 						colors :['blue']
 		 					};
-		 					var chart = new google.visualization.ColumnChart(document
-		 							.getElementById('chart_div'));
-		 					chart.draw(data, options);
-		 					setWeek(ago)
+		 				
+		 				var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+		 				chart.draw(data, options);
+		 				setWeek(ago);
 		 	   		}
 		 	   	})
 		 
