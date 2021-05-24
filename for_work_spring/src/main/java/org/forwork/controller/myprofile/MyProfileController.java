@@ -99,14 +99,12 @@ public class MyProfileController {
 	
 	
 	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
-			value="/{portfolio_id}",
+			value="/{portfolio_id}/update",
 			consumes="application/json",
 			produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify(@RequestBody Portfolio portfolio,
-										@PathVariable("member_id") String member_id,
 										@PathVariable("portfolio_id") String portfolio_id){
 		portfolio.setPortfolio_id(portfolio_id);
-		portfolio.setMember_id(member_id);
 		List<PortfolioLanguage> list = portfolio.getPortfolioLanguage();
 		List<PortfolioLanguage> list0 = new ArrayList<PortfolioLanguage>();
 		for(PortfolioLanguage pfLang: list){
@@ -118,7 +116,7 @@ public class MyProfileController {
 		log.info("modify:"+portfolio_id);
 		
 		
-		return service.update(portfolio,portfolio.getPortfolioLanguage()) ==1
+		return service.update(portfolio,list0) ==1
 				? new ResponseEntity<>("success",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

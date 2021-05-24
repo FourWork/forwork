@@ -26,8 +26,8 @@
 	<update id="update">
 		update portfolio
 			set portfolio_title = #{portfolio_title},
-			portfolio_start_date = sysdate,
-			portfolio_end_date = sysdate,
+			portfolio_start_date = #{portfolio_start_date},
+			portfolio_end_date = #{portfolio_end_date},
 			portfolio_detail = #{portfolio_detail}
 			where portfolio_id = #{portfolio_id}
 	</update>

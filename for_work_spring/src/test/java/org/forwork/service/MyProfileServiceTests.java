@@ -29,47 +29,47 @@ public class MyProfileServiceTests {
 		log.info(service);
 	}
 	
-	@Test
-	public void testRegister(){
-	Portfolio portfolio = new Portfolio();
-	PortfolioLanguage pfLang = new PortfolioLanguage();
-	portfolio.setMember_id("1");
-	portfolio.setPortfolio_title("서비스 테스트_register_Portfolio 210512");
-	portfolio.setPortfolio_detail("서비스 테스트_register_Detail 210512");
-	
-	List<PortfolioLanguage> list = new ArrayList<PortfolioLanguage>();
-	
-	pfLang.setPortfolio_language("서비스 테스트_register_language 210512");
-	list.add(pfLang);
-	
-	service.register(portfolio, list);
-	
-	}
-	
 //	@Test
-//	public void testUpdate(){
-//		Portfolio portfolio = new Portfolio();
-//		portfolio.setPortfolio_detail("서비스테스트_update_Detail 210512");
-//		portfolio.setPortfolio_title("서비스테스트_update_Portfolio 210512");
-//		portfolio.setPortfolio_id("184");
-//		log.info("----in testUpdate-----");
-//		log.info(portfolio);
-//		
-//		List<PortfolioLanguage> pfLangList = new ArrayList<PortfolioLanguage>();
-//		PortfolioLanguage pfLang = new PortfolioLanguage();
-//		String portfolio_id=portfolio.getPortfolio_id();
-//		pfLang.setPortfolio_id(portfolio_id);
-//
-//			pfLang.setPortfolio_language("서비스테스트_update_language1");
-//			pfLangList.add(pfLang);
-//			pfLang.setPortfolio_language("서비스테스트_update_language2");
-//			pfLangList.add(pfLang);
-//			pfLang.setPortfolio_language("서비스테스트_update_language3");
-//			pfLangList.add(pfLang);
-//
-//
-//		service.update(portfolio, pfLangList);
+//	public void testRegister(){
+//	Portfolio portfolio = new Portfolio();
+//	PortfolioLanguage pfLang = new PortfolioLanguage();
+//	portfolio.setMember_id("1");
+//	portfolio.setPortfolio_title("서비스 테스트_register_Portfolio 210512");
+//	portfolio.setPortfolio_detail("서비스 테스트_register_Detail 210512");
+//	
+//	List<PortfolioLanguage> list = new ArrayList<PortfolioLanguage>();
+//	
+//	pfLang.setPortfolio_language("서비스 테스트_register_language 210512");
+//	list.add(pfLang);
+//	
+//	service.register(portfolio, list);
+//	
 //	}
+	
+	@Test
+	public void testUpdate(){
+		Portfolio portfolio = new Portfolio();
+		portfolio.setPortfolio_detail("서비스테스트_update_Detail 210512");
+		portfolio.setPortfolio_title("서비스테스트_update_Portfolio 210512");
+		portfolio.setPortfolio_id("261");
+		log.info("----in testUpdate-----");
+		log.info(portfolio);
+		
+		List<PortfolioLanguage> pfLangList = new ArrayList<PortfolioLanguage>();
+		PortfolioLanguage pfLang = new PortfolioLanguage();
+		String portfolio_id=portfolio.getPortfolio_id();
+		pfLang.setPortfolio_id(portfolio_id);
+
+			pfLang.setPortfolio_language("서비스테스트_update_language1");
+			pfLangList.add(pfLang);
+			pfLang.setPortfolio_language("서비스테스트_update_language2");
+			pfLangList.add(pfLang);
+			pfLang.setPortfolio_language("서비스테스트_update_language3");
+			pfLangList.add(pfLang);
+
+
+		service.update(portfolio, pfLangList);
+	}
 	
 //	@Test
 //	public void testDelete(){

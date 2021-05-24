@@ -59,7 +59,7 @@ var portfolioService=(function(){
 		console.log("wrapper"+ wrapper.portfolio);
 		$.ajax({
 			type: 'put',
-			url: '/myprofile/'+wrapper.portfolio_id,
+			url: '/myprofile/'+wrapper.portfolio_id+'/update',
 			data: JSON.stringify(wrapper),
 			contentType: "application/json; charset=utf-8",
 			success : function(result, status, xhr){

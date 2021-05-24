@@ -26,7 +26,7 @@
              </div>
              <div class="col-4 text-right">
               <!--  <a class="btn btn-sm btn-primary">submit</a> -->
-                <input id="PortfolioSubmit" class="btn btn-primary" type="submit" value="Update">
+                <button id="PortfolioSubmit" class="btn btn-primary" type="button" value="Update">Update</button>
              </div>
            </div>
          </div>
@@ -189,6 +189,8 @@
 		e.preventDefault();
 		var langArray = [];
 		var formInputTitle= $("input[name='portfolio_title']").val();
+		console.log(formInputTitle);
+		console.log(formInputStartDate);
 		var formInputDetail=$("textarea[name='portfolio_detail']").val();
 		var formInputStartDate=$("input[name='portfolio_start_date']").val();
 		var formInputEndDate=$("input[name='portfolio_end_date']").val();
@@ -226,7 +228,7 @@
 	    	 alert("RESULT: "+result);
 	     }
 		); 
-		/* main(); */
+		 main();
 	}));
 		
 		
