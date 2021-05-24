@@ -1,6 +1,5 @@
 package org.forwork.service.member;
 
-import org.apache.catalina.mapper.Mapper;
 import org.forwork.domain.Auth;
 import org.forwork.domain.Member;
 import org.forwork.mapper.MemberMapper;

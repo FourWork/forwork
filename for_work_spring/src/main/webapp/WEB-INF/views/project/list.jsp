@@ -12,16 +12,21 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<h1>List Page!</h1>
-			<sec:authorize access="isAuthenticated()">
+	<%-- 
+		<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal.member" var="member"/>
  		</sec:authorize>
- 		
+
  		<sec:authorize access="isAnonymous()"> // 로그인안한 유저만 보이게 함
 		<a href="/member/login">로그인</a>
 	</sec:authorize>
 		<sec:authorize access="isAuthenticated()"> // 로그인한 유저만 보이게 함
 		<a href="/logout">로그아웃</a>
 	</sec:authorize>
+	
+	<h1>${member.name}</h1> --%>
+	
+	
+	
 	</body>
 </html>
