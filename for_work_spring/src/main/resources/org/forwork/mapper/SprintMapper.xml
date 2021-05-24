@@ -3,26 +3,26 @@
 <mapper namespace="org.forwork.mapper.SprintMapper">
 
 <insert id="insertSprint">
-	insert into sprint_ex(sprint_id, sprint_title, sprint_color, sprint_start_date, sprint_end_date) 
-	values(sprint_ex_seq.nextval, #{sprint_title}, #{sprint_color}, #{sprint_start_date}, #{sprint_end_date})
+	insert into sprint(sprint_id, sprint_title, sprint_color, sprint_start_date, sprint_end_date,project_id) 
+	values(sprint_seq.nextval, #{sprint_title}, #{sprint_color}, #{sprint_start_date}, #{sprint_end_date},#{project_id})
 </insert>
 
 <select id="listSprint" resultType="org.forwork.domain.Sprint">
 	select sprint_id, sprint_title, sprint_color, project_id, 
 	To_CHAR(sprint_start_date,'YYYY-MM-DD') as sprint_start_date, TO_CHAR(sprint_end_date,'YYYY-MM-DD') as sprint_end_date 
-	from sprint_ex order by sprint_start_date
+	from sprint order by sprint_start_date
 </select>
 
 <select id="getSprint" resultType="org.forwork.domain.Sprint">
-	select * from sprint_ex where sprint_id = #{sprint_id}
+	select * from sprint where sprint_id = #{sprint_id}
 </select>
 
 <delete id="deleteSprint">
-	delete from sprint_ex where sprint_id = #{sprint_id}
+	delete from sprint where sprint_id = #{sprint_id}
 </delete>
 
 <update id="updateSprint">
-	update sprint_ex set sprint_title = #{sprint_title}, sprint_color = #{sprint_color}, 
+	update sprint set sprint_title = #{sprint_title}, sprint_color = #{sprint_color}, 
 	sprint_start_date = #{sprint_start_date}, sprint_end_date = #{sprint_end_date} 
 	where sprint_id = #{sprint_id}
 </update>

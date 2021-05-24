@@ -25,4 +25,6 @@ public interface TaskService {
 	public TaskLog getLog(int task_id);
 	
 	public List<TaskLog> getLogs(int task_id);
+	
+	public int getSprintId(int task_id);
 }
