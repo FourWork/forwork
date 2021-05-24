@@ -10,6 +10,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/resources/js/portfolio.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,7 +30,8 @@
              </div>
              <div class="col-4 text-right">
               <!--  <a class="btn btn-sm btn-primary">submit</a> -->
-                <button id="PortfolioSubmit" class="btn btn-primary" type="button" value="Update">Update</button>
+                <button id="BackToMain" class="btn btn-primary" type="button">목록</button>
+                <button id="PortfolioSubmit" class="btn btn-primary" type="button" value="Update">제출하기</button>
              </div>
            </div>
          </div>
@@ -155,6 +160,8 @@
 	var langArray = [];
 
 	
+
+	
 	var p_id = '<c:out value ="${portfolio_id}"/>';
 	
 	var langArray=[];
@@ -184,6 +191,16 @@
 		
 /* add에서 가져온 코드 */
 
+	 $("#BackToMain").on("click", function(e){
+		var m_id = document.getElementById("member_id").value;
+		
+		function main() {
+			window.location.href = "main?member_id="+m_id;
+		}
+		e.preventDefault();
+
+		main();
+	}) 
 	
 	$("#PortfolioSubmit").on("click",(function(e){
 		e.preventDefault();

@@ -111,13 +111,16 @@ padding:3px;
 position: absolute;
 right: 3px;
 top: 3px;
+
 }
 
 #icon_delete{
 position: absolute;
-right: 28px;
+right: 50px;
 top: 3px;
+
 }
+
 
 </style>
 
@@ -204,7 +207,26 @@ top: 3px;
 		<div id="piechart" style="width: 500px; height: 400px;"></div>
 	</div>
 	
-
+<div id="deleteModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">포트폴리오 삭제</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <input type="hidden" id="portfolio_id" value="">
+      <div class="modal-body">
+        <p>정말 삭제하시겠습니까?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="realDeleteBtn" type="button" class="btn btn-danger">삭제</button>
+        <button id="backToList" type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -243,24 +265,36 @@ $(document).ready(function(){
 
 	var p_id='';
 	
-
+	var deleteBtn = $("#deleteBtn");
 	var portfolioUL = $(".portfolio-list");
 	
 	$("#addBtn").on("click",function(){
 		self.location="add?member_id="+m_id;
 	})
 	
-		$(document).on("click", "li", function(e){
+		$(document).on("mouseover", "li", function(e){
+		var modal = $(".modal");
 		var p_id = $(this).data("portfolio_id");
 		/* alert(p_id); */
 		var editBtn = $("#icon_edit");
 		var delteBtn = $("#icon_delete");
+		var realDeleteBtn = $("#realDeleteBtn");
 		editBtn.on("click",function(e){
 			self.location="update?portfolio_id="+p_id;	
 		});
-	/* 	deleteBtn.on("click",function(){
-			self.location=""
-		}) */
+		deleteBtn.on("mouseover",function(e){
+			document.getElementById("portfolio_id").value=p_id;
+			realDeleteBtn.on("click",function(){
+				var project_id=document.getElementById("portfolio_id").value;
+				portfolioService.remove({
+						portfolio_id:project_id
+					},function(result){
+						alert(result);
+						modal.modal("hide");
+						showList();
+					})
+				}) 
+		})
 
 		})
 	
@@ -304,17 +338,17 @@ $(document).ready(function(){
 					str +="			<div class='portfolio-term'>";
 					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date);
 					
-					str +="<a><div id='icon_delete'>";
+					str +="<a><button id='icon_delete'type='button' class='btn btn-outline-danger' data-toggle='modal' data-target='#deleteModal'>";
 					str +="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>";
 					str +="<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>";
 					str +="<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>";	
-					str +="</svg>"+"</div></a>";
+					str +="</svg>"+"</button></a>";
 					
-					str +="<a><div id='icon_edit'>";
+					str +="<a><button id='icon_edit'type='button' class='btn btn-outline-primary'>";
 					str += "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>";
 					str +="<path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>";
 					str +="<path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/>";
-					str +="</svg>"+"</div></a></div>";
+					str +="</svg>"+"</button></a></div>";
 					str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
 					
 					/* console.log(list[i].portfolio_id); */
