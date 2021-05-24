@@ -1,6 +1,7 @@
 package org.forwork.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,5 +14,5 @@ public class Portfolio {
 	private Date portfolio_start_date; 
 	private Date portfolio_end_date;
 	private String portfolio_detail;
-	
+	private List<PortfolioLanguage> portfolioLanguage;
 }

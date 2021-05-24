@@ -11,4 +11,5 @@ public class Message implements Serializable {
 	private String send_time;
 	private String chatroom_id;
 	private String sender;
+	private String file_path;
 }
