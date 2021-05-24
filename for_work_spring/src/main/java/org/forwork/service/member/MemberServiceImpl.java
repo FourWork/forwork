@@ -1,5 +1,7 @@
 package org.forwork.service.member;
 
+import org.apache.catalina.mapper.Mapper;
+import org.forwork.domain.Auth;
 import org.forwork.domain.Member;
 import org.forwork.mapper.MemberMapper;
 import org.forwork.mapper.SprintMapper;
@@ -17,15 +19,28 @@ import lombok.extern.log4j.Log4j;
 public class MemberServiceImpl implements MemberService {
 	private final MemberMapper mapper;
 	private final PasswordEncoder passwordEncoder;
-
+	
 	@Transactional
 	@Override
-	public int insertMember(Member member) {
+	public void insertMember(Member member) {
+		
 		log.info("회원가입 ");
 		member.setPw(passwordEncoder.encode(member.getPw()));
-		member.setAuth("ROLE_USER"); //회원가입시 자동으로 USER권한 줌 
-		return mapper.insertMember(member);
+        member.setAuth("ROLE_USER");
+        Auth auth = new Auth();
+        auth.setEmail(member.getEmail());
+        auth.setAuth(member.getAuth());
+
+        mapper.signUp(member);
+        mapper.insertAuth(auth);
+		
+		 
+		 
+	
+		
 	}
+	
+	
 	
 	
 }

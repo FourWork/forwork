@@ -25,6 +25,11 @@ public class MemberController {
 	public String login(){
 		return "login/login";//login폴더안 login.jsp로 이동
 	}
+	@GetMapping("/loginSuccess")
+	public String loginSuccess(){
+		
+		return "redirect:/project/list";
+	}
 	
 	@GetMapping("signUp")
 	public String signUpPage(){

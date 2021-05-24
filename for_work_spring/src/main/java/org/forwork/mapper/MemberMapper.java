@@ -1,10 +1,12 @@
 package org.forwork.mapper;
 
+import org.forwork.domain.Auth;
 import org.forwork.domain.Member;
 
 public interface MemberMapper {
-	int insertMember(Member member);
+	int signUp(Member member);
 	
-	/*public Member read(String member_id);*/
+	public Member read(String username);
 	
+	int insertAuth(Auth auth);
 }
