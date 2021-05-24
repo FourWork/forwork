@@ -1,11 +1,6 @@
 package org.forwork.service;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.forwork.domain.Message;
 import org.forwork.service.chatting.ChattingService;
-import org.forwork.service.chatting.GetSetService;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,14 +17,14 @@ public class ChattingServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private ChattingService service;
 	
-	@Setter(onMethod_ = @Autowired)
-	private GetSetService service2;
-	
-	@Test
-	public void testExists() {
-		log.info(service2);
-		assertNotNull(service2);
-	}
+//	@Setter(onMethod_ = @Autowired)
+//	private GetSetService service2;
+//	
+//	@Test
+//	public void testExists() {
+//		log.info(service2);
+//		assertNotNull(service2);
+//	}
 //	
 //	@Test
 //	public void testFindChatroomMemberRelations() {
@@ -60,9 +55,9 @@ public class ChattingServiceTests {
 //	public void testUpdateReadAll() {
 //		service.updateReadAll("1", "2");
 //	}
-	
-	@Test
-	public void testGetSetService() {
-		service2.test();
-	}
+//	
+//	@Test
+//	public void testGetSetService() {
+//		service2.test();
+//	}
 }
