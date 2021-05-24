@@ -25,8 +25,8 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public int insertTask(Task task) {
-		int project_id = 1;
-		String content = "create task by." + task.getWriter();
+		int project_id = Integer.parseInt(task.getProject_id());
+		String content = "create task by." + task.getWriter_name();
 		log.info("INSERT TASK.....!!!!" + task);
 		mapper.insertTask(task);
 		return logMapper.insertLog(task.getTask_id(), content, project_id);
@@ -34,7 +34,6 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> listTask() {
-		
 		log.info("GET TASK LIST.....!!!!" );
 		
 		return mapper.listTask();
@@ -56,7 +55,7 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional
 	public int updateTask(Task task) {
 		int project_id = 1;
-		// 내용 수정한 사용자의 이름
+		// member_name setting
 		String member_name = "tester";
 		Task beforeTask = mapper.detailTask(Integer.parseInt(task.getTask_id()));
 		String content = "change content Before : " + beforeTask.getTask_content()
@@ -123,12 +122,12 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional
 	public int addRes(int task_id, String member_id) {
 		log.info("add Res");
-		String name = "null"; // 담당자 이름 가져오기
+		String name = "null"; // member_name get
 		Task task = mapper.detailTask(task_id);
 		task.setResponsibility(member_id);
 		task.setName(name);
 		int project_id = 1;
-		String content = "담당자 변경 Before : " + task.getName() + " Now : "+name;
+		String content = "Add Responsibility Before : " + task.getName() + " Now : "+name;
 		logMapper.insertLog(task_id+"", content, project_id);
 		return mapper.addResponsibility(task);
 	}
@@ -145,6 +144,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<TaskLog> getLogs(int task_id) {
 		return logMapper.getLogList(task_id);
+	}
+
+	@Override
+	public int getSprintId(int task_id) {
+		return mapper.getSprint(task_id);
 	}
 
 }

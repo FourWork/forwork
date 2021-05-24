@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-@RequestMapping("/member/*")
+@RequestMapping("/chattingMember/*")
 @AllArgsConstructor
 @RestController
-public class MemberController {
+public class ChattingMemberController {
 	
 	private final ChattingService service;
 	
