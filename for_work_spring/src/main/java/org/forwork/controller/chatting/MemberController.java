@@ -3,6 +3,7 @@ package org.forwork.controller.chatting;
 import java.util.List;
 
 import org.forwork.domain.Chatroom;
+import org.forwork.domain.Member;
 import org.forwork.service.chatting.ChattingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,5 +27,12 @@ public class MemberController {
 	public ResponseEntity<List<String>> getChatrooms(@PathVariable String chatroomId) {
 		List<String> members = service.findMemberByChatroomId(chatroomId);
 		return new ResponseEntity<>(members, HttpStatus.OK);
+	}
+	
+	// TODO: 없앨 API	
+	@GetMapping(value = "/all",
+			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Member>> getMembers(){
+		return new ResponseEntity<List<Member>>(service.findAllMembers(), HttpStatus.OK);
 	}
 }

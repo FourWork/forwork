@@ -1,4 +1,4 @@
-package org.forwork.service;
+package org.forwork.service.board;
 
 import java.util.List;
 
@@ -19,42 +19,42 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public int register(Post post) {
-		log.info("새 게시글 등록..." + post);
+		log.info("?�� 게시�? ?���?..." + post);
 		
 		return mapper.insertPostSelectKey(post);
 	}
 
 	@Override
 	public Post get(Long post_id) {
-		log.info("게시글 상세 보기..." + post_id);
+		log.info("게시�? ?��?�� 보기..." + post_id);
 		
 		return mapper.getPost(post_id);
 	}
 	
 	@Override
 	public int addHitcount(Long post_id) {
-		log.info("게시글 조회 수");
+		log.info("게시�? 조회 ?��");
 		
 		return mapper.updateHitcount(post_id);
 	}
 
 	@Override
 	public int modify(Post post) {
-		log.info("게시글 수정..." + post);
+		log.info("게시�? ?��?��..." + post);
 		
 		return mapper.updatePost(post);
 	}
 
 	@Override
 	public int remove(Long post_id) {
-		log.info("게시글 삭제..." + post_id);
+		log.info("게시�? ?��?��..." + post_id);
 		
 		return mapper.deletePost(post_id);
 	}
 
 	@Override
 	public List<Post> getList(Long board_id) {
-		log.info("게시글 목록..." + board_id);
+		log.info("게시�? 목록..." + board_id);
 		
 		return mapper.listPost(board_id);
 	}
@@ -72,14 +72,14 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	public List<Post> getNotice(int project_id) {
-		log.info("프로젝트별 공지 사항 미리 보기...");
+		log.info("?��로젝?���? 공�? ?��?�� 미리 보기...");
 		
 		return mapper.listNotice(project_id);
 	}
 
 	@Override
 	public List<Post> getBoard(int project_id) {
-		log.info("프로젝트별 최신 글 목록...");
+		log.info("?��로젝?���? 최신 �? 목록...");
 		
 		return mapper.listBoard(project_id);
 	}

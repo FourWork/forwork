@@ -1,4 +1,4 @@
-package org.forwork.controller;
+package org.forwork.controller.board;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.forwork.domain.Board;
 import org.forwork.domain.Post;
-import org.forwork.service.BoardService;
-import org.forwork.service.PostService;
+import org.forwork.service.board.BoardService;
+import org.forwork.service.board.PostService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -35,7 +35,7 @@ public class BoardController {
 		log.info("Board: " + board);
 		
 		int insertCount = boardService.register(board);
-		log.info("ê²Œì‹œíŒ ì¶”ê°€: " + insertCount);
+		log.info("ê²Œì‹œ?Œ ì¶”ê?: " + insertCount);
 		
 		return insertCount == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
@@ -44,7 +44,7 @@ public class BoardController {
 	
 //	@GetMapping(value = "/list/{board_id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 //	public ResponseEntity<List<Post>> getList(@PathVariable("board_id") Long board_id) {
-//		log.info("ê²Œì‹œíŒë³„ ê²Œì‹œê¸€ ëª©ë¡");
+//		log.info("ê²Œì‹œ?Œë³? ê²Œì‹œê¸? ëª©ë¡");
 //		
 //		return new ResponseEntity<>(postService.getList(board_id), HttpStatus.OK);
 //	}
@@ -54,7 +54,7 @@ public class BoardController {
 	public ResponseEntity<String> modify(@RequestBody Board board, @PathVariable("board_id") Long board_id) {
 		board.setBoard_id(board_id);
 		log.info("board_id: " + board_id);
-		log.info("ê²Œì‹œíŒ ìˆ˜ì •: " + board);
+		log.info("ê²Œì‹œ?Œ ?ˆ˜? •: " + board);
 		
 		return boardService.modify(board) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
@@ -63,7 +63,7 @@ public class BoardController {
 	
 	@DeleteMapping(value = "/{board_id}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> remove(@PathVariable("board_id") Long board_id) {
-		log.info("ê²Œì‹œíŒ ì‚­ì œ: " + board_id);
+		log.info("ê²Œì‹œ?Œ ?‚­? œ: " + board_id);
 		
 		return boardService.remove(board_id) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)

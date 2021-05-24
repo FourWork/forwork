@@ -39,11 +39,9 @@
     "title-container title-container"
     "portfolio-container myprofile-title-container";
 }
-
 .portfolio-container { padding:10px;
 padding-right:20px;
 grid-area: portfolio-container; }
-
 .myprofile-title-container { grid-area: myprofile-title-container; display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1.2fr 0.6fr 1.2fr;
@@ -52,7 +50,6 @@ grid-area: portfolio-container; }
     "profile_photo"
     "profile_info"
     "profile_chart";}
-
 .title-container { grid-area: title-container; display: grid;
   grid-template-columns: 1.2fr 0.7fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -61,12 +58,10 @@ grid-area: portfolio-container; }
     ". ."
     ". ."
     "add-portfolio .";}
-
 ul{
 list-style:none;
 padding-left:0px;
 }
-
 .grid-container2 {
   display: grid;
   grid-template-columns: 1fr;
@@ -80,13 +75,10 @@ padding-left:0px;
 .portfolio-term { grid-area: portfolio-term; }
 .portfolio-detail { grid-area: portfolio-detail; }
 .portfolio_language_List { grid-area: portfolio_language_List; }
-
-
 .add-portfolio { grid-area: add-portfolio;
 padding:10px;
 padding-right:25px;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #303c6c;
@@ -95,11 +87,9 @@ padding-right:25px;
     position:relative;
 	top:55px;
 }
-
 .profile_photo { grid-area: profile_photo; }
 .profile_info { grid-area: profile_info; }
 .profile_chart { grid-area: profile_chart; }
-
 </style>
 </head>
 <body>
@@ -211,7 +201,6 @@ function showPfList(){
 	portfolioService.getList({
 		member_id : m_id
 		}, function(list){
-
 			console.log("list"+list);
 			var str="";
 			if(list == null || list.length ==0){
@@ -257,8 +246,6 @@ function showPfList(){
 	});
 	
 }//end showPfList
-
-
 	
 	
 });

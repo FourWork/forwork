@@ -19,6 +19,25 @@ let chattingService = (function() {
 		})
 	}
 	
+	function getMessagesWithPaging(criteria, chatroomId, callback, error){
+		$.ajax({
+			type : 'post',
+			url : '/message/chatroom/' + chatroomId,
+			data : JSON.stringify(criteria),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+	
 	function getChatroomName(chatroomId, callback, error) {
 		$.ajax({
 			type : 'get',
@@ -182,9 +201,64 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	
+	// TODO: 다른 js에서 가져오기
+	function getAllMembers(callback, error){
+		$.ajax({
+			type : 'get',
+			url : '/member/all',
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+	
+	function createChatroom(data, callback, error){
+		$.ajax({
+			type : 'post',
+			url : '/chatroom/new',
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				console.log(er);
+				console.log("error");
+			}
+		})
+	}
+	
+	function deleteChatroomMemberRelation(chatroomId, memberId, callback, error){
+		$.ajax({
+			type: 'delete',
+			url: '/chatroom/' + chatroomId + '/member/' + memberId,
+			success: function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				console.log(er);
+				console.log("error");
+			}
+		});
+	}
 
 	return {
 		getMessages : getMessages,
+		getMessagesWithPaging : getMessagesWithPaging,
 		getChatroomName : getChatroomName,
 		insertMessage : insertMessage,
 		getChatrooms : getChatrooms,
@@ -193,7 +267,10 @@ let chattingService = (function() {
 		getLastMessages : getLastMessages,
 		getMembers : getMembers,
 		getUnreadCount : getUnreadCount,
-		saveFile : saveFile
+		saveFile : saveFile,
+		getAllMembers : getAllMembers,
+		createChatroom : createChatroom,
+		deleteChatroomMemberRelation : deleteChatroomMemberRelation,
 	};
 
 })();
