@@ -28,7 +28,62 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- CSS -->
 <!-- 	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css"> -->
-	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+        
+        var m_id = '<c:out value ="${member_id}"/>';
+        
+        function drawChart(){
+        	var langCount= $.ajax({
+    			type:'get',
+    			url:'/myprofile/'+m_id+'/chart.json',
+    			dataType:"json",
+    			async:false
+    		}).responseText;
+        	
+        	console.log("춤");
+    		console.log(langCount); 
+    		console.log(m_id);
+    		
+    		// 문자열 langCount를 jsonarray로 parse
+    		var contact = JSON.parse(langCount);
+    		console.log(contact.length);
+        
+				
+			var str='';
+			var array=[['Programming Language','Count']];
+			
+		      
+			for(var i = 0 ; i<contact.length;i++){
+
+				var language= contact[i].language;
+				var Count= contact[i].LANGUAGE_COUNT;
+				var countNum=parseInt(Count);
+				var innerArr=[];
+				innerArr.push(language);
+				innerArr.push(countNum);
+				array.push(innerArr);
+				}
+
+			console.log(array);
+			var data = google.visualization.arrayToDataTable(array);
+			var options = {'title': 'Portfolio_language'}; 
+			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			chart.draw(data, options);
+        }
+        $(document).ready(function(){
+			$(".alert-heading").click(function(){
+				var submenu = $(".alert-heading-content");
+				if( submenu.is(":visible")){
+				submenu.slideUp();
+				}else{
+				submenu.slideDown();
+				}
+			});
+		});
+	</script>
 <style>
 	
 .grid-container {
@@ -279,12 +334,19 @@ $(document).ready(function(){
 		var editBtn = $("#icon_edit");
 		var delteBtn = $("#icon_delete");
 		var realDeleteBtn = $("#realDeleteBtn");
+		
 		editBtn.on("click",function(e){
 			self.location="update?portfolio_id="+p_id;	
 		});
-		deleteBtn.on("mouseover",function(e){
-			document.getElementById("portfolio_id").value=p_id;
-			realDeleteBtn.on("click",function(){
+		
+		deleteBtn.on("click",function(e){
+			console.log("project Id");
+			console.log(p_id);
+			document.getElementById("portfolio_id").value = p_id;
+			
+			$('#deleteModal').modal('show');
+			realDeleteBtn.on("click",function(e){
+				e.preventDefault();
 				var project_id=document.getElementById("portfolio_id").value;
 				portfolioService.remove({
 						portfolio_id:project_id
@@ -294,8 +356,7 @@ $(document).ready(function(){
 						showList();
 					})
 				}) 
-		})
-
+			});
 		})
 	
 	
@@ -338,7 +399,8 @@ $(document).ready(function(){
 					str +="			<div class='portfolio-term'>";
 					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date);
 					
-					str +="<a><button id='icon_delete'type='button' class='btn btn-outline-danger' data-toggle='modal' data-target='#deleteModal'>";
+/* 					str +="<a><button id='icon_delete' type='button' class='btn btn-outline-danger' data-toggle='modal' data-target='#deleteModal'>";
+ */					str +="<a><button id='icon_delete' type='button' class='btn btn-outline-danger'>";
 					str +="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>";
 					str +="<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>";
 					str +="<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>";	

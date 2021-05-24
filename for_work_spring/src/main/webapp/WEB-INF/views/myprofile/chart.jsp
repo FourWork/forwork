@@ -17,39 +17,59 @@
 	<!-- JSON 값 받아와서 차트그리기 -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-    $(document).ready(function(){
-    	showChart();
-    function showChart(){
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
         
         var m_id = '<c:out value ="${member_id}"/>';
         
         function drawChart(){
-		var langCount= $.ajax({
-			type:'get',
-			url:'/myprofile/'+m_id+'/chart.json',
-			dataType:"json",
-			async:false
-		}).data;
-		
-		var contact = JSON.parse(langCount);
-		
-		console.log("춤"+langCount);
-		console.log(m_id);
-		var data = new google.visualization.DataTable();
-		data.addColumn('string','Language');
-		data.addColumn('number','count');
-		
-		for(var i = 0 ; i<contact.length;i++){
-			console.log(contact[i].portfolio_language+"/"+contact[i].language_count);
-			data.addColumn([
-				[contact[i].portfolio_language,contact[i].language_count]
-			]);
-		}
+        	var langCount= $.ajax({
+    			type:'get',
+    			url:'/myprofile/'+m_id+'/chart.json',
+    			dataType:"json",
+    			async:false
+    		}).responseText;
+        	
+        	console.log("춤");
+    		console.log(langCount); 
+    		console.log(m_id);
+    		
+    		// 문자열 langCount를 jsonarray로 parse
+    		var contact = JSON.parse(langCount);
+    		console.log(contact.length);
+        
+				
+			var str='';
+			var array=[['Programming Language','Count']];
+			
+		      
+			for(var i = 0 ; i<contact.length;i++){
+
+				var language= contact[i].language;
+				var Count= contact[i].LANGUAGE_COUNT;
+				var countNum=parseInt(Count);
+				var innerArr=[];
+				innerArr.push(language);
+				innerArr.push(countNum);
+				array.push(innerArr);
+				}
+
+			console.log(array);
+			var data = google.visualization.arrayToDataTable(array);
+			var options = {'title': 'Portfolio_language'}; 
+			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			chart.draw(data, options);
         }
-    }
-    });
+        $(document).ready(function(){
+			$(".alert-heading").click(function(){
+				var submenu = $(".alert-heading-content");
+				if( submenu.is(":visible")){
+				submenu.slideUp();
+				}else{
+				submenu.slideDown();
+				}
+			});
+		});
 	</script>
 </head>
 <body>
