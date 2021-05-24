@@ -48,6 +48,7 @@ public class TaskController {
 		
 		log.info("TASK LIST.............!!!");
 		
+		
 		return new ResponseEntity<>(service.listTask(), HttpStatus.OK);
 	}
 	
@@ -111,6 +112,11 @@ public class TaskController {
 		return new ResponseEntity<List<TaskLog>>(list,HttpStatus.OK);
 	}
 	
+	
+	@GetMapping(value="/get/sprint/{task_id}", produces=MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> getSprintID(@PathVariable("task_id")int task_id){
+		return new ResponseEntity<String>(service.getSprintId(task_id)+"",HttpStatus.OK);
+	}
 	
 	
 	
