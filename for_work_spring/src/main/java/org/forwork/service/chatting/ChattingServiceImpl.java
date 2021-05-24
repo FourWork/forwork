@@ -1,5 +1,6 @@
 package org.forwork.service.chatting;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.forwork.domain.ChatroomMemberRelation;
 import org.forwork.domain.Member;
 import org.forwork.domain.MemberMessageRelation;
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 import org.forwork.mapper.ChattingMapper;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,6 @@ public class ChattingServiceImpl implements ChattingService {
 	public String createMessage(Message message) {
 		// TODO Auto-generated method stub
 		System.out.println(message.getFile_path());
-		System.out.println("sdfdsddddddddddd");
 		if (message.getFile_path() == null) {
 			message.setFile_path("");
 		}
@@ -111,5 +112,44 @@ public class ChattingServiceImpl implements ChattingService {
 	public List<Map<String, String>> findUnreadCountPerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub
 		return mapper.countUnreadPerChatroomByMemberId(memberId);
+	}
+
+	@Override
+	public List<MessageDto> findMessageByChatroomIdWithPaging(MessageCriteria cri, String chatroomId) {
+		// TODO Auto-generated method stub
+		List<MessageDto> messages = mapper.getMessageByChatroomIdWithPaging(cri, chatroomId);
+		Collections.reverse(messages);
+		return messages;
+	}
+
+	@Override
+	public List<Member> findAllMembers() {
+		// TODO Auto-generated method stub
+		return mapper.getAllMembers();
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public void createChatroom(String chatroomTitle, List<String> memberIds) {
+		// TODO Auto-generated method stub
+		Chatroom chatroom = new Chatroom();
+		chatroom.setChatroom_name(chatroomTitle);
+		mapper.createChatroom(chatroom);
+		ChatroomMemberRelation relation = new ChatroomMemberRelation();
+		relation.setChatroom_id(chatroom.getChatroom_id());
+		memberIds.forEach(id -> {
+			relation.setMember_id(id);
+			mapper.insertChatroomMemberRelation(relation);
+		});
+		return;
+	}
+
+	@Override
+	public void deleteChatroomMemberRelation(String chatroomId, String memberId) {
+		// TODO Auto-generated method stub
+		ChatroomMemberRelation relation = new ChatroomMemberRelation();
+		relation.setChatroom_id(chatroomId);
+		relation.setMember_id(memberId);
+		mapper.deleteChatroomMemberRelation(relation);
 	}
 }

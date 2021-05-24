@@ -1,15 +1,12 @@
-package org.forwork.controller;
+package org.forwork.controller.todolist;
 
-import java.util.List;
 
 import org.forwork.domain.Todolist;
-import org.forwork.service.BoardService;
-import org.forwork.service.TodolistService;
+import org.forwork.service.todolist.TodolistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

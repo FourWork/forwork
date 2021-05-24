@@ -131,6 +131,27 @@ table {
 	background-color: #6c757d;
 }
 
+.searchBtn {
+	position: relative;
+	top: -5px;
+	left: 5px;
+}
+
+.searchBtn:HOVER {
+	background-color: white;
+	font-weight: bold;
+}
+
+.commentCnt {
+	display: inline-block;
+	margin-left: 20px;
+	border: 1px solid #EAEAEA;
+	min-width: 25px;
+	height: 22px;
+	text-align: center;
+	border-radius: 8px;
+}
+
 </style>
 <title>4WORK | ${board.board_name}</title>
 </head>
@@ -173,7 +194,7 @@ table {
 								<c:forEach var="list" items="${list}">
 									<tr>
 										<td>${list.post_id}</td>
-										<td><a href="${list.post_id}" class="postBtn">${list.post_title}</a></td>
+										<td><a href="${list.post_id}" class="postBtn">${list.post_title}</a><div class="commentCnt">${list.commentCnt}</div></td>
 										 <td>${list.post_writer}</td>
 										<td><fmt:parseDate var="dt" value="${list.post_date}"
 												pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
@@ -202,7 +223,7 @@ table {
 								<input type="hidden" name="project_id" value="${board.project_id}">
 								<input type="hidden" name="board_id" value="${board.board_id}">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-								<button class="btn btn-default">검색</button>
+								<button class="btn btn-default searchBtn">검색</button>
 							</form>	
 						</div>
 						<!-- SearchArea end -->

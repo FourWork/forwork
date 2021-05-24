@@ -236,7 +236,7 @@ button {
 	
 	<script type="text/javascript">
 	
-		$(document).ready(function() {
+//		$(document).ready(function() {
 			
 			var project_id = '<c:out value="${project_id}"/>';
 			var modal = $(".modal");
@@ -250,6 +250,7 @@ button {
 				modal.find("input").val("일반 게시판");
 				modal.find("button[id = 'updateBtn']").hide();
 				modal.find("button[id = 'removeBtn']").hide();
+				saveBtn.show();
 				$(".modal").modal("show");
 				
 				$("#cancelBtn").on("click", function(e) {
@@ -284,6 +285,7 @@ button {
 				modal.find("input").val(pre);
 				modal.find("button[id = 'saveBtn']").hide();
 				modal.find("button[id = 'removeBtn']").hide();
+				updateBtn.show();
 				$(".modal").modal("show");
 				
 				$("#cancelBtn").on("click", function(e) {
@@ -317,6 +319,7 @@ button {
 				modal.find("input").hide();
 				modal.find("button[id = 'saveBtn']").hide();
 				modal.find("button[id = 'updateBtn']").hide();
+				removeBtn.show();
 				
 				modal.find(".modal-body").html('<p>게시판 내의 게시글이 모두 삭제됩니다.<br>정말 삭제하시겠습니까?</p>')
 				
@@ -340,7 +343,7 @@ button {
 			});
 			
 			
-		});
+//		});
 	
 	</script>
 </body>

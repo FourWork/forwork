@@ -93,23 +93,50 @@
 		</div> 
 		<!-- wrapper -->
 	<script src="main.js">
-	 $('.int').focusout(function () {
-	        var pwd1 = $("#password_1").val();
-	        var pwd2 = $("#password_2").val();
-	  
-	        if ( pwd1 != '' && pwd2 == '' ) {
-	            null;
-	        } else if (pwd1 != "" || pwd2 != "") {
-	            if (pwd1 == pwd2) {
-	                $("#alert-success").css('display', 'inline-block');
-	                $("#alert-danger").css('display', 'none');
-	            } else {
-	                alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
-	                $("#alert-success").css('display', 'none');
-	                $("#alert-danger").css('display', 'inline-block');
-	            }
-	        }
-	    });
+	function check() {
+		if(!document.user.userid.value){
+			alert("비밀번호를 입력하세요.")
+			return false;
+		}else if(document.user.userpw.value !== document.user.userpwck.value){
+			alert("비밀번호를 다시 입력하세요.")
+			return false;
+		}else if(!document.user.real_name.value){
+			alert("이름을 입력하세요.")
+			return false;
+		}else if(!document.user.userphone.value){
+			alert("번호를 입력하세요.")
+			return false;
+		}else if (!ischeckId){
+			alert("아이디 중복-확인을 하세요.")
+			return false;
+		}
+	}
+	var ischeckId = false;
+	var expId = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		$('#userid').blur(function(){
+			var id = $('#userid').val();
+
+			$.ajax({
+				url : '/member/idCheck?userid='+id,
+				type : 'get',
+				success : function (data){
+					console.log(data);
+					if (data == 1){
+						$("#check").text("사용중인 아이디입니다.");
+					}else if (data == 0){
+						if (!expId.test(id)){
+							$("#check").text("이메일 형식이 아닙니다.");
+						}else {
+							$("#check").text("사용가능한 아이디입니다.");
+							ischeckId = true;
+						}
+					}
+				}
+				,error:function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+
+			})
+		});
 	</script>
 	</body>
 </html>

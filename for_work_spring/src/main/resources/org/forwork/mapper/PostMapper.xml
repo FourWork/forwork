@@ -40,11 +40,11 @@
 	
 	<select id="listPostWithPaging" resultType="org.forwork.domain.Post">
 		<![CDATA[
-			select post_id, board_id, post_writer, post_title, post_date, hitcount
+			select post_id, board_id, post_writer, post_title, post_date, hitcount, commentCnt
 			from
 				(
 				select /*+INDEX_DESC(post post_id_pk)*/
-					rownum rn, post_id, board_id, post_writer, post_title, post_date, hitcount from post
+					rownum rn, post_id, board_id, post_writer, post_title, post_date, hitcount, commentCnt from post
 					where 
 		]]>
 		
@@ -107,6 +107,9 @@
 		delete from post where post_id = #{post_id}
 	</delete>
 	
+	<select id="updateCommentCnt">
+		update post set commentCnt = commentCnt + #{amount} where post_id = #{post_id}
+	</select>
 	
 	
 
