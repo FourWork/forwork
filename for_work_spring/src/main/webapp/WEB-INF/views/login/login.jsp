@@ -9,6 +9,7 @@
 
 </head>
 <body>
+	
 	<!-- header -->
 	<div id="header">
 		<img src="../../../resources/Img/forworklogo.JPG" id="logo">
@@ -24,7 +25,7 @@
 					<h3 class="join_title">
 						<label for="email">이메일<span class="optional"></span></label>
 					</h3>
-					<span class="box int_email"> <input type="text" id="email"
+					<span class="box int_email"> <input type="text" name="email" 
 						class="int" maxlength="100" placeholder="abcd1234@gmail.com">
 					</span> <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span>
 				</div>
@@ -34,7 +35,7 @@
 					<h3 class="join_title">
 						<label for="pswd1">비밀번호</label>
 					</h3>
-					<span class="box int_pass"> <input type="text" id="pswd1"
+					<span class="box int_pass"> <input type="text" name="pw" id="pswd1"
 						class="int" maxlength="20"> <span id="alertTxt">사용불가</span>
 						<img src="../../../resources/Img/pw.jpg" id="pswd1_img1"
 						class="pswdImg">
@@ -42,9 +43,9 @@
 				</div>
 
 				<!-- Login BTN-->
-				<div class="btn_area">
+				<div class="btn_area" >
 					<button type="submit" id="btnLogin" value="로그인"
-						formaction="login.do">
+						formaction="/login">
 						<span>로그인</span>
 					</button>
 				</div>
@@ -61,6 +62,8 @@
 			<!-- content-->
 		</form>
 	</div>
+	
+	
 
 	<!-- wrapper -->
 	<script src="main.js"></script>

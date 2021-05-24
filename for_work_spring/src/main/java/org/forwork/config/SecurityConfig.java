@@ -39,8 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.and() // 로그인  설정
 		.formLogin()
-		.loginPage("/member/login")
-		.defaultSuccessUrl("/project/list")//로그인 후 들어갈 페이지
+		.loginProcessingUrl("/login")
+		.usernameParameter("email")
+		.passwordParameter("pw")
+		.loginPage("/login")
+		.defaultSuccessUrl("/member/loginSuccess",true)//로그인 후 들어갈 페이지
 		.permitAll()
 		.and() // 로그아웃 설정
 		.logout()

@@ -3,7 +3,7 @@ package org.forwork.domain;
 import lombok.Data;
 
 @Data
-public class AuthVo {
-	private String member_id;
+public class Auth {
+	private String email;
 	private String auth;
 }

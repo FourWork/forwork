@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.forwork.mapper.PMPageMapper">
+
+<select id="getColumCount" resultType="org.forwork.domain.TeamProgress">
+select count(case when task_type_id=1 then 1 end) as storiesCount,
+count(case when task_type_id=2 then 1 end) as todoCount,
+count(case when task_type_id=3 then 1 end) as doingCount,
+count(case when task_type_id=4 then 1 end) as doneCount,
+count(*) as totalCount 
+from task_ex where project_id=#{project_id}
+</select>
+
+<select id="getPersonalCount" parameterType="int" resultType="org.forwork.domain.TeamProgress">
+select responsibility,name, project_id,
+count(case when task_type_id=1 then 1 end) as storiesCount,
+count(case when task_type_id=2 then 1 end) as todoCount,
+count(case when task_type_id=3 then 1 end) as doingCount,
+count(case when task_type_id=4 then 1 end) as doneCount, 
+count(*) as totalCount 
+from task_ex 
+where project_id=#{project_id}
+group by responsibility,name,project_id
+order by name
+</select>
+
+<select id="getPersonalTasks" parameterType="map" resultType="org.forwork.domain.TeamProgress">
+select responsibility, name, task_content, project_id 
+from task_ex where project_id = #{project_id} and responsibility = #{responsibility}
+</select>
+
+<select id="getProjects" resultType="org.forwork.domain.Project">
+select project_id, project_title, pm_id, project_status_id,
+To_CHAR(project_start_date,'YYYY-MM-DD') as project_start_date,
+TO_CHAR(project_end_date,'YYYY-MM-DD') as project_end_date 
+from project_ex order by project_id asc
+</select>
+
+
+</mapper>

@@ -32,6 +32,22 @@
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
 
+<!-- 구글차트-->
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!-- 차트 그리기 : teamProgress.js  -->
+<script type="text/javascript">
+var project_id =1;
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
+
+</script>
+
+<!-- 프로젝트 진행률 차트 그리는 js -->
+<script type="text/javascript" src="/resources/js/teamProgress.js"></script>
+
+
 <title>FOR WORK</title>
 <style type="text/css">
 .wrap {
@@ -254,7 +270,9 @@
 
 				<div class="col-sm-5 project">
 				
-					프로젝트 진행률
+					<div id="columns_chart">
+					
+					</div>
 				
 				</div>
 				<!-- project end -->
