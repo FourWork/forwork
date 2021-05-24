@@ -30,4 +30,5 @@ public interface PostMapper {
 	
 	public int deletePost(Long post_id);
 	
+	public void updateCommentCnt(@Param("post_id") Long post_id, @Param("amount") int amount);
 }

@@ -13,4 +13,5 @@ public class Post {
 	private int hitcount;
 	private String post_date;
 	private String post_file;
+	private int commentCnt;
 }
