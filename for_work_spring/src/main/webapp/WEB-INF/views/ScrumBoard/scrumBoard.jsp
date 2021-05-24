@@ -341,6 +341,154 @@ $(document).ready(function(){
 
 
 </script>
+
+<!-- Sprint처리 -->
+<script type="text/javascript">
+
+$(document).ready(function() {
+	
+	var sprintTb = $("#sprintList");
+	
+	showSprints();
+	
+	// sprint List 출력
+	function showSprints() {
+		
+		sprintService.listSprint(function(list){
+			
+			var str = "";
+			if(list==null || list.length==0){
+				sprintTb.html("");
+				
+				return;
+			}
+			for(var i=0, len=list.length||0; i<len;i++){
+				str += "<tr><td data-sprint_id='"+list[i].sprint_id+"'>"+list[i].sprint_title+"</td>";
+				str += "<td>"+list[i].sprint_start_date+"</td>";
+				str += "<td>"+list[i].sprint_end_date+"</td>";
+				str += "<td><button style='background-color: "+list[i].sprint_color+"' id='colorbutton' disabled></td></tr>";
+			}
+			
+			sprintTb.html(str);
+		});//end function
+	}// end showSprints
+	
+	// Sprint 모달 띄우기
+	var sprintModal = $("#sprintAdd");
+	
+	var sprintModalTitle = sprintModal.find("input[name='sprint_title']");
+	var sprintModalStartDate = sprintModal.find("input[name='sprint_start_date']");
+	var sprintModalEndDate = sprintModal.find("input[name='sprint_end_date']");
+	var sprintModalColor = sprintModal.find("input[name='sprint_color']");
+	
+	var sprintModalRegisterBtn = $("#sprintRegisterBtn");
+	var sprintModalUpdateBtn = $("#sprintUpdateBtn");
+	var sprintModalDeleteBtn = $("#sprintDeleteBtn");
+	
+	$("#sprintAddBtn").on("click", function(e){
+		
+		sprintModal.find("input").val("");
+		sprintModal.find("button[id !='sprintModalClose']").hide();
+		
+		sprintModalRegisterBtn.show();
+		
+		$("#sprintAdd").modal("show");
+	});
+	
+	// Sprint 추가 
+	sprintModalRegisterBtn.on("click", function(e) {
+		
+		var sprint ={
+				sprint_title : sprintModalTitle.val(),
+				sprint_start_date : sprintModalStartDate.val(),
+				sprint_end_date : sprintModalEndDate.val(),
+				sprint_color : sprintModalColor.val()
+		};
+	
+		sprintService.insertSprint(sprint, function(result) {
+			
+			alert("Sprint정보가 추가되었습니다.");
+			
+			sprintModal.find("input").val("");
+			sprintModal.modal("hide");
+			
+			showSprints();
+		});
+		
+	});
+	
+	// Sprint 수정&삭제
+	$("#sprintList").on("click","td",function(e){
+		
+		
+		var sprint_id = $(this).data("sprint_id");
+		
+		
+		sprintService.getSprint(sprint_id, function(sprint){
+			
+			sprintModalTitle.val(sprint.sprint_title);
+			
+			var startVal = String(sprint.sprint_start_date).substring(0,10);			
+			sprintModalStartDate.val(startVal);
+			
+			var endVal = String(sprint.sprint_end_date).substring(0,10);	
+			sprintModalEndDate.val(endVal);
+			
+			sprintModalColor.val(sprint.sprint_color);
+			sprintModal.data("sprint_id", sprint.sprint_id);
+			
+			sprintModal.find("button[id !='sprintModalClose']").hide();
+			sprintModalUpdateBtn.show();
+			sprintModalDeleteBtn.show();
+			
+			$("#sprintAdd").modal("show");
+			
+			
+		});
+	
+});
+	
+	//sprint 수정하기
+	sprintModalUpdateBtn.on("click", function(e){
+		
+		var startValue = String(sprintModalStartDate.val());
+		var endValue = String(sprintModalEndDate.val());
+		
+		var sprint = {
+				sprint_id : sprintModal.data("sprint_id"), 
+				sprint_title : sprintModalTitle.val(),	
+				sprint_start_date : sprintModalStartDate.val(),	
+				sprint_end_date : sprintModalEndDate.val(),	
+				sprint_color : sprintModalColor.val() 
+				};
+		
+		
+		
+		sprintService.updateSprint(sprint, function(result){
+			
+			alert("Sprint정보가 수정되었습니다.");
+			sprintModal.modal("hide");
+			showSprints();
+		});
+	});
+
+	
+	//sprint 삭제하기
+	sprintModalDeleteBtn.on("click", function(e){
+		
+		var sprint_id = sprintModal.data("sprint_id");
+		
+		sprintService.deleteSprint(sprint_id, function(result){
+			
+			alert("Sprint정보가 삭제되었습니다.");
+			sprintModal.modal("hide");
+			showSprints();
+		});
+	});
+	
+});
+
+</script>
 </head>
 <style>
 
@@ -398,6 +546,14 @@ $(document).ready(function(){
 
 .log-more{
 	padding-top: 0px;
+}
+
+#doneColumn .card{
+	background-color: lightgray;
+}
+
+div.container-fluid{
+	padding-left: 3px;
 }
 </style>
 <body>
