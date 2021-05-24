@@ -45,5 +45,9 @@
 	<update id="addResponsibility" parameterType="org.forwork.domain.Task">
 		update task set responsibility=#{responsibility}, name = #{name} where task_id = #{task_id}
 	</update>
+	
+	<select id="getSprint" resultType="int">
+		select sprint_id from task_sprint_relation where task_id = #{task_id}
+	</select>
 
 </mapper>

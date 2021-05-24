@@ -25,9 +25,9 @@ public class TaskMapperTests {
 //		
 //		Task task = new Task();
 //		
-//		task.setTask_content("·Î±×ÀÎ ±¸Çö");
+//		task.setTask_content("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 //		task.setTask_index("1");
-//		task.setWriter("ÀÌ°¡¿µ");
+//		task.setWriter("ï¿½Ì°ï¿½ï¿½ï¿½");
 //		
 //		mapper.insertTask(task);
 //	}
@@ -51,7 +51,7 @@ public class TaskMapperTests {
 //	public void testUpdateTask(){
 //		
 //		Task task = new Task();
-//		task.setTask_content("¼öÁ¤ÇßÀ½!!!");
+//		task.setTask_content("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!!");
 //		task.setTask_id("84");
 //		
 //		int count = mapper.updateTask(task);
@@ -77,13 +77,17 @@ public class TaskMapperTests {
 //	public void testIncrease(){
 //		mapper.increaseUpdate("1", "2");
 //	}
+//	@Test
+//	public void getUpdateTest(){
+//		Task task = mapper.detailTask(23);
+//		log.info(task);
+//		task.setTask_index("1");
+//		task.setTask_type_id("2");
+//		mapper.moveTask(task);
+//	}
 	@Test
-	public void getUpdateTest(){
-		Task task = mapper.detailTask(23);
-		log.info(task);
-		task.setTask_index("1");
-		task.setTask_type_id("2");
-		mapper.moveTask(task);
+	public void getSprintTest(){
+		log.info(mapper.getSprint(8));
 	}
 	
 }

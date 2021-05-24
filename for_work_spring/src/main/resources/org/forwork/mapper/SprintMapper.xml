@@ -3,8 +3,8 @@
 <mapper namespace="org.forwork.mapper.SprintMapper">
 
 <insert id="insertSprint">
-	insert into sprint(sprint_id, sprint_title, sprint_color, sprint_start_date, sprint_end_date) 
-	values(sprint_seq.nextval, #{sprint_title}, #{sprint_color}, #{sprint_start_date}, #{sprint_end_date})
+	insert into sprint(sprint_id, sprint_title, sprint_color, sprint_start_date, sprint_end_date,project_id) 
+	values(sprint_seq.nextval, #{sprint_title}, #{sprint_color}, #{sprint_start_date}, #{sprint_end_date},#{project_id})
 </insert>
 
 <select id="listSprint" resultType="org.forwork.domain.Sprint">

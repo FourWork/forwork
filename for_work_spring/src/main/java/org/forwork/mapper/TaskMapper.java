@@ -24,4 +24,6 @@ public interface TaskMapper {
 	public int moveTask(Task task);
 	
 	public int addResponsibility(Task task);
+	
+	public int getSprint(int task_id);
 }

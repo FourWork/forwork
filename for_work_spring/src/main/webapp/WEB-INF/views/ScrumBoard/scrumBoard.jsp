@@ -110,7 +110,6 @@ $(document).ready(function(){
 						dataType : "json",
 						async:false,
 						success:function(data){
-							console.log("data : " + data);
 							if(data.log_detail == null){								
 								str += "<div class='card-footer text-gray'>null<button class='btn btn-theme float-right log-more' type='button' id='toright'>+</button> </div> </div>";
 							}else{
@@ -122,8 +121,23 @@ $(document).ready(function(){
 				}();
 
 				list[i].name = list[i].name == null ? "":list[i].name;
+				
+				var sprint_part = "</p><p class='sprint_id'>" + function(){
+					var sprint_id;
+					$.ajax({
+						url : "/task/get/sprint/"+list[i].task_id,
+						async:false,
+						dataTyoe:"text",
+						success:function(data){
+							sprint_id = data;
+						}
+					});
+					return sprint_id;
+				}();
+				
+				
 				if(list[i].task_type_id==1){
-					str1 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;				
+					str1 += part1 + list[i].task_id +sprint_part +part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;				
 					listStoriesDiv.html(str1);
 					count += 1;
 				}
@@ -155,9 +169,29 @@ $(document).ready(function(){
 			+'style ="width:'+percent+'%; height:20px" aria-valuenow="'+percent+'" aria-valuemin="0" aria-valuemax="100">'
 			+percent+"%</div></div>"
 			$("#project-progress").html(progress);
-		}); // end function
 			
+			//sprint별 색상 변경
+			setColor();			
+			
+		}); // end function
 	}// end showList
+	
+	// sprint 색상 설정
+	function setColor(){
+		$(".sprint_id").each(function(i,e){
+			var $cardHead = $(this).closest(".card").find(".card-header");
+			var s_id = $(this).html();
+			$("#sprintList tr").each(function(){
+				if($(this).find("td").data("sprint_id") == s_id){
+					var color = $(this).find("button").css("backgroundColor");
+					$cardHead.css("backgroundColor",color);
+				}
+			});
+		});
+	}
+	
+	
+	
 	
 	// Task 추가 Modal 띄우기
 	var taskModal = $("#taskModal");
@@ -338,22 +372,14 @@ $(document).ready(function(){
 		window.open ('/task/logs/'+task_id,'','location=no, directories=no, resizable=no, status=no, toolbar=no,menubar=no, width=500, height=400, left=0, top=0, scrollbars=no');
 	});
 	
-});
-
-
-
-
-</script>
 
 <!-- Sprint처리 -->
-<script type="text/javascript">
 
-$(document).ready(function() {
 	
 	var sprintTb = $("#sprintList");
 	
 	showSprints();
-	
+
 	// sprint List 출력
 	function showSprints() {
 		
@@ -402,6 +428,7 @@ $(document).ready(function() {
 	sprintModalRegisterBtn.on("click", function(e) {
 		
 		var sprint ={
+				project_id : 1, // project id 얻어오기
 				sprint_title : sprintModalTitle.val(),
 				sprint_start_date : sprintModalStartDate.val(),
 				sprint_end_date : sprintModalEndDate.val(),
@@ -472,7 +499,9 @@ $(document).ready(function() {
 			alert("Sprint정보가 수정되었습니다.");
 			sprintModal.modal("hide");
 			showSprints();
+			showList();
 		});
+		
 	});
 
 	
@@ -517,6 +546,11 @@ $(document).ready(function() {
 }
 
 .task_id {
+	visibility: hidden;
+	margin: 0px;
+	height: 0px;
+}
+.sprint_id {
 	visibility: hidden;
 	margin: 0px;
 	height: 0px;

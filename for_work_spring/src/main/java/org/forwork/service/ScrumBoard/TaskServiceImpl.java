@@ -34,7 +34,6 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> listTask() {
-		
 		log.info("GET TASK LIST.....!!!!" );
 		
 		return mapper.listTask();
@@ -145,6 +144,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<TaskLog> getLogs(int task_id) {
 		return logMapper.getLogList(task_id);
+	}
+
+	@Override
+	public int getSprintId(int task_id) {
+		return mapper.getSprint(task_id);
 	}
 
 }
