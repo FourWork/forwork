@@ -12,10 +12,10 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	<%-- 
-		<sec:authorize access="isAuthenticated()">
+	 
+		<%-- <sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal.member" var="member"/>
- 		</sec:authorize>
+ 		</sec:authorize> --%>
 
  		<sec:authorize access="isAnonymous()"> // 로그인안한 유저만 보이게 함
 		<a href="/member/login">로그인</a>
@@ -24,7 +24,7 @@
 		<a href="/logout">로그아웃</a>
 	</sec:authorize>
 	
-	<h1>${member.name}</h1> --%>
+	<h1>${member.name}</h1>
 	
 	
 	
