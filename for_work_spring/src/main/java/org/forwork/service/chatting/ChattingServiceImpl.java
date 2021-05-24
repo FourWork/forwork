@@ -143,4 +143,13 @@ public class ChattingServiceImpl implements ChattingService {
 		});
 		return;
 	}
+
+	@Override
+	public void deleteChatroomMemberRelation(String chatroomId, String memberId) {
+		// TODO Auto-generated method stub
+		ChatroomMemberRelation relation = new ChatroomMemberRelation();
+		relation.setChatroom_id(chatroomId);
+		relation.setMember_id(memberId);
+		mapper.deleteChatroomMemberRelation(relation);
+	}
 }

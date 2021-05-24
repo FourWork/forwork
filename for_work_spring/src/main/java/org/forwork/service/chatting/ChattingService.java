@@ -25,4 +25,5 @@ public interface ChattingService {
 	List<Map<String, String>> findUnreadCountPerChatroomByMemberId(String memberId);
 	List<Member> findAllMembers();
 	void createChatroom(String chatroomTitle, List<String> memberIds);
+	void deleteChatroomMemberRelation(String chatroomId, String memberId);
 }

@@ -343,7 +343,13 @@
   	}
   	
   	function out(){
-		  
+		if(confirm("채팅방을 나가시겠습니까?")){
+			chattingService.deleteChatroomMemberRelation(chatroomId, sender, function(result){
+				console.log(result);
+				let url = "/chatting/tmpMain?userId=" + sender;
+				window.location.href = url;
+			})
+		}
   	}
 
   	

@@ -29,4 +29,5 @@ public interface ChattingMapper {
 	List<Member> getAllMembers();
 	int createChatroom(Chatroom chatroom);
 	int insertChatroomMemberRelation(ChatroomMemberRelation chatroomMember);
+	int deleteChatroomMemberRelation(ChatroomMemberRelation chatroomMember);
 }

@@ -144,6 +144,12 @@
 		values (#{chatroom_id}, #{member_id})
 	</insert>
 	
+	<delete id="deleteChatroomMemberRelation">
+		delete from chatroom_member_relation
+			where member_id = #{member_id}
+			and chatroom_id = #{chatroom_id}
+	</delete>
+	
 <!-- 	<delete id="">
 	
 	</delete> -->
