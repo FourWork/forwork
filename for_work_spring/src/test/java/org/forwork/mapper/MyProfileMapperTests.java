@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={ org.forwork.config.RootConfig.class})
+@ContextConfiguration(classes={ org.forwork.config.RootConfig.class, org.forwork.config.SecurityConfig.class})
 @Log4j
 public class MyProfileMapperTests {
 
@@ -26,10 +26,10 @@ public class MyProfileMapperTests {
 	@Setter(onMethod_= @Autowired)
 	private MyProfileMapper mapper;
 	
-	@Test
-	public void testMapper(){
-		log.info(mapper);
-	}
+//	@Test
+//	public void testMapper(){
+//		log.info(mapper);
+//	}
 	
 //	@Test
 //	public void testCreate(){
@@ -61,15 +61,15 @@ public class MyProfileMapperTests {
 //		
 //	}
 	
-//	@Test
-//	public void testDelete(){
-//		String targePID="49";
-//		mapper.delete(targePID);
-//	}
+	@Test
+	public void testDelete(){
+		String targePID="264";
+		mapper.delete(targePID);
+	}
 
 //	@Test
 //	public void testDeletePfLang(){
-//		String targePID="34";
+//		String targePID="264";
 //		mapper.deletePfLang(targePID);
 //	}
 	

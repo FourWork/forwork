@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Log4j
-@ContextConfiguration(classes={org.forwork.config.RootConfig.class})
+@ContextConfiguration(classes={ org.forwork.config.RootConfig.class, org.forwork.config.SecurityConfig.class})
 @WebAppConfiguration
 public class MyProfileServiceTests {
 
@@ -73,7 +73,7 @@ public class MyProfileServiceTests {
 //	@Test
 //	public void testDelete(){
 //		log.info("---------in testDelete---------");
-//		String portfolio_id ="181";
+//		String portfolio_id ="265";
 //		service.delete(portfolio_id);
 //	}
 	
