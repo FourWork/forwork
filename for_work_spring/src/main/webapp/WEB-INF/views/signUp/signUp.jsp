@@ -4,19 +4,19 @@
 <html>
 	<head>
 		<title>ForWork : 회원가입</title>
-		<link rel="stylesheet" href="/views/CSS/join.css">
+		<link rel="stylesheet" href="../../../resources/assets/css/signUp.css">
 		
 	</head>
 	<body>
 		<!-- header -->
 		<div id="header">
-			<img src="/Img/logo.png" id="logo">
+			<img src="../../../resources/Img/forworklogo.JPG" id="logo">
 		</div>
 
 
 		<!-- wrapper -->
 		<div id="wrapper">
-		<form method="post" action="insertAction.do">
+		<form method="post" action="/member/signUp">
 			<!-- content-->
 			<div id="content">
 			
@@ -38,7 +38,7 @@
 						placeholder="8자이상 특수문자포함"
 						pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$">
 						<span id="alertTxt">사용불가</span>
-						<img src="../Img/pw.jpg" id="pswd1_img1" class="pswdImg">
+						<img src="../../../resources/Img/pw.jpg" id="pswd1_img1" class="pswdImg">
 					</span>
 					<span class="error_next_box"></span>
 				</div>
@@ -48,7 +48,7 @@
 					<h3 class="join_title"><label for="pw">비밀번호 확인</label></h3>
 					<span class="box int_pass_check">
 						<input type="password" id="pswd2" name="pwck" class="int" maxlength="20">
-						<img src="../Img/pw.jpg" id="pswd2_img1" class="pswdImg">
+						<img src="../../../resources/Img/pw.jpg" id="pswd2_img1" class="pswdImg">
 					</span>
 					<span class="error_next_box"></span>
 					<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
