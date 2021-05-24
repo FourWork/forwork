@@ -1,4 +1,4 @@
-package org.forwork.service;
+package org.forwork.service.myprofile;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import org.forwork.domain.Member;
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.dto.MyProfileDto;
 import org.forwork.mapper.MyProfileMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
