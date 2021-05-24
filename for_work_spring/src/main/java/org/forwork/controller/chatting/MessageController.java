@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 import org.forwork.service.chatting.ChattingService;
 import org.springframework.core.io.FileSystemResource;
@@ -42,10 +43,18 @@ public class MessageController {
 
 	private final ChattingService service;
 	
-	@GetMapping(value = "/chatroom/{chatroomId}",
+//	@GetMapping(value = "/chatroom/{chatroomId}",
+//			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+//	public ResponseEntity<List<MessageDto>> read(@PathVariable String chatroomId) {
+//		return new ResponseEntity<>(service.findMessageByChatroomId(chatroomId), HttpStatus.OK);
+//	}
+	
+	@PostMapping(value = "/chatroom/{chatroomId}",
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<MessageDto>> read(@PathVariable String chatroomId) {
-		return new ResponseEntity<>(service.findMessageByChatroomId(chatroomId), HttpStatus.OK);
+	public ResponseEntity<List<MessageDto>> read(@RequestBody MessageCriteria cri, @PathVariable String chatroomId) {
+		System.out.println("sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf");
+		System.out.println(cri + " " + chatroomId);
+		return new ResponseEntity<>(service.findMessageByChatroomIdWithPaging(cri, chatroomId), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/new",
@@ -152,6 +161,5 @@ public class MessageController {
 		String str = sdf.format(date);
 		return str.replace("-", File.separator);
 	}
-
 
 }

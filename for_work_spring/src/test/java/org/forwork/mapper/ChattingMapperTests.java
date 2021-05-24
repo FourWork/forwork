@@ -1,6 +1,7 @@
 package org.forwork.mapper;
 
 import org.forwork.domain.Message;
+import org.forwork.dto.MessageCriteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,17 @@ public class ChattingMapperTests {
 //	public void testGetLastMessagePerChatroomByMemberId() {
 //		log.info(mapper.getLastMessagePerChatroomByMemberId("1"));
 //	}
+//	
+//	@Test
+//	public void testUnreadCount() {
+//		log.info(mapper.countUnreadPerChatroomByMemberId("1"));
+//	}
 	
 	@Test
-	public void testUnreadCount() {
-		log.info(mapper.countUnreadPerChatroomByMemberId("1"));
+	public void testGetMessagesWithPaging() {
+		MessageCriteria cri = new MessageCriteria();
+		cri.setAmount(10);
+		cri.setPageNum(3);
+		mapper.getMessageByChatroomIdWithPaging(cri, "1").forEach(msg -> log.info(msg));;
 	}
 }

@@ -31,4 +31,9 @@ public class ChattingPageController {
 		return "/chatting/tmpMain";
 	}
 	
+	@GetMapping("/searchMember")
+	public String search(@ModelAttribute("userId") String userId) {
+		return "/chatting/searchMember";
+	}
+	
 }

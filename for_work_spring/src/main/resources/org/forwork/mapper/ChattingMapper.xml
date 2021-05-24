@@ -40,16 +40,20 @@
 			order by m.send_time
 	</select>
 	
-	<!-- <select id="getMessageByChatroomIdWithPaging" resultMap="messageResult">
+	<!-- ISSUE: SQL Hint 적용 안됨 -->
+	<select id="getMessageByChatroomIdWithPaging" resultMap="messageResult">
 		<![CDATA[
-			select /*+INDEX_ASC(message message_id_pk)*/
-				rownum, ms.*, mb.*
-				from message ms, member mb
-				where ms.sender = mb.member_id(+)
-				and ms.chatroom_id = #{chatroom_id}
-				and rownum <= 1 * 10
+			select *
+				from (select rownum as rn, tmp.* 
+						from (SELECT *
+								from message ms, member mb
+								where ms.sender = mb.member_id(+)
+								and ms.chatroom_id = #{chatroom_id}
+								order by message_id desc) tmp
+						where rownum <= (#{cri.pageNum} * #{cri.amount}))
+			where rn > (#{cri.pageNum}-1) * #{cri.amount}
 		]]>
-	</select> -->
+	</select>
 	
 	<!-- 유저가 가진 채팅방 목록 -->
 	<select id="getChatroomByMemberId" resultType="org.forwork.domain.Chatroom">
@@ -122,5 +126,31 @@
 			group by m.chatroom_id
 	</select>
 	
+	<!-- 다른 곳에서 가져오기 -->
+	<select id="getAllMembers" resultType="org.forwork.domain.Member">
+		select * from member
+	</select>
 	
+	<insert id="createChatroom">
+	<selectKey keyProperty="chatroom_id" order="BEFORE" resultType="String">
+			select chatroom_id_seq.nextval from dual
+		</selectKey>
+		insert into chatroom (chatroom_id, chatroom_name)
+			values (#{chatroom_id}, #{chatroom_name})
+	</insert>
+	
+	<insert id="insertChatroomMemberRelation">
+		insert into chatroom_member_relation (chatroom_id, member_id)
+		values (#{chatroom_id}, #{member_id})
+	</insert>
+	
+	<delete id="deleteChatroomMemberRelation">
+		delete from chatroom_member_relation
+			where member_id = #{member_id}
+			and chatroom_id = #{chatroom_id}
+	</delete>
+	
+<!-- 	<delete id="">
+	
+	</delete> -->
 </mapper>
