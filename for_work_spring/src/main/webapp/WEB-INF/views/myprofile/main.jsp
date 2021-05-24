@@ -28,7 +28,62 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- CSS -->
 <!-- 	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css"> -->
-	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+        
+        var m_id = '<c:out value ="${member_id}"/>';
+        
+        function drawChart(){
+        	var langCount= $.ajax({
+    			type:'get',
+    			url:'/myprofile/'+m_id+'/chart.json',
+    			dataType:"json",
+    			async:false
+    		}).responseText;
+        	
+        	console.log("춤");
+    		console.log(langCount); 
+    		console.log(m_id);
+    		
+    		// 문자열 langCount를 jsonarray로 parse
+    		var contact = JSON.parse(langCount);
+    		console.log(contact.length);
+        
+				
+			var str='';
+			var array=[['Programming Language','Count']];
+			
+		      
+			for(var i = 0 ; i<contact.length;i++){
+
+				var language= contact[i].language;
+				var Count= contact[i].LANGUAGE_COUNT;
+				var countNum=parseInt(Count);
+				var innerArr=[];
+				innerArr.push(language);
+				innerArr.push(countNum);
+				array.push(innerArr);
+				}
+
+			console.log(array);
+			var data = google.visualization.arrayToDataTable(array);
+			var options = {'title': 'Portfolio_language'}; 
+			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			chart.draw(data, options);
+        }
+        $(document).ready(function(){
+			$(".alert-heading").click(function(){
+				var submenu = $(".alert-heading-content");
+				if( submenu.is(":visible")){
+				submenu.slideUp();
+				}else{
+				submenu.slideDown();
+				}
+			});
+		});
+	</script>
 <style>
 	
 .grid-container {
@@ -47,7 +102,7 @@ grid-area: portfolio-container; }
 
 .myprofile-title-container { grid-area: myprofile-title-container; display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1.2fr 0.6fr 1.2fr;
+  grid-template-rows: 100px 80px 400px;
   gap: 0px 0px;
   grid-template-areas:
     "profile_photo"
@@ -119,6 +174,9 @@ position: absolute;
 right: 50px;
 top: 3px;
 
+}
+.member_name{
+text-align: center;
 }
 
 
@@ -194,7 +252,12 @@ top: 3px;
   <div class="myprofile-title-container">
 	  <div class="profile_photo"></div>
 	  <div class="profile_info"></div>
-	  <div class="profile_chart"></div>
+	  <div class="profile_chart">
+		  <div class="card-body">
+			<!-- 차트 들어갈 곳.. -->
+			<div id="piechart" style="width: 500px; height: 400px;"></div>
+		</div>
+	</div>
   </div>
   <div class="title-container">
 		<div class="add-portfolio">
@@ -202,10 +265,7 @@ top: 3px;
 		</div>
   </div>
 </div>
-	<div class="card-body">
-		<!-- 차트 들어갈 곳.. -->
-		<div id="piechart" style="width: 500px; height: 400px;"></div>
-	</div>
+	
 	
 <div id="deleteModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -244,7 +304,7 @@ $(document).ready(function(){
 			member_id : m_id
 		}, function(member){
 			console.log("test"+member.name);
-			var str="<div class='member_name'>"+member.name+"</div>";
+			var str="<div class='member_name'><h1>"+member.name+"</h1></div>";
 			str+="<div clas='member_email'>"+member.email+"</div>";
 			profileInfoDIV.html(str);
 		});
@@ -272,33 +332,36 @@ $(document).ready(function(){
 		self.location="add?member_id="+m_id;
 	})
 	
-		$(document).on("mouseover", "li", function(e){
-		var modal = $(".modal");
+	/* 수정 삭제를 위한 변수 */
+	var modal = $(".modal");
+	var editBtn = $("#icon_edit");
+	var deleteBtn = $("#icon_delete");
+	var realDeleteBtn = $("#realDeleteBtn"); 
+	var project_id=[];
+	
+	/* function editEvent(){
 		var p_id = $(this).data("portfolio_id");
-		/* alert(p_id); */
-		var editBtn = $("#icon_edit");
-		var delteBtn = $("#icon_delete");
-		var realDeleteBtn = $("#realDeleteBtn");
-		editBtn.on("click",function(e){
-			self.location="update?portfolio_id="+p_id;	
-		});
-		deleteBtn.on("mouseover",function(e){
-			document.getElementById("portfolio_id").value=p_id;
-			realDeleteBtn.on("click",function(){
-				var project_id=document.getElementById("portfolio_id").value;
-				portfolioService.remove({
-						portfolio_id:project_id
-					},function(result){
-						alert(result);
-						modal.modal("hide");
-						showList();
-					})
-				}) 
-		})
-
-		})
+		self.location="update?portfolio_id="+p_id;
+	}
+	function deleteEvent(){
+		var p_id = $(this).data("portfolio_id");
+		project_id.push(p_id);
+		$('#deleteModal').modal('show');
+	};
 	
-	
+	function removeEvent(e){
+		e.preventDefault();
+		var id=project_id[0];
+		console.log("id");
+		console.log(id);
+		portfolioService.remove({
+				portfolio_id:id
+			},function(result){
+				alert(result);
+				modal.modal("hide");
+				showList();
+			})
+		} */
 
 	
 
@@ -310,6 +373,8 @@ $(document).ready(function(){
 		portfolioService.getList({
 			member_id : m_id
 			}, function(list){
+				
+				
 				var str="";
 				if(list == null || list.length ==0){
 				}
@@ -338,13 +403,14 @@ $(document).ready(function(){
 					str +="			<div class='portfolio-term'>";
 					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date);
 					
-					str +="<a><button id='icon_delete'type='button' class='btn btn-outline-danger' data-toggle='modal' data-target='#deleteModal'>";
+/* 					str +="<a><button id='icon_delete' type='button' class='btn btn-outline-danger' data-toggle='modal' data-target='#deleteModal'>";
+ */					str +="<a><button data-portfolio_id="+list[i].portfolio_id+" id='icon_delete"+list[i].portfolio_id+"' type='button' class='btn btn-outline-danger'>";
 					str +="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>";
 					str +="<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>";
 					str +="<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>";	
 					str +="</svg>"+"</button></a>";
 					
-					str +="<a><button id='icon_edit'type='button' class='btn btn-outline-primary'>";
+					str +="<a><button data-portfolio_id="+list[i].portfolio_id+" id='icon_edit"+list[i].portfolio_id+"'type='button' class='btn btn-outline-primary'>";
 					str += "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>";
 					str +="<path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>";
 					str +="<path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/>";
@@ -364,6 +430,42 @@ $(document).ready(function(){
 					/* console.log(list[i].portfolio_title); */
 				}
 				portfolioUL.html(str);
+				
+					var modal = $(".modal");
+					var editBtn = $("#icon_edit");
+					var deleteBtn = $("#icon_delete");
+					var realDeleteBtn = $("#realDeleteBtn"); 
+					var project_id=[]; 
+
+					
+					$("[id^=icon_edit]").on("click",function(e){
+						var p_id = $(this).data("portfolio_id");
+						self.location="update?portfolio_id="+p_id;
+						console.log(p_id);
+					}); 
+					$("[id^=icon_delete]").on("click",function(e){
+						e.preventDefault();
+						var p_id = $(this).data("portfolio_id");
+						console.log("project Id");
+						console.log(p_id);
+						project_id.push(p_id);
+						
+						$('#deleteModal').modal('show');
+						realDeleteBtn.on("click",function(e){
+							e.preventDefault();
+							var id=project_id[0];
+							console.log("id");
+							console.log(id);
+							portfolioService.remove({
+									portfolio_id:id
+								},function(result){
+									alert(result);
+									modal.modal("hide");
+									showList();
+								})
+							}) 
+						}); 
+						
 
 		});
 		
