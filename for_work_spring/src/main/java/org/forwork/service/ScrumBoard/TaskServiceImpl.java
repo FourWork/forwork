@@ -28,13 +28,14 @@ public class TaskServiceImpl implements TaskService {
 	@Transactional
 	public int insertTask(Task task) {
 		int project_id = Integer.parseInt(task.getProject_id());
-		String content = "create task by." + task.getWriter_name();
+		String content = "create task by." + task.getWriter_name(); // log 내용 생성
 		log.info("INSERT TASK.....!!!!" + task);
-		task.setTask_index((mapper.maxIndex()+1)+"");
+		task.setTask_index((mapper.maxIndex()+1)+""); // stories column index 계산
+		String sprint_id = sprintMapper.todaySprint(task.getProject_id());
+		sprint_id = sprint_id == null ? "" : sprint_id;
 		
-		int sprint_id = sprintMapper.todaySprint(task.getProject_id());
 		mapper.insertTask(task);
-		sprintMapper.addTaskSprintRelation(task.getTask_id(), sprint_id+"");
+		sprintMapper.addTaskSprintRelation(task.getTask_id(), sprint_id);
 		return logMapper.insertLog(task.getTask_id(), content, project_id);
 	}
 
@@ -155,6 +156,16 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public int getSprintId(int task_id) {
 		return mapper.getSprint(task_id);
+	}
+
+	@Override
+	@Transactional
+	public int modifyTaskSprintRelation(String sprint_id, String task_id) {
+		if(mapper.getSprint(Integer.parseInt(task_id)) > 0){
+			return sprintMapper.updateTaskSprintRelation(task_id, sprint_id);
+		}else{
+			return sprintMapper.addTaskSprintRelation(task_id, sprint_id);
+		}
 	}
 
 }

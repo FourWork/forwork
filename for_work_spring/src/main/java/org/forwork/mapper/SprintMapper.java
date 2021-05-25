@@ -17,7 +17,9 @@ public interface SprintMapper {
 	
 	public int updateSprint(Sprint sprint);
 	
-	public int todaySprint(String project_id);
+	public String todaySprint(String project_id);
 	
 	public int addTaskSprintRelation(@Param("task_id") String task_id, @Param("sprint_id")String sprint_id);
-}
+
+	public int updateTaskSprintRelation(@Param("task_id") String task_id, @Param("sprint_id")String sprint_id);
+}	
