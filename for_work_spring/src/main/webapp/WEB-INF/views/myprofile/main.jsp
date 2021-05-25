@@ -101,11 +101,11 @@ padding-right:20px;
 grid-area: portfolio-container; }
 
 .myprofile-title-container { grid-area: myprofile-title-container; display: grid;
+padding-right:30px;
   grid-template-columns: 1fr;
-  grid-template-rows: 100px 80px 400px;
+  grid-template-rows: 80px 400px;
   gap: 0px 0px;
   grid-template-areas:
-    "profile_photo"
     "profile_info"
     "profile_chart";}
 
@@ -157,28 +157,26 @@ padding-right:25px;
 padding:3px;
 }
 
-.profile_photo { grid-area: profile_photo; }
 .profile_info { grid-area: profile_info; }
 .profile_chart { grid-area: profile_chart; }
 
-
-#icon_edit{
+[id^=icon_edit]{
 position: absolute;
 right: 3px;
 top: 3px;
 
 }
 
-#icon_delete{
+[id^=icon_delete]{
 position: absolute;
 right: 50px;
 top: 3px;
 
 }
-.member_name{
+
+div[class^=member]{
 text-align: center;
 }
-
 
 </style>
 
@@ -305,7 +303,7 @@ $(document).ready(function(){
 		}, function(member){
 			console.log("test"+member.name);
 			var str="<div class='member_name'><h1>"+member.name+"</h1></div>";
-			str+="<div clas='member_email'>"+member.email+"</div>";
+			str+="<div class='member_email'>"+member.email+"</div>";
 			profileInfoDIV.html(str);
 		});
 	 } 
@@ -332,37 +330,6 @@ $(document).ready(function(){
 		self.location="add?member_id="+m_id;
 	})
 	
-	/* 수정 삭제를 위한 변수 */
-	var modal = $(".modal");
-	var editBtn = $("#icon_edit");
-	var deleteBtn = $("#icon_delete");
-	var realDeleteBtn = $("#realDeleteBtn"); 
-	var project_id=[];
-	
-	/* function editEvent(){
-		var p_id = $(this).data("portfolio_id");
-		self.location="update?portfolio_id="+p_id;
-	}
-	function deleteEvent(){
-		var p_id = $(this).data("portfolio_id");
-		project_id.push(p_id);
-		$('#deleteModal').modal('show');
-	};
-	
-	function removeEvent(e){
-		e.preventDefault();
-		var id=project_id[0];
-		console.log("id");
-		console.log(id);
-		portfolioService.remove({
-				portfolio_id:id
-			},function(result){
-				alert(result);
-				modal.modal("hide");
-				showList();
-			})
-		} */
-
 	
 
 	
@@ -403,8 +370,7 @@ $(document).ready(function(){
 					str +="			<div class='portfolio-term'>";
 					str +=portfolioService.displayTime(list[i].portfolio_start_date)+"-"+portfolioService.displayTime(list[i].portfolio_end_date);
 					
-/* 					str +="<a><button id='icon_delete' type='button' class='btn btn-outline-danger' data-toggle='modal' data-target='#deleteModal'>";
- */					str +="<a><button data-portfolio_id="+list[i].portfolio_id+" id='icon_delete"+list[i].portfolio_id+"' type='button' class='btn btn-outline-danger'>";
+ 					str +="<a><button data-portfolio_id="+list[i].portfolio_id+" id='icon_delete"+list[i].portfolio_id+"' type='button' class='btn btn-outline-danger'>";
 					str +="<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>";
 					str +="<path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/>";
 					str +="<path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/>";	
@@ -461,7 +427,7 @@ $(document).ready(function(){
 								},function(result){
 									alert(result);
 									modal.modal("hide");
-									showList();
+									self.location="main?member_id="+m_id;
 								})
 							}) 
 						}); 
