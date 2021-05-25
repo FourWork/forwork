@@ -117,6 +117,7 @@ public class MyProfileServiceImpl implements MyProfileService {
 		return mapper.memberInfo(member_id);
 	}
 
+
 	
 	
 	

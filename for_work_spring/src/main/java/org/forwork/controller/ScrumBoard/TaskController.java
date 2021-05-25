@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -130,7 +131,13 @@ public class TaskController {
 		return new ResponseEntity<>(service.getPr(project_id), HttpStatus.OK);
 	}
 	
-	
+
+	@GetMapping(value="/sendTodo/{task_id}", produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> sendTodo(@PathVariable("task_id") int task_id){
+		System.out.println("task_id:" + task_id);
+		return service.sendTodo(task_id) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	
 	@PostMapping(value="/set/task_sprint_relation",consumes="application/json")
 	public ResponseEntity<String> setRelation(@RequestBody Map<String, String> param){
