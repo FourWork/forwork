@@ -6,6 +6,7 @@ import java.util.Map;
 import org.forwork.domain.Project;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
+import org.forwork.mapper.SprintMapper;
 import org.forwork.mapper.TaskLogMapper;
 import org.forwork.mapper.TaskMapper;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,24 @@ public class TaskServiceImpl implements TaskService {
 
 	private TaskMapper mapper;
 	private TaskLogMapper logMapper;
+	private SprintMapper sprintMapper;
 
 	@Override
 	@Transactional
 	public int insertTask(Task task) {
 		int project_id = Integer.parseInt(task.getProject_id());
-		String content = "create task by." + task.getWriter_name();
+		String content = "create task by." + task.getWriter_name(); // log 내용 생성
 		log.info("INSERT TASK.....!!!!" + task);
+		task.setTask_index((mapper.maxIndex()+1)+""); // stories column index 계산
+		String sprint_id = sprintMapper.todaySprint(task.getProject_id());
+		sprint_id = sprint_id == null ? "" : sprint_id;
+		
 		mapper.insertTask(task);
+		if(sprint_id != ""){
+			sprintMapper.addTaskSprintRelation(task.getTask_id(), sprint_id); // 관계 추가
+			logMapper.insertLog(task.getTask_id(), content, project_id);
+			return logMapper.insertLog(task.getTask_id(), "task_sprint_relation auto create", project_id);
+		}
 		return logMapper.insertLog(task.getTask_id(), content, project_id);
 	}
 
@@ -158,6 +169,16 @@ public class TaskServiceImpl implements TaskService {
 		log.info("GET One Project...!!!");
 		
 		return mapper.getPr(project_id);
+	}
+
+	@Override
+	@Transactional
+	public int modifyTaskSprintRelation(String sprint_id, String task_id) {
+		if(mapper.getSprint(Integer.parseInt(task_id)) > 0){
+			return sprintMapper.updateTaskSprintRelation(task_id, sprint_id);
+		}else{
+			return sprintMapper.addTaskSprintRelation(task_id, sprint_id);
+		}
 	}
 
 }

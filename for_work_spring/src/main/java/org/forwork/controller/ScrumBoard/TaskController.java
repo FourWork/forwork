@@ -3,7 +3,11 @@ package org.forwork.controller.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 import org.forwork.domain.Project;
+=======
+import org.apache.ibatis.annotations.Mapper;
+>>>>>>> branch 'master' of https://github.com/FourWork/forwork.git
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
 import org.forwork.service.ScrumBoard.TaskService;
@@ -130,7 +134,12 @@ public class TaskController {
 	
 	
 	
-	
+	@PostMapping(value="/set/task_sprint_relation",consumes="application/json")
+	public ResponseEntity<String> setRelation(@RequestBody Map<String, String> param){
+		if(service.modifyTaskSprintRelation(param.get("sprint_id"), param.get("task_id"))==1)	
+			return new ResponseEntity<String>("success",HttpStatus.OK);
+		return new ResponseEntity<String>("fail",HttpStatus.OK);
+	}
 	
 	
 	
