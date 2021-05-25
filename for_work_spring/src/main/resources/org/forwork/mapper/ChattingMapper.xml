@@ -9,6 +9,7 @@
 		<result property="send_time" column="send_time"/>
 		<result property="chatroom_id" column="chatroom_id"/>
 		<result property="file_path" column="file_path"/>
+		<result property="is_info" column="is_info"/>
 		<collection property="sender" ofType="org.forwork.domain.Member" column="sender">
 			<id property="member_id" column="member_id"/>
 			<result property="name" column="name"/>
@@ -28,8 +29,8 @@
 		<selectKey keyProperty="message_id" order="BEFORE" resultType="String">
 			select message_id_seq.nextval from dual
 		</selectKey>
-		insert into message(message_id, message, send_time, sender, chatroom_id, file_path)
-			values(#{message_id}, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id}, #{file_path})
+		insert into message(message_id, message, send_time, sender, chatroom_id, file_path, is_info)
+			values(#{message_id}, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id}, #{file_path}, #{is_info})
 	</insert>
 	
 	<select id="getMessageByChatroomId" resultMap="messageResult">

@@ -259,7 +259,12 @@
   		chattingService.getMessagesWithPaging(criteria, chatroomId, function(messages){
   			let html = ""
   			messages.forEach( msg => {
-  				html += showMessage(msg);
+  				console.log(msg);
+  				if (msg.is_info === 'y'){
+  					html += showOutMessage(msg);
+  				} else {
+  					html += showMessage(msg);
+  				}
   			});
   			chatbox.innerHTML = html;
   			deleteColorOfUnread();
@@ -307,11 +312,9 @@
   			let msg = JSON.parse(response.body);
   			let chatbox = document.querySelector(".chatbox");
   			console.log(msg)
-  			if (msg.is_info){
-  				console.log("here")
+  			if (msg.is_info === 'y'){
   				chatbox.innerHTML += showOutMessage(msg);
   			} else {
-  				console.log("there")
   				chatbox.innerHTML += showMessage(msg);
   	  			readMessage(msg.message_id);
   			}
@@ -361,6 +364,7 @@
   		  			"send_time": sendTime,
   		  			"sender": sender,
   		  			"file_path": filePath,
+  		  			"is_info": 'n'
   		 }
   		
   		// ajax는 비동기로 데이터 가져오는 걸 시킨 후 다른 일들을 수행하기 때문에
@@ -379,7 +383,7 @@
   		  				"member_id": sender,
   		  				"name" : senderName
   		  			},
-  					"is_info" : false,
+  					"is_info" : 'n',
   		  		}
   		  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg))
   		  		members.forEach(mem => {
@@ -425,15 +429,24 @@
   				"member_id": sender,
 	  			"name" : senderName
   			},
-			"is_info": true,
+			"is_info": 'y',
 		}
   		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg));
+  		let sendTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  		let saveMsg = {
+  	  			"sender": sender,
+  				"is_info": 'y',
+  				"message": senderName + "님이 퇴장하셨습니다.",
+	  			"chatroom_id": chatroomId,
+	  			"send_time": sendTime,
+	  			"file_path": "",
+  			}
+  		chattingService.insertMessage(saveMsg);
   		callback();
   	}
   	
   	function showOutMessage(msg){
   		let html = '';
-  		console.log("sfsdfsdfsdfsdfsdfsdfsd");
   		html += '<div>' + msg.sender.name + '님이 퇴장하셨습니다.</div>'
   		return html;
   	}

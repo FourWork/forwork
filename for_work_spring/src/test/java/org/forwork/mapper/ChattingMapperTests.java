@@ -73,5 +73,15 @@ public class ChattingMapperTests {
 //		mapper.getMessageByChatroomIdWithPaging(cri, "1").forEach(msg -> log.info(msg));;
 //	}
 //	
-	
+	@Test
+	public void 퇴장메시지_생성() {
+		Message msg = new Message();
+		msg.setIs_info("y");
+		msg.setSender("1");
+		msg.setMessage("info");
+		msg.setChatroom_id("3");
+		msg.setSend_time("2021-05-11 15:40:00");
+		msg.setFile_path("");
+		mapper.insertMessage(msg);
+	}
 }
