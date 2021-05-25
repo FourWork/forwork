@@ -3,6 +3,7 @@ package org.forwork.controller.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
 import org.forwork.service.ScrumBoard.TaskService;
@@ -125,7 +126,12 @@ public class TaskController {
 		return service.sendTodo(task_id) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	
+	@PostMapping(value="/set/task_sprint_relation",consumes="application/json")
+	public ResponseEntity<String> setRelation(@RequestBody Map<String, String> param){
+		if(service.modifyTaskSprintRelation(param.get("sprint_id"), param.get("task_id"))==1)	
+			return new ResponseEntity<String>("success",HttpStatus.OK);
+		return new ResponseEntity<String>("fail",HttpStatus.OK);
+	}
 	
 	
 	

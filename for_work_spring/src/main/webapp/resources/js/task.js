@@ -98,7 +98,7 @@ var taskService = (function() {
 			url: '/task/sendTodo/'+task_id,
 			success: function(result, status, xhr){
 				if(callback){
-					callback(esult);
+					callback(result);
 				}
 			},
 			error : function(xhr, status, er){
