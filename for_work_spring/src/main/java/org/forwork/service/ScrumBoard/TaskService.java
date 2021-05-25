@@ -28,5 +28,7 @@ public interface TaskService {
 	
 	public int getSprintId(int task_id);
 	
+	public int sendTodo(int task_id);
 	public int modifyTaskSprintRelation(String sprint_id, String task_id);
+	
 }

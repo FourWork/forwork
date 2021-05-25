@@ -73,6 +73,7 @@ public class MyProfileController {
 	}
 	
 	
+	
 	@GetMapping(value="/{portfolio_id}/portfolio",
 			produces={
 					MediaType.APPLICATION_XML_VALUE,
