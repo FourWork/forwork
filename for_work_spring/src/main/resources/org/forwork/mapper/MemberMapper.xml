@@ -7,7 +7,7 @@
 	
 	<resultMap type="org.forwork.domain.Member" id="memberMap">
 	
-			<id column="email" property="email"/>
+			<id column="member_id" property="member_id"/>
 		
 		<result column="member_id" property="member_id"/>
 		
