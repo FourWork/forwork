@@ -8,7 +8,7 @@ count(case when task_type_id=2 then 1 end) as todoCount,
 count(case when task_type_id=3 then 1 end) as doingCount,
 count(case when task_type_id=4 then 1 end) as doneCount,
 count(*) as totalCount 
-from task_ex where project_id=#{project_id}
+from task where project_id=#{project_id}
 </select>
 
 <select id="getPersonalCount" parameterType="int" resultType="org.forwork.domain.TeamProgress">
@@ -18,7 +18,7 @@ count(case when task_type_id=2 then 1 end) as todoCount,
 count(case when task_type_id=3 then 1 end) as doingCount,
 count(case when task_type_id=4 then 1 end) as doneCount, 
 count(*) as totalCount 
-from task_ex 
+from task 
 where project_id=#{project_id}
 group by responsibility,name,project_id
 order by name
@@ -26,14 +26,37 @@ order by name
 
 <select id="getPersonalTasks" parameterType="map" resultType="org.forwork.domain.TeamProgress">
 select responsibility, name, task_content, project_id 
-from task_ex where project_id = #{project_id} and responsibility = #{responsibility}
+from task where project_id = #{project_id} and responsibility = #{responsibility}
 </select>
 
 <select id="getProjects" resultType="org.forwork.domain.Project">
-select project_id, project_title, pm_id, project_status_id,
+select project_id, project_title, project_status_id,
 To_CHAR(project_start_date,'YYYY-MM-DD') as project_start_date,
 TO_CHAR(project_end_date,'YYYY-MM-DD') as project_end_date 
-from project_ex order by project_id asc
+from project order by project_id asc
+</select>
+
+<insert id="insertLang">
+insert into project_language (project_id, project_language,project_language_seq) 
+values(#{project_id}, #{project_language}, project_language_seq.nextval) 
+</insert>
+
+<select id="getLang" resultType="org.forwork.domain.ProjectLanguage">
+select project_language, project_id, project_language_seq from project_language
+where project_id = #{project_id}
+</select>
+
+<delete id="deleteLang" parameterType="int">
+delete from project_language where project_language_seq = #{project_language_seq}
+</delete>
+
+<update id="updateLang" parameterType="org.forwork.domain.ProjectLanguage">
+update project_language set project_language=#{project_language} where project_language_seq = #{project_language_seq}
+</update>
+
+<select id="getSeq" resultType="org.forwork.domain.ProjectLanguage">
+select project_language, project_id, project_language_seq from project_language
+where project_language_seq = #{project_language_seq}
 </select>
 
 

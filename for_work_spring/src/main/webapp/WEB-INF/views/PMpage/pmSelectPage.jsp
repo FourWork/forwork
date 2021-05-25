@@ -49,22 +49,18 @@ $(document).ready(function() {
 			}
 			
 			for(var i=0, len=list.length||0;i<len;i++){
-				/* switch(list[i].project_status_id){
-				case 1 :
-					prStatus = "승인대기";
-					break;
-				case 2 :
-					prStatus = "승인";
-					break;
-				case 3 :
-					prStatus = "반려";
-					break;
-				case 4 :
-					prStatus = "완료";
-					break;
-				} */
+
 				if(list[i].project_status_id==1){
+					prStatus = "승인대기";
+				}
+				if(list[i].project_status_id==2){
 					prStatus = "승인";
+				}
+				if(list[i].project_status_id==3){
+					prStatus = "반려";
+				}
+				if(list[i].project_status_id==4){
+					prStatus = "완료";
 				}
 				console.log(prStatus);
 				str += "<div class='col-md-5'><div class='card'><div class='card-body'><h4 class='card-title'>";
@@ -75,8 +71,7 @@ $(document).ready(function() {
 				str += "<tbody><tr><th scope='row'>Start Date</th><td>"+list[i].project_start_date +"</td></tr>";
 				str += "<tbody><tr><th scope='row'>End Date</th><td>"+list[i].project_end_date +"</td></tr>";
 				str += "</tbody></table></p><div class='d-grid gap-2 float-end'>";
-				//str += "<button class='btn btn-primary' type='submit'>프로젝트 선택</button>";
-				str += "<a class='btn btn-primary' role='button' data-project_id='"+list[i].project_id+"' href='/pmPage/"+list[i].project_id+"/main'>프로젝트 선택</a></div></div></div></div>";
+				str += "<a class='btn btn-primary float-right' role='button' data-project_id='"+list[i].project_id+"' href='/pmPage/"+list[i].project_id+"/main'>프로젝트 선택</a></div></div></div></div>";
 				
 			};
 			

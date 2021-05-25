@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.forwork.domain.Project;
+import org.forwork.domain.ProjectLanguage;
 import org.forwork.domain.TeamProgress;
 
 @Mapper
@@ -14,5 +15,10 @@ public interface PMPageMapper {
 	public List<TeamProgress> getPersonalCount(int project_id);
 	public List<TeamProgress> getPersonalTasks(@Param("project_id")int project_id,@Param("responsibility")int responsibility);
 	public List<Project> getProjects();
+	public int insertLang(ProjectLanguage prLang);
+	public List<ProjectLanguage> getLang(int project_id);
+	public int deleteLang(int pr_lang_seq);
+	public int updateLang(ProjectLanguage prLang);
+	public ProjectLanguage getSeq(int pr_lang_seq);
 
 }
