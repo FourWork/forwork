@@ -3,6 +3,8 @@ package org.forwork.controller.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+import org.forwork.domain.Project;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
@@ -120,11 +122,22 @@ public class TaskController {
 		return new ResponseEntity<String>(service.getSprintId(task_id)+"",HttpStatus.OK);
 	}
 	
+	
+	@GetMapping(value="/getPr/{project_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Project> getPr(@PathVariable("project_id")int project_id){
+		
+		log.info("Project_id :" + project_id);
+		
+		return new ResponseEntity<>(service.getPr(project_id), HttpStatus.OK);
+	}
+	
+
 	@GetMapping(value="/sendTodo/{task_id}", produces={MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> sendTodo(@PathVariable("task_id") int task_id){
 		System.out.println("task_id:" + task_id);
 		return service.sendTodo(task_id) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
 	
 	@PostMapping(value="/set/task_sprint_relation",consumes="application/json")
 	public ResponseEntity<String> setRelation(@RequestBody Map<String, String> param){
