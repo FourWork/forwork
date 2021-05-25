@@ -1,6 +1,7 @@
 console.log("Portfolio Module.....");
 
 var portfolioService=(function(){
+	
 	function add(wrapper, callback, error){
 		console.log("wrapper(portfolio+pfLangList)..........");
 	$.ajax({
@@ -144,6 +145,24 @@ var portfolioService=(function(){
 			}
 		});
 	}
+	function updateMember(wrapper, callback, error){
+		$.ajax({
+			type: 'put',
+			url: '/myprofile/'+wrapper.member_id+'/info',
+			data: JSON.stringify(wrapper),
+			contentType: "application/json; charset=utf-8",
+			success : function(result, status, xhr){
+				if(callback){
+					callback(result);
+				}
+			},
+			error:function(xhr, status, er){
+				if(error){
+					error(er)
+				}
+			}
+		});
+	}
 	
 	return {add:add,
 		getList: getList,
@@ -153,6 +172,7 @@ var portfolioService=(function(){
 		getInfo: getInfo,
 		displayTime: displayTime,
 		chart: chart,
-		getPfLangList:getPfLangList
+		getPfLangList:getPfLangList,
+		updateMember:updateMember
 		};
 })();

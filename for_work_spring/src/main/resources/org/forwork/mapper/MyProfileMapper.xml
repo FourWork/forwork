@@ -31,6 +31,8 @@
 			portfolio_detail = #{portfolio_detail}
 			where portfolio_id = #{portfolio_id}
 	</update>
+	
+
 
 
 
@@ -88,5 +90,5 @@
 			from member
 			where member_id=#{member_id}
 	</select>
-
+	
 </mapper>

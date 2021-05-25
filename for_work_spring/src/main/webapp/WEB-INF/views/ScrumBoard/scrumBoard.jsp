@@ -73,7 +73,8 @@ $(document).ready(function(){
 		taskService.listTask(function(list){
 			
 			var part1="<div class='card draggable shadow-sm' id='task1'><div class='card-header'></div><div class='card-body p-2 ui-sortable-handle'><div class='card-title'><p class='task_id'>";			 
-			var part2="</p><div class='dropdown float-right'><a class='btn btn-default' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> ... </a><div class='dropdown-menu' aria-labelledby='dropdownMenuLink'><a class='dropdown-item addRes' href='#'>담당자 추가</a><a class='dropdown-item setSprint' href='#'>Sprint 설정</a><a class='dropdown-item' href='#'>To-do List에 추가</a><a class='dropdown-item' href='#' id='taskEdit' data-task_id='";
+			// task_id를 "to-do리스트로 옮기기" a link의 id로 삽입하여 가져감 
+			//var part2="</p><div class='dropdown float-right'><a class='btn btn-default' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> ... </a><div class='dropdown-menu' aria-labelledby='dropdownMenuLink'><a class='dropdown-item addRes' href='#'>담당자 추가</a><a class='dropdown-item setSprint' href='#'>Sprint 설정</a><a class='dropdown-item' href='#'>To-do List에 추가</a><a class='dropdown-item' href='#' id='taskEdit' data-task_id='";
 			var part3="'>Task수정&삭제</a></div> </div> </div><div class='card-text'><p id='taskContent'>";
 			var part4=" <br> </p><h6 class='font-weight-light text-black' id='resp'> 담당 : <b>";
 			var part5="</b></h6><h6 class='font-weight-light text-black' id='taskWriter'>created by <b>";
@@ -100,6 +101,7 @@ $(document).ready(function(){
 			}
 
 			for(var i =0, len=list.length ; i < len ; i++){
+				var part2="</p><div class='dropdown float-right'><a class='btn btn-default' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> ... </a><div class='dropdown-menu' aria-labelledby='dropdownMenuLink'><a class='dropdown-item addRes' href='#'>담당자 추가</a><a class='dropdown-item setSprint' href='#'>Sprint 설정</a><a id='sendTodoA"+list[i].task_id+"' data-task_id="+list[i].task_id+" class='dropdown-item' href='#'>To-do List에 추가</a><a class='dropdown-item' href='#' id='taskEdit' data-task_id='";
 				var log = "";
 				//log값 가져오기
 				log = function(){
@@ -119,6 +121,8 @@ $(document).ready(function(){
 					});
 					return str;
 				}();
+				
+				
 
 				list[i].name = list[i].name == null ? "":list[i].name;
 				
@@ -135,7 +139,7 @@ $(document).ready(function(){
 					return sprint_id;
 				}();
 				
-				
+					
 				if(list[i].task_type_id==1){
 					str1 += part1 + list[i].task_id +sprint_part +part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;				
 					listStoriesDiv.html(str1);
@@ -171,10 +175,24 @@ $(document).ready(function(){
 			$("#project-progress").html(progress);
 			
 			//sprint별 색상 변경
-			setColor();			
+			setColor();		
+			
+			//to-do리스트로 옮기기
+			$("[id^=sendTodoA]").on("click",function(e){
+				var t_id = $(this).data("task_id");
+				console.log(t_id);
+				taskService.sendTodo({task_id:t_id}, function(e){
+					alert("to-do 리스트로 이동되었습니다.")
+				});
+			});
+			
 			
 		}); // end function
+		
+		
 	}// end showList
+	
+	
 	
 	// sprint 색상 설정
 	function setColor(){
@@ -760,4 +778,5 @@ div.container-fluid {
 
 
 </body>
+>>>>>>> branch 'master' of https://github.com/FourWork/forwork.git
 </html>

@@ -27,7 +27,7 @@
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- CSS -->
-<!-- 	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css"> -->
+	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -89,7 +89,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: 1.2fr 0.7fr;
-  grid-template-rows: 300px 1fr;
+  grid-template-rows: 100px 1fr;
   gap: 0px 0px;
   grid-template-areas:
     "title-container title-container"
@@ -111,12 +111,16 @@ padding-right:30px;
 
 .title-container { grid-area: title-container; display: grid;
   grid-template-columns: 1.2fr 0.7fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    ". ."
-    ". ."
-    "add-portfolio .";}
+    "add-portfolio .";
+    height: 60px;}
+    
+.add-portfolio { grid-area: add-portfolio;
+padding:10px;
+padding-right:25px;
+}
 
 ul{
 list-style:none;
@@ -139,10 +143,7 @@ position: relative;}
 .portfolio_language_List { grid-area: portfolio_language_List; }
 
 
-.add-portfolio { grid-area: add-portfolio;
-padding:10px;
-padding-right:25px;
-}
+
 
 .btn-primary {
     color: #fff;
@@ -151,6 +152,7 @@ padding-right:25px;
     float:right;
     position:relative;
 	top:55px;
+	padding:10px;
 }
 
 .badge badge-pill badge-primary{
@@ -174,7 +176,7 @@ top: 3px;
 
 }
 
-div[class^=member]{
+div[id^=member]{
 text-align: center;
 }
 
@@ -248,8 +250,10 @@ text-align: center;
 	</div>
   </div>
   <div class="myprofile-title-container">
-	  <div class="profile_photo"></div>
-	  <div class="profile_info"></div>
+	  <div class="profile_info">
+	  	<h1><div id="member_name"></div></h1>
+	  	<div id="member_email"></div>
+	  </div>
 	  <div class="profile_chart">
 		  <div class="card-body">
 			<!-- 차트 들어갈 곳.. -->
@@ -259,7 +263,7 @@ text-align: center;
   </div>
   <div class="title-container">
 		<div class="add-portfolio">
-			<button id="addBtn" class="btn btn-primary" type="submit">Add Portfolio</button>
+			<button id="addBtn" class="btn btn-primary">포트폴리오 추가</button>
 		</div>
   </div>
 </div>
@@ -291,22 +295,49 @@ text-align: center;
 
 
 $(document).ready(function(){
-	var profileInfoDIV = $(".profile_info");
+	var memberNameDiv = $("#member_name");
+	var memberEmailDiv = $("#member_email");
 	var m_id = '<c:out value ="${member_id}"/>';
+	var editMem = $("#editProfileBtn");
 	console.log("@ShowInfo"+portfolioService);
-	showInfo(); 
 	
+	showInfo(); 
 	function showInfo(){
 		
 		portfolioService.getInfo({
 			member_id : m_id
 		}, function(member){
-			console.log("test"+member.name);
-			var str="<div class='member_name'><h1>"+member.name+"</h1></div>";
-			str+="<div class='member_email'>"+member.email+"</div>";
-			profileInfoDIV.html(str);
+			memberNameDiv.html(member.name);
+			memberEmailDiv.html(member.email);
+			
+			$("#editProfileBtn").on("click",function(){
+			var inputName ="<input id= 'member_name' type='text' name='member_name' value='"+member.name+"'>";
+			var inputEmail ="<input id= 'member_email' type='text' name='member_email' value='"+member.email+"'>";
+			//수정완료버튼 추가하고, 이벤트 고치기
+			memberNameDiv.html(inputName);
+			memberEmailDiv.html(inputEmail);
+				$("#editProfileBtn").on("click",function(e){
+				e.preventDefault();
+				var nameReq= $("input[name='member_name']").val();				
+				var emailReq= $("input[name='member_email']").val();
+				console.log(nameReq);
+				portfolioService.updateMember({
+					member_id:m_id,					
+					name: nameReq,
+					email: emailReq
+				}, function(result){
+			    	 alert("RESULT: "+result);
+			    	 self.location="main?member_id="+m_id;
+				});//updateMember	
+					
+				})
+
+			})
+			
 		});
 	 } 
+	
+	
 	
 });	
 	
@@ -377,9 +408,8 @@ $(document).ready(function(){
 					str +="</svg>"+"</button></a>";
 					
 					str +="<a><button data-portfolio_id="+list[i].portfolio_id+" id='icon_edit"+list[i].portfolio_id+"'type='button' class='btn btn-outline-primary'>";
-					str += "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'>";
-					str +="<path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>";
-					str +="<path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z'/>";
+					str += "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>";
+					str +="<path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>";
 					str +="</svg>"+"</button></a></div>";
 					str +="<div class='portfolio-detail'>"+list[i].portfolio_detail+"</div>";
 					

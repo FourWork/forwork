@@ -3,11 +3,14 @@ package org.forwork.service.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+import org.forwork.domain.Project;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
+import org.forwork.domain.Todolist;
 import org.forwork.mapper.SprintMapper;
 import org.forwork.mapper.TaskLogMapper;
 import org.forwork.mapper.TaskMapper;
+import org.forwork.mapper.TodolistMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +22,9 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
 	
-
 	private TaskMapper mapper;
 	private TaskLogMapper logMapper;
+	private TodolistMapper todoMapper;
 	private SprintMapper sprintMapper;
 
 	@Override
@@ -161,8 +164,27 @@ public class TaskServiceImpl implements TaskService {
 	public int getSprintId(int task_id) {
 		return mapper.getSprint(task_id);
 	}
+	
+	@Override
+	public Project getPr(int project_id) {
+
+		log.info("GET One Project...!!!");
+		
+		return mapper.getPr(project_id);
+	}
 
 	@Override
+	public int sendTodo(int task_id) {
+		Task task = mapper.detailTask(task_id);
+		System.out.println(task);
+		Todolist todo = new Todolist();
+		todo.setTodolist_content(task.getTask_content());
+		todo.setMember_id(Integer.parseInt(task.getResponsibility()));
+		System.out.println(todo);
+		return todoMapper.insertTodolist(todo);
+	}
+	
+	
 	@Transactional
 	public int modifyTaskSprintRelation(String sprint_id, String task_id) {
 		if(mapper.getSprint(Integer.parseInt(task_id)) > 0){
