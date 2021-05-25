@@ -23,6 +23,7 @@
 	line-height: 80px;
 	font-weight: bold;
 	font-size: 20px;
+	margin-right: 5px;
 }
 
 #out {
@@ -148,45 +149,43 @@
 	color: white;
 	height: 50px;
 	line-height: 50px;
+	cursor: pointer;
 }
-/* The Modal (background) */
+
 .profile-modal2 {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-/* Modal Content/Box */
 .profile-modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  margin-left: 40%;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%; /* Could be more or less, depending on screen size */
-  height: 60%;
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	margin-left: 40%;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */
+	height: 60%;
 }
 
-/* The Close Button */
 .profile-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
 }
 
-.profile-close:hover,
-.profile-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+.profile-close:hover, .profile-close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .modal-pic {
@@ -197,11 +196,15 @@
 	margin-left: 5%;
 }
 
+#out {
+	cursor: pointer;
+}
+
 .out-msg {
 	width: 100%;
 	font-size: 14px;
 	position: relative;
-	background-color: #fff46d;
+	background-color: rgb(255, 250, 174);
 	padding: 7px 15px 7px 15px;
 	margin-bottom: 30px;
 	padding-left: 43%;
@@ -214,25 +217,29 @@
 </head>
 <body>
 	<div id="chatroom-title-container">
-		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>
-		<a onclick="out()"><span id="out">나가기</span></a>
+		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>) <a
+			onclick="out()"><span id="out">나가기</span></a>
 	</div>
 	<div class="more">
 		<a onclick="loadMore()">더 보기</a>
 	</div>
 	<div class="chatbox"></div>
-	
+
 	<div id="profile-modal" class="profile-modal2">
-	  <div class="profile-modal-content">
-	    <span class="profile-close">&times;</span>
-	    <img class="modal-pic" src="/resources/Img/profile.png" width="50%" > <div></div>
-	    <br>
-	    <div class="member-detail">
-	    	User Name: <p id="profile-detail-name"></p>
-		   	Email Address: <p id="profile-detail-email"></p>
-		    Status: <p id="profile-detail-status"></p>
-	    </div>
-	  </div>
+		<div class="profile-modal-content">
+			<span class="profile-close">&times;</span> <img class="modal-pic"
+				src="/resources/Img/profile.png" width="50%">
+			<div></div>
+			<br>
+			<div class="member-detail">
+				User Name:
+				<p id="profile-detail-name"></p>
+				Email Address:
+				<p id="profile-detail-email"></p>
+				Status:
+				<p id="profile-detail-status"></p>
+			</div>
+		</div>
 	</div>
 
 	<div class="filebox">
@@ -292,6 +299,7 @@
   		chattingService.getMembers(chatroomId, function(result){
   			console.log(result);
   			members = result;
+  			document.getElementById("n-member").innerHTML = members.length;
   		})
 	});
   	
