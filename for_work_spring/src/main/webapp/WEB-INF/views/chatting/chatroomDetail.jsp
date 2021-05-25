@@ -23,6 +23,7 @@
 	line-height: 80px;
 	font-weight: bold;
 	font-size: 20px;
+	margin-right: 5px;
 }
 
 #out {
@@ -38,6 +39,7 @@
 
 }
 .bubble {
+	display: block;
 	margin: 5px 0;
 	display: inline-block;
 	max-width: 300px;
@@ -59,7 +61,7 @@
 	border-radius: 14px 14px 14px 0;
 	padding: 7px 15px 7px 15px;
 	margin-left: 50px;
-	margin-top: -45px;
+	margin-top: -30px;
 	margin-bottom: 30px;
 	float: left;
 	clear: both;
@@ -147,18 +149,98 @@
 	color: white;
 	height: 50px;
 	line-height: 50px;
+	cursor: pointer;
+}
+
+.profile-modal2 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.profile-modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	margin-left: 40%;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */
+	height: 60%;
+}
+
+.profile-close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.profile-close:hover, .profile-close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-pic {
+	margin-left: 20%;
+}
+
+.member-detail {
+	margin-left: 5%;
+}
+
+#out {
+	cursor: pointer;
+}
+
+.out-msg {
+	width: 100%;
+	font-size: 14px;
+	position: relative;
+	background-color: rgb(255, 250, 174);
+	padding: 7px 15px 7px 15px;
+	margin-bottom: 30px;
+	padding-left: 43%;
+}
+
+.space {
+	clear: both;
 }
 </style>
 </head>
 <body>
 	<div id="chatroom-title-container">
-		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>
-		<a onclick="out()"><span id="out">나가기</span></a>
+		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>) <a
+			onclick="out()"><span id="out">나가기</span></a>
 	</div>
 	<div class="more">
 		<a onclick="loadMore()">더 보기</a>
 	</div>
 	<div class="chatbox"></div>
+
+	<div id="profile-modal" class="profile-modal2">
+		<div class="profile-modal-content">
+			<span class="profile-close">&times;</span> <img class="modal-pic"
+				src="/resources/Img/profile.png" width="50%">
+			<div></div>
+			<br>
+			<div class="member-detail">
+				User Name:
+				<p id="profile-detail-name"></p>
+				Email Address:
+				<p id="profile-detail-email"></p>
+				Status:
+				<p id="profile-detail-status"></p>
+			</div>
+		</div>
+	</div>
 
 	<div class="filebox">
 		<label for="ex_filename">업로드</label> <input type="file"
@@ -171,14 +253,14 @@
 		<div class="clearfix"></div>
 	</div>
 	<!-- <input type="button" onclick="disconnect()" value="disconnect"/> -->
-	<input type="text" value="${userId }" id="user" style="display: none;">
 	<input type="text" value="${member.name }" id="userName"
 		style="display: none;">
 	<div id="filePath" style="display: none;"></div>
 
 	<script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
-  	let sender = document.getElementById("user").value;
+  	const sender = document.getElementById("user").value;
+  	const senderName = document.getElementById("userName").value;
   	let page = 1;
   	const AMOUNT = 20;
   	let members;
@@ -199,7 +281,12 @@
   		chattingService.getMessagesWithPaging(criteria, chatroomId, function(messages){
   			let html = ""
   			messages.forEach( msg => {
-  				html += showMessage(msg);
+  				console.log(msg);
+  				if (msg.is_info === 'y'){
+  					html += showOutMessage(msg);
+  				} else {
+  					html += showMessage(msg);
+  				}
   			});
   			chatbox.innerHTML = html;
   			deleteColorOfUnread();
@@ -212,6 +299,7 @@
   		chattingService.getMembers(chatroomId, function(result){
   			console.log(result);
   			members = result;
+  			document.getElementById("n-member").innerHTML = members.length;
   		})
 	});
   	
@@ -242,12 +330,17 @@
 
   	stompClient = Stomp.over(socket);
   	stompClient.connect({}, function(frame){
-  		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
   			let msg = JSON.parse(response.body);
-  			document.querySelector(".chatbox").innerHTML += showMessage(msg);
-  			readMessage(msg.message_id);
+  			let chatbox = document.querySelector(".chatbox");
+  			console.log(msg)
+  			if (msg.is_info === 'y'){
+  				chatbox.innerHTML += showOutMessage(msg);
+  			} else {
+  				chatbox.innerHTML += showMessage(msg);
+  	  			readMessage(msg.message_id);
+  			}
   		});
   	}, function(error) {
   	    alert(error);
@@ -262,7 +355,6 @@
   	function showMessage(msg){
   		let html = "";
   		if (msg.sender.member_id == userId){
-			console.log(msg)
 			if (msg.file_path){
 				html += '<a href="/message/file/download?fileName=' + msg.file_path + '">' + '<span class="bubble my-bubble">' + msg.message + '</span></a>'
 			} else {
@@ -271,7 +363,7 @@
 		} else {
 			html += 
   					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
-					+ '<img class="bubble friend-profile" src="/resources/Img/profile.png" width="38">';
+					+ '<img class="bubble friend-profile profile-btn" data-member-id="'+ msg.sender.member_id +'" src="/resources/Img/profile.png" width="38" onclick="clicked(this)">';
 			if (msg.file_path){
 				html += '<a href="/message/file/download?fileName=' + msg.file_path + '"><span class="bubble friend-bubble">' + msg.message + '</span><a/>';
 			} else{
@@ -282,7 +374,6 @@
   	}
   	
   	function sendMessage(){
-  	  	let senderName = document.getElementById("userName").value;
   	  	let filePath = document.getElementById("filePath").innerHTML;
   	  	console.log(filePath);
   		let message = (document.getElementById("message").value || document.getElementById('ex_filename').files[0].name);
@@ -296,6 +387,7 @@
   		  			"send_time": sendTime,
   		  			"sender": sender,
   		  			"file_path": filePath,
+  		  			"is_info": 'n'
   		 }
   		
   		// ajax는 비동기로 데이터 가져오는 걸 시킨 후 다른 일들을 수행하기 때문에
@@ -313,9 +405,9 @@
   		  			"sender" : {
   		  				"member_id": sender,
   		  				"name" : senderName
-  		  			}
+  		  			},
+  					"is_info" : 'n',
   		  		}
-  		  		console.log(msg);
   		  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg))
   		  		members.forEach(mem => {
   		  			stompClient.send("/app/user/" + mem, {}, JSON.stringify(msg))
@@ -344,12 +436,43 @@
   	
   	function out(){
 		if(confirm("채팅방을 나가시겠습니까?")){
-			chattingService.deleteChatroomMemberRelation(chatroomId, sender, function(result){
-				console.log(result);
-				let url = "/chatting/tmpMain?userId=" + sender;
-				window.location.href = url;
+			sendOutMessage(function(){
+				chattingService.deleteChatroomMemberRelation(chatroomId, sender, function(result){
+					console.log(result);
+					let url = "/chatting/tmpMain?userId=" + sender;
+					window.location.href = url;
+				})
 			})
 		}
+  	}
+  	
+  	function sendOutMessage(callback){
+  		let msg = {
+  			"sender": {
+  				"member_id": sender,
+	  			"name" : senderName
+  			},
+			"is_info": 'y',
+		}
+  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg));
+  		let sendTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+  		let saveMsg = {
+  	  			"sender": sender,
+  				"is_info": 'y',
+  				"message": senderName + "님이 퇴장하셨습니다.",
+	  			"chatroom_id": chatroomId,
+	  			"send_time": sendTime,
+	  			"file_path": "",
+  			}
+  		chattingService.insertMessage(saveMsg);
+  		callback();
+  	}
+  	
+  	function showOutMessage(msg){
+  		let html = '<div class="space"></div>';
+  		html += '<div class="out-msg">' + msg.sender.name + '님이 퇴장하셨습니다.</div>'
+  		html += '<div class="space"></div>';
+  		return html;
   	}
 
   	
@@ -362,6 +485,33 @@
   	function disconnect(){
   		webSocket.close();
   	} */
+  	
+  	const modal = document.getElementById("profile-modal");
+  	const btn = document.querySelector(".profile-btn");
+  	const span = document.getElementsByClassName("profile-close")[0];
+
+  	// When the user clicks on the button, open the modal
+  	function clicked(event) {
+  		let clickedMemberId = event.dataset.memberId;
+  		chattingService.getMemberDetail(clickedMemberId, function(result){
+  			document.getElementById("profile-detail-name").innerHTML = result.name;
+  			document.getElementById("profile-detail-email").innerHTML = result.email;
+  			document.getElementById("profile-detail-status").innerHTML = result.status;
+  		})
+  	  	modal.style.display = "block";
+  	}
+
+  	// When the user clicks on <span> (x), close the modal
+  	span.onclick = function() {
+  	  modal.style.display = "none";
+  	}
+
+  	// When the user clicks anywhere outside of the modal, close it
+  	window.onclick = function(event) {
+  	  if (event.target == modal) {
+  	    modal.style.display = "none";
+  	  }
+  	}
   	
   </script>
 </body>

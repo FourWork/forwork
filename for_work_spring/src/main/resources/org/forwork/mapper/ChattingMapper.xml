@@ -9,6 +9,7 @@
 		<result property="send_time" column="send_time"/>
 		<result property="chatroom_id" column="chatroom_id"/>
 		<result property="file_path" column="file_path"/>
+		<result property="is_info" column="is_info"/>
 		<collection property="sender" ofType="org.forwork.domain.Member" column="sender">
 			<id property="member_id" column="member_id"/>
 			<result property="name" column="name"/>
@@ -28,8 +29,8 @@
 		<selectKey keyProperty="message_id" order="BEFORE" resultType="String">
 			select message_id_seq.nextval from dual
 		</selectKey>
-		insert into message(message_id, message, send_time, sender, chatroom_id, file_path)
-			values(#{message_id}, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id}, #{file_path})
+		insert into message(message_id, message, send_time, sender, chatroom_id, file_path, is_info)
+			values(#{message_id}, #{message}, to_date(#{send_time}, 'yyyy-mm-dd hh24:mi:ss'), #{sender}, #{chatroom_id}, #{file_path}, #{is_info})
 	</insert>
 	
 	<select id="getMessageByChatroomId" resultMap="messageResult">
@@ -62,7 +63,7 @@
 			where member_id = #{member_id}
 	</select>
 	
-	<!-- 로그인 유지하면 필요 없음 -->
+	<!-- 다른 js에서 가져오기 -->
 	<select id="getMemberById" resultType="org.forwork.domain.Member">
 		select *
 			from member
@@ -70,7 +71,7 @@
 	</select>
 	
 	
-	<select id="getLastMessagePerChatroomByMemberId" resultType="org.forwork.domain.Message">
+	<!-- <select id="getLastMessagePerChatroomByMemberId" resultType="org.forwork.domain.Message">
 		select *
 			from (select chatroom_id, max(message_id) as last_sent_id
 					from message
@@ -80,6 +81,13 @@
 					group by chatroom_id) c, message m
 			where c.chatroom_id = m.chatroom_id
 			and c.last_sent_id = m.message_id
+	</select> -->
+	
+	<select id="getLastMessageByChatroomId" resultType="org.forwork.domain.Message">
+		select * from message
+				where message_id = (select max(message_id) as last_sent_id
+										from message
+										where chatroom_id = #{chatroom_id})
 	</select>
 	
 	<select id="getChatroomName" resultType="String">
@@ -150,7 +158,6 @@
 			and chatroom_id = #{chatroom_id}
 	</delete>
 	
-<!-- 	<delete id="">
 	
-	</delete> -->
+	
 </mapper>
