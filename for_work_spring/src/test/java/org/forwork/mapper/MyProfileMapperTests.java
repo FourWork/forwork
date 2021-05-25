@@ -61,11 +61,11 @@ public class MyProfileMapperTests {
 //		
 //	}
 	
-	@Test
-	public void testDelete(){
-		String targePID="264";
-		mapper.delete(targePID);
-	}
+//	@Test
+//	public void testDelete(){
+//		String targePID="264";
+//		mapper.delete(targePID);
+//	}
 
 //	@Test
 //	public void testDeletePfLang(){
@@ -94,6 +94,10 @@ public class MyProfileMapperTests {
 //		log.info(pfLangList);
 //		
 //	}
-	
+	@Test
+	public void testMemberInfo(){
+		String member_id = "1";
+		log.info(mapper.memberInfo(member_id));
+	}
 
 }

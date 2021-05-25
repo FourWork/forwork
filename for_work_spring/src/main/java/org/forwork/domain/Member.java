@@ -16,5 +16,5 @@ public class Member implements Serializable {
 	
 	private List<Auth> authList;
 
-
+	private String status_detail;
 }

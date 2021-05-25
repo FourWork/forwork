@@ -131,5 +131,15 @@ public class MyProfileController {
 		return new ResponseEntity<List<Map<String,String>>>(service.countLang(member_id),HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
+			value="/{member_id}/updateMemberStatus",
+			consumes="application/json",
+			produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateMStatus(@RequestBody Member member,
+										@PathVariable("member_id") String member_id){
+		return service.updateMStatus(member)==1
+				? new ResponseEntity<>("success",HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}
 }

@@ -100,14 +100,7 @@
 padding-right:20px;
 grid-area: portfolio-container; }
 
-.myprofile-title-container { grid-area: myprofile-title-container; display: grid;
-padding-right:30px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 80px 400px;
-  gap: 0px 0px;
-  grid-template-areas:
-    "profile_info"
-    "profile_chart";}
+
 
 .title-container { grid-area: title-container; display: grid;
   grid-template-columns: 1.2fr 0.7fr;
@@ -118,8 +111,14 @@ padding-right:30px;
     height: 60px;}
     
 .add-portfolio { grid-area: add-portfolio;
-padding:10px;
-padding-right:25px;
+position:relative;
+padding:20px;
+}
+
+#addBtn{
+position:absolute;
+
+
 }
 
 ul{
@@ -159,8 +158,44 @@ position: relative;}
 padding:3px;
 }
 
-.profile_info { grid-area: profile_info; }
-.profile_chart { grid-area: profile_chart; }
+.myprofile-title-container { grid-area: myprofile-title-container; display: grid;
+padding-right:30px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px 400px;
+  gap: 0px 0px;
+  grid-template-areas:
+    "profile_info"
+    "profile_chart";}
+
+.profile_info { grid-area: profile_info;
+display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "profile_name"
+    "profile_status"
+    "profile_email"; }
+    
+.profile_chart { grid-area: profile_chart; margin-top:100px;}
+
+.profile_name { grid-area: profile_name; }
+.profile_status { grid-area: profile_status;
+display: grid;
+  grid-template-columns: 0.7fr 0.3fr; 
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+  "status" "statusBtnPlace";
+  position: relative;
+  }
+  
+  .status { grid-area: status; }
+  .statusBtnPlace { grid-area: statusBtnPlace;
+  position:absolute; 
+}
+.profile_email { grid-area: profile_email; }
+
 
 [id^=icon_edit]{
 position: absolute;
@@ -179,6 +214,8 @@ top: 3px;
 div[id^=member]{
 text-align: center;
 }
+
+
 
 </style>
 
@@ -251,8 +288,29 @@ text-align: center;
   </div>
   <div class="myprofile-title-container">
 	  <div class="profile_info">
-	  	<h1><div id="member_name"></div></h1>
-	  	<div id="member_email"></div>
+	  	<h1><div id="member_name" class="member_name"></div></h1>
+	  	<div id="member_email" class="member_email"></div>
+	  	<div id="member_status" class="member_status">
+				  	
+			<div id="statusBtnPlace" class="statusBtnPlace">
+				<div class="btn-group">
+				  <button type="button" class="btn btn-outline-secondary" >
+				  	<div id="status" class="status"></div>
+				  </button>
+				  <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="sr-only">Toggle Dropdown</span>
+				  </button>
+				  <div class="dropdown-menu">
+				    <a class="dropdown-item" href="#" data-status_id="1">자리비움</a>
+				    <a class="dropdown-item" href="#" data-status_id="2">회의중</a>
+				    <a class="dropdown-item" href="#" data-status_id="3">근무중</a>
+				    <a class="dropdown-item" href="#" data-status_id="4">오프라인</a>
+				    <a class="dropdown-item" href="#" data-status_id="">상태없음</a>
+				  </div>
+				</div> <!-- dropdown 끝 -->
+			</div>	  	
+	  	</div>
+		
 	  </div>
 	  <div class="profile_chart">
 		  <div class="card-body">
@@ -297,6 +355,7 @@ text-align: center;
 $(document).ready(function(){
 	var memberNameDiv = $("#member_name");
 	var memberEmailDiv = $("#member_email");
+	var memberStatusDiv = $("#status");
 	var m_id = '<c:out value ="${member_id}"/>';
 	var editMem = $("#editProfileBtn");
 	console.log("@ShowInfo"+portfolioService);
@@ -309,30 +368,20 @@ $(document).ready(function(){
 		}, function(member){
 			memberNameDiv.html(member.name);
 			memberEmailDiv.html(member.email);
+			memberStatusDiv.html(member.status_detail);
 			
-			$("#editProfileBtn").on("click",function(){
-			var inputName ="<input id= 'member_name' type='text' name='member_name' value='"+member.name+"'>";
-			var inputEmail ="<input id= 'member_email' type='text' name='member_email' value='"+member.email+"'>";
-			//수정완료버튼 추가하고, 이벤트 고치기
-			memberNameDiv.html(inputName);
-			memberEmailDiv.html(inputEmail);
-				$("#editProfileBtn").on("click",function(e){
-				e.preventDefault();
-				var nameReq= $("input[name='member_name']").val();				
-				var emailReq= $("input[name='member_email']").val();
-				console.log(nameReq);
-				portfolioService.updateMember({
-					member_id:m_id,					
-					name: nameReq,
-					email: emailReq
-				}, function(result){
-			    	 alert("RESULT: "+result);
-			    	 self.location="main?member_id="+m_id;
-				});//updateMember	
-					
-				})
+			$(".dropdown-item").on("click",function(){
+	            var s_id=$(this).data("status_id");
+	            portfolioService.updateMStatus({
+	               member_id : m_id,
+	               status_id : s_id
+	            },function(result){
+	               alert("RESULT: "+result);
+	           	self.location="main?member_id="+m_id;
+	            })
+	            
 
-			})
+	         })
 			
 		});
 	 } 

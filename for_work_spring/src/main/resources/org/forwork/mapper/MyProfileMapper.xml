@@ -87,8 +87,14 @@
 	
 	<select id="memberInfo" resultType="org.forwork.domain.Member">
 		select *
-			from member
+			from MEMBER_STATUS_VW
 			where member_id=#{member_id}
 	</select>
+	
+	<update id="updateMStatus">
+		update member
+			set status_id = #{status_id}
+			where member_id=#{member_id}
+	</update>
 	
 </mapper>
