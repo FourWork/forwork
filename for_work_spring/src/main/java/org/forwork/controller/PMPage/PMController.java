@@ -2,15 +2,21 @@ package org.forwork.controller.PMPage;
 
 import java.util.List;
 
+
 import org.forwork.domain.Project;
+import org.forwork.domain.ProjectLanguage;
 import org.forwork.domain.TeamProgress;
 import org.forwork.service.PMPage.PMPageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -55,6 +61,52 @@ public class PMController {
 		log.info("GET PROJECTS...!!!");
 		
 		return new ResponseEntity<>(service.getProjects(),HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/addLang", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> insertLang(@RequestBody ProjectLanguage prLang){
+		
+		log.info("Language: "+prLang);
+		
+		int insertCount = service.insertLang(prLang);
+		
+		log.info("Language Insert Count: " + insertCount);
+		
+		return insertCount==1 ? new ResponseEntity<>("success", HttpStatus.OK): new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@GetMapping(value="/{project_id}/getLang", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<ProjectLanguage>> getLang(@PathVariable("project_id")int project_id){
+		
+		log.info("Get Languages......!!!");
+			
+		return new ResponseEntity<>(service.getLang(project_id), HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value="/{pr_lang_seq}",produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteLang(@PathVariable("pr_lang_seq")int pr_lang_seq){
+		
+		log.info("DELETE Language: " + pr_lang_seq);
+		
+		return service.deleteLang(pr_lang_seq) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{pr_lang_seq}", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateLang(@RequestBody ProjectLanguage prLang, @PathVariable("pr_lang_seq") int pr_lang_seq){
+		
+		prLang.setProject_language_seq(pr_lang_seq);
+		log.info("pr_lang_seq: " +pr_lang_seq);
+		
+		return service.updateLang(prLang) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}
+	
+	@GetMapping(value="/get/{pr_lang_seq}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<ProjectLanguage> getSeq(@PathVariable("pr_lang_seq") int pr_lang_seq){
+		
+		log.info("GET : " + pr_lang_seq);
+		
+		return new ResponseEntity<>(service.getSeq(pr_lang_seq), HttpStatus.OK);
 	}
 
 }

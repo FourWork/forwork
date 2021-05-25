@@ -1,5 +1,6 @@
 package org.forwork.mapper;
 
+import org.forwork.domain.ProjectLanguage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,46 @@ public class PMPageMapperTests {
 		
 		mapper.getProjects().forEach(pr -> log.info(pr));
 	}
+	
+/*	@Test
+	public void testInsertLang(){
+		
+		ProjectLanguage lang = new ProjectLanguage();
+		lang.setProject_id(1);
+		lang.setProject_language("c++");
+		
+		mapper.insertLang(lang);
+	}*/
+	
+	@Test
+	public void testGetLang(){
+		
+		mapper.getLang(1).forEach(lang -> log.info(lang));
+	}
+	
+	@Test
+	public void testDeleteLang(){
+		
+		int count = mapper.deleteLang(1);
+		log.info("DELETE COUNT: "+count);
+	}
+	
+	@Test
+	public void testUpdateLang(){
+		
+		ProjectLanguage lang = new ProjectLanguage();
+		lang.setProject_language("수정한 언어");
+		lang.setProject_language_seq(2);
+		
+		int count = mapper.updateLang(lang);
+		log.info("Update Count: " + count);
+	}
+	
+	@Test
+	public void testGetSeq(){
+		
+		log.info(mapper.getSeq(4));
+	}
+	
 	}
 

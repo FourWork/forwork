@@ -32,7 +32,7 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes={
-		org.forwork.config.RootConfig.class,
+		org.forwork.config.RootConfig.class, org.forwork.config.SecurityConfig.class,
 		org.forwork.config.ServletConfig.class})
 @Log4j
 public class MyProfileControllerTests {
@@ -54,29 +54,29 @@ public class MyProfileControllerTests {
 //				.andExpect(status().isOk()));
 //	}
 	
-	@Test
-	public void testGet() throws Exception{
-		log.info("--------------controllerTests---------------");
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
-				.andExpect(status().isOk()));
-	}
-	
 //	@Test
-//	public void testDelete() throws Exception{
-//		log.info("---------controllerTests--------------");
-//		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/202"))
+//	public void testGet() throws Exception{
+//		log.info("--------------controllerTests---------------");
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/3/76"))
 //				.andExpect(status().isOk()));
-//		
-//		log.info("----------controllerTests end---------------");
 //	}
 	
 	@Test
-	public void testLangChart() throws Exception{
-		log.info("-------controllerTests---------");
-		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/chart"))
-		.andExpect(status().isOk()));
+	public void testDelete() throws Exception{
+		log.info("---------controllerTests--------------");
+		log.info(mockMvc.perform(MockMvcRequestBuilders.delete("/myprofile/266"))
+				.andExpect(status().isOk()));
 		
+		log.info("----------controllerTests end---------------");
 	}
+	
+//	@Test
+//	public void testLangChart() throws Exception{
+//		log.info("-------controllerTests---------");
+//		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/myprofile/1/chart"))
+//		.andExpect(status().isOk()));
+//		
+//	}
 	
 
 

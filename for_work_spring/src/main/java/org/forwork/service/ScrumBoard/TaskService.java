@@ -27,4 +27,6 @@ public interface TaskService {
 	public List<TaskLog> getLogs(int task_id);
 	
 	public int getSprintId(int task_id);
+	
+	public int modifyTaskSprintRelation(String sprint_id, String task_id);
 }
