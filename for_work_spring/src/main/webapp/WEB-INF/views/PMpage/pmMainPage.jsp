@@ -221,7 +221,7 @@ personalChartDiv.html(str);
 
 																for (var i = 0, len = list.length; i < len; i++) {
 
-																	content += "<div><label>No."
+																	content += "<div><label class='float-left'>No."
 																			+ (i + 1)
 																			+ "</label><input type='text' class='form-control' id='taskContent"+i+
 				"' name='task_content' readonly='readonly' value='"+list[i].task_content+"'></div>";
@@ -249,6 +249,142 @@ personalChartDiv.html(str);
 					});
 </script>
 
+<!-- 프로젝트 언어 처리 -->
+<script type="text/javascript" src="/resources/js/projectLanguage.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	   var url = window.location.pathname;
+		
+		var projectId = url.substring(8,url.length-5);
+		console.log("project_id...!!! "+projectId);
+	
+	var langDiv = $("#langDiv");
+	
+	showLang(projectId);
+	
+	// 프로젝트 사용 언어 목록 출력
+	function showLang(projectId){
+		
+		langService.getLang(projectId,function(list){
+			
+			var str = "";
+			if(list==null || list.length==0){
+				langDiv.html("");
+			}
+			for(var i=0, len=list.length||0; i<len; i++){
+				str += "<button id='langBtn' class='btn btn-primary' data-project_language_seq='"+list[i].project_language_seq+"'>"+list[i].project_language+"</button>";
+			}
+			
+			langDiv.html(str);
+		}); //end functin
+	}//end showLang
+	
+	
+	var langModal = $("#langModal");
+	
+	var prIdInput = langModal.find("input[name='project_id']");
+	var prLangInput = langModal.find("input[name='project_language']"); 
+	
+	var langUpdateBtn = $("#langUpdateBtn");
+	var langDeleteBtn = $("#langDeleteBtn");
+	var langRegisterBtn = $("#langRegisterBtn");
+	var langModalClose = $("#langModalClose");
+	
+	//lang 모달 띄우기
+	$("#addLang").on("click", function(e) {
+		
+		langModal.find("input").val("");
+		prIdInput.val(projectId).attr("readonly","readonly");
+		langModal.find("button[id!='langModalClose']").hide();
+		
+		 langRegisterBtn.show();
+		 
+		 $("#langModal").modal("show");
+		
+	});
+	
+	// 사용 언어 추가
+	langRegisterBtn.on("click", function(e) {
+		
+		var prLang = {
+				project_id : prIdInput.val(),
+				project_language : prLangInput.val()
+		};
+		
+		langService.insertLang(prLang, function(result) {
+			
+			alert("사용 언어가 추가되었습니다.")
+			
+			langModal.find("input").val("");
+			langModal.modal("hide");
+			
+			showLang(projectId);
+		});
+	});
+	
+	// 사용 언어 수정&삭제
+	$("#langDiv").on("click","#langBtn", function(e){
+		
+		var lang_seq = $(this).data("project_language_seq");
+		console.log("Language Sequence: "+ lang_seq);
+		
+		langService.getSeq(lang_seq, function(prLang) {
+			
+			prIdInput.val(prLang.project_id).attr("readonly","readonly");
+			prLangInput.val(prLang.project_language);
+			langModal.data("project_language_seq", prLang.project_language_seq)
+			
+			
+			langModal.find("button[id!='langModalClose']").hide();
+			langUpdateBtn.show();
+			langDeleteBtn.show();
+			
+			$("#langModal").modal("show");
+			
+		});
+	});	
+		
+		//언어 수정하기
+		langUpdateBtn.on("click", function(e) {
+			
+			var prLang = {
+					project_language_seq : langModal.data("project_language_seq"),
+					project_id : prIdInput.val(),
+					project_language : prLangInput.val()
+			};
+			console.log("Project:"+prLang);
+			
+			langService.updateLang(prLang, function(result){
+				
+				alert("사용 언어가 수정되었습니다.");
+				langModal.modal("hide");
+				showLang(projectId);
+			});
+		});
+		
+		//언어 삭제하기
+		langDeleteBtn.on("click", function(e){
+			
+			var lang_seq =  langModal.data("project_language_seq");
+			
+			langService.deleteLang(lang_seq, function(result){
+				
+				alert("사용 언어가 삭제되었습니다.");
+				langModal.modal("hide");
+				showLang(projectId);
+			});
+			
+		});
+
+	
+	
+	
+});
+
+</script>
+
 </head>
 <body>
 
@@ -271,16 +407,19 @@ personalChartDiv.html(str);
 			<!-- 오른쪽부분 -->
 			<div class="col-5 flex-fill mt-3" >
 				<div class="card text-center">
-					<div class="card-header">프로젝트 사용 언어</div>
-					<div class="card-body">
-						JAVA, JavaScript ...
+					<div class="card-header">프로젝트 사용 언어
+						<button id='addLang' class='btn btn-primary btn-xs float-right'>+</button>
+						<%@ include file="./langModal.jsp"%>
+					</div>
+					<div class="card-body" id="langDiv">
+						
 					</div>
 				</div>
 				<div class="card text-center">
 					<div class="card-header">개인별 업무 진행률</div>
 					<div class="card-body">
 						<%@ include file="./personalTasksModal.jsp"%>
-						<!--<jsp:include page="personalTasksModal.jsp" /> -->
+			
 						<div id="personal_chart"></div>
 					</div>
 				</div>
