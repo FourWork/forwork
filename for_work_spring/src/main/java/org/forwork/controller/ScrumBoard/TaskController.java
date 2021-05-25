@@ -3,6 +3,7 @@ package org.forwork.controller.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+import org.forwork.domain.Project;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
 import org.forwork.service.ScrumBoard.TaskService;
@@ -116,6 +117,15 @@ public class TaskController {
 	@GetMapping(value="/get/sprint/{task_id}", produces=MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> getSprintID(@PathVariable("task_id")int task_id){
 		return new ResponseEntity<String>(service.getSprintId(task_id)+"",HttpStatus.OK);
+	}
+	
+	
+	@GetMapping(value="/getPr/{project_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Project> getPr(@PathVariable("project_id")int project_id){
+		
+		log.info("Project_id :" + project_id);
+		
+		return new ResponseEntity<>(service.getPr(project_id), HttpStatus.OK);
 	}
 	
 	

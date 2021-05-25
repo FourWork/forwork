@@ -3,6 +3,7 @@ package org.forwork.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.forwork.domain.Project;
 import org.forwork.domain.Task;
 
 public interface TaskMapper {
@@ -26,4 +27,6 @@ public interface TaskMapper {
 	public int addResponsibility(Task task);
 	
 	public int getSprint(int task_id);
+	
+	public Project getPr(int project_id);
 }

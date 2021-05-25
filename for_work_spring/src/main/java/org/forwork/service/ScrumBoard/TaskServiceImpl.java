@@ -3,6 +3,7 @@ package org.forwork.service.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+import org.forwork.domain.Project;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
 import org.forwork.mapper.TaskLogMapper;
@@ -149,6 +150,14 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public int getSprintId(int task_id) {
 		return mapper.getSprint(task_id);
+	}
+	
+	@Override
+	public Project getPr(int project_id) {
+
+		log.info("GET One Project...!!!");
+		
+		return mapper.getPr(project_id);
 	}
 
 }

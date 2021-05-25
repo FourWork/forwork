@@ -3,6 +3,7 @@ package org.forwork.service.ScrumBoard;
 import java.util.List;
 import java.util.Map;
 
+import org.forwork.domain.Project;
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
 
@@ -27,4 +28,6 @@ public interface TaskService {
 	public List<TaskLog> getLogs(int task_id);
 	
 	public int getSprintId(int task_id);
+	
+	public Project getPr(int project_id);
 }
