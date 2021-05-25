@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={ org.forwork.config.RootConfig.class})
+@ContextConfiguration(classes={ org.forwork.config.RootConfig.class,org.forwork.config.SecurityConfig.class})
 @Log4j
 public class MyProfileMapperTests {
 
@@ -31,18 +31,18 @@ public class MyProfileMapperTests {
 		log.info(mapper);
 	}
 	
-//	@Test
-//	public void testCreate(){
-//		IntStream.rangeClosed(1,100).forEach(i->{
-//			PortfolioVO vo = new PortfolioVO();
-//			
-//			vo.setMember_id(memArr[i%4]);
-//			vo.setPortfolio_title("Portfolio create TEST title"+i);
-//			vo.setPortfolio_detail("Portfolio create TEST detail"+i);
-//			
-//			mapper.insert(vo);
-//		});
-//	}
+/*	@Test
+	public void testCreate(){
+		IntStream.rangeClosed(1,100).forEach(i->{
+			Portfolio vo = new Portfolio();
+			
+			vo.setMember_id(memArr[i%4]);
+			vo.setPortfolio_title("Portfolio create TEST title"+i);
+			vo.setPortfolio_detail("Portfolio create TEST detail"+i);
+			
+			mapper.insert(vo);
+		});
+	}*/
 	
 //	@Test
 //	public void testRead(){

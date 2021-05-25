@@ -1,7 +1,9 @@
 package org.forwork.controller.project;
 
+import org.forwork.domain.Project;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +19,13 @@ public class ProjectController {
 	public String loginSuccess(){
 		
 		return "project/list";
+	}
+	
+	@PostMapping("/create")
+	public String projectCreate(Project project){
+		log.info("projectVO : " + project);
+		
+		return "redirect:/project/list";
 	}
 
 }
