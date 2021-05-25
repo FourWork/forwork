@@ -111,8 +111,13 @@ public class ChattingServiceImpl implements ChattingService {
 				} else {
 					Message lastMessageFromDB = mapper.getLastMessageByChatroomId(chatroom.getChatroom_id());
 					messages.add(lastMessageFromDB);
-					vop.set(key, lastMessageFromDB);
-					log.info("db: " + lastMessageFromDB);
+					if (lastMessageFromDB == null) {
+						Message msg = new Message();
+						msg.setMessage("대화를 시작해보세요.");
+						vop.set(key, msg);
+					} else {
+						vop.set(key, lastMessageFromDB);
+					}
 				}
 			}
 		} catch (Exception e) {
