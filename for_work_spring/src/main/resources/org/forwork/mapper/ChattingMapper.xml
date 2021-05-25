@@ -70,7 +70,7 @@
 	</select>
 	
 	
-	<select id="getLastMessagePerChatroomByMemberId" resultType="org.forwork.domain.Message">
+	<!-- <select id="getLastMessagePerChatroomByMemberId" resultType="org.forwork.domain.Message">
 		select *
 			from (select chatroom_id, max(message_id) as last_sent_id
 					from message
@@ -80,6 +80,13 @@
 					group by chatroom_id) c, message m
 			where c.chatroom_id = m.chatroom_id
 			and c.last_sent_id = m.message_id
+	</select> -->
+	
+	<select id="getLastMessageByChatroomId" resultType="org.forwork.domain.Message">
+		select * from message
+				where message_id = (select max(message_id) as last_sent_id
+										from message
+										where chatroom_id = #{chatroom_id})
 	</select>
 	
 	<select id="getChatroomName" resultType="String">

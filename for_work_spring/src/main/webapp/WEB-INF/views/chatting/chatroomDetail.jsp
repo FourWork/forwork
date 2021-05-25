@@ -242,7 +242,6 @@
 
   	stompClient = Stomp.over(socket);
   	stompClient.connect({}, function(frame){
-  		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
   			let msg = JSON.parse(response.body);

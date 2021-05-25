@@ -1,9 +1,11 @@
 package org.forwork.service.chatting;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.forwork.config.RedisConfig;
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.ChatroomMemberRelation;
 import org.forwork.domain.Member;
@@ -12,13 +14,19 @@ import org.forwork.domain.Message;
 import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 import org.forwork.mapper.ChattingMapper;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Service
 @AllArgsConstructor
+@Log4j
 public class ChattingServiceImpl implements ChattingService {
 	private ChattingMapper mapper;
 
@@ -31,26 +39,37 @@ public class ChattingServiceImpl implements ChattingService {
 	@Transactional(readOnly = true)
 	@Override
 	public String createMessage(Message message) {
-		// TODO Auto-generated method stub
-		System.out.println(message.getFile_path());
+		// 메세지 저장 
 		if (message.getFile_path() == null) {
 			message.setFile_path("");
 		}
 		mapper.insertMessage(message);
+		
+		// 안읽음 상태 생성
 		MemberMessageRelation status = new MemberMessageRelation();
 		status.setMessage_id(message.getMessage_id());
-		
 		List<String> memberIds = mapper.getMemberByChatroomId(message.getChatroom_id());
 		memberIds.forEach(memberId -> {
-			// 보낸 사람 빼고 안읽음 상태 insert
 			if (!memberId.equals(message.getSender())) {
 				status.setMember_id(memberId);
 				mapper.insertUnreadStatus(status);
 			}
 		});
 		
-		status.setMember_id(message.getSender());
-		mapper.updateReadStatus(status);
+		// 캐시 업데이트
+		ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
+		try {
+			@SuppressWarnings("unchecked")
+			RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) ctx.getBean("redisTemplate");
+			ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+			String key = "chatroom:" + message.getChatroom_id() + ":last:message";
+			vop.set(key, message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ctx.close();
+		}
+		
 		return message.getMessage_id();
 	}
 
@@ -72,10 +91,38 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getMemberById(memberId);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub
-		return mapper.getLastMessagePerChatroomByMemberId(memberId);
+		List<Message> messages = new ArrayList<Message>();
+		ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
+		try {
+			@SuppressWarnings("unchecked")
+			RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) ctx.getBean("redisTemplate");
+			ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+			List<Chatroom> chatrooms = mapper.getChatroomByMemberId(memberId);
+			for(Chatroom chatroom: chatrooms) {
+				String key = "chatroom:" + chatroom.getChatroom_id() + ":last:message";
+				Message lastMessageFromCache = (Message) vop.get(key);
+				log.info("cache: " + lastMessageFromCache);
+				if (lastMessageFromCache != null) {
+					messages.add(lastMessageFromCache);
+				} else {
+					Message lastMessageFromDB = mapper.getLastMessageByChatroomId(chatroom.getChatroom_id());
+					messages.add(lastMessageFromDB);
+					vop.set(key, lastMessageFromDB);
+					log.info("db: " + lastMessageFromDB);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ctx.close();
+		}
+		log.info("all last messages: " + messages);
+		
+		return messages;
 	}
 
 	@Override
