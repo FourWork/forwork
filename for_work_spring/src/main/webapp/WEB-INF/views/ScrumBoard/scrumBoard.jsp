@@ -73,7 +73,7 @@ $(document).ready(function(){
 		taskService.listTask(function(list){
 			
 			var part1="<div class='card draggable shadow-sm' id='task1'><div class='card-header'></div><div class='card-body p-2 ui-sortable-handle'><div class='card-title'><p class='task_id'>";			 
-			var part2="</p><div class='dropdown float-right'><a class='btn btn-default' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> ... </a><div class='dropdown-menu' aria-labelledby='dropdownMenuLink'><a class='dropdown-item addRes' href='#'>담당자 추가</a><a class='dropdown-item' href='#'>To-do List에 추가</a><a class='dropdown-item' href='#' id='taskEdit' data-task_id='";
+			var part2="</p><div class='dropdown float-right'><a class='btn btn-default' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> ... </a><div class='dropdown-menu' aria-labelledby='dropdownMenuLink'><a class='dropdown-item addRes' href='#'>담당자 추가</a><a class='dropdown-item setSprint' href='#'>Sprint 설정</a><a class='dropdown-item' href='#'>To-do List에 추가</a><a class='dropdown-item' href='#' id='taskEdit' data-task_id='";
 			var part3="'>Task수정&삭제</a></div> </div> </div><div class='card-text'><p id='taskContent'>";
 			var part4=" <br> </p><h6 class='font-weight-light text-black' id='resp'> 담당 : <b>";
 			var part5="</b></h6><h6 class='font-weight-light text-black' id='taskWriter'>created by <b>";
@@ -143,19 +143,19 @@ $(document).ready(function(){
 				}
 				
 				if(list[i].task_type_id==2){
-					str2 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
+					str2 += part1 + list[i].task_id + sprint_part +part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listTodoDiv.html(str2);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==3){
-					str3 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
+					str3 += part1 + list[i].task_id + sprint_part+ part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listDoingDiv.html(str3);
 					count += 1;
 				}
 				
 				if(list[i].task_type_id==4){
-					str4 += part1 + list[i].task_id + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
+					str4 += part1 + list[i].task_id + sprint_part + part2 + list[i].task_id + part3 + list[i].task_content + part4 + list[i].name + part5 + list[i].writer_name + part6 + log;	
 					listDoneDiv.html(str4);
 					doneCount += 1;
 					count +=1;
@@ -223,11 +223,9 @@ $(document).ready(function(){
 		
 		var task = {
 				task_content :taskModalContent.val(),
-				task_index : 2,
-				writer : 1,
-				project_id : 1,
-				task_type_id :1,
-				writer_name : "test"
+				writer : 1,	// writer id
+				writer_name : "test",
+				project_id : 1
 		};
 				
 		
@@ -317,6 +315,53 @@ $(document).ready(function(){
 		});
 	});
 	
+	//sprint setting
+	$("#column_container").on("click",".setSprint",function(){
+		var task_id = $(this).closest('.card').find(".task_id").html();
+	
+		var sprintSettingModal = $("#sprintSettingModal");
+
+		
+		
+		sprintSettingModal.modal("show");
+		
+		var sprintNames = $("#sprintList tr");
+		if(sprintNames != null && sprintNames != ""){
+			$("#suggestion").html("<ul></ul>");
+			sprintNames.each(function(){
+				$("#suggestion ul").append("<li>"+$(this).find("td").html()+"</li>");
+			});
+			$("#suggestion ul li").click(function(){
+				$("#sprint_name").val($(this).html());
+			});
+		}
+
+		$("#taskSprintUpdateBtn").on("click",function(){
+			var sprint_id = "";
+			sprintNames.each(function(){
+				if($(this).find("td").html() == $("#sprint_name").val()){
+					sprint_id = $(this).find("td").data("sprint_id");
+				}
+			});
+			
+			var obj = {"task_id":task_id,"sprint_id":sprint_id};
+			
+			$.ajax({
+				type : "POST",
+				url : "/task/set/task_sprint_relation",
+				contentType:"application/json",
+				data : JSON.stringify(obj),
+				success : function(data){
+					ws.send("c");
+				}
+			});
+			
+			sprintSettingModal.modal("hide");
+			showList();
+		})
+
+	});
+	
 	
 
 	// task move 기능
@@ -373,8 +418,7 @@ $(document).ready(function(){
 	});
 	
 
-<!-- Sprint처리 -->
-
+	<!-- Sprint처리 -->	
 	
 	var sprintTb = $("#sprintList");
 	
@@ -523,7 +567,6 @@ $(document).ready(function(){
 </script>
 </head>
 <style>
-
 .card:not (.no-move ) .card-header {
 	cursor: pointer;
 }
@@ -550,6 +593,7 @@ $(document).ready(function(){
 	margin: 0px;
 	height: 0px;
 }
+
 .sprint_id {
 	visibility: hidden;
 	margin: 0px;
@@ -571,27 +615,44 @@ $(document).ready(function(){
 	margin-right: 0 !important;
 	margin-left: 0 !important;
 }
-.card-footer{
+
+.card-footer {
 	overflow-y: scroll;
 	height: 30px;
 	padding-top: 2px;
 }
 
 .card-footer::-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
-.log-more{
+.log-more {
 	padding-top: 0px;
 }
 
-#doneColumn .card{
+#doneColumn .card {
 	background-color: lightgray;
 }
 
-div.container-fluid{
+div.container-fluid {
 	padding-left: 3px;
 }
+
+#suggestion ul {
+	padding-left: 10px;
+}
+
+#suggestion li {
+	list-style: none;
+}
+#suggestion li:hover{
+	 background-color: lightskyblue;
+	 color: white;
+}
+#suggestion{
+	overflow-y: scroll;
+}
+
 </style>
 <body>
 	<div class="container-fluid pt-1 px-0">
@@ -653,6 +714,8 @@ div.container-fluid{
 				
 					<!-- modal add btn -->
 					<jsp:include page="taskModal.jsp" />
+					<!-- task set sprint btn -->
+					<jsp:include page="sprintSettingModal.jsp" />
 
 				</div>
 				

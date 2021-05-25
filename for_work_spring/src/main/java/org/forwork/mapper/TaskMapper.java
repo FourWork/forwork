@@ -26,4 +26,6 @@ public interface TaskMapper {
 	public int addResponsibility(Task task);
 	
 	public int getSprint(int task_id);
+	
+	public int maxIndex();
 }

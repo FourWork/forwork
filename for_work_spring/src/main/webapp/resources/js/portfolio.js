@@ -35,8 +35,8 @@ var portfolioService=(function(){
 		});
 	}/*getList 함수 끝*/
 	
-	function remove(portfolio_id, callback, error){
-		//var portfolio_id = param.portfolio_id; 
+	function remove(param, callback, error){
+		var portfolio_id = param.portfolio_id; 
 		console.log("@Portfolio.js remove");
 		console.log("portfolio_id"+portfolio_id);
 		$.ajax({
