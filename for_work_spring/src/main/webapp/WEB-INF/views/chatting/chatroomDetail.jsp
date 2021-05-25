@@ -38,6 +38,7 @@
 
 }
 .bubble {
+	display: block;
 	margin: 5px 0;
 	display: inline-block;
 	max-width: 300px;
@@ -59,7 +60,7 @@
 	border-radius: 14px 14px 14px 0;
 	padding: 7px 15px 7px 15px;
 	margin-left: 50px;
-	margin-top: -45px;
+	margin-top: -30px;
 	margin-bottom: 30px;
 	float: left;
 	clear: both;
@@ -194,6 +195,20 @@
 
 .member-detail {
 	margin-left: 5%;
+}
+
+.out-msg {
+	width: 100%;
+	font-size: 14px;
+	position: relative;
+	background-color: #fff46d;
+	padding: 7px 15px 7px 15px;
+	margin-bottom: 30px;
+	padding-left: 43%;
+}
+
+.space {
+	clear: both;
 }
 </style>
 </head>
@@ -446,8 +461,9 @@
   	}
   	
   	function showOutMessage(msg){
-  		let html = '';
-  		html += '<div>' + msg.sender.name + '님이 퇴장하셨습니다.</div>'
+  		let html = '<div class="space"></div>';
+  		html += '<div class="out-msg">' + msg.sender.name + '님이 퇴장하셨습니다.</div>'
+  		html += '<div class="space"></div>';
   		return html;
   	}
 
