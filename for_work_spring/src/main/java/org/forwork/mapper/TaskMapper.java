@@ -28,9 +28,8 @@ public interface TaskMapper {
 	
 	public int getSprint(int task_id);
 	
-<<<<<<< HEAD
 	public Project getPr(int project_id);
-=======
+
 	public int maxIndex();
->>>>>>> branch 'master' of https://github.com/FourWork/forwork.git
+
 }
