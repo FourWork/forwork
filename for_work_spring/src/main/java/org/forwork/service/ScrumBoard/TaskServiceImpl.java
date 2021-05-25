@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.forwork.domain.Task;
 import org.forwork.domain.TaskLog;
+import org.forwork.domain.Todolist;
 import org.forwork.mapper.TaskLogMapper;
 import org.forwork.mapper.TaskMapper;
+import org.forwork.mapper.TodolistMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +20,9 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
 	
-
 	private TaskMapper mapper;
 	private TaskLogMapper logMapper;
+	private TodolistMapper todoMapper;
 
 	@Override
 	@Transactional
@@ -151,4 +153,16 @@ public class TaskServiceImpl implements TaskService {
 		return mapper.getSprint(task_id);
 	}
 
+	@Override
+	public int sendTodo(int task_id) {
+		Task task = mapper.detailTask(task_id);
+		System.out.println(task);
+		Todolist todo = new Todolist();
+		todo.setTodolist_content(task.getTask_content());
+		todo.setMember_id(Integer.parseInt(task.getResponsibility()));
+		System.out.println(todo);
+		return todoMapper.insertTodolist(todo);
+	}
+	
+	
 }

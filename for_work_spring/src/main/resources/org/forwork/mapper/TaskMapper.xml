@@ -49,5 +49,6 @@
 	<select id="getSprint" resultType="int">
 		select sprint_id from task_sprint_relation where task_id = #{task_id}
 	</select>
+	
 
 </mapper>

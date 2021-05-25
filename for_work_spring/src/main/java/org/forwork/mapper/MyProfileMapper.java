@@ -24,4 +24,5 @@ public interface MyProfileMapper {
 	
 	public List<Map<String,Object>> rollupLanguage(String member_id);
 	public Member memberInfo(String member_id);
+	public int updateMember(Member member);
 }

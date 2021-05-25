@@ -5,7 +5,6 @@ var taskService = (function() {
 	
 	function insertTask(task, callback, error ) {
 		console.log("INSERT TASK.....!!!");
-		
 		$.ajax({
 			type : 'post',
 			url : '/task/add',
@@ -92,11 +91,30 @@ var taskService = (function() {
 		});
 	}
 	
+	function sendTodo(param, callback, error){
+		var task_id=param.task_id;
+		$.ajax({
+			type:'get',
+			url: '/task/sendTodo/'+task_id,
+			success: function(result, status, xhr){
+				if(callback){
+					callback(esult);
+				}
+			},
+			error : function(xhr, status, er){
+				if(error){
+					error(er);
+				}
+			}
+		});
+	}
+	
 	return{
 		insertTask : insertTask,
 		listTask : listTask,
 		deleteTask : deleteTask,
 		updateTask : updateTask,
-		detailTask : detailTask
+		detailTask : detailTask,
+		sendTodo : sendTodo
 	};
 })();

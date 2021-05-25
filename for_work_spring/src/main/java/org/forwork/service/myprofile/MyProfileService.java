@@ -18,4 +18,5 @@ public interface MyProfileService {
 	public List<Portfolio> getList(String member_id);
 	public List<Map<String, String>> countLang(String member_id);
 	public Member getMemberInfo(String member_id);
+	public int updateMember(Member member);
 }
