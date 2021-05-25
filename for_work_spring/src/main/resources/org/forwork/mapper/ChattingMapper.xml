@@ -62,7 +62,7 @@
 			where member_id = #{member_id}
 	</select>
 	
-	<!-- 로그인 유지하면 필요 없음 -->
+	<!-- 다른 js에서 가져오기 -->
 	<select id="getMemberById" resultType="org.forwork.domain.Member">
 		select *
 			from member
@@ -157,7 +157,6 @@
 			and chatroom_id = #{chatroom_id}
 	</delete>
 	
-<!-- 	<delete id="">
 	
-	</delete> -->
+	
 </mapper>

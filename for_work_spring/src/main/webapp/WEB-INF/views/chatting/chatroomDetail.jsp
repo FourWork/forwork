@@ -149,7 +149,7 @@
 	line-height: 50px;
 }
 /* The Modal (background) */
-.modal {
+.profile-modal2 {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -163,27 +163,37 @@
 }
 
 /* Modal Content/Box */
-.modal-content {
+.profile-modal-content {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
+  margin-left: 40%;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 30%; /* Could be more or less, depending on screen size */
+  height: 60%;
 }
 
 /* The Close Button */
-.close {
+.profile-close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.profile-close:hover,
+.profile-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-pic {
+	margin-left: 20%;
+}
+
+.member-detail {
+	margin-left: 5%;
 }
 </style>
 </head>
@@ -196,17 +206,18 @@
 		<a onclick="loadMore()">더 보기</a>
 	</div>
 	<div class="chatbox"></div>
-	<!-- Trigger/Open The Modal -->
-<!-- <button id="myBtn">Open Modal</button> -->
-	<!-- The Modal -->
-	<div id="myModal" class="modal">
 	
-	  <!-- Modal content -->
-	  <div class="modal-content">
-	    <span class="close">&times;</span>
-	    <p>Some text in the Modal..</p>
+	<div id="profile-modal" class="profile-modal2">
+	  <div class="profile-modal-content">
+	    <span class="profile-close">&times;</span>
+	    <img class="modal-pic" src="/resources/Img/profile.png" width="50%" > <div></div>
+	    <br>
+	    <div class="member-detail">
+	    	User Name: <p id="profile-detail-name"></p>
+		   	Email Address: <p id="profile-detail-email"></p>
+		    Status: <p id="profile-detail-status"></p>
+	    </div>
 	  </div>
-	
 	</div>
 
 	<div class="filebox">
@@ -309,7 +320,6 @@
   	function showMessage(msg){
   		let html = "";
   		if (msg.sender.member_id == userId){
-			console.log(msg)
 			if (msg.file_path){
 				html += '<a href="/message/file/download?fileName=' + msg.file_path + '">' + '<span class="bubble my-bubble">' + msg.message + '</span></a>'
 			} else {
@@ -318,7 +328,7 @@
 		} else {
 			html += 
   					'<div class="bubble friend-profile friend-name">' + msg.sender.name + '</div>'
-					+ '<img class="bubble friend-profile myBtn" src="/resources/Img/profile.png" width="38" onclick="clicked()">';
+					+ '<img class="bubble friend-profile profile-btn" data-member-id="'+ msg.sender.member_id +'" src="/resources/Img/profile.png" width="38" onclick="clicked(this)">';
 			if (msg.file_path){
 				html += '<a href="/message/file/download?fileName=' + msg.file_path + '"><span class="bubble friend-bubble">' + msg.message + '</span><a/>';
 			} else{
@@ -410,15 +420,19 @@
   		webSocket.close();
   	} */
   	
-  	var modal = document.getElementById("myModal");
-
-  	var btn = document.querySelector(".myBtn");
-
-  	var span = document.getElementsByClassName("close")[0];
+  	const modal = document.getElementById("profile-modal");
+  	const btn = document.querySelector(".profile-btn");
+  	const span = document.getElementsByClassName("profile-close")[0];
 
   	// When the user clicks on the button, open the modal
-  	function clicked() {
-  	  modal.style.display = "block";
+  	function clicked(event) {
+  		let clickedMemberId = event.dataset.memberId;
+  		chattingService.getMemberDetail(clickedMemberId, function(result){
+  			document.getElementById("profile-detail-name").innerHTML = result.name;
+  			document.getElementById("profile-detail-email").innerHTML = result.email;
+  			document.getElementById("profile-detail-status").innerHTML = result.status;
+  		})
+  	  	modal.style.display = "block";
   	}
 
   	// When the user clicks on <span> (x), close the modal

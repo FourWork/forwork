@@ -1,6 +1,7 @@
 package org.forwork.mapper;
 
 import org.forwork.domain.Message;
+import org.forwork.dto.MemberStatus;
 import org.forwork.dto.MessageCriteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +13,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={ org.forwork.config.RootConfig.class})
+@ContextConfiguration(classes={ org.forwork.config.RootConfig.class, org.forwork.config.SecurityConfig.class})
 @Log4j
 public class ChattingMapperTests {
 
@@ -63,12 +64,14 @@ public class ChattingMapperTests {
 //	public void testUnreadCount() {
 //		log.info(mapper.countUnreadPerChatroomByMemberId("1"));
 //	}
+//	
+//	@Test
+//	public void testGetMessagesWithPaging() {
+//		MessageCriteria cri = new MessageCriteria();
+//		cri.setAmount(10);
+//		cri.setPageNum(3);
+//		mapper.getMessageByChatroomIdWithPaging(cri, "1").forEach(msg -> log.info(msg));;
+//	}
+//	
 	
-	@Test
-	public void testGetMessagesWithPaging() {
-		MessageCriteria cri = new MessageCriteria();
-		cri.setAmount(10);
-		cri.setPageNum(3);
-		mapper.getMessageByChatroomIdWithPaging(cri, "1").forEach(msg -> log.info(msg));;
-	}
 }
