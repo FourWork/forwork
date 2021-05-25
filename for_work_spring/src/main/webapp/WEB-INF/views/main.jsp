@@ -38,7 +38,12 @@
 
 <!-- 차트 그리기 : teamProgress.js  -->
 <script type="text/javascript">
-var project_id =1;
+
+var url = window.location.search;
+console.log(url);
+var project_id = url.substring(12,url.indexOf('&'));
+console.log("project_id: " + project_id);
+
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 
