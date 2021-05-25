@@ -14,6 +14,7 @@ import org.forwork.domain.Message;
 import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
 import org.forwork.mapper.ChattingMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -30,6 +31,9 @@ import lombok.extern.log4j.Log4j;
 public class ChattingServiceImpl implements ChattingService {
 	private ChattingMapper mapper;
 
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
+
 	@Override
 	public List<ChatroomMemberRelation> findChatroomMemberRelations() {
 		// TODO Auto-generated method stub
@@ -39,12 +43,12 @@ public class ChattingServiceImpl implements ChattingService {
 	@Transactional(readOnly = true)
 	@Override
 	public String createMessage(Message message) {
-		// 메세지 저장 
+		// 메세지 저장
 		if (message.getFile_path() == null) {
 			message.setFile_path("");
 		}
 		mapper.insertMessage(message);
-		
+
 		// 안읽음 상태 생성
 		MemberMessageRelation status = new MemberMessageRelation();
 		status.setMessage_id(message.getMessage_id());
@@ -55,21 +59,12 @@ public class ChattingServiceImpl implements ChattingService {
 				mapper.insertUnreadStatus(status);
 			}
 		});
-		
+
 		// 캐시 업데이트
-		ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
-		try {
-			@SuppressWarnings("unchecked")
-			RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) ctx.getBean("redisTemplate");
-			ValueOperations<String, Object> vop = redisTemplate.opsForValue();
-			String key = "chatroom:" + message.getChatroom_id() + ":last:message";
-			vop.set(key, message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			ctx.close();
-		}
-		
+		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+		String key = "chatroom:" + message.getChatroom_id() + ":last:message";
+		vop.set(key, message);
+
 		return message.getMessage_id();
 	}
 
@@ -96,40 +91,31 @@ public class ChattingServiceImpl implements ChattingService {
 	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub
 		List<Message> messages = new ArrayList<Message>();
-		ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(RedisConfig.class);
-		try {
-			@SuppressWarnings("unchecked")
-			RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) ctx.getBean("redisTemplate");
-			ValueOperations<String, Object> vop = redisTemplate.opsForValue();
-			List<Chatroom> chatrooms = mapper.getChatroomByMemberId(memberId);
-			for(Chatroom chatroom: chatrooms) {
-				String key = "chatroom:" + chatroom.getChatroom_id() + ":last:message";
-				Message lastMessageFromCache = (Message) vop.get(key);
-				log.info("cache: " + lastMessageFromCache);
-				if (lastMessageFromCache != null) {
-					messages.add(lastMessageFromCache);
+		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+		List<Chatroom> chatrooms = mapper.getChatroomByMemberId(memberId);
+		for (Chatroom chatroom : chatrooms) {
+			String key = "chatroom:" + chatroom.getChatroom_id() + ":last:message";
+			Message lastMessageFromCache = (Message) vop.get(key);
+			log.info("cache: " + lastMessageFromCache);
+			if (lastMessageFromCache != null) {
+				messages.add(lastMessageFromCache);
+			} else {
+				Message lastMessageFromDB = mapper.getLastMessageByChatroomId(chatroom.getChatroom_id());
+				if (lastMessageFromDB == null) {
+					Message msg = new Message();
+					msg.setChatroom_id(chatroom.getChatroom_id());
+					msg.setMessage("대화를 시작해보세요.");
+					msg.setSend_time("");
+					vop.set(key, msg);
+					messages.add(msg);
 				} else {
-					Message lastMessageFromDB = mapper.getLastMessageByChatroomId(chatroom.getChatroom_id());
-					if (lastMessageFromDB == null) {
-						Message msg = new Message();
-						msg.setChatroom_id(chatroom.getChatroom_id());
-						msg.setMessage("대화를 시작해보세요.");
-						msg.setSend_time("");
-						vop.set(key, msg);
-						messages.add(msg);
-					} else {
-						vop.set(key, lastMessageFromDB);
-						messages.add(lastMessageFromDB);
-					}
+					vop.set(key, lastMessageFromDB);
+					messages.add(lastMessageFromDB);
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			ctx.close();
 		}
 		log.info("all last messages: " + messages);
-		
+
 		return messages;
 	}
 
