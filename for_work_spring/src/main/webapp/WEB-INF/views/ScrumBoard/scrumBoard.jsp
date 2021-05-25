@@ -24,6 +24,39 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<!-- 프로젝트 정보 가져오기 -->
+<script type="text/javascript" src="/resources/js/getProject.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var url = window.location.search;
+	
+	//var projectId = url.substring(12,url.length);
+	//console.log("project_id...!!! "+projectId);
+	
+	var projectId = 1;
+	
+	var prInfoDiv = $("#project_info");
+	
+	showPr(projectId);
+	
+	function showPr(projectId){
+		
+		var str ="";
+		
+		getPrService.getPr(projectId, function(project){
+			
+			str += "<td>"+project.project_title+"</td>";
+			str += "<td>"+project.project_start_date+"</td>";
+			str += "<td>"+project.project_end_date+"</td>";
+			
+			prInfoDiv.html(str);
+		})
+	}
+	
+});
+
+</script>
 
 <!-- task.js => js모듈화 -->
 <script type="text/javascript" src="/resources/js/task.js"></script>
@@ -436,8 +469,8 @@ $(document).ready(function(){
 	});
 	
 
-	<!-- Sprint처리 -->	
-	
+
+	//sprint 처리
 	var sprintTb = $("#sprintList");
 	
 	showSprints();
@@ -693,10 +726,7 @@ div.container-fluid {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Team04 중간 프로젝트</td>
-								<td>2021-04-05</td>
-								<td>2021-04-16</td>
+							<tr id="project_info">
 							</tr>
 						</tbody>
 					</table>
@@ -778,5 +808,5 @@ div.container-fluid {
 
 
 </body>
->>>>>>> branch 'master' of https://github.com/FourWork/forwork.git
+
 </html>
