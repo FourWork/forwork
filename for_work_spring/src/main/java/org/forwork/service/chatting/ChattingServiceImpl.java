@@ -30,8 +30,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class ChattingServiceImpl implements ChattingService {
 	private ChattingMapper mapper;
-
-	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
 	@Override

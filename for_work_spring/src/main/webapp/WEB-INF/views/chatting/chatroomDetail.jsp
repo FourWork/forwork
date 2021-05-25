@@ -237,7 +237,8 @@
 
 	<script type="text/javascript">
   	let chatroomId = document.getElementById("chatroom-title").dataset.chatroomId;
-  	let sender = document.getElementById("user").value;
+  	const sender = document.getElementById("user").value;
+  	const senderName = document.getElementById("userName").value;
   	let page = 1;
   	const AMOUNT = 20;
   	let members;
@@ -304,8 +305,16 @@
   		console.log('connected: ' + frame);
   		stompClient.subscribe("/topic/chatroom/" + chatroomId, function(response){
   			let msg = JSON.parse(response.body);
-  			document.querySelector(".chatbox").innerHTML += showMessage(msg);
-  			readMessage(msg.message_id);
+  			let chatbox = document.querySelector(".chatbox");
+  			console.log(msg)
+  			if (msg.is_info){
+  				console.log("here")
+  				chatbox.innerHTML += showOutMessage(msg);
+  			} else {
+  				console.log("there")
+  				chatbox.innerHTML += showMessage(msg);
+  	  			readMessage(msg.message_id);
+  			}
   		});
   	}, function(error) {
   	    alert(error);
@@ -339,7 +348,6 @@
   	}
   	
   	function sendMessage(){
-  	  	let senderName = document.getElementById("userName").value;
   	  	let filePath = document.getElementById("filePath").innerHTML;
   	  	console.log(filePath);
   		let message = (document.getElementById("message").value || document.getElementById('ex_filename').files[0].name);
@@ -370,9 +378,9 @@
   		  			"sender" : {
   		  				"member_id": sender,
   		  				"name" : senderName
-  		  			}
+  		  			},
+  					"is_info" : false,
   		  		}
-  		  		console.log(msg);
   		  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg))
   		  		members.forEach(mem => {
   		  			stompClient.send("/app/user/" + mem, {}, JSON.stringify(msg))
@@ -401,12 +409,33 @@
   	
   	function out(){
 		if(confirm("채팅방을 나가시겠습니까?")){
-			chattingService.deleteChatroomMemberRelation(chatroomId, sender, function(result){
-				console.log(result);
-				let url = "/chatting/tmpMain?userId=" + sender;
-				window.location.href = url;
+			sendOutMessage(function(){
+				chattingService.deleteChatroomMemberRelation(chatroomId, sender, function(result){
+					console.log(result);
+					let url = "/chatting/tmpMain?userId=" + sender;
+					window.location.href = url;
+				})
 			})
 		}
+  	}
+  	
+  	function sendOutMessage(callback){
+  		let msg = {
+  			"sender": {
+  				"member_id": sender,
+	  			"name" : senderName
+  			},
+			"is_info": true,
+		}
+  		stompClient.send("/app/chatroom/" + chatroomId, {}, JSON.stringify(msg));
+  		callback();
+  	}
+  	
+  	function showOutMessage(msg){
+  		let html = '';
+  		console.log("sfsdfsdfsdfsdfsdfsdfsd");
+  		html += '<div>' + msg.sender.name + '님이 퇴장하셨습니다.</div>'
+  		return html;
   	}
 
   	
