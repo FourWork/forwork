@@ -72,20 +72,6 @@ public class MyProfileController {
 		return new ResponseEntity<Member>(service.getMemberInfo(member_id),HttpStatus.OK);
 	}
 	
-	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
-			value="/{member_id}/info",
-			consumes="application/json",
-			produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modifyMember(@RequestBody Member member,
-										@PathVariable("member_id") String member_id){
-		member.setMember_id(member_id);
-		log.info("modifyMember:"+member_id);
-		
-		
-		return service.updateMember(member) ==1
-				? new ResponseEntity<>("success",HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	}
 	
 	
 	@GetMapping(value="/{portfolio_id}/portfolio",

@@ -117,11 +117,6 @@ public class MyProfileServiceImpl implements MyProfileService {
 		return mapper.memberInfo(member_id);
 	}
 
-	@Override
-	public int updateMember(Member member) {
-
-		return mapper.updateMember(member);
-	}
 
 	
 	

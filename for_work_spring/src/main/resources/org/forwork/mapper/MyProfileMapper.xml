@@ -91,10 +91,4 @@
 			where member_id=#{member_id}
 	</select>
 	
-	<update id="updateMember">
-		update member
-			set name = #{name},
-			email = #{email},
-			where member_id = #{member_id}
-	</update>
 </mapper>
