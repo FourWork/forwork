@@ -336,14 +336,12 @@ $(document).ready(function(){
 	//sprint setting
 	$("#column_container").on("click",".setSprint",function(){
 		var task_id = $(this).closest('.card').find(".task_id").html();
-	
 		var sprintSettingModal = $("#sprintSettingModal");
 
-		
-		
 		sprintSettingModal.modal("show");
 		
 		var sprintNames = $("#sprintList tr");
+		
 		if(sprintNames != null && sprintNames != ""){
 			$("#suggestion").html("<ul></ul>");
 			sprintNames.each(function(){

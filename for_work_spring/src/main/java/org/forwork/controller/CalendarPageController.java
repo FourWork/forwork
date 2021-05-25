@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/attendance")
-public class AttendancePageController {
+@RequestMapping("/calendar/*")
+public class CalendarPageController {
+	
 	@GetMapping
-	public String attendance(){
-		return "attendance";
+	public String calendar(){
+		return "calendar";
 	}
+
 }
