@@ -114,7 +114,7 @@ let chattingService = (function() {
 	function updateReadAll(chatroomId, memberId, callback, error){
 		$.ajax({
 			type : 'put',
-			url : '/message/read/' + '/member/' + memberId + '/chatroom/' + chatroomId,
+			url : '/message/read/member/' + memberId + '/chatroom/' + chatroomId,
 			success : function(result, status, xhr) {
 				if (callback) {
 					callback(result);
