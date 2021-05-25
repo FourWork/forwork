@@ -156,15 +156,6 @@
 				chatrooms.forEach(chatroom => {
 					let lastMessageOfChatroom = lastMessages.find(m => m.chatroom_id === chatroom.chatroom_id);
 					let unreadCountOfChatroom = unreadCountPerChatroom.find(data => data.chatroomId === chatroom.chatroom_id);
-					if (!lastMessageOfChatroom){
-						lastMessageOfChatroom = {
-							"chatroom_id" : "",
-							"message" : "대화를 시작해보세요",
-							"message_id" : "",
-							"send_time" : "",
-							"sender" : ""
-						}
-					}
 					if (!unreadCountOfChatroom){
 						unreadCountOfChatroom = {
 							"unreadCount" : 0

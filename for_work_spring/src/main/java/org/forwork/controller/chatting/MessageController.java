@@ -131,7 +131,6 @@ public class MessageController {
 			e.printStackTrace();
 		}
 
-		
 		return new ResponseEntity<String>(path, HttpStatus.OK);
 	}
 	
