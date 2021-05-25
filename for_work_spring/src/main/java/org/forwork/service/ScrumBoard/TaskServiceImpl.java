@@ -35,7 +35,11 @@ public class TaskServiceImpl implements TaskService {
 		sprint_id = sprint_id == null ? "" : sprint_id;
 		
 		mapper.insertTask(task);
-		sprintMapper.addTaskSprintRelation(task.getTask_id(), sprint_id);
+		if(sprint_id != ""){
+			sprintMapper.addTaskSprintRelation(task.getTask_id(), sprint_id); // 관계 추가
+			logMapper.insertLog(task.getTask_id(), content, project_id);
+			return logMapper.insertLog(task.getTask_id(), "task_sprint_relation auto create", project_id);
+		}
 		return logMapper.insertLog(task.getTask_id(), content, project_id);
 	}
 
