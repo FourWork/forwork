@@ -5,7 +5,7 @@
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="javascript:void(0)">
+        <a class="navbar-brand" href="/project/list">
           <img src="../../../resources/Img/logo.png" class="navbar-brand-img" alt="...">
         </a>
       </div>

@@ -17,7 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+  <title>FORWORK</title>
   <!-- Favicon -->
   <link rel="icon" href="../../resources/assets/img/brand/favicon.png" type="image/png">
   <!-- Fonts -->
@@ -128,10 +128,12 @@
                   <i class="ni ni-support-16"></i>
                   <span>Support</span>
                 </a>
+                <sec:authorize access="isAuthenticated()">
                 <div class="dropdown-divider"></div>
-                <a href="#!" class="dropdown-item">
+                <a href="/logout" class="dropdown-item">
                   <i class="ni ni-user-run"></i>
-                  <span>Logout</span>
+                  <span>logout</span>
+                  </sec:authorize>
                 </a>
               </div>
             </li>

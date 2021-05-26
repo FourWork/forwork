@@ -35,7 +35,7 @@
 					<h3 class="join_title">
 						<label for="pswd1">비밀번호</label>
 					</h3>
-					<span class="box int_pass"> <input type="text" name="pw" id="pswd1"
+					<span class="box int_pass"> <input type="password" name="pw" id="pswd1"
 						class="int" maxlength="20"> <span id="alertTxt">사용불가</span>
 						<img src="../../../resources/Img/pw.jpg" id="pswd1_img1"
 						class="pswdImg">
@@ -53,7 +53,7 @@
 				<!-- JOIN BTN-->
 				<div class="btn_area">
 					<button type="button" id="btnJoin" value="회원가입"
-						onclick="location.href='signUp'">
+						onclick="location.href='/member/signUp'">
 						<span>회원가입</span>
 					</button>
 				</div>
