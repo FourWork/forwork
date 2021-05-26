@@ -1,5 +1,9 @@
 package org.forwork.domain;
 
+import java.util.List;
+
+import org.forwork.domain.Attach;
+
 import lombok.Data;
 
 @Data
@@ -14,4 +18,5 @@ public class Post {
 	private String post_date;
 	private String post_file;
 	private int commentCnt;
+	private List<Attach> attachList;
 }

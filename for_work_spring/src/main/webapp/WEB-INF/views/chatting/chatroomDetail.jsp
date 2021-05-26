@@ -213,15 +213,47 @@
 .space {
 	clear: both;
 }
+
+.search-chatroom {
+	margin-left: 40%;
+	width: 18%;
+	border: 1px solid rgb(212, 211, 211);
+	height: 40px;
+	padding-left: 20px;
+	
+}
+
+.search-btn {
+	background-color: rgb(190, 194, 236);
+	padding: 15px;
+	border-radius: 10px;
+	font-size: 13px;
+	text-decoration: none;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-left:10px;
+}
+
+.search-btn:hover {
+	cursor: pointer;
+}
+
+.found-highlight {
+	background-color: rgb(131, 131, 131);
+	color: white;
+	font-weight: bold;
+}
+
 </style>
 </head>
 <body>
 	<div id="chatroom-title-container">
-		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>) <a
-			onclick="out()"><span id="out">나가기</span></a>
+		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>)
+		<input type="text" class="search-chatroom" placeholder="대화내용 검색" id="search-content" onkeyup="isEnterKey(searchMsg)" /><span class="search-btn" id="search-up" onclick="searchTraverse(true)">위</span><span class="search-btn" id="search-down" onclick="searchTraverse(false)">아래</span>
+		<a onclick="out()"><span id="out">나가기</span></a>
 	</div>
 	<div class="more">
-		<a onclick="loadMore()">더 보기</a>
+		<a onclick="loadMessages()">더 보기</a>
 	</div>
 	<div class="chatbox"></div>
 
@@ -248,7 +280,7 @@
 	</div>
 
 	<div class="text-box">
-		<input type="text" onkeyup="isEnterKey()" id="message" /> <input
+		<input type="text" onkeyup="isEnterKey(sendMessage)" id="message" /> <input
 			type="button" onclick="sendMessage()" value="send" id="chat-send" />
 		<div class="clearfix"></div>
 	</div>
@@ -265,6 +297,10 @@
   	const AMOUNT = 20;
   	let members;
   	let chatbox = document.querySelector(".chatbox");
+  	let searchIdx = -2;
+  	let nSearchedMsg = 0;
+  	let searchedData;
+  	let searchedElemBefore;
   	
   	document.addEventListener("DOMContentLoaded", function(){
   		let userId = document.getElementById("user").value;
@@ -273,24 +309,8 @@
   			chatroomTitle.innerHTML = result.chatroom_name;
   		});
   		
-  		let criteria = {
-  			"pageNum" : page,
-  			"amount" : AMOUNT
-  		}
-  		page += 1;
-  		chattingService.getMessagesWithPaging(criteria, chatroomId, function(messages){
-  			let html = ""
-  			messages.forEach( msg => {
-  				console.log(msg);
-  				if (msg.is_info === 'y'){
-  					html += showOutMessage(msg);
-  				} else {
-  					html += showMessage(msg);
-  				}
-  			});
-  			chatbox.innerHTML = html;
-  			deleteColorOfUnread();
-  		});
+  		let isFirstLoad = true;
+  		loadMessages(isFirstLoad);
   		
   		chattingService.updateReadAll(chatroomId, sender, function(result){
   			console.log(result);
@@ -303,8 +323,13 @@
   		})
 	});
   	
-  	function loadMore(){
+  	function loadMessages(isFirstLoad, specificPageNum){
+  		if (specificPageNum < page){
+  			return
+  		}
+  		page = specificPageNum || page;
   		let criteria = {
+  				"pageBefore" : page-1,
   	  			"pageNum" : page,
   	  			"amount" : AMOUNT
   	  	}
@@ -312,9 +337,16 @@
   		chattingService.getMessagesWithPaging(criteria, chatroomId, function(messages){
   			let html = ""
   			messages.forEach( msg => {
-  				html += showMessage(msg);
+  				if (msg.is_info === 'y'){
+  					html += showOutMessage(msg);
+  				} else {
+  					html += showMessage(msg);
+  				}
   			});
   			chatbox.innerHTML = html + chatbox.innerHTML;
+  			if(isFirstLoad){
+  				deleteColorOfUnread();
+  			}
   		});
   	}
   	
@@ -346,9 +378,9 @@
   	    alert(error);
   	}); 
   	
-  	function isEnterKey(){
+  	function isEnterKey(callback){
   		if (window.event.keyCode == 13) {
-        	sendMessage();
+        	callback();
        }
   	}
   	
@@ -358,7 +390,7 @@
 			if (msg.file_path){
 				html += '<a href="/message/file/download?fileName=' + msg.file_path + '">' + '<span class="bubble my-bubble">' + msg.message + '</span></a>'
 			} else {
-				html += '<span class="bubble my-bubble">' + msg.message + '</span>'
+				html += '<span class="bubble my-bubble" id="msg'+ msg.message_id +'">' + msg.message + '</span>'
 			}
 		} else {
 			html += 
@@ -367,7 +399,7 @@
 			if (msg.file_path){
 				html += '<a href="/message/file/download?fileName=' + msg.file_path + '"><span class="bubble friend-bubble">' + msg.message + '</span><a/>';
 			} else{
-				html += '<span class="bubble friend-bubble">' + msg.message + '</span>';
+				html += '<span class="bubble friend-bubble" id="msg'+ msg.message_id +'">' + msg.message + '</span>';
 			}
 		}
   		return html;
@@ -376,7 +408,12 @@
   	function sendMessage(){
   	  	let filePath = document.getElementById("filePath").innerHTML;
   	  	console.log(filePath);
-  		let message = (document.getElementById("message").value || document.getElementById('ex_filename').files[0].name);
+  	  	let message = "";
+  	  	if (document.getElementById("message").value) {
+  	  		message = document.getElementById("message").value
+  	  	} else {
+  	  		message = document.getElementById('ex_filename').files[0].name
+  	  	}
   		let date = new Date();
   		let sendTime = moment(date).format('YYYY-MM-DD HH:mm:ss');
   		let messageId = "";
@@ -473,6 +510,54 @@
   		html += '<div class="out-msg">' + msg.sender.name + '님이 퇴장하셨습니다.</div>'
   		html += '<div class="space"></div>';
   		return html;
+  	}
+  	
+  	function searchMsg(){
+  		let content = document.getElementById("search-content").value;
+  		console.log(content);
+  		let data = {
+  			"query": content,
+  			"amount": AMOUNT,
+  		}
+  		chattingService.searchMessage(chatroomId, data, function(messageIdRownums){
+  			if (messageIdRownums.length == 0){
+  				alert("검색 결과가 없습니다.");
+  				document.getElementById("search-content").value = "";
+  				return;
+  			}
+  			searchedData = messageIdRownums;
+  	  		if (searchIdx !== -2){
+  	  	  		searchedElemBefore.classList.remove("found-highlight");
+  	  		}
+  			searchIdx = -1;
+  			nSearchedMsg = messageIdRownums.length;
+  			searchTraverse(true);
+  		})
+  	}
+  	
+  	function searchTraverse(isUp){
+  		let foundMsg;
+  		if (searchIdx !== -1){
+  			foundMsg = document.getElementById( 'msg' + searchedData[searchIdx].messageId );
+  	  		foundMsg.classList.remove("found-highlight");
+  		}
+  		if (isUp){
+  			searchIdx += 1;
+  		} else {
+  			searchIdx -= 1;
+  		}
+  		if (searchIdx < 0){
+  			searchIdx = 0
+  		}
+  		if (searchIdx >= nSearchedMsg){
+  			searchIdx = nSearchedMsg - 1;
+  		}
+  		
+  		loadMessages(false, searchedData[searchIdx].pageNum);
+		foundMsg = document.getElementById( 'msg' + searchedData[searchIdx].messageId );
+		foundMsg.classList.add("found-highlight");
+		location.href = '#msg' + searchedData[searchIdx].messageId;
+		searchedElemBefore = foundMsg;
   	}
 
   	

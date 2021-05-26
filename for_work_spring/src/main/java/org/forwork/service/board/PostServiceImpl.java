@@ -2,12 +2,15 @@ package org.forwork.service.board;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.forwork.domain.Criteria;
 import org.forwork.domain.Post;
+import org.forwork.mapper.AttachMapper;
 import org.forwork.mapper.PostMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -15,46 +18,59 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
 	
+	@Setter(onMethod_=@Autowired)
 	private PostMapper mapper;
+	
+	@Setter(onMethod_=@Autowired)
+	private AttachMapper AttachMapper;
 
 	@Override
 	public int register(Post post) {
-		log.info("?ƒˆ ê²Œì‹œê¸? ?“±ë¡?..." + post);
+		log.info("ê²Œì‹œê¸€ ì¶”ê°€..." + post);
+		int result = mapper.insertPostSelectKey(post);
 		
-		return mapper.insertPostSelectKey(post);
+		// ì²¨ë¶€ íŒŒì¼ ì¶”ê°€
+		if (post.getAttachList() != null || post.getAttachList().size() > 0) {
+			post.getAttachList().forEach(attach -> {
+				attach.setPost_id(post.getPost_id());
+				AttachMapper.insert(attach);
+			});
+		}
+		
+		return result;
 	}
 
 	@Override
 	public Post get(Long post_id) {
-		log.info("ê²Œì‹œê¸? ?ƒ?„¸ ë³´ê¸°..." + post_id);
+		log.info("ê²Œì‹œï¿½? ?ï¿½ï¿½?ï¿½ï¿½ ë³´ê¸°..." + post_id);
 		
 		return mapper.getPost(post_id);
 	}
 	
 	@Override
 	public int addHitcount(Long post_id) {
-		log.info("ê²Œì‹œê¸? ì¡°íšŒ ?ˆ˜");
+		log.info("ê²Œì‹œï¿½? ì¡°íšŒ ?ï¿½ï¿½");
 		
 		return mapper.updateHitcount(post_id);
 	}
 
 	@Override
 	public int modify(Post post) {
-		log.info("ê²Œì‹œê¸? ?ˆ˜? •..." + post);
+		log.info("ê²Œì‹œï¿½? ?ï¿½ï¿½?ï¿½ï¿½..." + post);
 		
 		return mapper.updatePost(post);
 	}
 
 	@Override
 	public int remove(Long post_id) {
-		log.info("ê²Œì‹œê¸? ?‚­? œ..." + post_id);
+		log.info("ê²Œì‹œï¿½? ?ï¿½ï¿½?ï¿½ï¿½..." + post_id);
 		
 		return mapper.deletePost(post_id);
 	}
 
 	@Override
 	public List<Post> getList(Long board_id) {
-		log.info("ê²Œì‹œê¸? ëª©ë¡..." + board_id);
+		log.info("ê²Œì‹œï¿½? ëª©ë¡..." + board_id);
 		
 		return mapper.listPost(board_id);
 	}
@@ -72,14 +88,14 @@ public class PostServiceImpl implements PostService {
 	
 	@Override
 	public List<Post> getNotice(int project_id) {
-		log.info("?”„ë¡œì ?Š¸ë³? ê³µì? ?‚¬?•­ ë¯¸ë¦¬ ë³´ê¸°...");
+		log.info("?ï¿½ï¿½ë¡œì ?ï¿½ï¿½ï¿½? ê³µï¿½? ?ï¿½ï¿½?ï¿½ï¿½ ë¯¸ë¦¬ ë³´ê¸°...");
 		
 		return mapper.listNotice(project_id);
 	}
 
 	@Override
 	public List<Post> getBoard(int project_id) {
-		log.info("?”„ë¡œì ?Š¸ë³? ìµœì‹  ê¸? ëª©ë¡...");
+		log.info("?ï¿½ï¿½ë¡œì ?ï¿½ï¿½ï¿½? ìµœì‹  ï¿½? ëª©ë¡...");
 		
 		return mapper.listBoard(project_id);
 	}

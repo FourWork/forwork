@@ -11,7 +11,9 @@ import java.util.UUID;
 import org.forwork.domain.Message;
 import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
+import org.forwork.dto.MessageSearchDto;
 import org.forwork.service.chatting.ChattingService;
+import org.json.simple.JSONObject;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -85,6 +87,14 @@ public class MessageController {
 	@GetMapping(value = "/unread/member/{memberId}")
 	public ResponseEntity<String> getUnreadCount(@PathVariable String memberId){
 		return new ResponseEntity<>(new Gson().toJson(service.findUnreadCountPerChatroomByMemberId(memberId)), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/search/chatroom/{chatroomId}",
+			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<MessageSearchDto>> searchMessage(@RequestBody JSONObject obj, @PathVariable String chatroomId){
+		System.out.println("=========================");
+		System.out.println((String)obj.get("query"));
+		return new ResponseEntity<>(service.searchMessage((String)obj.get("query"), chatroomId, Integer.toString((int)obj.get("amount"))), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/file/new")

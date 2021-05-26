@@ -73,8 +73,13 @@ public class ChattingServiceTests {
 //		service.createMessage(msg);
 //	}
 //	
-	@Test
-	public void 캐시에_있는_마지막메시지_가져오기() {
-		service.findLastMessagePerChatroomByMemberId("1");
-	}
+//	@Test
+//	public void 캐시에_있는_마지막메시지_가져오기() {
+//		service.findLastMessagePerChatroomByMemberId("1");
+//	}
+//
+//	@Test
+//	public void 메세지아이디_페이지번호_알아내기() {
+//		service.searchMessage("1", "1", "20");
+//	}
 }

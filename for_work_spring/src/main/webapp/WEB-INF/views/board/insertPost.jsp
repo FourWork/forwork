@@ -98,19 +98,42 @@ function list() {
 	width: 900px;
 }
 
+.postTitle input {
+	border: none;
+	height: 40px;
+	padding-bottom: 5px;
+}
+
 table {
 	border-collapse: collapse;
 	margin-bottom: 20px;
 }
 
-td {
+.postContent {
 	border-bottom: 1px solid gray;
 	padding: 5px;
 }
 
+.postAttach {
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	padding: 10px 0px;
+	font-size: 14px;
+}
+
+.postAttach input {
+	margin-left: 10px;
+	font-size: 13px;
+}
+
 .contentBox {
-	min-height: 300px;
-	padding: 20px;
+	min-height: 260px;
+	padding: 5px;
+}
+
+.contentBox textarea {
+	border: none;
+	font-size: 18px;
 }
 
 .btnArea {
@@ -126,6 +149,19 @@ td {
 .listBtn {
 	position: absolute;
 	left: 10px;
+}
+
+.postAttachResult li {
+	list-style: none;
+}
+
+.attachResultTr {
+	display: none;
+}
+
+.deleteFileBtn {
+	height: 20px;
+	width: 20px;
 }
 
 </style>
@@ -155,24 +191,36 @@ td {
 					<div class="postWrap">
 						<div class="title">${board.board_name}</div>
 						
-						<form>
+						<form role="form">
 							<input type="hidden" name="board_id" value="${board.board_id}">
 							<input type="hidden" name="project_id" value="${board.project_id}">
 						<table>
 							<tr>
 								<td colspan="3" class="postTitle">
-									<input type="text" name="post_title" size="100">
+									<input type="text" name="post_title" size="100" placeholder="제목을 입력하세요.">
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" class="postTitle">
-									<input type="text" name="post_writer" size="35">
+								<td colspan="3" class="postWriter">
+									<input type="text" name="post_writer" size="20" placeholder="회원 이름">
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3">
+								<td colspan="3" class="postAttach">
+									첨부 파일 <input type="file" name="uploadFile" multiple>
+								</td>
+							</tr>
+							<tr class="attachResultTr">
+								<td colspan="3" class="postAttachResult">
+									<ul>
+										
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="postContent">
 									<div class="contentBox">
-										<textarea rows="10" cols="120" name="post_content"></textarea>
+										<textarea rows="10" cols="110" name="post_content" placeholder="내용을 입력하세요."></textarea>
 									</div>
 								</td>
 							</tr>
@@ -200,9 +248,37 @@ td {
 	<script type="text/javascript">
 	
 		$(document).ready(function() {
-			
+									
 			var board_id = '<c:out value="${board.board_id}"/>';
 			var saveBtn = $("#saveBtn");
+			
+			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			var maxSize = 5242880; // 5MB
+			
+			function checkExtension(fileName, fileSize) {
+				if (fileSize >= maxSize) {
+					alert("파일 용량이 초과되었습니다.");
+					return false;
+				}
+				
+				if (regex.test(fileName)) {
+					alert("해당 종류의 파일은 첨부할 수 없습니다.");
+					return false;
+				}
+				
+				return true;
+			}
+			
+			var uploadResult = $(".postAttachResult ul");
+			
+			function showUploadedFile(uploadResultArr) {
+				var str = "";
+				
+				$(uploadResultArr).each(function(i, obj) {
+					str += "<li>" + obj.fileName + "</li>";
+				});
+				uploadResult.append(str);
+			}
 			
 			saveBtn.on("click", function(e) {
 				
@@ -210,17 +286,119 @@ td {
 				var post_writer = $("input[name='post_writer']").val();
 				var post_content = $("textarea[name='post_content']").val();
 				
+				if (!post_title) {
+					alert("제목을 입력하세요.");
+					return false;
+				} else if (!post_content) {
+					alert("내용을 입력하세요.");
+					return false;
+				} 
+				
+				var attachList = [];
+				
+				$(".postAttachResult ul li").each(function(i, obj) {		
+				      var jobj = $(obj);
+				      
+				      console.dir(jobj);
+				      
+				      var attach = {
+				    		  uuid:jobj.data("uuid"),
+				    		  uploadPath:jobj.data("path"),
+				    		  fileName:jobj.data("filename"),
+				    		  fileType:jobj.data("type")
+				      };
+				      
+				      attachList.push(attach);
+				});				
+				
 				var post = {
 					board_id:board_id,
 					post_title:post_title,
 					post_writer:post_writer,
-					post_content:post_content
+					post_content:post_content,
+					attachList:attachList
 				};
 				
 				postService.add(post, function(result) {
 					if (result == "success") alert("게시글이 등록되었습니다.");
 					list();
 				});
+				
+			});			
+			
+			function showUploadResult(uploadResultArr) {
+				
+				if(!uploadResultArr || uploadResultArr.length == 0){ return; }
+				
+				var uploadUL = $(".postAttachResult ul");
+				
+				str = "";
+				
+				$(uploadResultArr).each(function(i, obj) {
+					
+					var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);
+					var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+					
+					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>"
+					str += "<div><i class='bi bi-paperclip'></i> <span>" + obj.fileName + "</span> ";
+					str += "<button type='button' class='btn btn-outline-light' data-file=\'"+fileCallPath+"\' data-type='file' class='deleteFileBtn'>";
+					str += "<i class='bi bi-x'></i></button></div></li>"
+					
+				});
+				uploadUL.append(str);
+			}
+			
+			$("input[type='file']").change(function(e) {
+				
+				// 첨부 파일
+				var formData = new FormData();
+				var inputFile = $("input[name='uploadFile']");
+				var files = inputFile[0].files;
+				
+				for (var i = 0; i < files.length; i++) {
+					
+					if (!checkExtension(files[i].name, files[i].size)) {
+						return false;
+					}
+					
+					formData.append("uploadFile", files[i]);
+				}
+				
+				$.ajax({
+					url: '/uploadAjaxAction',
+					processData: false,
+					contentType: false,
+					data: formData,
+					type: 'POST',
+					dataType: 'json',
+					success: function(result) {
+						console.log(result);
+						$(".attachResultTr").show();
+						showUploadResult(result);
+					}
+				}); // ajax
+				
+			});
+			
+			$(".postAttachResult").on("click", "button", function(e) {
+				
+				console.log("delete file");
+				
+				var targetFile = $(this).data("file");
+			    var type = $(this).data("type"); 
+			    var targetLi = $(this).closest("li");
+			    
+			    $.ajax({
+			      url: '/deleteFile',
+			      data: {fileName: targetFile, type:type},
+			      dataType:'text',
+			      type: 'POST',
+			        success: function(result){
+			           alert(result);
+			           
+			           targetLi.remove();
+			         }
+			    }); //$.ajax
 				
 			});
 			

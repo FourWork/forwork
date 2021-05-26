@@ -15,6 +15,9 @@ public enum MemberStatus {
 	private String statusDetail;
 	
 	public static MemberStatus getStatusDetailById(String id) {
+		if(id == null) {
+			return MemberStatus.NULL;
+		}
 		if(id.equals("1")) {
 			return MemberStatus.AWAY;
 		} else if(id.equals("2")) {
