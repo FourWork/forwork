@@ -3,6 +3,7 @@ package org.forwork.controller;
 import java.util.List;
 
 import org.forwork.domain.Calendar;
+import org.forwork.dto.CalendarDto;
 import org.forwork.service.CalendarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @AllArgsConstructor
+@Log4j
 public class CalendarController {
 	
 	private CalendarService service;
@@ -30,9 +33,18 @@ public class CalendarController {
 	}
 	
 	@GetMapping(value="/calendar/get/{project_id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<Calendar>> getCalendarList(@PathVariable("project_id")String project_id){
-		List<Calendar> list = null;
+	public ResponseEntity<List<CalendarDto>> getCalendarList(@PathVariable("project_id")String project_id){
+		List<CalendarDto> list = null;
 		list = service.listCalendar(project_id);
-		return new ResponseEntity<List<Calendar>>(list,HttpStatus.OK);
+		System.out.println(list.toString());
+		return new ResponseEntity<List<CalendarDto>>(list,HttpStatus.OK);
+	}
+	
+	@PostMapping(value="calendar/update",consumes="application/json")
+	public ResponseEntity<String> updateCalendar(@RequestBody Calendar cal){
+		if(service.updateCalendar(cal) == 1){
+			return new ResponseEntity<>("success",HttpStatus.OK);
+		}
+		return new ResponseEntity<>("fail",HttpStatus.OK);
 	}
 }
