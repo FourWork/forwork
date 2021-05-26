@@ -234,6 +234,10 @@ height : 150px;
 
 }
 
+.fc-scrollgrid-sync-inner a{
+	height : 25px;
+} 
+
 </style>
 
 
