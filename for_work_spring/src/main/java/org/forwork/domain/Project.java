@@ -23,5 +23,9 @@ public class Project implements Serializable{
 	private String project_start_date;
 	private String project_end_date;
 	
+	private String register_date;
+	private String check_date;
+	private String complete_date;
+	
 
 }
