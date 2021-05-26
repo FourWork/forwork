@@ -42,6 +42,7 @@ public class MyProfileController {
 		log.info("Portfolio-PfLang: "+portfolio);
 		
 		portfolio.setMember_id(member_id);
+
 		List<PortfolioLanguage> pfLangList = portfolio.getPortfolioLanguage();
 		
 		int insertCount = service.register(portfolio, pfLangList);
@@ -60,6 +61,17 @@ public class MyProfileController {
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<Portfolio>> getList(@PathVariable("member_id") String member_id){
 		log.info("-------------Controller_GetList------------");
+		
+//		List<Portfolio> list = service.getList(member_id);
+//		List<Portfolio> list0 = new ArrayList<Portfolio>();
+//		for(Portfolio p: list){
+//			String detail = p.getPortfolio_detail().replace("\r\n", "<br>");
+//			detail.replace("회사", "company");
+//			log.info(detail);
+//			p.setPortfolio_detail(detail);
+//			list0.add(p);
+//		}
+		
 		return new ResponseEntity<List<Portfolio>>(service.getList(member_id),HttpStatus.OK);
 	}
 	
@@ -68,8 +80,14 @@ public class MyProfileController {
 					MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<Member> getInfo(@PathVariable("member_id") String member_id){
+		Member member = service.getMemberInfo(member_id);
+		String detail= member.getStatus_detail();
+		if(detail==null){
+			detail="상태없음";
+			member.setStatus_detail(detail);
+		}
 		log.info("-------------Controller_GetList------------");
-		return new ResponseEntity<Member>(service.getMemberInfo(member_id),HttpStatus.OK);
+		return new ResponseEntity<Member>(member,HttpStatus.OK);
 	}
 	
 	
@@ -131,5 +149,15 @@ public class MyProfileController {
 		return new ResponseEntity<List<Map<String,String>>>(service.countLang(member_id),HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping(method={RequestMethod.PUT, RequestMethod.PATCH},
+			value="/{member_id}/updateMemberStatus",
+			consumes="application/json",
+			produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateMStatus(@RequestBody Member member,
+										@PathVariable("member_id") String member_id){
+		return service.updateMStatus(member)==1
+				? new ResponseEntity<>("success",HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}
 }

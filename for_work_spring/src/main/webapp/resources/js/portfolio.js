@@ -145,10 +145,10 @@ var portfolioService=(function(){
 			}
 		});
 	}
-	function updateMember(wrapper, callback, error){
+	function updateMStatus(wrapper, callback, error){
 		$.ajax({
 			type: 'put',
-			url: '/myprofile/'+wrapper.member_id+'/info',
+			url: '/myprofile/'+wrapper.member_id+'/updateMemberStatus',
 			data: JSON.stringify(wrapper),
 			contentType: "application/json; charset=utf-8",
 			success : function(result, status, xhr){
@@ -173,6 +173,6 @@ var portfolioService=(function(){
 		displayTime: displayTime,
 		chart: chart,
 		getPfLangList:getPfLangList,
-		updateMember:updateMember
+		updateMStatus:updateMStatus
 		};
 })();

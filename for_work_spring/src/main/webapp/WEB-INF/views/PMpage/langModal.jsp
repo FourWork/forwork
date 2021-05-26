@@ -14,7 +14,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">프로젝트에 사용된 언어</h5>
+					<h5 class="modal-title " id="exampleModalLabel"><b>프로젝트에 사용된 언어</b></h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -22,11 +22,11 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="projectId" class="col-form-label">Project No.</label> 
+						<label for="projectId" class="col-form-label float-left">Project No.</label> 
 						<input type="text" class="form-control" id="projectId" name="project_id">
 					</div>
 					<div class="form-group">
-						<label for="projectLanguage" class="col-form-label">언어</label> 
+						<label for="projectLanguage" class="col-form-label float-left">언어</label> 
 						<input type="text" class="form-control" id="projectLanguage" name="project_language" autocomplete="off">
 					</div>
 				</div>
