@@ -51,7 +51,8 @@ public class CalendarController {
 		return new ResponseEntity<List<CalendarWeekDto>>(list,HttpStatus.OK);
 	}
 	
-	@PostMapping(value="calendar/update",consumes="application/json")
+
+	@PostMapping(value="/calendar/update",consumes="application/json")
 	public ResponseEntity<String> updateCalendar(@RequestBody Calendar cal){
 		if(service.updateCalendar(cal) == 1){
 			return new ResponseEntity<>("success",HttpStatus.OK);
