@@ -85,10 +85,17 @@
 		      group by grouping sets(portfolio_language)
 	</select>
 	
+	<!-- status_detail이 null일 시, "상태없음"으로 view에 표시하기 위해서 외부조인 사용 -->
 	<select id="memberInfo" resultType="org.forwork.domain.Member">
-		select *
-			from member
-			where member_id=#{member_id}
+		 select a.member_id, a.name, a.email, b.status_detail
+			from member a, member_status b
+			where a.status_id = b.status_id(+) and member_id=#{member_id}
 	</select>
+	
+	<update id="updateMStatus">
+		update member
+			set status_id = #{status_id}
+			where member_id=#{member_id}
+	</update>
 	
 </mapper>

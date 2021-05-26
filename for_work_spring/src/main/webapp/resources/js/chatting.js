@@ -114,7 +114,7 @@ let chattingService = (function() {
 	function updateReadAll(chatroomId, memberId, callback, error){
 		$.ajax({
 			type : 'put',
-			url : '/message/read/' + '/member/' + memberId + '/chatroom/' + chatroomId,
+			url : '/message/read/member/' + memberId + '/chatroom/' + chatroomId,
 			success : function(result, status, xhr) {
 				if (callback) {
 					callback(result);
@@ -255,6 +255,23 @@ let chattingService = (function() {
 			}
 		});
 	}
+	
+	function getMemberDetail(memberId, callback, error){
+		$.ajax({
+			type : 'get',
+			url : '/chattingMember/' + memberId,
+			dataType : "json",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				console.log(er);
+				console.log("error");
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -271,6 +288,7 @@ let chattingService = (function() {
 		getAllMembers : getAllMembers,
 		createChatroom : createChatroom,
 		deleteChatroomMemberRelation : deleteChatroomMemberRelation,
+		getMemberDetail : getMemberDetail,
 	};
 
 })();
