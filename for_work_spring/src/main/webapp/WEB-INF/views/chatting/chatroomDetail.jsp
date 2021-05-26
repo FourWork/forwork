@@ -213,12 +213,38 @@
 .space {
 	clear: both;
 }
+
+.search-chatroom {
+	margin-left: 50%;
+	width: 18%;
+	border: 1px solid rgb(212, 211, 211);
+	height: 40px;
+	padding-left: 20px;
+	
+}
+
+#search-btn {
+	background-color: rgb(190, 194, 236);
+	padding: 15px;
+	border-radius: 10px;
+	font-size: 13px;
+	text-decoration: none;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-left:10px;
+}
+
+#search-btn:hover {
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
 	<div id="chatroom-title-container">
-		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>) <a
-			onclick="out()"><span id="out">나가기</span></a>
+		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>)
+		<input type="text" class="search-chatroom" placeholder="대화내용 검색" /><span id="search-btn">검색</span>
+		<a onclick="out()"><span id="out">나가기</span></a>
 	</div>
 	<div class="more">
 		<a onclick="loadMore()">더 보기</a>
