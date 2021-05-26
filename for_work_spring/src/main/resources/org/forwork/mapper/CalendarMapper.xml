@@ -5,7 +5,7 @@
 <mapper namespace="org.forwork.mapper.CalendarMapper">
 
 	<insert id="insertCalendar">
-		insert into calendar values(CALENDAR_SEQ.nextval,#{project_id},#{calendar_start_date},#{calendar_end_date},#{calendar_content})
+		insert into calendar values(CALENDAR_SEQ.nextval,#{project_id},#{calendar_start_date},#{calendar_end_date},#{calendar_content},'true')
 	</insert>
 	
 	<delete id="deleteCalendar">
