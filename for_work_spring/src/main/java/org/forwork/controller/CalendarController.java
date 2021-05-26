@@ -10,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -55,5 +57,15 @@ public class CalendarController {
 			return new ResponseEntity<>("success",HttpStatus.OK);
 		}
 		return new ResponseEntity<>("fail",HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value="/calendar/delete/{calendar_id}")
+	public ResponseEntity<String> deleteCalendar(@PathVariable("calendar_id")String calendar_id){
+		
+		if(service.deleteCalendar(calendar_id) == 1){			
+			return new ResponseEntity<String>("success",HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<String>("fail",HttpStatus.OK);
 	}
 }

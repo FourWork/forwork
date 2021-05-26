@@ -272,6 +272,24 @@ let chattingService = (function() {
 			}
 		})
 	}
+	
+	function searchMessage(chatroomId, data, callback, error){
+		$.ajax({
+			type : 'post',
+			url : '/message/search/chatroom/' + chatroomId,
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, er) {
+				console.log(er);
+				console.log("error");
+			}
+		})
+	}
 
 	return {
 		getMessages : getMessages,
@@ -289,6 +307,7 @@ let chattingService = (function() {
 		createChatroom : createChatroom,
 		deleteChatroomMemberRelation : deleteChatroomMemberRelation,
 		getMemberDetail : getMemberDetail,
+		searchMessage : searchMessage,
 	};
 
 })();

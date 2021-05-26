@@ -12,4 +12,6 @@ public interface CalendarService {
 	public List<CalendarWeekDto> listWeek(String project_id);
 	
 	public int updateCalendar(Calendar cal);
+	
+	public int deleteCalendar(String calendar_id);
 }
