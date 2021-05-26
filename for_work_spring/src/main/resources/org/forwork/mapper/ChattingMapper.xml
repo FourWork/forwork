@@ -21,6 +21,11 @@
 		<result column="chatroom_id" property="chatroomId"/>
 	</resultMap>
 	
+	<resultMap type="map" id="searchedMessageResultMap">
+		<result column="rownum" property="rownum"/>
+		<result column="message_id" property="messageId"/>
+	</resultMap>
+	
 	<select id="getChatroomMemberRelation" resultType="org.forwork.domain.ChatroomMemberRelation">
 		select * from chatroom_member_relation
 	</select>
@@ -52,7 +57,7 @@
 								and ms.chatroom_id = #{chatroom_id}
 								order by message_id desc) tmp
 						where rownum <= (#{cri.pageNum} * #{cri.amount}))
-			where rn > (#{cri.pageNum}-1) * #{cri.amount}
+			where rn > (#{cri.pageBefore}) * #{cri.amount}
 		]]>
 	</select>
 	
@@ -159,6 +164,16 @@
 			and chatroom_id = #{chatroom_id}
 	</delete>
 	
-	
+	<select id="searchMessage" resultMap="searchedMessageResultMap">
+		<!-- 마지막에 rownum으로 select하면 새로 rownum을 계산해서 보여줌  -->
+		select *
+			from (select tmp.*, rownum 
+					from (select message_id, message 
+							from message
+							where chatroom_id = #{chatroom_id}
+							order by message_id desc) tmp)
+			where message like #{query}
+	</select>
+
 	
 </mapper>

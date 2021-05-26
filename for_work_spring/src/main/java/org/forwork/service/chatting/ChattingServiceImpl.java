@@ -13,6 +13,7 @@ import org.forwork.domain.MemberMessageRelation;
 import org.forwork.domain.Message;
 import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
+import org.forwork.dto.MessageSearchDto;
 import org.forwork.mapper.ChattingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -190,5 +191,24 @@ public class ChattingServiceImpl implements ChattingService {
 		relation.setChatroom_id(chatroomId);
 		relation.setMember_id(memberId);
 		mapper.deleteChatroomMemberRelation(relation);
+	}
+
+	@Override
+	public List<MessageSearchDto> searchMessage(String query, String chatroomId, String amount) {
+		// TODO Auto-generated method stub
+		query = "%" + query + "%";
+		List<Map<String, String>> messageIdRowNums = mapper.searchMessage(query, chatroomId);
+		List<MessageSearchDto> dtos = new ArrayList<MessageSearchDto>();
+		
+		messageIdRowNums.forEach(pair -> {
+			MessageSearchDto dto = new MessageSearchDto();
+			dto.setMessageId(String.valueOf(pair.get("messageId")));
+			dto.calculatePageNumByRownum(String.valueOf(pair.get("rownum")), amount);
+			dtos.add(dto);
+		});
+		
+		log.info(dtos);
+		
+		return dtos;
 	}
 }
