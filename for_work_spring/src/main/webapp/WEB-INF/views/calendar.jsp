@@ -99,7 +99,7 @@
 	            					if(data == "success"){
 		            					alert("수정되었습니다.");
 					            		 modal.modal("hide");
-					            		 $("#calendar").fullcalendar("renderEvent");
+					            		 window.location.reload();
 	            					}
 	            					else
 	            						alert("실패하였습니다.");
@@ -118,7 +118,7 @@
 	            					if(data == "success"){
 	            						alert("정상적으로 삭제되었습니다.")
 	            						modal.modal("hide");
-	            						calendar.render();
+	            						window.location.reload();
 	            					}
 	            				}
 	            			});
@@ -167,7 +167,7 @@
 			            				 success:function(data){
 			            					 alert("추가되었습니다.");
 						            		 modal.modal("hide");
-						            		 calendar.render();
+						            		 window.location.reload();
 			            				 }
 			            			 })
 
@@ -181,9 +181,9 @@
 				selectable : true,
 				events: "http://localhost:8081/calendar/get/1.json"
 			});
-			calendar.render();
-			
+			calendar.render();			
 		});
+		
 		
 	</script>
 	
