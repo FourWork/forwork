@@ -215,7 +215,7 @@
 }
 
 .search-chatroom {
-	margin-left: 50%;
+	margin-left: 40%;
 	width: 18%;
 	border: 1px solid rgb(212, 211, 211);
 	height: 40px;
@@ -223,7 +223,7 @@
 	
 }
 
-#search-btn {
+.search-btn {
 	background-color: rgb(190, 194, 236);
 	padding: 15px;
 	border-radius: 10px;
@@ -234,14 +234,14 @@
 	margin-left:10px;
 }
 
-#search-btn:hover {
+.search-btn:hover {
 	cursor: pointer;
 }
 
 .found-highlight {
-	background-color: rgb(190, 194, 236);
-	color: red;
-	
+	background-color: rgb(131, 131, 131);
+	color: white;
+	font-weight: bold;
 }
 
 </style>
@@ -249,7 +249,7 @@
 <body>
 	<div id="chatroom-title-container">
 		<span id="chatroom-title" data-chatroom-id="${chatroomId }"></span>(<span id="n-member"></span>)
-		<input type="text" class="search-chatroom" placeholder="대화내용 검색" id="search-content" onkeyup="isEnterKey(searchMsg)" /><span id="search-btn" onclick="searchMsg()">검색</span>
+		<input type="text" class="search-chatroom" placeholder="대화내용 검색" id="search-content" onkeyup="isEnterKey(searchMsg)" /><span class="search-btn" id="search-up" onclick="searchTraverse(true)">위</span><span class="search-btn" id="search-down" onclick="searchTraverse(false)">아래</span>
 		<a onclick="out()"><span id="out">나가기</span></a>
 	</div>
 	<div class="more">
@@ -297,6 +297,10 @@
   	const AMOUNT = 20;
   	let members;
   	let chatbox = document.querySelector(".chatbox");
+  	let searchIdx = -2;
+  	let nSearchedMsg = 0;
+  	let searchedData;
+  	let searchedElemBefore;
   	
   	document.addEventListener("DOMContentLoaded", function(){
   		let userId = document.getElementById("user").value;
@@ -516,11 +520,44 @@
   			"amount": AMOUNT,
   		}
   		chattingService.searchMessage(chatroomId, data, function(messageIdRownums){
-  			loadMessages(false, messageIdRownums[0].pageNum);
-  			let foundMsg = document.getElementById( 'msg' + messageIdRownums[0].messageId );
-  			foundMsg.classList.add("found-highlight");
+  			if (messageIdRownums.length == 0){
+  				alert("검색 결과가 없습니다.");
+  				document.getElementById("search-content").value = "";
+  				return;
+  			}
+  			searchedData = messageIdRownums;
+  	  		if (searchIdx !== -2){
+  	  	  		searchedElemBefore.classList.remove("found-highlight");
+  	  		}
+  			searchIdx = -1;
+  			nSearchedMsg = messageIdRownums.length;
+  			searchTraverse(true);
   		})
+  	}
+  	
+  	function searchTraverse(isUp){
+  		let foundMsg;
+  		if (searchIdx !== -1){
+  			foundMsg = document.getElementById( 'msg' + searchedData[searchIdx].messageId );
+  	  		foundMsg.classList.remove("found-highlight");
+  		}
+  		if (isUp){
+  			searchIdx += 1;
+  		} else {
+  			searchIdx -= 1;
+  		}
+  		if (searchIdx < 0){
+  			searchIdx = 0
+  		}
+  		if (searchIdx >= nSearchedMsg){
+  			searchIdx = nSearchedMsg - 1;
+  		}
   		
+  		loadMessages(false, searchedData[searchIdx].pageNum);
+		foundMsg = document.getElementById( 'msg' + searchedData[searchIdx].messageId );
+		foundMsg.classList.add("found-highlight");
+		location.href = '#msg' + searchedData[searchIdx].messageId;
+		searchedElemBefore = foundMsg;
   	}
 
   	
