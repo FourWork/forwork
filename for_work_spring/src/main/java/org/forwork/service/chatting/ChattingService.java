@@ -9,6 +9,7 @@ import org.forwork.domain.Member;
 import org.forwork.domain.Message;
 import org.forwork.dto.MessageCriteria;
 import org.forwork.dto.MessageDto;
+import org.forwork.dto.MessageSearchDto;
 
 public interface ChattingService {
 	List<ChatroomMemberRelation> findChatroomMemberRelations();
@@ -26,4 +27,5 @@ public interface ChattingService {
 	List<Member> findAllMembers();
 	void createChatroom(String chatroomTitle, List<String> memberIds);
 	void deleteChatroomMemberRelation(String chatroomId, String memberId);
+	List<MessageSearchDto> searchMessage(String query, String chatroomId, String amount);
 }

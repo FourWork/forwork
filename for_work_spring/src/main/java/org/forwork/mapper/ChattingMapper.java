@@ -31,4 +31,5 @@ public interface ChattingMapper {
 	int createChatroom(Chatroom chatroom);
 	int insertChatroomMemberRelation(ChatroomMemberRelation chatroomMember);
 	int deleteChatroomMemberRelation(ChatroomMemberRelation chatroomMember);
+	List<Map<String, String>> searchMessage(@Param("query") String query, @Param("chatroom_id") String chatroomId);
 }
