@@ -1,6 +1,8 @@
 package org.forwork.service;
 
+import org.forwork.domain.Message;
 import org.forwork.service.chatting.ChattingService;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -10,7 +12,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes={ org.forwork.config.RootConfig.class })
+@ContextConfiguration(classes={ org.forwork.config.RootConfig.class, org.forwork.config.SecurityConfig.class })
 @Log4j
 public class ChattingServiceTests {
 	
@@ -57,7 +59,22 @@ public class ChattingServiceTests {
 //	}
 //	
 //	@Test
-//	public void testGetSetService() {
+//	public void 캐시_테스트() {
 //		service2.test();
 //	}
+//	
+//	@Test
+//	public void 메시지생성시_캐시업데이트() {
+//		Message msg = new Message();
+//		msg.setMessage("메시지 생성 및 캐시 업데이트");
+//		msg.setChatroom_id("1");
+//		msg.setSender("1");
+//		msg.setSend_time("2021-05-25 10:14:00");
+//		service.createMessage(msg);
+//	}
+//	
+	@Test
+	public void 캐시에_있는_마지막메시지_가져오기() {
+		service.findLastMessagePerChatroomByMemberId("1");
+	}
 }

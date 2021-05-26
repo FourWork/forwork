@@ -52,8 +52,6 @@ public class MessageController {
 	@PostMapping(value = "/chatroom/{chatroomId}",
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<MessageDto>> read(@RequestBody MessageCriteria cri, @PathVariable String chatroomId) {
-		System.out.println("sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf");
-		System.out.println(cri + " " + chatroomId);
 		return new ResponseEntity<>(service.findMessageByChatroomIdWithPaging(cri, chatroomId), HttpStatus.OK);
 	}
 	
@@ -62,9 +60,6 @@ public class MessageController {
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody Message msg) {
 		String messageId = service.createMessage(msg);
-		System.out.println("create----------------------");
-		System.out.println(messageId);
-		
 		return new ResponseEntity<String>(messageId, HttpStatus.OK);
 	}
 	
@@ -131,7 +126,6 @@ public class MessageController {
 			e.printStackTrace();
 		}
 
-		
 		return new ResponseEntity<String>(path, HttpStatus.OK);
 	}
 	

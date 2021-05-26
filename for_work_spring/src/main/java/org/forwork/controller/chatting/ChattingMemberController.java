@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.forwork.domain.Chatroom;
 import org.forwork.domain.Member;
+import org.forwork.dto.MemberDto;
+import org.forwork.dto.MemberStatus;
 import org.forwork.service.chatting.ChattingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,5 +36,18 @@ public class ChattingMemberController {
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<Member>> getMembers(){
 		return new ResponseEntity<List<Member>>(service.findAllMembers(), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{memberId}",
+			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<MemberDto> getMemberDetail(@PathVariable String memberId) {
+		Member member = service.findMemberById(memberId);
+		MemberDto memberDto = new MemberDto();
+		memberDto.setMember_id(member.getMember_id());
+		memberDto.setEmail(member.getEmail());
+		memberDto.setName(member.getName());
+		memberDto.setStatus(MemberStatus.getStatusDetailById(member.getStatus_id()).getStatusDetail());
+		System.out.println(memberDto);
+		return new ResponseEntity<>(memberDto, HttpStatus.OK);
 	}
 }
