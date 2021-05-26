@@ -26,7 +26,6 @@ public class MyProfileServiceImpl implements MyProfileService {
 	
 	private MyProfileMapper mapper;
 	
-	
 	@Transactional
 	@Override
 	public Portfolio read(String portfolio_id) {
@@ -115,6 +114,12 @@ public class MyProfileServiceImpl implements MyProfileService {
 	public Member getMemberInfo(String member_id) {
 
 		return mapper.memberInfo(member_id);
+	}
+
+	@Override
+	public int updateMStatus(Member member) {
+		
+		return mapper.updateMStatus(member);
 	}
 
 
