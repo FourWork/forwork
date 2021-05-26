@@ -39,13 +39,97 @@
 
 
 	<script type="text/javascript">
+		function dateFormat(date){
+			var year = date.getFullYear();
+			var month = date.getMonth()+1;
+			month = month >= 10 ? month : '0' + month;
+			var day = date.getDate();
+			day = day >= 10 ? day : '0' + day;
+			return year+"-"+month+"-"+day;
+		}
+	
+	
 		document.addEventListener('DOMContentLoaded', function() {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 				timeZone : 'UTC',
 				initialView : 'dayGridMonth',
+				displayEventTime: false,
 			    headerToolbar: {
 			        center: 'addEventButton'
+			    },
+			    eventClick: function(info) {
+			    	var modal = $("#calendarModal");
+	            	$("#addCalendar").html("수정");
+	            	$("#calendar_content").val(info.event.title);
+	            	$("#calendar_start_date").val(dateFormat(info.event.start));
+	            	$("#calendar_end_date").val(dateFormat(info.event.end));
+	            	if($("#deleteCalendar").html() == undefined)
+		            	$("#addCalendar").after('<button type="button" class="btn btn-danger" id="deleteCalendar">삭제</button>')
+	            	
+	            	modal.modal("show");
+	            	
+	            	$("#addCalendar").on("click",function(){
+	            		var content = $("#calendar_content").val();
+	            		var start = $("#calendar_start_date").val();
+	            		var start_date = new Date(start);
+	            		var end = $("#calendar_end_date").val();
+	            		var end_date = new Date(end);
+
+	            		 if(content ==""){
+	            			 alert("일정 내용을 입력해주세요.");
+	            		 }else if(isNaN(start_date) || isNaN(end_date)){
+	            			 alert("날짜를 입력해주세요.");
+	            		 }
+            			 else if(end_date - start_date < 0){
+	            			 alert("종료 날짜가 시작 날짜보다 이전입니다.");			            			 
+	            		 }else{
+	            			var obj = {
+	            				 "calendar_content":content,
+           						 "calendar_start_date":start_date,
+        						 "calendar_end_date":end_date,
+        						 "calendar_id": info.event.id
+        						 };
+	            			$.ajax({
+	            				url : "/calendar/update",
+	            				method : "POST",
+	            				contentType:"application/json",
+	            				data : JSON.stringify(obj),
+	            				success:function(data){
+	            					if(data == "success"){
+		            					alert("수정되었습니다.");
+					            		 modal.modal("hide");
+					            		 window.location.reload();
+	            					}
+	            					else
+	            						alert("실패하였습니다.");
+	            				}
+	            			});
+	            		}
+	            	}); //update event end
+	            	
+	            	$("#deleteCalendar").on("click",function(){
+	            		var result = window.prompt("삭제를 원하시면 '삭제'를 입력해주세요.");
+	            		if(result == "삭제"){
+	            			$.ajax({
+	            				url:"/calendar/delete/"+info.event.id,
+	            				method:"delete",
+	            				success : function(data){
+	            					if(data == "success"){
+	            						alert("정상적으로 삭제되었습니다.")
+	            						modal.modal("hide");
+	            						window.location.reload();
+	            					}
+	            				}
+	            			});
+	            		}
+	            		else
+	            			return;
+	            	});
+	            	
+	            	
+
+
 			    },
 			    customButtons: {
 			         addEventButton: {
@@ -81,14 +165,14 @@
 			            				 contentType:"application/json",
 			            				 data:JSON.stringify(cal),
 			            				 success:function(data){
-			            					 console.log(data);
+			            					 alert("추가되었습니다.");
+						            		 modal.modal("hide");
+						            		 window.location.reload();
 			            				 }
 			            			 })
 
 			            		 }
-			            		 modal.modal("hide");
-			            		 calendar.render();
-			            	 })
+			            	 });
 			            	
 			             }
 			     	}
@@ -97,8 +181,10 @@
 				selectable : true,
 				events: "http://localhost:8081/calendar/get/1.json"
 			});
-			calendar.render();
+			calendar.render();			
 		});
+		
+		
 	</script>
 	
 </body>
