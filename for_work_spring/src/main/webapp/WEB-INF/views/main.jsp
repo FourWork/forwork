@@ -47,7 +47,7 @@
 			allDayText: '일정',
 			events: "http://localhost:8081/calendar/getWeek/1.json"
 		});
-		calendar.setOption('height',230);
+		calendar.setOption('height',270);
 		calendar.render();
 	});
 </script>
@@ -224,8 +224,14 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 
 }
 
-.fc .fc-scroller-harness{
+.fc-daygrid-body-natural{
+	border-top : 2px solid black;
 	border-bottom : 2px solid black;
+	
+}
+.fc-scrollgrid-section .fc-scroller-harness .fc-scroller .fc-daygrid-body .fc-scrollgrid-sync-table{
+height : 150px;
+
 }
 
 </style>
