@@ -64,6 +64,9 @@
 	            	$("#calendar_content").val(info.event.title);
 	            	$("#calendar_start_date").val(dateFormat(info.event.start));
 	            	$("#calendar_end_date").val(dateFormat(info.event.end));
+	            	if($("#deleteCalendar").html() == undefined)
+		            	$("#addCalendar").after('<button type="button" class="btn btn-danger" id="deleteCalendar">삭제</button>')
+	            	
 	            	modal.modal("show");
 	            	
 	            	$("#addCalendar").on("click",function(){
@@ -96,15 +99,33 @@
 	            					if(data == "success"){
 		            					alert("수정되었습니다.");
 					            		 modal.modal("hide");
-					            		 calendar.render();
+					            		 $("#calendar").fullcalendar("renderEvent");
 	            					}
 	            					else
 	            						alert("실패하였습니다.");
 	            				}
 	            			});
 	            		}
-	            	});
+	            	}); //update event end
 	            	
+	            	$("#deleteCalendar").on("click",function(){
+	            		var result = window.prompt("삭제를 원하시면 '삭제'를 입력해주세요.");
+	            		if(result == "삭제"){
+	            			$.ajax({
+	            				url:"/calendar/delete/"+info.event.id,
+	            				method:"delete",
+	            				success : function(data){
+	            					if(data == "success"){
+	            						alert("정상적으로 삭제되었습니다.")
+	            						modal.modal("hide");
+	            						calendar.render();
+	            					}
+	            				}
+	            			});
+	            		}
+	            		else
+	            			return;
+	            	});
 	            	
 	            	
 
@@ -161,7 +182,9 @@
 				events: "http://localhost:8081/calendar/get/1.json"
 			});
 			calendar.render();
+			
 		});
+		
 	</script>
 	
 </body>

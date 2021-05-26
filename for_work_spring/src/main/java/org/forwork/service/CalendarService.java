@@ -10,4 +10,6 @@ public interface CalendarService {
 	public List<CalendarDto> listCalendar(String project_id);
 	
 	public int updateCalendar(Calendar cal);
+	
+	public int deleteCalendar(String calendar_id);
 }
