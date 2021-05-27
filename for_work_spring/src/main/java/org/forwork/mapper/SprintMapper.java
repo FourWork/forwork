@@ -9,7 +9,7 @@ public interface SprintMapper {
 	
 	public int insertSprint(Sprint sprint);
 	
-	public List<Sprint> listSprint();
+	public List<Sprint> listSprint(@Param("projcet_id")String projcet_id);
 	
 	public Sprint getSprint(int sprint_id);
 	

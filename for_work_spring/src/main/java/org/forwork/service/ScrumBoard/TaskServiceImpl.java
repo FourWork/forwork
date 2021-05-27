@@ -51,10 +51,10 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Task> listTask() {
+	public List<Task> listTask(String project_id) {
 		log.info("GET TASK LIST.....!!!!" );
 		
-		return mapper.listTask();
+		return mapper.listTask(project_id);
 	}
 
 	@Override

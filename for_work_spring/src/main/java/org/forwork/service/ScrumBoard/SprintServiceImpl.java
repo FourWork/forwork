@@ -27,11 +27,11 @@ public class SprintServiceImpl implements SprintService {
 	}
 
 	@Override
-	public List<Sprint> listSprint() {
+	public List<Sprint> listSprint(String projcet_id) {
 		
 		log.info("List Sprint..........!!!!");
 		
-		return mapper.listSprint();
+		return mapper.listSprint(projcet_id);
 	}
 
 	@Override

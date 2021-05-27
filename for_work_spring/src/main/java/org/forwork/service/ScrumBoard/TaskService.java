@@ -11,7 +11,7 @@ public interface TaskService {
 
 	public int insertTask(Task task);
 
-	public List<Task> listTask();
+	public List<Task> listTask(String project_id);
 
 	public int deleteTask(int task_id);
 

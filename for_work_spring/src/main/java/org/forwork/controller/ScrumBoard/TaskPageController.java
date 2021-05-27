@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/task/*", produces=MediaType.TEXT_HTML_VALUE)
 public class TaskPageController {
 	
-	@GetMapping("/taskPage")
+	@GetMapping("/taskPage/*")
 	public String taskPage(){
 		
 		return "/ScrumBoard/scrumBoard";
