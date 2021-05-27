@@ -43,5 +43,11 @@ public class CalendarMapperTests {
 		cal.setCalendar_content("modify");
 		mapper.updateCalendar(cal);
 	}
+	
+	@Test
+	public void getListTest(){
+		
+		mapper.getCalendarList("1").forEach(cal->log.info(cal));
+	}
 
 }

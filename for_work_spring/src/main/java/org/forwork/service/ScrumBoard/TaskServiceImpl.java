@@ -162,6 +162,9 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public int getSprintId(int task_id) {
+		if(mapper.getSprint(task_id) == null){
+			return 0;
+		}
 		return mapper.getSprint(task_id);
 	}
 	
@@ -187,7 +190,7 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Transactional
 	public int modifyTaskSprintRelation(String sprint_id, String task_id) {
-		if(mapper.getSprint(Integer.parseInt(task_id)) > 0){
+		if(mapper.getSprint(Integer.parseInt(task_id)) != null){
 			return sprintMapper.updateTaskSprintRelation(task_id, sprint_id);
 		}else{
 			return sprintMapper.addTaskSprintRelation(task_id, sprint_id);

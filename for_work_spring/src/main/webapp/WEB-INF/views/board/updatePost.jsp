@@ -120,6 +120,49 @@ td {
 	left: 10px;
 }
 
+.attachBoxTr {
+	display: none;
+}
+
+.attachBox ul {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0px;
+}
+
+.attachBox li {
+	list-style: none;
+	cursor: pointer;
+}
+
+.attachBox div {
+	margin-right: 30px;
+}
+
+.inputAttach {
+	border-bottom: none;
+	padding: 10px 0px;
+	font-size: 14px;
+}
+
+.inputAttach input {
+	margin-left: 10px;
+	font-size: 13px;
+}
+
+.btn-light {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	position: relative;
+}
+
+.bi-x {
+	position: absolute;
+	top: 3px;
+	left: 6px;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -163,6 +206,14 @@ td {
 										<textarea rows="10" cols="120" name="post_content">${post.post_content}</textarea>
 									</div>
 								</td>
+							</tr>
+							<tr class="inputAttachTr">
+								<td colspan="3" class="inputAttach">
+									첨부 파일 <input type="file" name="uploadFile" multiple>
+								</td>
+							</tr>
+							<tr class="attachBoxTr">
+								<td colspan="3"><div class="attachBox"><ul></ul></div></td>
 							</tr>
 						</table>
 						</form>
@@ -216,10 +267,28 @@ td {
 				var post_title = $("input[name='post_title']").val();
 				var post_content = $("textarea[name='post_content']").val();
 				
+				var attachList = [];
+				
+				$(".attachBox ul li").each(function(i, obj) {		
+				      var jobj = $(obj);
+				      
+				      console.dir(jobj);
+				      
+				      var attach = {
+				    		  uuid:jobj.data("uuid"),
+				    		  uploadPath:jobj.data("path"),
+				    		  fileName:jobj.data("filename"),
+				    		  fileType:jobj.data("type")
+				      };
+				      
+				      attachList.push(attach);
+				});				
+		
 				var post = {
 					post_id:post_id,
 					post_title:post_title,
-					post_content:post_content
+					post_content:post_content,
+					attachList:attachList
 				};
 				
 				postService.update(post, function(result) {
@@ -236,6 +305,135 @@ td {
 			});
 			
 		});
+			
+			
+			// 첨부 파일
+			
+			(function() {
+				
+				$.getJSON("/post/getAttachList", {post_id:post_id}, function(arr) {
+					console.log(arr);
+					var str = "";
+					
+					if (arr.length > 0) {
+						$(".attachBoxTr").show();
+					
+						$(arr).each(function(i, attach) {
+							
+							var fileCallPath =  encodeURIComponent( attach.uploadPath+"/"+ attach.uuid +"_"+attach.fileName);
+	
+							str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
+							str += "<div><i class='bi bi-paperclip'></i> " + attach.fileName + " ";						
+							str += "<button type='button' class='btn btn-light' data-file=\'"+fileCallPath+"\' data-type='file' class='deleteFileBtn'>";
+							str += "<i class='bi bi-x'></i></button></div></li>"
+							
+						});
+					
+					$(".attachBox ul").html(str);
+					
+					} else if (arr.length <= 0) {
+						$(".attachBoxTr").hide();
+					}
+				}); // end getjson
+				
+			})(); // end function
+			
+			
+			$(".attachBox").on("click", "button", function(e) {
+				
+				console.log("delete file");
+				
+				if (confirm("파일을 삭제하시겠습니까?")) {
+					var targetLi = $(this).closest("li");
+					targetLi.remove();
+				}
+				
+			});
+			
+			
+			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			var maxSize = 5242880; // 5MB
+			
+			function checkExtension(fileName, fileSize) {
+				if (fileSize >= maxSize) {
+					alert("파일 용량이 초과되었습니다.");
+					return false;
+				}
+				
+				if (regex.test(fileName)) {
+					alert("해당 종류의 파일은 첨부할 수 없습니다.");
+					return false;
+				}
+				
+				return true;
+			}
+
+			function showUploadResult(uploadResultArr) {
+				
+				if(!uploadResultArr || uploadResultArr.length == 0){ return; }
+				
+				var uploadUL = $(".attachBox ul");
+				
+				str = "";
+				
+				$(uploadResultArr).each(function(i, obj) {
+					
+					var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);
+					var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+					
+					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>"
+					str += "<div><i class='bi bi-paperclip'></i> " + obj.fileName + " ";
+					str += "<button type='button' class='btn btn-light' data-file=\'"+fileCallPath+"\' data-type='file' class='deleteFileBtn'>";
+					str += "<i class='bi bi-x'></i></button></div></li>"
+					
+				});
+				uploadUL.append(str);
+			}
+			
+			$("input[type='file']").change(function(e) {
+				
+				// 첨부 파일
+				var formData = new FormData();
+				var inputFile = $("input[name='uploadFile']");
+				var files = inputFile[0].files;
+				
+				for (var i = 0; i < files.length; i++) {
+					
+					if (!checkExtension(files[i].name, files[i].size)) {
+						return false;
+					}
+					
+					formData.append("uploadFile", files[i]);
+				}
+				
+				$.ajax({
+					url: '/uploadAjaxAction',
+					processData: false,
+					contentType: false,
+					data: formData,
+					type: 'POST',
+					dataType: 'json',
+					success: function(result) {
+						console.log(result);
+						$(".attachResultTr").show();
+						showUploadResult(result);
+					}
+				}); // ajax
+				
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 		});
  

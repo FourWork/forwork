@@ -2,9 +2,10 @@ package org.forwork.service.PMOPage;
 
 import java.util.List;
 
-import org.forwork.domain.Project;
+import org.forwork.domain.Member;
+import org.forwork.dto.PMODto;
 import org.forwork.mapper.MyProfileMapper;
-import org.forwork.mapper.PMOMapper;
+import org.forwork.mapper.PMOPageMapper;
 import org.forwork.service.myprofile.MyProfileServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,30 @@ import lombok.extern.log4j.Log4j;
 @Service
 public class PMOPageServiceImpl implements PMOPageService{
 
-	private PMOMapper mapper;
+	private PMOPageMapper mapper;
 	
 	@Override
-	public List<Project> getList(String project_status_id) {
-
+	public List<PMODto> getList(String project_status_id) {
+		
 		return(mapper.getProjectList(project_status_id));
 	}
+
+	@Override
+	public PMODto getProject(String project_id) {
+		return (mapper.getProject(project_id));
+	}
+
+	@Override
+	public List<Member> getMemberList(String project_id) {
+
+		return (mapper.getMemberList(project_id));
+	}
+
+	@Override
+	public PMODto getProjectTimeline(String project_id) {
+		return (mapper.getProjectTimeline(project_id));
+	}
+
 
 
 	

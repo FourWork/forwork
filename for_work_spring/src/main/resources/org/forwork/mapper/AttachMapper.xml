@@ -17,4 +17,8 @@
 		select * from attach where post_id = #{post_id}
 	</select>
 
+	<delete id="deleteAll">
+		delete attach where post_id = #{post_id}
+	</delete>
+	
 </mapper>
