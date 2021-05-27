@@ -3,10 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="../header.jsp"%>
-<%
-	session.setAttribute("member_id", "1");
-	session.setAttribute("name", "이가영");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,15 +24,12 @@
 <!-- 프로젝트 정보 가져오기 -->
 <script type="text/javascript" src="/resources/js/getProject.js"></script>
 <script type="text/javascript">
+var projectId;
 $(document).ready(function(){
 	
-	var url = window.location.search;
-	
-	//var projectId = url.substring(12,url.length);
-	//console.log("project_id...!!! "+projectId);
-	
-	var projectId = 1;
-	
+	var url = window.location.pathname;
+	projectId = url.substring(url.lastIndexOf('/')+1);
+
 	var prInfoDiv = $("#project_info");
 	
 	showPr(projectId);
@@ -76,7 +70,7 @@ $(document).ready(function(){
 	}
 	
 	ws.onmessage = function(e){
-		showList(); // 서버로부터 메세지를 받을 경우 새로고침
+		showList(projectId); // 서버로부터 메세지를 받을 경우 새로고침
 	}
 	
 	ws.onclose = function(e){
@@ -96,14 +90,14 @@ $(document).ready(function(){
 	var listDoingDiv = $("#doingColumn");
 	var listDoneDiv = $("#doneColumn");
 
-	showList();
+	showList(projectId);
 	
 	
 	// Task List 불러오기
-	function showList(){
+	function showList(projectId){
 		var count = 0;
 		var doneCount = 0;
-		taskService.listTask(function(list){
+		taskService.listTask(projectId,function(list){
 			
 			var part1="<div class='card draggable shadow-sm' id='task1'><div class='card-header'></div><div class='card-body p-2 ui-sortable-handle'><div class='card-title'><p class='task_id'>";			 
 			// task_id를 "to-do리스트로 옮기기" a link의 id로 삽입하여 가져감 
@@ -296,11 +290,11 @@ $(document).ready(function(){
 				task_content :taskModalContent.val(),
 				writer : 1,	// writer id
 				writer_name : "test",
-				project_id : 1
+				project_id : projectId
 		};
 				
 		
-	
+		console.log(task);
 	taskService.insertTask(task, function(result) {
 		
 		alert("Task가 추가되었습니다.");
@@ -308,7 +302,7 @@ $(document).ready(function(){
 		taskModal.find("input").val("");
 		taskModal.modal("hide");
 		
-		showList();
+		showList(projectId);
 	});
 	
 	});
@@ -348,7 +342,7 @@ $(document).ready(function(){
 			alert("Task가 수정되었습니다.");
 			taskModal.modal("hide");
 			ws.send("c");
-			showList();
+			showList(projectId);
 			
 		});
 	});
@@ -362,7 +356,7 @@ $(document).ready(function(){
 		
 			alert("Task가 삭제되었습니다.");
 			taskModal.modal("hide");
-			showList();
+			showList(projectId);
 		});
 	});
 	
@@ -428,7 +422,7 @@ $(document).ready(function(){
 			});
 			
 			sprintSettingModal.modal("hide");
-			showList();
+			showList(projectId);
 		})
 
 	});
@@ -493,12 +487,12 @@ $(document).ready(function(){
 	//sprint 처리
 	var sprintTb = $("#sprintList");
 	
-	showSprints();
+	showSprints(projectId);
 
 	// sprint List 출력
-	function showSprints() {
+	function showSprints(projectId) {
 		
-		sprintService.listSprint(function(list){
+		sprintService.listSprint(projectId,function(list){
 			
 			var str = "";
 			if(list==null || list.length==0){
@@ -543,12 +537,13 @@ $(document).ready(function(){
 	sprintModalRegisterBtn.on("click", function(e) {
 		
 		var sprint ={
-				project_id : 1, // project id 얻어오기
+				project_id : projectId, 
 				sprint_title : sprintModalTitle.val(),
 				sprint_start_date : sprintModalStartDate.val(),
 				sprint_end_date : sprintModalEndDate.val(),
 				sprint_color : sprintModalColor.val()
 		};
+
 	
 		sprintService.insertSprint(sprint, function(result) {
 			
@@ -557,7 +552,7 @@ $(document).ready(function(){
 			sprintModal.find("input").val("");
 			sprintModal.modal("hide");
 			
-			showSprints();
+			showSprints(projectId);
 		});
 		
 	});
@@ -589,6 +584,7 @@ $(document).ready(function(){
 			$("#sprintAdd").modal("show");
 			
 			
+			
 		});
 	
 });
@@ -613,8 +609,9 @@ $(document).ready(function(){
 			
 			alert("Sprint정보가 수정되었습니다.");
 			sprintModal.modal("hide");
-			showSprints();
-			showList();
+			console.log("수정시 : "+ projectId);
+			showSprints(projectId);
+			showList(projectId);
 		});
 		
 	});
@@ -629,8 +626,8 @@ $(document).ready(function(){
 			
 			alert("Sprint정보가 삭제되었습니다.");
 			sprintModal.modal("hide");
-			showSprints();
-			showList();
+			showSprints(projectId);
+			showList(projectId);
 		});
 	});
 	

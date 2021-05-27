@@ -47,13 +47,13 @@ public class TaskController {
 		return insertCount == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping(value="/list", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Task>> listTask(){
+	@GetMapping(value="/list/{project_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Task>> listTask(@PathVariable("project_id")String project_id){
 		
 		log.info("TASK LIST.............!!!");
 		
 		
-		return new ResponseEntity<>(service.listTask(), HttpStatus.OK);
+		return new ResponseEntity<>(service.listTask(project_id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{task_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})

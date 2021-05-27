@@ -10,7 +10,7 @@
 <select id="listSprint" resultType="org.forwork.domain.Sprint">
 	select sprint_id, sprint_title, sprint_color, project_id, 
 	To_CHAR(sprint_start_date,'YYYY-MM-DD') as sprint_start_date, TO_CHAR(sprint_end_date,'YYYY-MM-DD') as sprint_end_date 
-	from sprint order by sprint_start_date
+	from sprint where project_id =#{projcet_id} order by sprint_start_date
 </select>
 
 <select id="getSprint" resultType="org.forwork.domain.Sprint">

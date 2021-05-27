@@ -10,7 +10,7 @@ public interface TaskMapper {
 
 	public int insertTask(Task task);
 
-	public List<Task> listTask();
+	public List<Task> listTask(@Param("project_id")String project_id);
 
 	public int deleteTask(int task_id);
 

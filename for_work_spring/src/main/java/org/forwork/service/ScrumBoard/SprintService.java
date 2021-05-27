@@ -8,7 +8,7 @@ public interface SprintService {
 	
 	public int insertSprint(Sprint sprint);
 	
-	public List<Sprint> listSprint();
+	public List<Sprint> listSprint(String projcet_id);
 	
 	public Sprint getSprint(int sprint_id);
 	

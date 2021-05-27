@@ -43,12 +43,12 @@ public class SprintController {
 		
 	}
 	
-	@GetMapping(value="/list", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Sprint>> listSprint(){
+	@GetMapping(value="/list/{projcet_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Sprint>> listSprint(@PathVariable("projcet_id")String projcet_id){
 		
 		log.info("getList...........!!!!");
 		
-		return new ResponseEntity<>(service.listSprint(), HttpStatus.OK);
+		return new ResponseEntity<>(service.listSprint(projcet_id), HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/{sprint_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
