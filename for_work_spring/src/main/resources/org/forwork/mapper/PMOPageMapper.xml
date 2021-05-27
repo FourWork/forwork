@@ -45,5 +45,10 @@
 	</select>
 
 
+	<select id="countProject" resultType="org.forwork.dto.PMODto">
+		select project_status_id as approval_id, count(*) as count
+			from project
+      		group by project_status_id  	
+	</select>
 
 </mapper>

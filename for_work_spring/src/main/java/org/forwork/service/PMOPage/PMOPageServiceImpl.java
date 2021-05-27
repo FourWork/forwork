@@ -53,6 +53,13 @@ public class PMOPageServiceImpl implements PMOPageService{
 		return value;
 	}
 
+	@Override
+	public List<PMODto> countProject() {
+		return mapper.countProject();
+	}
+
+
+
 	
 
 	

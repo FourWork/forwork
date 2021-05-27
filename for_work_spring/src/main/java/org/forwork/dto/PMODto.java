@@ -21,6 +21,6 @@ public class PMODto {
 	private String is_pm;
 	private String approval_detail;
 
-	
+	private int count;
 	
 }
