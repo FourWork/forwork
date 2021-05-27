@@ -27,6 +27,7 @@
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	crossorigin="anonymous"></script> -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
@@ -105,7 +106,7 @@ td {
 }
 
 .contentBox {
-	min-height: 200px;
+	min-height: 150px;
 	padding: 20px;
 }
 
@@ -143,7 +144,7 @@ button:HOVER {
 .commentWrap {
 	margin: 10px 0px 0px 245px;
 	position: relative;
-	top: -100px;
+	
 	width: 880px;
 }
 
@@ -260,6 +261,39 @@ ul {
 	height: 40px;
 }
 
+.attachBox ul {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0px;
+}
+
+.attachBox li {
+	list-style: none;
+	cursor: pointer;
+}
+
+.attachBox li:HOVER {
+	text-decoration: underline;
+}
+
+.attachBox div {
+	margin-right: 30px;
+}
+
+.attachBoxTr {
+	display: none;
+}
+
+img {
+	height: 40%;
+}
+
+.bigPicture {
+	position: relative;
+    left: 500px;
+    top: 200px;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -312,8 +346,16 @@ ul {
 							<tr>
 								<td colspan="3"><div class="contentBox">${post.post_content}</div></td>
 							</tr>
+							<tr class="attachBoxTr">
+								<td colspan="3"><div class="attachBox"><ul></ul></div></td>
+							</tr>
 						</table>
 					</div>
+					
+					<div class="modal" id="bigPictureWrapper">
+						<div class="bigPicture"></div>
+					</div>
+					
 					<!-- postWrap end -->					
 				</div>
 				<!-- col-10 -->
@@ -375,7 +417,7 @@ ul {
 	</form>
 	
 	<!-- board modal -->
-	<div class="modal" tabindex="-1">
+	<div class="modal" tabindex="-1" id="modal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -404,27 +446,39 @@ ul {
 			var post_id = '<c:out value="${post.post_id}"/>';
 			var removeBtn = $("#removeBtn");
 			var realRemoveBtn = $("#realRemoveBtn");
-			var modal = $(".modal");
+			var modal = $("#modal");
 						
-			removeBtn.on("click", function(e) {
-				
-				$(".modal").modal("show");
+			$(document).on("click", "#removeBtn", function(e) {
+ 				
+				$("#modal").modal("show");
 				
 				$("#cancelBtn").on("click", function(e) {
-					$(".modal").modal("hide");
+					$("#modal").modal("hide");
 				});
-				
-				realRemoveBtn.on("click", function(e) {
-					
-					postService.remove(post_id, function(result) {
+ 				
+/* 				
+				var check = confirm("정말 삭제하시겠습니까?");
+ 
+ 				if (check) {
+ 					postService.remove(pno, function(result) {
 						if (result == "success") alert("게시글이 삭제되었습니다.");
-						modal.modal("hide");
+						
+						$("#actionForm").submit();
+					});
+ 				}
+ */
+  				
+				$(document).on("click", "#realRemoveBtn", function(e) {
+					
+					postService.remove(pno, function(result) {
+						if (result == "success") alert("게시글이 삭제되었습니다.");
+						$("#modal").modal("hide");
 						
 						$("#actionForm").submit();
 					});
 					
 				});
-				
+ 			
 			});
 			
 			$(".listBtn button").on("click", function(e) {
@@ -436,6 +490,73 @@ ul {
 				e.preventDefault();
 				$("#actionUpdateForm").submit();
 			});
+			
+			
+			// 첨부 파일
+			
+			(function() {
+				$.getJSON("/post/getAttachList", {post_id:post_id}, function(arr) {
+					
+					console.log(arr);
+					var str= "";
+					
+					if (arr.length > 0) {
+						$(".attachBoxTr").show();
+						$(".contentBox").css("min-height", "150px");
+						$(".commentWrap").css("top", "-70px");
+						
+						$(arr).each(function(i, attach) {
+							
+							var fileCallPath =  encodeURIComponent( attach.uploadPath+"/"+ attach.uuid +"_"+attach.fileName);
+
+							str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
+							str += "<div><i class='bi bi-paperclip'></i> " + attach.fileName + "</div></li>";
+							
+						});
+						
+						$(".attachBox ul").html(str);
+					} else if (arr.length <= 0) {
+						$(".attachBoxTr").hide();
+						$(".contentBox").css("min-height", "200px");
+						$(".commentWrap").css("top", "-100px");
+					}
+					
+				}); // end getjson
+				
+			})(); // end function 
+			
+			$(document).on("click", ".attachBox li", function(e) {
+				
+				console.log("view image");
+				
+				var liObj = $(this);
+				
+				var path = encodeURIComponent(liObj.data("path") + "/" + liObj.data("uuid") + "_" + liObj.data("filename"));
+				
+				if (liObj.data("type")) {
+					showImage(path.replace(new RegExp(/\\/g), "/"));
+				} else {
+					//download
+					self.location = "/download?fileName=" + path;
+				}
+				
+			});
+			
+			$(document).on("click", "#bigPictureWrapper", function(e) {
+				$(".bigPicture").toggle();
+				setTimeout(function() {
+					$("#bigPictureWrapper").toggle();
+				}, 1000);
+			});
+			
+			function showImage(fileCallPath) {
+				$("#bigPictureWrapper").css("display", "flex").show();
+				
+				$(".bigPicture")
+				.html("<img src='/display?fileName=" + fileCallPath + "'>")
+				.show();
+			}
+			
 		});
 	
 	</script>
