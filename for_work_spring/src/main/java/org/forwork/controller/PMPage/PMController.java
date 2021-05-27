@@ -108,5 +108,13 @@ public class PMController {
 		
 		return new ResponseEntity<>(service.getSeq(pr_lang_seq), HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/isPm/{project_id}/{member_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<Project> isPm(@PathVariable("project_id")int project_id, @PathVariable("member_id")int member_id){
+		
+		log.info("is PM...? : " + project_id +"/"+ member_id);
+		
+		return new ResponseEntity<>(service.isPm(project_id, member_id),HttpStatus.OK);
+	}
 
 }
