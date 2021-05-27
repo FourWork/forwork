@@ -13,54 +13,54 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
- 		<sec:authorize access="isAnonymous()"> // 로그인안한 유저만 보이게 함
-		<a href="/member/login">로그인</a>
-	</sec:authorize>
-		<sec:authorize access="isAuthenticated()"> // 로그인한 유저만 보이게 함
-		<a href="/logout">로그아웃</a>
-	</sec:authorize>
 	
-	<h1>${member.name}</h1>
-	
-	<button type="button" class="btn btn-primary" id="targetCreateProjectForm" data-toggle="modal" data-target="#CreateProjectForm">프로젝트 생성</button>
+	<div class="low mt-5 ml-3">
+		<button type="button" class="col-2 btn btn-primary" id="targetCreateProjectForm" data-toggle="modal" data-target="#CreateProjectForm">프로젝트 생성</button>
+	</div>
 
 	
+	<c:forEach items="${projects}" var="project">
+		<div class="card mt-3 ml-3" style="width: 18rem;float: left">
+		
+			<div class="card-body">
+				<h5 class="card-title">프로젝트 이름</h5>
+				<a href="/main/${project.project_id}" class="card-link">${project.project_title}</a>
+			</div>
+			
+			<ul class="list-group list-group-flush">
+				<c:if test="${project.is_pm == 'y' }">
+				<li class="list-group-item">프로젝트 권한: PM</li>
+				</c:if>
+				<c:if test="${project.is_pm == 'n' }">
+				<li class="list-group-item">프로젝트 권한: PA</li>
+				</c:if>
+				<li class="list-group-item">시작날짜:${project.project_start_date}</li>
+				<li class="list-group-item">마감날짜:${project.project_end_date}</li>
+				<c:if test="${project.project_status_id == '1'}">
+			<li class="list-group-item">프로젝트 상태 : 승인대기</li>
+		</c:if>
+		<c:if test="${project.project_status_id == '2'}">
+			<li class="list-group-item">프로젝트 상태 : 승인</li>
+		</c:if>
+		<c:if test="${project.project_status_id == '3'}">
+			<li class="list-group-item">프로젝트 상태 : 반려</li>
+		</c:if>
+		<c:if test="${project.project_status_id == '4'}">
+			<li class="list-group-item">프로젝트 상태 : 완료</li>
+		</c:if>
+			</ul>
+			
+			<div class="card-body">
+				<a href="#" class="card-link">프로젝트 수정</a>
+				
+			
+			</div>
+		</div>
+	</c:forEach>
+	
 
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-	<h5 class="card-title">프로젝트 이름</h5>
-	<a href="#" class="card-link">1차스프린트</a>
-  </div>
-  <ul class="list-group list-group-flush">
-	<li class="list-group-item">프로젝트 권한:PA/PM</li>
-	<li class="list-group-item">시작날짜:2021-05-24</li>
-	<li class="list-group-item">마감날짜:2021-06-25</li>
-	<li class="list-group-item">프로젝트 상태:승인대기/반려/승인</li>
-  </ul>
-  <div class="card-body">
-	<a href="#" class="card-link">프로젝트 수정</a>
-	<a href="#" class="card-link">프로젝트 삭제</a>
-  </div>
-</div>
-	
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-	<h5 class="card-title">프로젝트 이름</h5>
-	<a href="#" class="card-link">1차스프린트</a>
-  </div>
-  <ul class="list-group list-group-flush">
-	<li class="list-group-item">프로젝트 권한:PA/PM</li>
-	<li class="list-group-item">시작날짜:2021-05-24</li>
-	<li class="list-group-item">마감날짜:2021-06-25</li>
-	<li class="list-group-item">프로젝트 상태:승인대기/반려/승인</li>
-  </ul>
-  <div class="card-body">
-	<a href="#" class="card-link">프로젝트 수정</a>
-	<a href="#" class="card-link">프로젝트 삭제</a>
-  </div>
-</div>	
-	
-	</body>
 </html>
+<%-- js --%>
+<script src="/resources/assets/js/project/projectList.js"></script>
 <%@ include file="./create_project_form.jsp" %>
 <%@ include file="../footer.jsp" %>

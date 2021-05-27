@@ -16,7 +16,7 @@ public class Post {
 	private String post_content;
 	private int hitcount;
 	private String post_date;
-	private String post_file;
 	private int commentCnt;
 	private List<Attach> attachList;
+	
 }

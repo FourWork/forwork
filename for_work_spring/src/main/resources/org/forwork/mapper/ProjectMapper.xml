@@ -4,25 +4,55 @@
 
 <mapper namespace="org.forwork.mapper.ProjectMapper">
 
-	<resultMap type="org.forwork.domain.Project" id="projectMap">
-	
-		<result column="project_id" property="project_id"/>
-		
-		<result column="project_title" property="project_title"/>
-		
-		<result column="project_start_date" property="project_start_date"/>
-		
-		<result column="project_end_date" property="project_end_date"/>
-		
-		<result column="project_status_id" property="project_status_id"/>
-	
-	</resultMap>
-	
-	<insert id="create" parameterType="org.forwork.domain.Project">
-		insert into project (project_id, project_title, project_start_date, project_end_date,project_status_id)
-		values (project_seq.nextval, #{project_title}, #{project_start_date}, #{project_end_date},#{project_status_id})
+	<insert id="projectCreate" parameterType="org.forwork.domain.Project">
+		insert into project
+		(project_id, project_title, project_start_date,
+		project_end_date,project_status_id)
+		values (project_seq.nextval,
+		#{project_title}, #{project_start_date},
+		#{project_end_date},#{project_status_id})
 	</insert>
 
+	<select id="getProjectList" parameterType="int"
+		resultType="org.forwork.domain.Project">
+		select pro.project_id, pro.project_title, pro.project_start_date,
+		pro.project_end_date, pro.project_status_id, pmr.is_pm from
+		PROJECT PRO left outer join PROJECT_MEMBER_RELATION PMR on PRO.PROJECT_ID =
+		PMR.PROJECT_ID WHERE PMR.MEMBER_ID = #{member_id}
+	</select>
 
+	<insert id="createProject" parameterType="org.forwork.domain.Project">
+		<selectKey keyProperty="project_id" resultType="int" order="BEFORE">
+			select project_seq.nextval+1 FROM DUAL
+		</selectKey>
+		insert into project (project_id, project_title, project_start_date,
+		project_end_date, project_status_id,register_date)
+		values (project_seq.nextval,
+		#{project_title}, #{project_start_date},
+		#{project_end_date},
+		#{project_status_id}, sysdate)
+	</insert>
+
+	<insert id="createMemberProjectRelationPm" parameterType="org.forwork.domain.Project">
+		insert
+		into project_member_relation (project_id, member_id, is_pm)
+		select
+		#{project_id}, member_id, 'y'
+		from
+		member
+		where
+		email = #{pm_id}
+	</insert>
+
+	<insert id="createMemberProjectRelationPa" parameterType="org.forwork.domain.Project">
+		insert
+		into project_member_relation (project_id, member_id, is_pm)
+		select
+		#{project_id}, member_id, 'n'
+		from
+		member
+		where
+		email = #{pa_email}
+	</insert>
 
 </mapper>

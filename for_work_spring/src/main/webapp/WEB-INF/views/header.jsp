@@ -8,6 +8,10 @@
 <html>
 
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal.member" var="member"/>
@@ -17,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+  <title>FORWORK</title>
   <!-- Favicon -->
   <link rel="icon" href="../../resources/assets/img/brand/favicon.png" type="image/png">
   <!-- Fonts -->
@@ -42,6 +46,8 @@
   		margin-left: 350px;
   	}
   </style>
+
+  
 </head>   
   
 <body>
@@ -87,7 +93,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-					<a href="/chatting/searchMember?userId=${userId }"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
+					<a href="/chatting/invite"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary" id="n-chatroom"></strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
@@ -128,10 +134,12 @@
                   <i class="ni ni-support-16"></i>
                   <span>Support</span>
                 </a>
+                <sec:authorize access="isAuthenticated()">
                 <div class="dropdown-divider"></div>
-                <a href="#!" class="dropdown-item">
+                <a href="/logout" class="dropdown-item">
                   <i class="ni ni-user-run"></i>
-                  <span>Logout</span>
+                  <span>logout</span>
+                  </sec:authorize>
                 </a>
               </div>
             </li>
@@ -139,7 +147,7 @@
         </div>
       </div>
     </nav>
-<input type="text" value="${userId }" id="user" style="display:none;">
+<input type="text" value="${member.member_id }" id="user" style="display:none;">
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -169,7 +177,7 @@
 					}
 					html += 
 					'<div class="list-group list-group-flush">' + 
-						'<a href="/chatting/chatroomDetail?userId=' + userId + '&chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
+						'<a href="/chatting/detail/' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
 							'<div class="row align-items-center">'+
 								'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/Img/chatroom.png" class="avatar rounded-circle">'+'</div>' +
 								'<div class="col ml--2">' +
@@ -194,14 +202,13 @@
 	
 	
 	stompClient2.connect({}, function(frame){
-  		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient2.subscribe("/topic/user/" + userId, function(response){
   			notify(JSON.parse(response.body));
   			updateLastMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
-  	    alert(error);
+  	    console.log(error);
   	}); 
   	
   	function notify(msg){

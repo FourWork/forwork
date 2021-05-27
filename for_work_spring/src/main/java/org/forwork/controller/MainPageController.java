@@ -3,7 +3,11 @@ package org.forwork.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
+
 import org.forwork.service.board.PostService;
 import org.forwork.service.todolist.TodolistService;
 
@@ -19,16 +23,18 @@ public class MainPageController {
 	private PostService postService;
 	private TodolistService todolistService;
 
-	@GetMapping("/main")
-	public void main(int project_id, int member_id, Model model) {
+	@GetMapping("/main/{project_id}")
+	public String main(@PathVariable(name = "project_id") int project_id, Principal principal, Model model) {
 		log.info("forwork main page");
+		int member_id = Integer.parseInt(principal.getName());
 		
 		model.addAttribute("member_id", member_id);
 		model.addAttribute("project_id", project_id);
 		
-		model.addAttribute("notice", postService.getNotice(project_id)); // 怨듭� �궗�빆
-		model.addAttribute("doing", todolistService.doingList(member_id)); // �빐�빞 �븷 �씪 紐⑸줉
-		model.addAttribute("done", todolistService.doneList(member_id)); // �셿猷뚮맂 �븷 �씪 紐⑸줉
+		model.addAttribute("notice", postService.getNotice(project_id));
+		model.addAttribute("doing", todolistService.doingList(member_id)); 
+		model.addAttribute("done", todolistService.doneList(member_id));
 		
+		return "main";
 	}
 }

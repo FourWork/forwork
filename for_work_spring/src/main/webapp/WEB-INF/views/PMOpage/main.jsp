@@ -67,9 +67,9 @@ padding-top:10px;
 			  <tbody>
 			  <c:forEach items="${list_approved}" var="PMODto">
 			    <tr>
-			      <th scope="row"><a href></a><c:out value="${PMODto.project_title}"/><a></a></th>
+			      <th scope="row"><a class="getLink" data-project_id="${PMODto.project_id}"><c:out value="${PMODto.project_title}"/></a></th>
 			      <td><c:out value="${PMODto.name}"/></td>
-<td><fmt:formatDate pattern="yyyy-MM-dd"
+				  <td><fmt:formatDate pattern="yyyy-MM-dd"
 									value="${PMODto.check_date}" /></td>
 			      <td><c:out value="${PMODto.project_end_date}"/></td>
 			    </tr>
@@ -94,8 +94,8 @@ padding-top:10px;
 			  <tbody>
 			    <c:forEach items="${list_not_yet_approved}" var="PMODto">
 			    <tr>
-				  <th scope="row"><c:out value="${PMODto.project_title}"/></th>
-			      <td><c:out value="${PMODto.name}"/></td>
+				      <th scope="row"><a class="getLink" data-project_id="${PMODto.project_id}"><c:out value="${PMODto.project_title}"/></a></th>
+			     <td><c:out value="${PMODto.name}"/></td>
 			      <td><fmt:formatDate pattern="yyyy-MM-dd"
 									value="${PMODto.register_date}" /></td>
 			      <td><c:out value="${PMODto.project_start_date}"/></td>
@@ -113,7 +113,13 @@ padding-top:10px;
 </body>
 
 <script>
-
+$(document).ready(function(){
+	$(".getLink").on("click",function(){
+		var project_id = $(this).data("project_id");
+		self.location="get?project_id="+project_id;
+	})
+	
+})
 </script>
 
 </html>

@@ -25,7 +25,7 @@
 					<h3 class="join_title">
 						<label for="email">이메일<span class="optional"></span></label>
 					</h3>
-					<span class="box int_email"> <input type="text" name="email" 
+					<span class="box int_email"> <input type="email" name="email" 
 						class="int" maxlength="100" placeholder="abcd1234@gmail.com">
 					</span> <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span>
 				</div>
@@ -35,7 +35,7 @@
 					<h3 class="join_title">
 						<label for="pswd1">비밀번호</label>
 					</h3>
-					<span class="box int_pass"> <input type="text" name="pw" id="pswd1"
+					<span class="box int_pass"> <input type="password" name="pw" id="pswd1"
 						class="int" maxlength="20"> <span id="alertTxt">사용불가</span>
 						<img src="../../../resources/Img/pw.jpg" id="pswd1_img1"
 						class="pswdImg">
@@ -53,7 +53,7 @@
 				<!-- JOIN BTN-->
 				<div class="btn_area">
 					<button type="button" id="btnJoin" value="회원가입"
-						onclick="location.href='signUp'">
+						onclick="location.href='/member/signUp'">
 						<span>회원가입</span>
 					</button>
 				</div>

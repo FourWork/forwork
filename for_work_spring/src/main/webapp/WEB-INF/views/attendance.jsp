@@ -3,6 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ include file="header.jsp"%>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.member" var="member" />
+</sec:authorize>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,8 +22,13 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
-
-
+<script type="text/javascript">
+	var id;
+	$(function() {
+		id = "${member.member_id}";
+	})
+</script>
+<script type="text/javascript" src="/resources/js/attendance.js"></script>
 <style type="text/css">
 #off {
 	border: 1px solid black;
@@ -76,6 +84,7 @@ svg {
 
 </head>
 <body>
+
 	<div id="today"></div>
 	<div id="commute"></div>
 	<button type="button" value="출근" class="btn btn-primary">출근</button>
@@ -96,7 +105,6 @@ svg {
 			</svg></a>
 	</div>
 
-	<script type="text/javascript" src="/resources/js/attendance.js"></script>
 </body>
 </html>
 
