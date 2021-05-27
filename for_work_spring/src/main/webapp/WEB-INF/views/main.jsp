@@ -309,7 +309,7 @@ height : 150px;
 								<tr>
 									<td>${notice.post_id}</td>
 									<td style="width: 50%"><a
-										href="board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
+										href="/board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
 									<td><fmt:parseDate var="dt" value="${notice.post_date}"
 											pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
 											value="${dt}" pattern="yyyy.MM.dd" /></td>
