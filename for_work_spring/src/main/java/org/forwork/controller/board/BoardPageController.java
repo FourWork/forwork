@@ -25,19 +25,19 @@ public class BoardPageController {
 	
 	@GetMapping("/main")
 	public void main(int project_id, Model model) {
-		log.info("?”„ë¡œì ?Š¸ë³? ê²Œì‹œ?Œ ë©”ì¸");
+		log.info("í”„ë¡œì íŠ¸ë³„ ê²Œì‹œíŒ ë©”ì¸");
 		
-		boardService.init(project_id); // ?ƒˆ ?”„ë¡œì ?Š¸ ê³µì? ?‚¬?•­, ê¸°ë³¸ ê²Œì‹œ?Œ ?ƒ?„±
+		boardService.init(project_id); // ìƒˆ í”„ë¡œì íŠ¸ ê³µì§€ ì‚¬í•­, ê¸°ë³¸ ê²Œì‹œíŒ ìƒì„±
 		
-		model.addAttribute("menu", boardService.getList(project_id)); // ê²Œì‹œ?Œ ë©”ë‰´
-		model.addAttribute("notice", postService.getNotice(project_id)); // ê³µì? ?‚¬?•­
-		model.addAttribute("board", postService.getBoard(project_id)); // ìµœì‹  ê¸?
+		model.addAttribute("menu", boardService.getList(project_id)); // ê²Œì‹œíŒ ë©”ë‰´
+		model.addAttribute("notice", postService.getNotice(project_id)); // ê³µì§€ ì‚¬í•­
+		model.addAttribute("board", postService.getBoard(project_id)); // ìµœì‹  ê¸€
 		model.addAttribute("project_id", project_id);
 	}
 	
 	@GetMapping("/list")
 	public void list(int project_id, Long board_id, Criteria cri, Model model) {
-		log.info("ê²Œì‹œ?Œë³? ê²Œì‹œê¸? ëª©ë¡");
+		log.info("ê²Œì‹œíŒë³„ ê²Œì‹œê¸€ ëª©ë¡");
 		log.info("cri: " + cri);
 		
 		int total = postService.getTotal(cri, board_id);
@@ -49,14 +49,14 @@ public class BoardPageController {
 		}
 		
 		model.addAttribute("menu", boardService.getList(project_id));
-		model.addAttribute("board", boardService.get(board_id)); // ê²Œì‹œ?Œ ?´ë¦?
-		model.addAttribute("list", postService.getListPage(cri, board_id)); // ê²Œì‹œê¸? ëª©ë¡
+		model.addAttribute("board", boardService.get(board_id)); // ê²Œì‹œ?ï¿½ï¿½ ?ï¿½ï¿½ï¿½?
+		model.addAttribute("list", postService.getListPage(cri, board_id)); // ê²Œì‹œï¿½? ëª©ë¡
 		model.addAttribute("pageMaker", new PageDto(cri, total));
 	}
 
 	@GetMapping("/manager")
 	public void manager(int project_id, Long board_id, Model model) {
-		log.info("ê²Œì‹œ?Œ ê´?ë¦? ?˜?´ì§?");
+		log.info("ê²Œì‹œíŒ ê´€ë¦¬ í˜ì´ì§€");
 		
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("project_id", project_id);
@@ -65,8 +65,8 @@ public class BoardPageController {
 	@GetMapping("/post")
 	public void post(@RequestParam("project_id") int project_id, @RequestParam("board_id") Long board_id, 
 			@RequestParam("post_id") Long post_id, @ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("ê²Œì‹œê¸? ?ƒ?„¸ ë³´ê¸°");
-		postService.addHitcount(post_id); // ì¡°íšŒ ?ˆ˜
+		log.info("ê²Œì‹œï¿½? ?ï¿½ï¿½?ï¿½ï¿½ ë³´ê¸°");
+		postService.addHitcount(post_id); // ì¡°íšŒ ìˆ˜
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); 
 		model.addAttribute("post", postService.get(post_id));
@@ -75,7 +75,7 @@ public class BoardPageController {
 	@GetMapping("/updatePost")
 	public void updatePost(@RequestParam("project_id") int project_id, @RequestParam("board_id") Long board_id, 
 			@RequestParam("post_id") Long post_id, @ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("ê²Œì‹œê¸? ?ˆ˜? • ?˜?´ì§?");
+		log.info("ê²Œì‹œê¸€ ìˆ˜ì • í˜ì´ì§€");
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); 
 		model.addAttribute("post", postService.get(post_id));
@@ -83,7 +83,7 @@ public class BoardPageController {
 
 	@GetMapping("/insertPost")
 	public void insertPost(int project_id, Long board_id, Model model) {
-		log.info("ê²Œì‹œê¸? ?“±ë¡? ?˜?´ì§?");
+		log.info("ê²Œì‹œê¸€ ë“±ë¡ í˜ì´ì§€");
 		
 		model.addAttribute("menu", boardService.getList(project_id));
 		model.addAttribute("board", boardService.get(board_id)); 

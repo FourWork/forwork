@@ -153,6 +153,13 @@ table {
 
 .postAttachResult li {
 	list-style: none;
+	margin-right: 30px;
+	margin-bottom: 5px;
+}
+
+.postAttachResult ul {
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .attachResultTr {
@@ -162,6 +169,19 @@ table {
 .deleteFileBtn {
 	height: 20px;
 	width: 20px;
+}
+
+.btn-light {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	position: relative;
+}
+
+.bi-x {
+	position: absolute;
+	top: 3px;
+	left: 6px;
 }
 
 </style>
@@ -340,8 +360,8 @@ table {
 					var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 					
 					str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>"
-					str += "<div><i class='bi bi-paperclip'></i> <span>" + obj.fileName + "</span> ";
-					str += "<button type='button' class='btn btn-outline-light' data-file=\'"+fileCallPath+"\' data-type='file' class='deleteFileBtn'>";
+					str += "<div><i class='bi bi-paperclip'></i> " + obj.fileName;
+					str += "<button type='button' class='btn btn-light' data-file=\'"+fileCallPath+"\' data-type='file' class='deleteFileBtn'>";
 					str += "<i class='bi bi-x'></i></button></div></li>"
 					
 				});
@@ -394,7 +414,6 @@ table {
 			      dataType:'text',
 			      type: 'POST',
 			        success: function(result){
-			           alert(result);
 			           
 			           targetLi.remove();
 			         }

@@ -31,6 +31,26 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
+	
+<!-- 캘린더 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css">
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>	
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView : 'timeGridWeek',
+			slotDuration: '1:00',
+			allDay : true,
+			allDayText: '일정',
+			events: "http://localhost:8081/calendar/getWeek/1.json"
+		});
+		calendar.setOption('height',270);
+		calendar.render();
+	});
+</script>
 
 <!-- 구글차트-->
 <script type="text/javascript"
@@ -188,6 +208,36 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 	font-weight: bold;
 	margin: 30px 0px 10px;
 }
+
+/*캘린더 CSS*/
+.calendar .fc-toolbar {
+	height : 50px;
+
+}
+
+#calendar{
+	margin-right : 20px;
+}
+
+.fc .fc-scrollgrid-section-liquid{
+	display : none;
+
+}
+
+.fc-daygrid-body-natural{
+	border-top : 2px solid black;
+	border-bottom : 2px solid black;
+	
+}
+.fc-scrollgrid-section .fc-scroller-harness .fc-scroller .fc-daygrid-body .fc-scrollgrid-sync-table{
+height : 150px;
+
+}
+
+.fc-scrollgrid-sync-inner a{
+	height : 25px;
+} 
+
 </style>
 
 
@@ -197,9 +247,9 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 		<div class="container">
 			<div class="row">
 
-				<div class="col-sm-7 calendar">
+				<div class="col-sm-7 calendar mt-3">
 				
-					일정
+					<div id='calendar'></div>
 				
 				</div>
 				<!-- calendar end -->
