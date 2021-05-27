@@ -59,10 +59,10 @@
 <!-- 차트 그리기 : teamProgress.js  -->
 <script type="text/javascript">
 
-var url = window.location.search;
-console.log(url);
-var project_id = url.substring(12,url.indexOf('&'));
-console.log("project_id: " + project_id);
+var url = window.location.pathname;
+console.log("url....!!!"+url);
+var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
+console.log("project_id....!!! " + project_id);
 
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });

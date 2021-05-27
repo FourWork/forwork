@@ -63,11 +63,11 @@ personalChartDiv.html(str);
 
 <!-- 차트 그리기 : teamProgress.js  -->
 <script type="text/javascript">
-
-	var url = window.location.pathname;
 	
-	var project_id = url.substring(8,url.length-5);
-	console.log("project_id: "+project_id);
+	var url = window.location.pathname;
+	console.log("PM페이지 메인 url....!!!"+url);
+	var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
+	console.log("PM페이지 메인  project_id....!!! " + project_id);
 	
 		
 	google.charts.load('current', {

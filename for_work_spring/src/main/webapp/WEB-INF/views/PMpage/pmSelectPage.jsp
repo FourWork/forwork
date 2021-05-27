@@ -32,13 +32,17 @@
 
 $(document).ready(function() {
 	
-	showProjects();
+	var member_id = "${member.member_id}";
+	console.log("member_id...>!!!!!!" +member_id);
+	var pmPageBtn = $("#pmPageBtn");
 	
-	function showProjects(){
+	showProjects(member_id);
+	
+	function showProjects(member_id){
 		
 		var prDiv = $("#projectsDiv");
 		
-		projectSelect.getProjects(function(list){
+		projectSelect.getProjects(member_id,function(list){
 			
 			var str ="";
 			var prStatus ="";

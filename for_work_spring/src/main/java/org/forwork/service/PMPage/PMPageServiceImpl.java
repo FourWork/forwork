@@ -42,10 +42,10 @@ public class PMPageServiceImpl implements PMPageService {
 	}
 
 	@Override
-	public List<Project> getProjects() {
+	public List<Project> getProjects(int member_id) {
 		
 		log.info("GET PROJECTS.........!!!");
-		return mapper.getProjects();
+		return mapper.getProjects(member_id);
 	}
 
 	@Override
