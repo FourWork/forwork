@@ -1,0 +1,132 @@
+2021-05-27 02:18:14,751 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2021-05-27 02:18:14,785 INFO o.a.j.JMeter: Loading user properties from: /usr/local/Cellar/jmeter/5.4.1/libexec/bin/user.properties
+2021-05-27 02:18:14,786 INFO o.a.j.JMeter: Loading system properties from: /usr/local/Cellar/jmeter/5.4.1/libexec/bin/system.properties
+2021-05-27 02:18:14,795 INFO o.a.j.JMeter: Copyright (c) 1998-2021 The Apache Software Foundation
+2021-05-27 02:18:14,795 INFO o.a.j.JMeter: Version 5.4.1
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: java.version=15.0.2
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: os.name=Mac OS X
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: os.arch=x86_64
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: os.version=11.2.1
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: file.encoding=UTF-8
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: java.awt.headless=null
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: Max memory     =1073741824
+2021-05-27 02:18:14,796 INFO o.a.j.JMeter: Available Processors =12
+2021-05-27 02:18:14,807 INFO o.a.j.JMeter: Default Locale=English (EN)
+2021-05-27 02:18:14,808 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2021-05-27 02:18:14,808 INFO o.a.j.JMeter: JMeterHome=/usr/local/Cellar/jmeter/5.4.1/libexec
+2021-05-27 02:18:14,808 INFO o.a.j.JMeter: user.dir  =/Users/leejooeun/kosta-spring-project/forwork
+2021-05-27 02:18:14,808 INFO o.a.j.JMeter: PWD       =/Users/leejooeun/kosta-spring-project/forwork
+2021-05-27 02:18:14,809 INFO o.a.j.JMeter: IP: 218.38.137.27 Name: Juneui-MacBookPro.local FullName: 218.38.137.27
+2021-05-27 02:18:17,034 INFO o.a.j.JMeter: Setting LAF to: com.github.weisj.darklaf.DarkLaf:com.github.weisj.darklaf.theme.DarculaTheme
+2021-05-27 02:18:18,355 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
+2021-05-27 02:18:19,713 INFO o.j.r.JARSourceHTTP: Found cached repo
+2021-05-27 02:18:19,841 INFO o.j.r.PluginManager: Plugins Status: [jpgc-plugins-manager=1.6, jmeter-core=5.4.1, jmeter-ftp=5.4.1, jmeter-http=5.4.1, jmeter-jdbc=5.4.1, jmeter-jms=5.4.1, jmeter-junit=5.4.1, jmeter-java=5.4.1, jmeter-ldap=5.4.1, jmeter-mail=5.4.1, jmeter-mongodb=5.4.1, jmeter-native=5.4.1, jmeter-tcp=5.4.1, jmeter-components=5.4.1]
+2021-05-27 02:18:32,561 INFO o.a.j.s.FileServer: Default base='/Users/leejooeun/kosta-spring-project/forwork'
+2021-05-27 02:18:32,573 INFO o.a.j.g.a.Load: Loading file: /Users/leejooeun/Thread Group.jmx
+2021-05-27 02:18:32,573 INFO o.a.j.s.FileServer: Set new base='/Users/leejooeun'
+2021-05-27 02:18:32,718 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2021-05-27 02:18:32,724 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2021-05-27 02:18:32,725 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2021-05-27 02:18:32,726 INFO o.a.j.s.SaveService: Loading file: /Users/leejooeun/Thread Group.jmx
+2021-05-27 02:18:32,811 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2021-05-27 02:18:32,812 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2021-05-27 02:18:32,812 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2021-05-27 02:18:32,812 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2021-05-27 02:18:32,812 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2021-05-27 02:18:32,812 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2021-05-27 02:18:32,905 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2021-05-27 02:18:32,905 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2021-05-27 02:18:32,905 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2021-05-27 02:18:32,905 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2021-05-27 02:18:33,019 INFO o.a.j.v.ViewResultsFullVisualizer: Add JavaFX to your Java installation if you want to use renderer: org.apache.jmeter.visualizers.RenderInBrowser
+2021-05-27 02:18:33,089 INFO o.a.j.s.FileServer: Set new base='/Users/leejooeun'
+2021-05-27 02:18:36,775 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2021-05-27 02:18:36,776 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:18:36,776 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:18:36,777 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2021-05-27 02:18:36,778 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2021-05-27 02:18:36,808 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2021-05-27 02:18:36,851 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2021-05-27 02:18:36,851 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Thread Group.
+2021-05-27 02:18:36,851 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2021-05-27 02:18:36,852 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2021-05-27 02:18:36,854 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2021-05-27 02:18:36,854 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2021-05-27 02:18:36,855 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2021-05-27 02:18:36,862 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = Juneui-MacBookPro.local
+2021-05-27 02:18:36,868 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2021-05-27 02:18:53,755 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2021-05-27 02:18:53,755 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2021-05-27 02:18:53,755 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2021-05-27 02:18:53,756 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)
+2021-05-27 02:18:58,424 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2021-05-27 02:18:58,424 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:18:58,425 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2021-05-27 02:18:58,457 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2021-05-27 02:18:58,457 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Thread Group.
+2021-05-27 02:18:58,458 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2021-05-27 02:18:58,458 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2021-05-27 02:18:58,458 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2021-05-27 02:18:58,458 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2021-05-27 02:18:58,458 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2021-05-27 02:19:11,411 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2021-05-27 02:19:11,411 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2021-05-27 02:19:11,412 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2021-05-27 02:19:11,412 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)
+2021-05-27 02:19:15,068 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2021-05-27 02:19:15,068 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:19:15,069 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2021-05-27 02:19:15,101 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2021-05-27 02:19:15,101 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Thread Group.
+2021-05-27 02:19:15,102 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2021-05-27 02:19:15,102 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2021-05-27 02:19:15,102 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2021-05-27 02:19:15,102 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2021-05-27 02:19:15,102 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2021-05-27 02:19:27,435 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2021-05-27 02:19:27,435 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2021-05-27 02:19:27,435 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2021-05-27 02:19:27,435 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)
+2021-05-27 02:19:30,926 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2021-05-27 02:19:30,926 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:19:30,927 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2021-05-27 02:19:30,962 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2021-05-27 02:19:30,962 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Thread Group.
+2021-05-27 02:19:30,962 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2021-05-27 02:19:30,962 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2021-05-27 02:19:30,962 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2021-05-27 02:19:30,962 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2021-05-27 02:19:30,962 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2021-05-27 02:19:42,456 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2021-05-27 02:19:42,456 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2021-05-27 02:19:42,456 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2021-05-27 02:19:42,456 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)
+2021-05-27 02:19:46,843 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2021-05-27 02:19:46,844 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:19:46,844 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2021-05-27 02:19:46,875 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2021-05-27 02:19:46,875 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Thread Group.
+2021-05-27 02:19:46,875 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2021-05-27 02:19:46,875 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2021-05-27 02:19:46,876 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2021-05-27 02:19:46,876 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2021-05-27 02:19:46,876 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2021-05-27 02:19:58,134 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2021-05-27 02:19:58,134 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2021-05-27 02:19:58,134 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2021-05-27 02:19:58,134 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)
+2021-05-27 02:20:07,838 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2021-05-27 02:20:07,838 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2021-05-27 02:20:07,838 INFO o.a.j.g.u.JMeterMenuBar: setRunning(true, *local*)
+2021-05-27 02:20:07,872 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group
+2021-05-27 02:20:07,872 INFO o.a.j.e.StandardJMeterEngine: Starting 1 threads for group Thread Group.
+2021-05-27 02:20:07,872 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2021-05-27 02:20:07,873 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=1 ramp-up=1 delayedStart=false
+2021-05-27 02:20:07,873 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2021-05-27 02:20:07,873 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2021-05-27 02:20:07,873 INFO o.a.j.t.JMeterThread: Thread started: Thread Group 1-1
+2021-05-27 02:20:19,165 INFO o.a.j.t.JMeterThread: Thread is done: Thread Group 1-1
+2021-05-27 02:20:19,165 INFO o.a.j.t.JMeterThread: Thread finished: Thread Group 1-1
+2021-05-27 02:20:19,166 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2021-05-27 02:20:19,166 INFO o.a.j.g.u.JMeterMenuBar: setRunning(false, *local*)

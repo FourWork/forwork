@@ -85,7 +85,7 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getMemberById(memberId);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
 	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub

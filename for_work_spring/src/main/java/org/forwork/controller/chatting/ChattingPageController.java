@@ -17,22 +17,18 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/chatting/*", produces = MediaType.TEXT_HTML_VALUE)
 public class ChattingPageController {
 	
-	private final ChattingService service;
-	
 	@GetMapping("/chatroomDetail")
-	public String detail(@ModelAttribute("chatroomId") String chatroomId, @ModelAttribute("userId") String userId, Model model) {
-		// TODO: userId 세션에서 받아오기 
-		model.addAttribute("member", service.findMemberById(userId));
+	public String detail(@ModelAttribute("chatroomId") String chatroomId) {
 		return "/chatting/chatroomDetail";
 	}
 	
 	@GetMapping("/tmpMain")
-	public String main(@ModelAttribute("userId") String userId) {
+	public String main() {
 		return "/chatting/tmpMain";
 	}
 	
 	@GetMapping("/searchMember")
-	public String search(@ModelAttribute("userId") String userId) {
+	public String search() {
 		return "/chatting/searchMember";
 	}
 	
