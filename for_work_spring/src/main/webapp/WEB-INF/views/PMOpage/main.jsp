@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 </head>
 <style>
-.grid-container {
+/* .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -34,7 +34,25 @@ border:2px solid green;
 }
 
 .not-yet-approved { grid-area: 2 / 1 / 3 / 2;
-border:2px solid red;}
+border:2px solid red;} */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 10px;
+  grid-template-areas:
+    "approved not-yet-approved"
+    "disapproved completed";
+}
+
+.approved { grid-area: approved; }
+
+.not-yet-approved { grid-area: not-yet-approved; }
+
+.disapproved { grid-area: disapproved; }
+
+.completed { grid-area: completed; }
+
 
 [id^=tb]{
 margin-top :30px;
@@ -49,7 +67,6 @@ padding-top:10px;
 <body>
 
 <div class="grid-container">
-  <div class="project_status">
 	  <div class="approved">
 	  <h3>
   		진행중인 프로젝트
@@ -104,9 +121,52 @@ padding-top:10px;
 			  </tbody>
 			</table>	  
 		</div>
-  </div>
-  <div class="attendance">근태</div>
-  
+		<div class="disapproved">
+		<table class="table" id="tb_not_approved" data-approval_id="1">
+			  <thead>
+			    <tr>
+			      <th scope="col">Project_title</th>
+			      <th scope="col">PM</th>
+			      <th scope="col">Registered Date</th>
+			      <th scope="col">project start Date</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <c:forEach items="${list_not_yet_approved}" var="PMODto">
+			    <tr>
+				      <th scope="row"><a class="getLink" data-project_id="${PMODto.project_id}"><c:out value="${PMODto.project_title}"/></a></th>
+			     <td><c:out value="${PMODto.name}"/></td>
+			      <td><fmt:formatDate pattern="yyyy-MM-dd"
+									value="${PMODto.register_date}" /></td>
+			      <td><c:out value="${PMODto.project_start_date}"/></td>
+			    </tr>
+			    </c:forEach>
+			  </tbody>
+			</table>
+			</div>
+		<div class="completed">
+		<table class="table" id="tb_not_approved" data-approval_id="1">
+			  <thead>
+			    <tr>
+			      <th scope="col">Project_title</th>
+			      <th scope="col">PM</th>
+			      <th scope="col">Registered Date</th>
+			      <th scope="col">project start Date</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <c:forEach items="${list_not_yet_approved}" var="PMODto">
+			    <tr>
+				      <th scope="row"><a class="getLink" data-project_id="${PMODto.project_id}"><c:out value="${PMODto.project_title}"/></a></th>
+			     <td><c:out value="${PMODto.name}"/></td>
+			      <td><fmt:formatDate pattern="yyyy-MM-dd"
+									value="${PMODto.register_date}" /></td>
+			      <td><c:out value="${PMODto.project_start_date}"/></td>
+			    </tr>
+			    </c:forEach>
+			  </tbody>
+			</table>
+			</div>
 </div>
 
 

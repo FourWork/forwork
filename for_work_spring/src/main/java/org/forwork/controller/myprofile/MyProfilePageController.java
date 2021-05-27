@@ -1,5 +1,7 @@
 package org.forwork.controller.myprofile;
 
+import java.security.Principal;
+
 //import org.forwork.domain.Portfolio;
 //import org.forwork.domain.PortfolioLanguage;
 //import org.forwork.service.BoardService;
@@ -22,7 +24,9 @@ produces=MediaType.TEXT_HTML_VALUE)
 public class MyProfilePageController {
 
 	@GetMapping("/main")
-	public void main(String member_id, String portfolio_id, Model model){
+	public void main(Principal principal, String portfolio_id, Model model){
+		int member_id = Integer.parseInt(principal.getName());
+		
 		model.addAttribute("member_id", member_id);
 		model.addAttribute("portfolio_id",portfolio_id);
 	}
@@ -37,8 +41,4 @@ public class MyProfilePageController {
 		model.addAttribute("portfolio_id",portfolio_id);
 	}
 	
-	@GetMapping("/chart")
-	public void chart(String member_id, Model model){
-		model.addAttribute("member_id", member_id);
-	}
 }
