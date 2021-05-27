@@ -29,7 +29,7 @@
 
 <select id="todaySprint" resultType="String">
 	<![CDATA[
-	select sprint_id from sprint where SPRINT_START_DATE <= SYSDATE and SYSDATE <=SPRINT_END_DATE and project_id=#{project_id}
+	select /*+ INDEX_DESC(sprint sprint_id)*/ sprint_id from sprint where SPRINT_START_DATE <= SYSDATE and SYSDATE <=SPRINT_END_DATE and project_id=#{project_id} and rownum = 1
 	]]>
 </select>
 
