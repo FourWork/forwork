@@ -33,6 +33,8 @@ public class CommentController {
 	public ResponseEntity<String> create(@RequestBody Comments comment) {
 		log.info("Comment: " + comment);
 		
+		log.info("@!!!!!!!!!!!!!!!!!!!!member_name: " + comment.getMember_name());
+		
 		int insertCount = service.register(comment);
 		log.info("comment insert count: " + insertCount);
 		

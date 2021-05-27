@@ -375,7 +375,7 @@
   			}
   		});
   	}, function(error) {
-  	    alert(error);
+  	    console.log(error);
   	}); 
   	
   	function isEnterKey(callback){
@@ -476,8 +476,7 @@
 			sendOutMessage(function(){
 				chattingService.deleteChatroomMemberRelation(chatroomId, sender, function(result){
 					console.log(result);
-					let url = "/chatting/tmpMain?userId=" + sender;
-					window.location.href = url;
+					history.back();
 				})
 			})
 		}

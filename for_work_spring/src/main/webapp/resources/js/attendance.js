@@ -1,29 +1,8 @@
-	var attendanceService = (function(){
- 		function printTime(){
- 			$.ajax({
-				url:"/attendance/getReg",
-				method:"get",
-				success:function(time){
-					console.log(time);
-					var commuteTime = time.commute;
-					var offTime = time.off;
-					if(commuteTime != ''){
-						$("#commute").html(commuteTime);
-					}
-					else{
-						$("#commute").html("-");
-					}
-					 
-					if(offTime != ''){			
-						$("#off").html(offTime);
-					}else{
-					$("#off").html("-");
-	 	   			}
-				}
-		});
-		} 
-		
-		function drawGraph(ago){
+
+
+var attendanceService = (function(){
+		function drawGraph(ago,id){
+			console.log('ago : ' + ago);
 			google.charts.load('current', {packages: ['corechart', 'bar']});
 		 	google.charts.setOnLoadCallback(drawAxisTickColors);
 		 	
@@ -41,16 +20,18 @@
 		 	         ['일요일', 0]
 		 	   	]);
 		 	   	$.ajax({
-		 	   		url:"/attendance/getWeek/"+ago,
+		 	   		url:"/attendance/getWeek/"+ago+"/"+id,
 		 	   		method : "get",
 		 	   		success:function(week){
 		 	   			for(var i = 0; i < week.length; i++){
 		 	   				for(var j = 0; j < 7; j++){
 		  	   					if(week[i].week == data.getValue(j, 0)){
-		 	   						data.setValue(i, 1, week[i].workTime);
+		 	   						data.setValue(j, 1, week[i].workTime);
 		 	   					} 
 		 	   				}
 		 	   			}
+
+		 	 
 		 				var options = {
 		 						title : '주간 근무 현황 ',
 		 						colors :['blue']
@@ -91,23 +72,33 @@
 	})();
 	
 	
-	
 	var ago = 0;
-
-	attendanceService.drawGraph(ago);
-	attendanceService.setting;
 	
-	 
  $(function(){
+		$("#previous").on("click", function(e) {
+			e.preventDefault();
+			ago += 1;
+			attendanceService.drawGraph(ago,id);
+			setWeek(ago);
+		})
+		$("#next").on("click", function(e) {
+			e.preventDefault();
+			ago -= 1;
+			attendanceService.drawGraph(ago,id);
+			setWeek(ago);
+		})
+	
+	 attendanceService.drawGraph(ago,id);
+	 attendanceService.setting;
+	 
 	  $("button").click(function(e) {	
 	 		var check = window.prompt($(this).val()+"하시려면 "+$(this).val()+"을 입력해주세요", "");
 			//출근 또는 퇴근 실행
 			if(check == $(this).val()){
 				if(check == "출근"){
 					e.preventDefault();
-					
 					$.ajax({
-						url:"/attendance/commute",
+						url:"/attendance/commute/"+id,
 						method:"post",
 						success:function(str){
 							if(str == 'success'){
@@ -121,7 +112,7 @@
 						e.preventDefault();
 						
 						$.ajax({
-							url:"/attendance/off",
+							url:"/attendance/off/"+id,
 							method:"post",
 							success:function(str){
 								if(str == 'success'){
@@ -169,22 +160,10 @@
  	
 
 
-		$(function() {
-			$("#previous").on("click", function(e) {
-				e.preventDefault();
-				ago += 1;
-				attendanceService.drawGraph(ago);
-				setWeek(ago);
+		
 
-			})
-			$("#next").on("click", function(e) {
-				e.preventDefault();
-				ago -= 1;
-				attendanceService.drawGraph(ago);
-				setWeek(ago);
-			})
 
-		})
+		
 	
 		
 	$(function(){
@@ -193,7 +172,7 @@
 		
 	function printTime(){
 			$.ajax({
-				url:"/attendance/getTime",
+				url:"/attendance/getTime/"+id,
 				method:"get",
 				success:function(time){
 

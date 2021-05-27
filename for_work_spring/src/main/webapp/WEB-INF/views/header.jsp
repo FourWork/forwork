@@ -93,7 +93,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-					<a href="/chatting/searchMember"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
+					<a href="/chatting/invite"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary" id="n-chatroom"></strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
@@ -177,7 +177,7 @@
 					}
 					html += 
 					'<div class="list-group list-group-flush">' + 
-						'<a href="/chatting/chatroomDetail?chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
+						'<a href="/chatting/detail/' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
 							'<div class="row align-items-center">'+
 								'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/Img/chatroom.png" class="avatar rounded-circle">'+'</div>' +
 								'<div class="col ml--2">' +
@@ -202,14 +202,13 @@
 	
 	
 	stompClient2.connect({}, function(frame){
-  		/* setConnected(true); */
   		console.log('connected: ' + frame);
   		stompClient2.subscribe("/topic/user/" + userId, function(response){
   			notify(JSON.parse(response.body));
   			updateLastMessage(JSON.parse(response.body));
   		});
   	}, function(error) {
-  	    alert(error);
+  	    console.log(error);
   	}); 
   	
   	function notify(msg){

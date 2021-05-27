@@ -33,7 +33,11 @@ public class TaskServiceImpl implements TaskService {
 		int project_id = Integer.parseInt(task.getProject_id());
 		String content = "create task by." + task.getWriter_name(); // log 내용 생성
 		log.info("INSERT TASK.....!!!!" + task);
-		task.setTask_index((mapper.maxIndex()+1)+""); // stories column index 계산
+		if(mapper.maxIndex() == null){			
+			task.setTask_index("1"); // stories column index 계산
+		}else{
+			task.setTask_index((mapper.maxIndex()+1)+""); // stories column index 계산
+		}
 		String sprint_id = sprintMapper.todaySprint(task.getProject_id());
 		sprint_id = sprint_id == null ? "" : sprint_id;
 		

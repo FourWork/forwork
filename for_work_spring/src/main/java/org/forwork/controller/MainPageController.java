@@ -31,9 +31,9 @@ public class MainPageController {
 		model.addAttribute("member_id", member_id);
 		model.addAttribute("project_id", project_id);
 		
-		model.addAttribute("notice", postService.getNotice(project_id)); // 怨듭� �궗�빆
-		model.addAttribute("doing", todolistService.doingList(member_id)); // �빐�빞 �븷 �씪 紐⑸줉
-		model.addAttribute("done", todolistService.doneList(member_id)); // �셿猷뚮맂 �븷 �씪 紐⑸줉
+		model.addAttribute("notice", postService.getNotice(project_id));
+		model.addAttribute("doing", todolistService.doingList(member_id)); 
+		model.addAttribute("done", todolistService.doneList(member_id));
 		
 		return "main";
 	}
