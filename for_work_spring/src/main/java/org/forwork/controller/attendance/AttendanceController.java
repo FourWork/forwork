@@ -22,26 +22,23 @@ public class AttendanceController {
 	private AttendanceService service;
 	private Gson gson = new Gson();
 	
-	@GetMapping(value = "/attendance/getWeek/{ago}", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> getAttendance(@PathVariable("ago")String ago){
-		String member_id = "2";
+	@GetMapping(value = "/attendance/getWeek/{ago}/{member_id}", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> getAttendance(@PathVariable("ago")String ago, @PathVariable("member_id")String member_id){
 		ago = (Integer.parseInt(ago)*7)+"";
 		log.info("ago is  : " + ago);
 		String week = gson.toJson(service.getWeekWork(ago, member_id));
 		return new ResponseEntity<String>(week,HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/attendance/getTime", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<String> getRegisterTime(){
-		String member_id = "2";
+	@GetMapping(value = "/attendance/getTime/{member_id}", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<String> getRegisterTime(@PathVariable("member_id")String member_id){
 		String data = gson.toJson(service.getTime(member_id));
 		log.info("data is " + data);
 		return new ResponseEntity<String>(data,HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/attendance/commute",produces= MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> commuteRegister(){
-		String member_id = "2";
+	@PostMapping(value="/attendance/commute/{member_id}",produces= MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> commuteRegister(@PathVariable("member_id")String member_id){
 		if(service.commuteRegister(member_id) == 1){
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		}else{
@@ -49,9 +46,8 @@ public class AttendanceController {
 		}
 	}
 	
-	@PostMapping(value="/attendance/off",produces=MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> offRegister(){
-		String member_id = "2";
+	@PostMapping(value="/attendance/off/{member_id}",produces=MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> offRegister(@PathVariable("member_id")String member_id){
 		if(service.offRegister(member_id) == 1){
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		}else{

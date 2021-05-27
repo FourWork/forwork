@@ -44,8 +44,8 @@ public class ChatroomController {
 
 	@PostMapping(value = "/new")
 	public ResponseEntity<String> create(@RequestBody Map<String, List<String>> data) {
-		service.createChatroom(data.get("title").get(0), data.get("memberIds"));
-		return new ResponseEntity<>("create chatroom success", HttpStatus.OK);
+		String chatroomId = service.createChatroom(data.get("title").get(0), data.get("memberIds"));
+		return new ResponseEntity<>(chatroomId, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{chatroomId}/member/{userId}")

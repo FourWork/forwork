@@ -24,9 +24,9 @@ var sprintService = (function() {
 		});
 	}
 	
-	function listSprint(callback, error) {
+	function listSprint(projectId,callback, error) {
 		
-		$.getJSON("/sprint/list"+".json",
+		$.getJSON("/sprint/list/"+projectId+".json",
 				function(data) {
 					if(callback){
 						callback(data);

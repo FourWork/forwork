@@ -15,7 +15,7 @@
 	</insert>
 
 	<select id="listTask" resultType="org.forwork.domain.Task">
-		select * from task order by
+		select * from task where project_id = #{project_id} order by
 		task_index
 	</select>
 

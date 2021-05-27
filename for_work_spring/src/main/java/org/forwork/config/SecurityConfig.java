@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /*import CustomeAccessDeniedHandler.CustomeAccessFailerHandler;*/
@@ -27,11 +29,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
 		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
+		web.httpFirewall(DefaultHttpFirewall());
+	}
+	
+	@Bean
+	public HttpFirewall DefaultHttpFirewall(){
+		return new DefaultHttpFirewall();
 	}
 
 	@Override
@@ -60,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.logoutSuccessUrl("/member/login")//로그아웃 하고 넘어갈 페이지
 		.invalidateHttpSession(true);
 	}
+	
 	
 	
 	

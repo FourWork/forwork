@@ -21,7 +21,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="icons.html">
+              <a class="nav-link" href="/attendance">
                <i class="ni ni-time-alarm"></i>
                 <span class="nav-link-text">출퇴근</span>
               </a>
@@ -39,7 +39,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tables.html">
+              <a class="nav-link" id = "sidebar_calendar" href="#">
                <i class="ni ni-calendar-grid-58"></i>  
                 <span class="nav-link-text">캘린더</span>
               </a>
@@ -81,6 +81,7 @@
 					var pmPageBtn = $("#pmPageBtn");
 					
 					checkIsPm(project_id, member_id);
+					$("#sidebar_calendar").attr("href","/calendar/"+project_id);
 					
 					function checkIsPm(project_id, member_id) {
 						

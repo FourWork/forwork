@@ -23,9 +23,10 @@ var taskService = (function() {
 		})
 	}
 	
-	function listTask(callback, error) {
+	function listTask(project_id,callback, error) {
 		
-		$.getJSON("/task/list"+".json",
+		$.getJSON("/task/list/"+project_id+".json",
+				
 				function(data) {
 					if(callback){
 						callback(data);

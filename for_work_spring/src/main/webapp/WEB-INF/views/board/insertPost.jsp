@@ -34,7 +34,7 @@
 <script type="text/javascript">
 
 function list() {
-	window.location.href = "list?project_id=${board.project_id}&board_id=${board.board_id}";
+	window.location.href = "/board/list?project_id=${board.project_id}&board_id=${board.board_id}";
 }
 
 </script>
@@ -196,14 +196,14 @@ table {
 
 					<div class="boardMenuList">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><a href="main?project_id=${board.project_id}"><i class="bi bi-house-door"></i> 게시판 홈</a></li>
+							<li class="list-group-item"><a href="/board/main/${board.project_id}"><i class="bi bi-house-door"></i> 게시판 홈</a></li>
 							<c:forEach var="menu" items="${menu}">
 								<li class="list-group-item">
-									<a href="list?project_id=${menu.project_id}&board_id=${menu.board_id}">
+									<a href="/board/list?project_id=${menu.project_id}&board_id=${menu.board_id}">
 									<i class="bi bi-clipboard"></i> ${menu.board_name}</a></li>
 							</c:forEach>
 						</ul>
-						<a href="manager?project_id=${board.project_id}" class="boardManagerBtn"><i class="bi bi-pencil-square"></i> 게시판 관리</a>
+						<a href="/board/manager?project_id=${board.project_id}" class="boardManagerBtn"><i class="bi bi-pencil-square"></i> 게시판 관리</a>
 					</div>
 
 				</div>
@@ -222,7 +222,7 @@ table {
 							</tr>
 							<tr>
 								<td colspan="3" class="postWriter">
-									<input type="text" name="post_writer" size="20" placeholder="회원 이름">
+									<input type="hidden" name="post_writer" value="${member.name}">
 								</td>
 							</tr>
 							<tr>

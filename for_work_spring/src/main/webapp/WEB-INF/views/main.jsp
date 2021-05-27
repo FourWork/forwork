@@ -18,19 +18,15 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
-<script
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 	
 <!-- 캘린더 -->
 <link rel="stylesheet"
@@ -311,7 +307,7 @@ height : 150px;
 								<tr>
 									<td>${notice.post_id}</td>
 									<td style="width: 50%"><a
-										href="board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
+										href="/board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
 									<td><fmt:parseDate var="dt" value="${notice.post_date}"
 											pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
 											value="${dt}" pattern="yyyy.MM.dd" /></td>
@@ -344,7 +340,7 @@ height : 150px;
 	<script type="text/javascript">
 	
 		function main() {
-			window.location.href = "main?project_id=${project_id}&member_id=${member_id}";
+			window.location.href = "${project_id}";
 		}	
 	
 	</script>

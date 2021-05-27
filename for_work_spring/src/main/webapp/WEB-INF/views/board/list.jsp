@@ -164,21 +164,21 @@ table {
 				
 					<div class="boardMenuList">
 						<ul class="list-group list-group-flush">
-							<li class="list-group-item"><a href="main?project_id=${board.project_id}"><i class="bi bi-house-door"></i> 게시판 홈</a></li>
+							<li class="list-group-item"><a href="/board/main/${board.project_id}"><i class="bi bi-house-door"></i> 게시판 홈</a></li>
 							<c:forEach var="menu" items="${menu}">
 								<li class="list-group-item">
-									<a href="list?project_id=${menu.project_id}&board_id=${menu.board_id}">
+									<a href="/board/list?project_id=${menu.project_id}&board_id=${menu.board_id}">
 									<i class="bi bi-clipboard"></i> ${menu.board_name}</a></li>
 							</c:forEach>
 						</ul>
-						<a href="manager?project_id=${board.project_id}" class="boardManagerBtn"><i class="bi bi-pencil-square"></i> 게시판 관리</a>
+						<a href="/board/manager?project_id=${board.project_id}" class="boardManagerBtn"><i class="bi bi-pencil-square"></i> 게시판 관리</a>
 					</div>
 					
 				</div>
 				<div class="col-10">
 					<div class="listWrap">
 						<div class="boardName">${board.board_name}</div>
-						 <div class="write"><a href="insertPost?project_id=${board.project_id}&board_id=${board.board_id}" class="writeBox">글쓰기</a></div>
+						 <div class="write"><a href="/board/insertPost?project_id=${board.project_id}&board_id=${board.board_id}" class="writeBox">글쓰기</a></div>
 
 						<table class="table table-hover">
 							<thead>

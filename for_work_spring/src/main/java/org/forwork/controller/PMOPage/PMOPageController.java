@@ -53,8 +53,9 @@ public class PMOPageController {
 	
 	
 
-	@PutMapping(value="/PMOpage/5/update",consumes="application/json")
-	public ResponseEntity<String> update(@RequestBody PMODto dto){
+	@PutMapping(value="/PMOpage/{project_id}/update",consumes="application/json")
+	public ResponseEntity<String> update(@PathVariable("project_id") String project_id,
+			@RequestBody PMODto dto){
 		System.out.println("!!!!!!!!!!!!!");
 		System.out.println(dto.toString());
 //		dto.setProject_id(project_id);

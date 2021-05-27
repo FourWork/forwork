@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.member" var="member" />
+</sec:authorize>
 <title>Insert title here</title>
 <style type="text/css">
 .title-container {
@@ -104,14 +108,18 @@
 		<div class="title-container">
 			<div class="title">대화상대 초대</div>
 		</div>
-		<input type="text" class="search" placeholder="이름으로 검색해보세요" onkeyup="search()" />
-		<input type="text" class="chatroom-title" placeholder="채팅방 제목을 입력해주세요" />
+		<input type="text" class="search" placeholder="이름으로 검색해보세요"
+			onkeyup="search()" /> <input type="text" class="chatroom-title"
+			placeholder="채팅방 제목을 입력해주세요" />
 		<div id="member"></div>
 		<div id="footer">
-			<a href="/chatting/tmpMain" class="btn">취소</a><a href="#" class="btn" onclick="createChatroom(this)"><span id="num-member">0</span>명 초대</a>
+			<a href="#" class="btn" onclick="history.back()">취소</a><a href="#" class="btn"
+				onclick="createChatroom(this)"><span id="num-member">0</span>명
+				초대</a>
 		</div>
 	</div>
-	<input type="text" value="${member.member_id }" id="user" style="display:none;">
+	<input type="text" value="${member.member_id }" id="user"
+		style="display: none;">
 </body>
 <script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/chatting.js"></script>
@@ -156,10 +164,9 @@
 			"title": [chatroomTitle.value],
 			"memberIds": selectedMembers
 		}
-		chattingService.createChatroom(data, function(result){
-			console.log(result);
-			let url = "/chatting/tmpMain";
-			window.location.href = url;
+		chattingService.createChatroom(data, function(chatroomId){
+			console.log(chatroomId);
+			window.location.href = "/chatting/detail/" + chatroomId;
 		})	
 	}
 	

@@ -39,36 +39,36 @@
     			dataType:"json",
     			async:false
     		}).responseText;
+        		console.log("춤");
+        		console.log(langCount); 
+        		console.log(m_id);
+        		
+        		// 문자열 langCount를 jsonarray로 parse
+        		var contact = JSON.parse(langCount);
+        		console.log(contact.length);
+            
+    				
+    			var str='';
+    			var array=[['Programming Language','Count']];
+    			
+    		      
+    			for(var i = 0 ; i<contact.length;i++){
+
+    				var language= contact[i].language;
+    				var Count= contact[i].LANGUAGE_COUNT;
+    				var countNum=parseInt(Count);
+    				var innerArr=[];
+    				innerArr.push(language);
+    				innerArr.push(countNum);
+    				array.push(innerArr);
+    				}
+
+    			console.log(array);
+    			var data = google.visualization.arrayToDataTable(array);
+    			var options = {'title': ''}; 
+    			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    			chart.draw(data, options);
         	
-        	console.log("춤");
-    		console.log(langCount); 
-    		console.log(m_id);
-    		
-    		// 문자열 langCount를 jsonarray로 parse
-    		var contact = JSON.parse(langCount);
-    		console.log(contact.length);
-        
-				
-			var str='';
-			var array=[['Programming Language','Count']];
-			
-		      
-			for(var i = 0 ; i<contact.length;i++){
-
-				var language= contact[i].language;
-				var Count= contact[i].LANGUAGE_COUNT;
-				var countNum=parseInt(Count);
-				var innerArr=[];
-				innerArr.push(language);
-				innerArr.push(countNum);
-				array.push(innerArr);
-				}
-
-			console.log(array);
-			var data = google.visualization.arrayToDataTable(array);
-			var options = {'title': 'Portfolio_language'}; 
-			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-			chart.draw(data, options);
         }
         $(document).ready(function(){
 			$(".alert-heading").click(function(){
@@ -95,7 +95,9 @@
 
 .portfolio-container { padding:10px;
 padding-right:20px;
-grid-area: portfolio-container; }
+grid-area: portfolio-container;
+border: #EFF2FB 5px solid;
+border-radius: 15px; }
 
 
 

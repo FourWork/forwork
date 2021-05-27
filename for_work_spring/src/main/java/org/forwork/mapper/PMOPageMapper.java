@@ -7,7 +7,8 @@ import org.forwork.dto.PMODto;
 
 public interface PMOPageMapper {
 	
-	public int update(PMODto dto);
+	public int check(PMODto dto);
+	public int complete(PMODto dto);
 	public List<PMODto> getProjectList(String approval_id);
 	public PMODto getProject(String project_id);
 	public List<Member> getMemberList(String project_id);
