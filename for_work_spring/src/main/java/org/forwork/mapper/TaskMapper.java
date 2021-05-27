@@ -30,6 +30,6 @@ public interface TaskMapper {
 	
 	public Project getPr(int project_id);
 
-	public int maxIndex();
+	public Integer maxIndex();
 
 }
