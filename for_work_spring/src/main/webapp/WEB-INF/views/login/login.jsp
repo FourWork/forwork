@@ -25,7 +25,7 @@
 					<h3 class="join_title">
 						<label for="email">이메일<span class="optional"></span></label>
 					</h3>
-					<span class="box int_email"> <input type="text" name="email" 
+					<span class="box int_email"> <input type="email" name="email" 
 						class="int" maxlength="100" placeholder="abcd1234@gmail.com">
 					</span> <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span>
 				</div>

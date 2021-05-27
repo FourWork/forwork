@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 		.authorizeRequests()
 		// 페이지 권한 설정
-		.antMatchers("/PMOpage/**").hasAnyRole("ROLE_ADMIN")
+		.antMatchers("/PMOpage/**").hasRole("ADMIN")
 		.antMatchers("/**")
 		.permitAll()
 		.and() // 로그인  설정
