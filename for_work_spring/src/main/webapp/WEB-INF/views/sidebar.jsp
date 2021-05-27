@@ -73,7 +73,7 @@
 				
 					var url = window.location.pathname;
 					console.log("url....!!!"+url);
-					var project_id = url.substring(6,url.length);
+					var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
 					console.log("project_id....!!! " + project_id);
 					
 					var member_id = "${member.member_id}";
@@ -89,7 +89,7 @@
 							console.log("is pm 확인 : "+result.is_pm);
 							var str = "";
 							if(result.is_pm=="y"){
-								str += "<a class='nav-link' href='/pmPage/select'><i class='ni ni-single-02'></i><span class='nav-link-text'>관리자페이지</span></a>"
+								str += "<a class='nav-link' href='/pmPage/select/"+project_id+"'><i class='ni ni-single-02'></i><span class='nav-link-text'>관리자페이지</span></a>"
 							}
 							pmPageBtn.html(str);
 						}); //end function
