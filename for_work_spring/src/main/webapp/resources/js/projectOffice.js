@@ -30,11 +30,15 @@ var projectOfficeService=(function(){
 //	function update(param, callback, error){
 //		console.log("AAAAAAAAAA");
 //		$.ajax({
-//			url: "/PMOPage/3/update",
+//			type:'PUT',
+//			url: "/PMOPage/4/update",
 //			success: function(){
 //				console.log("성공");
+//			},
+//			error: function(){
+//				console.log("에러");
 //			}
-//		})	
+//		});	
 //	}
 	
 //	function update(param, callback, error){
@@ -56,11 +60,11 @@ var projectOfficeService=(function(){
 //		});
 //	}
 	
-	function update(param, callback, error){
+	function update(dto, callback, error){
 		$.ajax({
-			type: 'PUT',
-			url: '/PMOPage/'+param.project_id+'/update',	
-			data: JSON.stringify(param),
+			type: 'put',
+			url: '/PMOPage/'+dto.project_id+'/update',	
+			data: JSON.stringify(dto),
 			contentType: "application/json; charset=utf-8",
 			success : function(result, status, xhr){
 				if(callback){
@@ -68,6 +72,7 @@ var projectOfficeService=(function(){
 				}
 			},
 			error:function(xhr, status, er){
+				console.log(dto);
 				if(error){
 					error(er)
 				}
@@ -78,7 +83,6 @@ var projectOfficeService=(function(){
 return {
 	getStatusId:getStatusId,
 	displayTime:displayTime,
-	update:update,
-	hello:hello
+	update:update
 	};
 })();

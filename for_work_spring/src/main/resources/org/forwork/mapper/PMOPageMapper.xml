@@ -6,7 +6,7 @@
 
 	<update id="update">
 		update project
-			set project_status_id= #{project_status_id},
+			set project_status_id= #{approval_id},
 				check_date = sysdate
 			where project_id= #{project_id}
 	</update>

@@ -20,9 +20,9 @@ public class PMOPageServiceImpl implements PMOPageService{
 	private PMOPageMapper mapper;
 	
 	@Override
-	public List<PMODto> getList(String project_status_id) {
+	public List<PMODto> getList(String approval_id) {
 		
-		return(mapper.getProjectList(project_status_id));
+		return(mapper.getProjectList(approval_id));
 	}
 
 	@Override

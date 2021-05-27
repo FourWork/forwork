@@ -15,7 +15,7 @@
 	
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>PMOPage_project_detail</title>
 	<style>
 .grid-container {
 padding:20px;
@@ -121,30 +121,31 @@ text-align:center;
 		  <div class="project-term"><c:out value="${project.project_start_date}"/>~<c:out value="${project.project_end_date}"/></div>
 		  <div class="project-detail"></div>
 		</div>
-	</body>
-	<script>
+<script type="text/javascript">
 	$(document).ready(function(){
 		
-		 $(document).on("click", "[class^=btn]", function(e){
+		 $(document).on("click", "[class^=btn]", function(){
 			 console.log("btn click!");
 			 
 		      var p_id = '<c:out value ="${project_id}"/>';
-		      var a_id = $(this).data("approval_id");
+		      var a_id = $(this).data("approval_id")+"";
+		      console.log(a_id);
 		      projectOfficeService.update({
 		             project_id:p_id,
 		             approval_id:a_id
 		          },function(result){
 		             alert("RESULT: "+result);
-
-		          })
+					
+		          })//update 서비스 끝
 /* 		            self.location="main"; */
 		          
-		})
+		});
 		
 		
-	})
+	});
 	
 
-	</script>
+</script>
+</body>
 </html>
 <%@ include file="../footer.jsp" %>
