@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/pmPage/*", produces=MediaType.TEXT_HTML_VALUE)
 public class PMPageController {
 	
-	@GetMapping("/{project_id}/main")
+	@GetMapping("/main/{project_id}")
 	public String pmPage(){
 		
 		return "PMpage/pmMainPage";
 	}
 	
-	@GetMapping("/select")
+	@GetMapping("/select/*")
 	public String prSelectPage(){
 		
 		return "PMpage/pmSelectPage";

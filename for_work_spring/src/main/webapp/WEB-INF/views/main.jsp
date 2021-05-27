@@ -22,9 +22,7 @@
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
@@ -57,10 +55,10 @@
 <!-- 차트 그리기 : teamProgress.js  -->
 <script type="text/javascript">
 
-var url = window.location.search;
-console.log(url);
-var project_id = url.substring(12,url.indexOf('&'));
-console.log("project_id: " + project_id);
+var url = window.location.pathname;
+console.log("url....!!!"+url);
+var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
+console.log("project_id....!!! " + project_id);
 
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });

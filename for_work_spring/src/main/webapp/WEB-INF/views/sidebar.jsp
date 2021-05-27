@@ -39,7 +39,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="tables.html">
+              <a class="nav-link" id = "sidebar_calendar" href="#">
                <i class="ni ni-calendar-grid-58"></i>  
                 <span class="nav-link-text">캘린더</span>
               </a>
@@ -51,7 +51,7 @@
 					
 					var url = window.location.pathname;
 					console.log("url....!!!"+url);
-					var project_id = url.substring(6,url.length);
+					var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
 					console.log("project_id....!!! " + project_id);
 					
 					var scrumBoard = $("#scrumPage");
@@ -81,6 +81,7 @@
 					var pmPageBtn = $("#pmPageBtn");
 					
 					checkIsPm(project_id, member_id);
+					$("#sidebar_calendar").attr("href","/calendar/"+project_id);
 					
 					function checkIsPm(project_id, member_id) {
 						

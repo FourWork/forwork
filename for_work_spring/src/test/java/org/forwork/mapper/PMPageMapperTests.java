@@ -37,13 +37,15 @@ public class PMPageMapperTests {
 		
 		mapper.getPersonalTasks(1,1).forEach(tasks -> log.info(tasks));
 	}
+	*/
 	
 	@Test
 	public void testGetProjects(){
 		
-		mapper.getProjects().forEach(pr -> log.info(pr));
+		
+		mapper.getProjects(61).forEach(pr -> log.info(pr));
 	}
-	
+	/*
 	@Test
 	public void testInsertLang(){
 		
@@ -83,7 +85,7 @@ public class PMPageMapperTests {
 		
 		log.info(mapper.getSeq(4));
 	}
-	*/
+	
 	
 	@Test
 	public void testIsPm(){
@@ -94,5 +96,6 @@ public class PMPageMapperTests {
 		log.info(mapper.isPm(project_id, member_id));
 		
 	}
+	*/
 	}
 

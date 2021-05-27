@@ -24,6 +24,8 @@ public class PMOPagePageController {
 	public void main(Model model){
 		model.addAttribute("list_approved", service.getList("2"));
 		model.addAttribute("list_not_yet_approved", service.getList("1"));
+		model.addAttribute("list_disapproved", service.getList("3"));
+		model.addAttribute("list_completed", service.getList("4"));
 	}
 	
 	@GetMapping("/get")
@@ -34,4 +36,6 @@ public class PMOPagePageController {
 		model.addAttribute("project", service.getProject(project_id));
 		model.addAttribute("timeline", service.getProjectTimeline(project_id));
 	}
+	
+
 }

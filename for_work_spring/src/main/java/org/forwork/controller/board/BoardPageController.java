@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.forwork.domain.Criteria;
@@ -23,8 +24,8 @@ public class BoardPageController {
 	private BoardService boardService;
 	private PostService postService;
 	
-	@GetMapping("/main")
-	public void main(int project_id, Model model) {
+	@GetMapping("/main/{project_id}")
+	public String main(@PathVariable(name = "project_id") int project_id, Model model) {
 		log.info("프로젝트별 게시판 메인");
 		
 		boardService.init(project_id); // 새 프로젝트 공지 사항, 기본 게시판 생성
@@ -33,6 +34,8 @@ public class BoardPageController {
 		model.addAttribute("notice", postService.getNotice(project_id)); // 공지 사항
 		model.addAttribute("board", postService.getBoard(project_id)); // 최신 글
 		model.addAttribute("project_id", project_id);
+		
+		return "board/main";
 	}
 	
 	@GetMapping("/list")
@@ -52,6 +55,7 @@ public class BoardPageController {
 		model.addAttribute("board", boardService.get(board_id)); // 게시?�� ?���?
 		model.addAttribute("list", postService.getListPage(cri, board_id)); // 게시�? 목록
 		model.addAttribute("pageMaker", new PageDto(cri, total));
+	
 	}
 
 	@GetMapping("/manager")

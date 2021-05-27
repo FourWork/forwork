@@ -39,6 +39,9 @@
 
 
 	<script type="text/javascript">
+		var project_id = window.location.href;
+		project_id = project_id.substr(project_id.lastIndexOf('/')+1);
+			
 		function dateFormat(date){
 			var year = date.getFullYear();
 			var month = date.getMonth()+1;
@@ -138,7 +141,6 @@
 			            	 var modal = $("#calendarModal");
 			            	 modal.modal("show");
 			            	 $("#addCalendar").on("click",function(){
-			            		 var project_id = "1";
 			            		 var start = $("#calendar_start_date").val();
 			            		 var start_date = new Date(start);
 			            		 var end = $("#calendar_end_date").val();
@@ -159,6 +161,7 @@
 			            					 "calendar_end_date":end,
 			            					 "project_id":project_id
 			            			 }
+			            			 console.log(cal);
 			            			 $.ajax({
 			            				 url:"/calendar/add",
 			            				 method:"POST",
@@ -179,7 +182,7 @@
 			     },
 				editable : true,
 				selectable : true,
-				events: "http://localhost:8081/calendar/get/1.json"
+				events: "http://localhost:8081/calendar/get/"+project_id+".json"
 			});
 			calendar.render();			
 		});

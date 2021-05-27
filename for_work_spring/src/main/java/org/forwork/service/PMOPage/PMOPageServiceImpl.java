@@ -43,7 +43,14 @@ public class PMOPageServiceImpl implements PMOPageService{
 
 	@Override
 	public int update(PMODto dto) {
-		return (mapper.update(dto));
+		int value;
+		System.out.println("==============="+dto.getApproval_id());
+		if(dto.getApproval_id().equals("4")){
+		value=	mapper.complete(dto);
+		}else{
+			value=	mapper.check(dto);
+		}
+		return value;
 	}
 
 	

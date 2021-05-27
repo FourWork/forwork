@@ -55,12 +55,12 @@ public class PMController {
 		return new ResponseEntity<>(service.getPersonalTasks(project_id,responsibility),HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/PrSelect", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<Project>> getProjects(){
+	@GetMapping(value="/PrSelect/{member_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<Project>> getProjects(@PathVariable("member_id")int member_id){
 		
 		log.info("GET PROJECTS...!!!");
 		
-		return new ResponseEntity<>(service.getProjects(),HttpStatus.OK);
+		return new ResponseEntity<>(service.getProjects(member_id),HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/addLang", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
@@ -75,7 +75,7 @@ public class PMController {
 		return insertCount==1 ? new ResponseEntity<>("success", HttpStatus.OK): new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping(value="/{project_id}/getLang", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@GetMapping(value="/getLang/{project_id}", produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<List<ProjectLanguage>> getLang(@PathVariable("project_id")int project_id){
 		
 		log.info("Get Languages......!!!");
