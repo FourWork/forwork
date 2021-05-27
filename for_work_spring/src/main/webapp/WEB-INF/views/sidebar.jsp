@@ -71,8 +71,13 @@
 				
 				$(document).ready(function() {
 				
-					var project_id = 1;
-					var member_id = 2;
+					var url = window.location.pathname;
+					console.log("url....!!!"+url);
+					var project_id = url.substring(6,url.length);
+					console.log("project_id....!!! " + project_id);
+					
+					var member_id = "${member.member_id}";
+					console.log("member_id...>!!!!!!" +member_id);
 					var pmPageBtn = $("#pmPageBtn");
 					
 					checkIsPm(project_id, member_id);
