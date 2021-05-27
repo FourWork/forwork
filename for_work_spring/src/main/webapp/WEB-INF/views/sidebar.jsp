@@ -33,7 +33,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="profile.html">
+              <a class="nav-link" id="board">
                 <i class="ni ni-badge"></i>
                 <span class="nav-link-text">게시판</span>
               </a>
@@ -61,6 +61,13 @@
 					
 					scrumBoard.html(str);
 
+					
+					// 게시판 이동
+					$("#board").on("click", function(e) {
+						e.preventDefault();
+						
+						window.location.href = "/board/main/" + project_id;
+					});
 				});
 				</script>
 
