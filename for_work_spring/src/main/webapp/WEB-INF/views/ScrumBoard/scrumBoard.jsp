@@ -69,7 +69,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var ws = new WebSocket("ws://localhost:8081/taskSocket"); // socket 연결
+	var ws = new WebSocket("ws://localhost:8081/taskSocket/1"); // socket 연결
 
 	ws.onopen = function(e){
 		console.log("info : connection opened."); // 정상적으로 연결 시 출력
