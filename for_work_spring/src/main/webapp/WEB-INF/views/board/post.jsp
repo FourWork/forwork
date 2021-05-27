@@ -443,6 +443,14 @@ img {
 	<script type="text/javascript">
 	
 		$(document).ready(function() {
+			
+			var member_id = '<c:out value="${member.member_id}"/>';
+			var member_name = '<c:out value="${member.name}"/>';
+			var postMember = '<c:out value="${post.post_writer}"/>';
+			
+			if (member_name != postMember) {
+				$(".editBtn").hide();
+			}
 
 			var post_id = '<c:out value="${post.post_id}"/>';
 			var removeBtn = $("#removeBtn");
@@ -604,15 +612,19 @@ img {
 					str += "<div class='memberName'>" + list[i].member_name + "</div>";
 					str += "<div class='commentDate'>" + list[i].comment_date + "</div>";
 					
-					str += "<div class='commentEdit'>수정</div>";
-					str += "<div class='commentDel'>삭제</div>";
+					if (member_id == list[i].member_id) {
+						str += "<div class='commentEdit'>수정</div>";
+						str += "<div class='commentDel'>삭제</div>";						
+					}
 					
 					str += "<div class='commentContent'>" + list[i].comment_content + "</div>";
 					
-					str += "<div class='editArea'>";
-					str += "<textarea rows='3' cols='95' name='commentEditContent' class='editTextarea'>" + list[i].comment_content + "</textarea>";
-					str += "<div class='editCommentBtn'>수정</div></div>";
-						
+					if (member_id == list[i].member_id) {
+						str += "<div class='editArea'>";
+						str += "<textarea rows='3' cols='95' name='commentEditContent' class='editTextarea'>" + list[i].comment_content + "</textarea>";
+						str += "<div class='editCommentBtn'>수정</div></div>";						
+					}
+					
 					str += "<input type='hidden' name='comment_id' value='" + list[i].comment_id + "'></li>";
 				}
 				
