@@ -278,7 +278,7 @@ $(document).ready(function(){
 			}
 			
 			langDiv.html(str);
-		}); //end functin
+		}); //end function
 	}//end showLang
 	
 	

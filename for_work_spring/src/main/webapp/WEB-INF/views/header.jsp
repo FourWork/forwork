@@ -8,6 +8,10 @@
 <html>
 
 <head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal.member" var="member"/>
@@ -42,6 +46,8 @@
   		margin-left: 350px;
   	}
   </style>
+
+  
 </head>   
   
 <body>

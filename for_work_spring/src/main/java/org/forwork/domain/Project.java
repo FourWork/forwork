@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Project implements Serializable{
 	
 	private int project_id;
+	private int member_id;
 	private String project_title;
 	private String pmo_id;
 	private String pm_id;
