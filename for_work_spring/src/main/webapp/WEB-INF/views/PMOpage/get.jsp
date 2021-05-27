@@ -17,111 +17,115 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>PMOPage_project_detail</title>
 	<style>
-.grid-container {
-margin:30px;
-padding:20px;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  grid-template-rows: 0.6fr 0.5fr 0.5fr 2.4fr;
-  gap: 5px 10px;
-  grid-template-areas:
-    "title project-date project-date approval"
-    "PM PA PA PA"
-    "project-term project-term project-term project-term"
-    "project-detail project-detail project-detail project-detail";
-}
-
-.title { grid-area: title;
-text-align:center;
- }
-
-.project-date {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "registered-date"
-    "checked-date"
-    "completed-date";
-  grid-area: project-date;
-  text-align:center;
-}
-
-.registered-date { grid-area: registered-date; }
-
-.checked-date { grid-area: checked-date; }
-
-.completed-date { grid-area: completed-date; }
-
-.approval {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "approval-status button-group";
-  grid-area: approval;
-}
-
-.approval-status { grid-area: approval-status; }
-
-.button-group { grid-area: button-group; }
-
-.PM { grid-area: PM; }
-
-.PA { grid-area: PA; }
-
-.project-term { grid-area: project-term; }
-
-.project-detail { grid-area: project-detail; }
-
-	</style>
+		table {
+			margin: 30px auto auto;
+			width: 80%;
+			border: 1px solid #b4b4b4;
+			font-size:20px;
+			background:#dcdcdc;
+			font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+		}
+		
+		.first-row {
+		text-align:center;
+			background: #c8c8c8;
+			border-bottom: 1px solid #ccc;
+		}
+		#check_date{
+	border-bottom: 0px;
+		}
+		#register_date{
+		border-bottom: 0px;
+		}
+		
+		#title {
+			font-weight: bold;
+			font-size: 30px;
+		}
+		#button-group{
+		margin:auto;
+		}
+		
+</style>
 </head>
 	<body>
 	
-		 <div class="grid-container">
-		  <div class="title"> <c:out value="${project.project_title}"/> </div>
-		  <div class="project-date">
-          <div class="registered-date"><td> <fmt:formatDate pattern="yyyy-MM-dd"
-                           value="${timeline.register_date}" /> </td></div>
-          <div class="checked-date"><td> <fmt:formatDate pattern="yyyy-MM-dd"
-                           value="${timeline.check_date}" /> </td></div>
-          <div class="completed-date"><td><fmt:formatDate pattern="yyyy-MM-dd"
-                           value="${timeline.complete_date}" /></td></div>
-		  </div>
-		  <div class="approval">
-		  <!-- 승인상태에 따라 색깔있는 배지표현 -->
-		  <c:set var = "approval_id" scope = "session" value = "${project.approval_id}"/>
-		  	 <c:choose>
-				<c:when test = "${approval_id ==1 }">
-				<div class='approval-status'>상태:<span class='badge badge-warning'>승인대기</span></div><div class='button-group'><div data-approval_id='2' class='btn btn-success'>승인</div><div  data-approval_id='3' class='btn btn-danger'>반려</div></div>
-		  	  </c:when>
-				<c:when test = "${approval_id ==2 }">
-				<div class='approval-status'>상태:<span class='badge badge-success'>승인</span></div><div class='button-group'><button type='button' data-approval_id='4' class='btn btn-primary'>완료</button></div>
-			
-		  	  </c:when>
-				<c:when test = "${approval_id ==3 }">
-				<div class='approval-status'>상태:<span class='badge badge-secondary'>반려</span></div><div class='button-group'></div>
-				
-		  	  </c:when>
-				<c:when test = "${approval_id ==4 }">
-				<div class='approval-status'>상태:<span class='badge badge-primary'>완료</span></div><div class='button-group'></div>
-		  	  </c:when>
-		  	 </c:choose>
-		  	 
-		  	 
-		    
-		  </div>
-		  <div class="PM"><c:out value="${project.name}"/></div>
-		  <div class="PA">
-			  <c:forEach items="${memberList}" var="member">
-			 	<c:out value="${member.name}"/>
-			  </c:forEach>
-		  </div>
-		  <div class="project-term"><c:out value="${project.project_start_date}"/>~<c:out value="${project.project_end_date}"/></div>
-		  <div class="project-detail"></div>
-		</div>
+		
+	<table>
+				<tr class="first-row">
+					<td rowspan="3" colspan="3" id="title"> <c:out value="${project.project_title}"/></td>
+					<td class="project-date" id="register_date">생성일 : <fmt:formatDate pattern="yyyy-MM-dd"
+                           value="${timeline.register_date}" /></td>	
+                	<c:set var = "approval_id" scope = "session" value = "${project.approval_id}"/>
+				  	 <c:choose>
+						<c:when test = "${approval_id ==1 }">
+							<td rowspan="3" id="apporval_detail">상태: <span
+								class='badge badge-warning'>승인대기</span>
+							</td>
+							<td rowspan="3" id="button-group">
+								<div data-approval_id='2' class='btn btn-success'>승인</div>
+								<div data-approval_id='3' class='btn btn-danger'>반려</div>
+							</td>
+						</c:when>
+						
+						<c:when test = "${approval_id ==2 }">
+							<td rowspan="3" id="apporval_detail">상태: <span
+								class='badge badge-success'>승인</span>
+							</td>
+							<td rowspan="3" id="button-group">
+								<div data-approval_id='4' class='btn btn-primary'>완료</div>
+							</td>	
+				  	  </c:when>
+						<c:when test = "${approval_id ==3 }">
+						<td rowspan="3" id="apporval_detail">상태: <span
+								class='badge badge-danger'>반려</span>
+							</td>
+							<td rowspan="3" id="button-group">
+							</td>
+				  	  </c:when>
+						<c:when test = "${approval_id ==4 }">
+							<td rowspan="3" id="apporval_detail">상태: <span
+								class='badge badge-primary'>완료</span>
+							</td>
+							<td rowspan="3" id="button-group">
+							</td>		  	  
+						</c:when>
+				  	 </c:choose>
+				  	 </tr>
+				  	 
+					<tr class="first-row">
+					  <c:set var = "approval_id" scope = "session" value = "${project.approval_id}"/>
+					  <c:choose>
+					  <c:when test="${approval_id ==3 }">
+					  <td class="project-date" id="check_date">반려일: <fmt:formatDate pattern="yyyy-MM-dd"
+	                           value="${timeline.check_date}" /></td>
+					  </c:when>
+					  <c:otherwise>
+						<td class="project-date" id="check_date">승인일 : <fmt:formatDate pattern="yyyy-MM-dd"
+	                           value="${timeline.check_date}" /></td>
+	                  </c:otherwise>
+	                  </c:choose>
+					</tr>
+	
+					<tr class="first-row">
+						<td class="project-date" id="complete_date">완료일 : <fmt:formatDate pattern="yyyy-MM-dd"
+	                           value="${timeline.complete_date}" /></td>
+					</tr>
+	
+					<tr>
+						<td></td>
+						<td id="PM"><c:out value="${project.name}"/>(PM)</td>
+						<td colspan="2" id="PA"><c:forEach items="${memberList}" var="member">
+				 	<c:out value="${member.name}"/>
+				  </c:forEach></td>
+						<td colspan="2" id="term" >프로젝트 기간 : <c:out value="${project.project_start_date}"/>~<c:out value="${project.project_end_date}"/></td>
+					</tr>
+					<tr>
+					<td rowspan="5" colspan="5"></td>
+					<tr>
+	
+				</table>
+				  	 
 <script type="text/javascript">
 	$(document).ready(function(){
 		

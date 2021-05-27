@@ -15,40 +15,6 @@ var projectOfficeService=(function(){
 	}
 	
 	
-	
-//	function update(param, callback, error){
-//		console.log("AAAAAAAAAA");
-//		$.ajax({
-//			type:'PUT',
-//			url: "/PMOPage/4/update",
-//			success: function(){
-//				console.log("성공");
-//			},
-//			error: function(){
-//				console.log("에러");
-//			}
-//		});	
-//	}
-	
-//	function update(param, callback, error){
-//		$.ajax({
-//			type: 'PUT',
-//			url: "/PMOPage/"+{project_id}+"/update",	
-//			data: JSON.stringify(param),
-//			contentType: "application/json; charset=utf-8",
-//			success : function(result, status, xhr){
-//				if(callback){
-//					callback(result);
-//				}
-//			},
-//			error:function(xhr, status, er){
-//				if(error){
-//					error(er)
-//				}
-//			}
-//		});
-//	}
-	
 	function update(dto, callback, error){
 		$.ajax({
 			method: "PUT",
@@ -71,6 +37,7 @@ var projectOfficeService=(function(){
 	
 return {
 	getStatusId:getStatusId,
-	update:update
+	update:update,
+	countProject:countProject
 	};
 })();
