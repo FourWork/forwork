@@ -22,8 +22,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<!-- Portfolio.js -->
 	<script type="text/javascript" src="/resources/js/portfolio.js"></script>
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 		<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="../CSS/myprofile.css">
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -391,6 +390,8 @@ $(document).ready(function(){
 	
 	
 $(document).ready(function(){
+	
+
 	console.log("@showPfList"+portfolioService);
 	
 	var m_id = '<c:out value ="${member_id}"/>';

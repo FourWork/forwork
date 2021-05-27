@@ -153,6 +153,7 @@ var portfolioService=(function(){
 			contentType: "application/json; charset=utf-8",
 			success : function(result, status, xhr){
 				if(callback){
+					console.log(wrapper);
 					callback(result);
 				}
 			},

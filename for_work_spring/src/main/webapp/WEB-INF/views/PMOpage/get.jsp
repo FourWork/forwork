@@ -10,8 +10,12 @@
 	<script type="text/javascript" src="/resources/js/projectOffice.js"></script>	
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	
+	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>PMOPage_project_detail</title>
 	<style>
 .grid-container {
 padding:20px;
@@ -78,17 +82,35 @@ text-align:center;
 		 <div class="grid-container">
 		  <div class="title"> <c:out value="${project.project_title}"/> </div>
 		  <div class="project-date">
-<%-- 		    <div class="registered-date"><td> <fmt:formatDate pattern="yyyy-MM-dd"
-									value="${timeline.register_date}" /> </td></div>
-		    <div class="checked-date"><td> <fmt:formatDate pattern="yyyy-MM-dd"
-									value="${timeline.check_date}" /> </td></div>
-		    <div class="completed-date"><td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${timeline.complete_date}" /></td></div> --%>
+          <div class="registered-date"><td> <fmt:formatDate pattern="yyyy-MM-dd"
+                           value="${timeline.register_date}" /> </td></div>
+          <div class="checked-date"><td> <fmt:formatDate pattern="yyyy-MM-dd"
+                           value="${timeline.check_date}" /> </td></div>
+          <div class="completed-date"><td><fmt:formatDate pattern="yyyy-MM-dd"
+                           value="${timeline.complete_date}" /></td></div>
 		  </div>
 		  <div class="approval">
 		  <!-- 승인상태에 따라 색깔있는 배지표현 -->
-		    <div class="approval-status"><c:out value="${project.approval_detail}"/></div>
-		    <div class="button-group"></div>
+		  <c:set var = "approval_id" scope = "session" value = "${project.approval_id}"/>
+		  	 <c:choose>
+				<c:when test = "${approval_id ==1 }">
+				<div class='approval-status'>상태:<span class='badge badge-warning'>승인대기</span></div><div class='button-group'><button type='button' data-approval_id='2' class='btn btn-success'>승인</button><button type='button' data-approval_id='3' class='btn btn-danger'>반려</button></div>
+		  	  </c:when>
+				<c:when test = "${approval_id ==2 }">
+				<div class='approval-status'>상태:<span class='badge badge-success'>승인</span></div><div class='button-group'><button type='button' data-approval_id='4' class='btn btn-primary'>완료</button></div>
+			
+		  	  </c:when>
+				<c:when test = "${approval_id ==3 }">
+				<div class='approval-status'>상태:<span class='badge badge-"secondary'>반려</span></div><div class='button-group'></div>
+				
+		  	  </c:when>
+				<c:when test = "${approval_id ==4 }">
+				<div class='approval-status'>상태:<span class='badge badge-primary'>완료</span></div><div class='button-group'></div>
+		  	  </c:when>
+		  	 </c:choose>
+		  	 
+		  	 
+		    
 		  </div>
 		  <div class="PM"><c:out value="${project.name}"/></div>
 		  <div class="PA">
@@ -99,61 +121,31 @@ text-align:center;
 		  <div class="project-term"><c:out value="${project.project_start_date}"/>~<c:out value="${project.project_end_date}"/></div>
 		  <div class="project-detail"></div>
 		</div>
-	</body>
-	<script>
+<script type="text/javascript">
 	$(document).ready(function(){
-		var p_id = '<c:out value ="${project_id}"/>';
 		
-		var timeline = $(".project-date")
- 		var regDate = $(".registered-date");
-		var chkDate = $(".checked-date");
-		var compDate = $(".completed-date");
+		 $(document).on("click", "[class^=btn]", function(){
+			 console.log("btn click!");
+			 
+		      var p_id = '<c:out value ="${project_id}"/>';
+		      var a_id = $(this).data("approval_id")+"";
+		      console.log(a_id);
+		      projectOfficeService.update({
+		             project_id:p_id,
+		             approval_id:a_id
+		          },function(result){
+		             alert("RESULT: "+result);
+					
+		          })//update 서비스 끝
+/* 		            self.location="main"; */
+		          
+		});
 		
-		var approval=$(".approval"); 
-		var buttonGroup=$(".button-group");
 		
-		var dateInfo= '';
-		var apprvInfo="<div class='approval-status'> <span class='badge badge-";
-		
-		projectOfficeService.getStatusId({
-			project_id : p_id
-		}, function(project){
-			var status_id= project.approval_id;
-			console.log(status_id);
-			switch(status_id){
-				case "1": /* 승인대기 */ 
-					apprvInfo += "warning'>승인대기</span></div><div class='button-group'><button type='button' class='btn btn-success'>승인</button><button type='button' class='btn btn-danger'>반려</button></div>";
-					break;
-				case "2": /* 승인 */
-					apprvInfo += "success'>승인</span></div><div class='button-group'><button type='button' class='btn btn-primary'>완료</button></div>";
-					break;
-				case "3": /* 반려 */
-					apprvInfo += "secondary'>반려</span></div><div class='button-group'></div>";
-					break;
-				case "4": /* 완료 */
-					apprvInfo += "primary'>완료</span></div><div class='button-group'></div>";
-					break;
-			}
-			console.log(apprvInfo);
-			approval.html(apprvInfo);
-			/* switch(status_id){
-				case "4":
-					dateInfo += "<div class='completed-date'><td><fmt:formatDate pattern='yyyy-MM-dd' value='${timeline.completed_date}' /></td></div>";
-				
-				case "2":
-					dateInfo += "<div class='checked-date'><td><fmt:formatDate pattern='yyyy-MM-dd'	value='${timeline.checked_date}' /></td></div>";
-				 continue;
-				case "3":
-					dateInfo += "<div class='checked-date'><td><fmt:formatDate pattern='yyyy-MM-dd'	value='${timeline.checked_date}' /></td></div>";
+	});
 	
-				case "1":
-					dateInfo += "<div class='registered-date'><td><fmt:formatDate pattern='yyyy-MM-dd' value='${timeline.register_date}' /></td></div>";
-			}
-			console.log(dateInfo);
-			timeline.html(dateInfo); */
-		})
-		
-	})
-	</script>
+
+</script>
+</body>
 </html>
 <%@ include file="../footer.jsp" %>
