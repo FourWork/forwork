@@ -36,7 +36,6 @@ public class PostController {
 	
 	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> create(@RequestBody Post post) {
-		post.setPost_file("");
 		log.info("Post: " + post);
 		
 		int insertCount = service.register(post);
