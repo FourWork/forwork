@@ -367,6 +367,7 @@ img {
 					
 					<div class="writeCommentBox">
 						<textarea rows="3" cols="102" name="commentContent" class="writeTextarea"></textarea>
+						<input type="hidden" name="commentWriter" value="${member.name}">
 						<div class="writeCommentBtn">등록</div>
 					</div>
 					
@@ -566,7 +567,10 @@ img {
 		var pno = '<c:out value="${post.post_id}"/>';
 		var commentUL = $(".commentSection");
 		var newComment = $("textarea[name='commentContent']");
-		var member_id = 9;
+		var member_id = '<c:out value="${member.member_id}"/>';
+		var member_name = '<c:out value="${member.name}"/>';
+		
+		console.log("!!!!!!!!!!!!member name: "+member_name);
 		
 		showList(1);
 		
@@ -597,7 +601,7 @@ img {
 				
 				for (var i = 0, len = list.length || 0; i < len; i++) {
 					str += "<li class='commentInfo'>";
-					str += "<div class='memberName'>member" + list[i].member_id + "</div>";
+					str += "<div class='memberName'>" + list[i].member_name + "</div>";
 					str += "<div class='commentDate'>" + list[i].comment_date + "</div>";
 					
 					str += "<div class='commentEdit'>수정</div>";
@@ -686,6 +690,7 @@ img {
 			var comment = {
 					comment_content:newComment.val(),
 					member_id:member_id,
+					member_name:member_name,
 					post_id:pno
 			};
 			
