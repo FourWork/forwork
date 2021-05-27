@@ -3,9 +3,7 @@
 <%@ include file="../header.jsp" %>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -417,7 +415,7 @@ $(document).ready(function(){
 	showPfList();	
 	
 	function showPfList(){
-		//배열선언
+
 		portfolioService.getList({
 			member_id : m_id
 			}, function(list){

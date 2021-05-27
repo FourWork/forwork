@@ -62,16 +62,6 @@ public class MyProfileController {
 	public ResponseEntity<List<Portfolio>> getList(@PathVariable("member_id") String member_id){
 		log.info("-------------Controller_GetList------------");
 		
-//		List<Portfolio> list = service.getList(member_id);
-//		List<Portfolio> list0 = new ArrayList<Portfolio>();
-//		for(Portfolio p: list){
-//			String detail = p.getPortfolio_detail().replace("\r\n", "<br>");
-//			detail.replace("회사", "company");
-//			log.info(detail);
-//			p.setPortfolio_detail(detail);
-//			list0.add(p);
-//		}
-		
 		return new ResponseEntity<List<Portfolio>>(service.getList(member_id),HttpStatus.OK);
 	}
 	
