@@ -11,17 +11,17 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-        Authentication authentication) throws IOException, ServletException {
-        List<String> roleNames = new ArrayList<>();
-        authentication.getAuthorities().forEach(authority ->{roleNames.add(authority.getAuthority());
-        });
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+		Authentication authentication) throws IOException, ServletException {
+		List<String> roleNames = new ArrayList<>();
+		authentication.getAuthorities().forEach(authority ->{roleNames.add(authority.getAuthority());
+		});
 
-        if (roleNames.contains("ROLE_ADMIN")){
-            response.sendRedirect("/PMOpage/main");
-            return;
-        }
-        response.sendRedirect("/member/loginSuccess");
-    }
+		if (roleNames.contains("ROLE_ADMIN")){
+			response.sendRedirect("/PMOpage/main");
+			return;
+		}
+		response.sendRedirect("/member/loginSuccess");
+	}
 }
