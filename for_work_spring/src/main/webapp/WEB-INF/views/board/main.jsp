@@ -85,12 +85,12 @@
 						
 							<c:forEach var="menu" items="${menu}">
 								<li class="list-group-item">
-									<a href="list?project_id=${menu.project_id}&board_id=${menu.board_id}">
+									<a href="/board/list?project_id=${menu.project_id}&board_id=${menu.board_id}">
 									<i class="bi bi-clipboard"></i> ${menu.board_name}</a></li>
 							</c:forEach>
 							
 						</ul>
-						<a href="manager?project_id=${project_id}" class="boardManagerBtn"> 
+						<a href="/board/manager?project_id=${project_id}" class="boardManagerBtn"> 
 							<i class="bi bi-pencil-square"></i> 게시판 관리</a>
 					</div>
 
@@ -112,7 +112,7 @@
 									<c:forEach var="notice" items="${notice}">
 										<tr>
 											<td>${notice.post_id}</td>
-											<td style="width: 50%"><a href="post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
+											<td style="width: 50%"><a href="/board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
 											<td>
 												<fmt:parseDate var="dt" value="${notice.post_date}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate>
 												<fmt:formatDate value="${dt}" pattern="yyyy.MM.dd"/>
@@ -146,7 +146,7 @@
 											<tr>
 												<td>${board.post_id}</td>
 												<td>
-													<a href="post?post_id=${board.post_id}&board_id=${board.board_id}&project_id=${project_id}">
+													<a href="/board/post?post_id=${board.post_id}&board_id=${board.board_id}&project_id=${project_id}">
 													${board.post_title}</a>
 												</td>
 												<td>${board.post_writer}</td>
