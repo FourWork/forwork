@@ -45,13 +45,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">
+              <a class="nav-link" href="/task/taskPage">
                 <i class="ni ni-chart-bar-32"></i>
                 <span class="nav-link-text">스크럼 보드</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="register.html">
+              <a class="nav-link" href="/pmPage/select">
                 <i class="ni ni-single-02"></i>
                 <span class="nav-link-text">관리자페이지</span>
               </a>
