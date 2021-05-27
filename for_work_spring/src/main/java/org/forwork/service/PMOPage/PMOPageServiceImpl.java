@@ -41,7 +41,12 @@ public class PMOPageServiceImpl implements PMOPageService{
 		return (mapper.getProjectTimeline(project_id));
 	}
 
+	@Override
+	public int update(PMODto dto) {
+		return (mapper.update(dto));
+	}
 
+	
 
 	
 }

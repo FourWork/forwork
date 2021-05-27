@@ -7,7 +7,8 @@ import org.forwork.domain.Project;
 import org.forwork.dto.PMODto;
 
 public interface PMOPageService {
-
+	
+	public int update(PMODto dto);
 	public List<PMODto> getList(String project_status_id);
 	public PMODto getProject(String project_id);
 	public List<Member> getMemberList(String project_id);
