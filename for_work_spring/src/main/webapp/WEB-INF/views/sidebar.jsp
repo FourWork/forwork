@@ -44,11 +44,26 @@
                 <span class="nav-link-text">캘린더</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/task/taskPage">
-                <i class="ni ni-chart-bar-32"></i>
-                <span class="nav-link-text">스크럼 보드</span>
-              </a>
+            <li class="nav-item" id="scrumPage">
+            	<script type="text/javascript">
+				
+				$(document).ready(function() {
+					
+					var url = window.location.pathname;
+					console.log("url....!!!"+url);
+					var project_id = url.substring(6,url.length);
+					console.log("project_id....!!! " + project_id);
+					
+					var scrumBoard = $("#scrumPage");
+					var str="";
+
+					str += "<a class='nav-link' href='/task/taskPage/"+project_id+"'><i class='ni ni-chart-bar-32'></i><span class='nav-link-text'>스크럼보드</span></a>"
+					
+					scrumBoard.html(str);
+
+				});
+				</script>
+
             </li>
             <li class="nav-item" id="pmPageBtn">
             	<script type="text/javascript" src="/resources/js/isPm.js"></script>  
