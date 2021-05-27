@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.forwork.domain.Calendar;
 import org.forwork.dto.CalendarDto;
+import org.forwork.dto.CalendarWeekDto;
 import org.forwork.service.CalendarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,6 +43,15 @@ public class CalendarController {
 		return new ResponseEntity<List<CalendarDto>>(list,HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/calendar/getWeek/{project_id}",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<CalendarWeekDto>> getCalendarWeek(@PathVariable("project_id")String project_id){
+		List<CalendarWeekDto> list = null;
+		list = service.listWeek(project_id);
+		System.out.println(list.toString());
+		return new ResponseEntity<List<CalendarWeekDto>>(list,HttpStatus.OK);
+	}
+	
+
 	@PostMapping(value="/calendar/update",consumes="application/json")
 	public ResponseEntity<String> updateCalendar(@RequestBody Calendar cal){
 		if(service.updateCalendar(cal) == 1){
