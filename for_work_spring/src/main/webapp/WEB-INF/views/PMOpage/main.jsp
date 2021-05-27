@@ -116,7 +116,7 @@ padding-top:10px;
 $(document).ready(function(){
 	$(".getLink").on("click",function(){
 		var project_id = $(this).data("project_id");
-		self.location="get?project_id="+project_id;
+		self.location="detail?project_id="+project_id;
 	})
 	
 })

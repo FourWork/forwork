@@ -94,7 +94,7 @@ text-align:center;
 		  <c:set var = "approval_id" scope = "session" value = "${project.approval_id}"/>
 		  	 <c:choose>
 				<c:when test = "${approval_id ==1 }">
-				<div class='approval-status'>상태:<span class='badge badge-warning'>승인대기</span></div><div class='button-group'><button type='button' data-approval_id='2' class='btn btn-success'>승인</button><button type='button' data-approval_id='3' class='btn btn-danger'>반려</button></div>
+				<div class='approval-status'>상태:<span class='badge badge-warning'>승인대기</span></div><div class='button-group'><div data-approval_id='2' class='btn btn-success'>승인</div><div  data-approval_id='3' class='btn btn-danger'>반려</div></div>
 		  	  </c:when>
 				<c:when test = "${approval_id ==2 }">
 				<div class='approval-status'>상태:<span class='badge badge-success'>승인</span></div><div class='button-group'><button type='button' data-approval_id='4' class='btn btn-primary'>완료</button></div>
@@ -134,10 +134,11 @@ text-align:center;
 		             project_id:p_id,
 		             approval_id:a_id
 		          },function(result){
-		             alert("RESULT: "+result);
+		            
+		        	  alert("RESULT: "+result);
 					
 		          })//update 서비스 끝
-/* 		            self.location="main"; */
+ 		            self.location="main"; 
 		          
 		});
 		

@@ -34,4 +34,6 @@ public class PMOPagePageController {
 		model.addAttribute("project", service.getProject(project_id));
 		model.addAttribute("timeline", service.getProjectTimeline(project_id));
 	}
+	
+
 }
