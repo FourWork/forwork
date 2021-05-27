@@ -4,10 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.forwork.mapper.PMOPageMapper">
 
-	<update id="update">
+	<update id="check">
 		update project
 			set project_status_id= #{approval_id},
 				check_date = sysdate
+			where project_id= #{project_id}
+	</update>
+	
+	<update id="complete">
+		update project
+			set project_status_id= #{approval_id},
+				complete_date = sysdate
 			where project_id= #{project_id}
 	</update>
 	
@@ -36,6 +43,7 @@
 			from project
 			where project_id = #{project_id}
 	</select>
+
 
 
 </mapper>

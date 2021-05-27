@@ -14,17 +14,6 @@ var projectOfficeService=(function(){
 		});
 	}
 	
-	function displayTime(timeValue){
-		
-		var dateObj = new Date(timeValue);
-		var str="";
-		var yy = dateObj.getFullYear();
-		var mm = dateObj.getMonth()+1;
-		var dd = dateObj.getDate();
-		
-		return[yy,'-',(mm > 9 ? '' : '0')+mm,'-',
-			(dd>9 ?'' :'0')+dd].join('');
-	}
 	
 	
 //	function update(param, callback, error){
@@ -62,8 +51,8 @@ var projectOfficeService=(function(){
 	
 	function update(dto, callback, error){
 		$.ajax({
-			type: 'put',
-			url: '/PMOPage/'+dto.project_id+'/update',	
+			method: "PUT",
+			url: '/PMOpage/'+dto.project_id+'/update',	
 			data: JSON.stringify(dto),
 			contentType: "application/json; charset=utf-8",
 			success : function(result, status, xhr){
@@ -82,7 +71,6 @@ var projectOfficeService=(function(){
 	
 return {
 	getStatusId:getStatusId,
-	displayTime:displayTime,
 	update:update
 	};
 })();
