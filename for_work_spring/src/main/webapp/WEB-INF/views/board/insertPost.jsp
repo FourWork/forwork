@@ -222,7 +222,7 @@ table {
 							</tr>
 							<tr>
 								<td colspan="3" class="postWriter">
-									<input type="text" name="post_writer" size="20" placeholder="회원 이름">
+									<input type="hidden" name="post_writer" value="${member.name}">
 								</td>
 							</tr>
 							<tr>
