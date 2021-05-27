@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.forwork.domain.Portfolio;
 import org.forwork.domain.PortfolioLanguage;
-import org.forwork.dto.MyProfileDto;
 import org.forwork.service.myprofile.MyProfileService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
