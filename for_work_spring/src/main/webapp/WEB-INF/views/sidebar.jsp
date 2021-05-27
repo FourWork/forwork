@@ -21,7 +21,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="icons.html">
+              <a class="nav-link" href="/attendance">
                <i class="ni ni-time-alarm"></i>
                 <span class="nav-link-text">출퇴근</span>
               </a>
