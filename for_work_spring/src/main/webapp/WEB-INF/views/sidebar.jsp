@@ -66,9 +66,9 @@
 						
 						isPmService.isPm(project_id, member_id,function(result){
 							
+							console.log("is pm 확인 : "+result.is_pm);
 							var str = "";
 							if(result.is_pm=="y"){
-								console.log("is pm 확인 : "+result.is_pm);
 								str += "<a class='nav-link' href='/pmPage/select'><i class='ni ni-single-02'></i><span class='nav-link-text'>관리자페이지</span></a>"
 							}
 							pmPageBtn.html(str);
