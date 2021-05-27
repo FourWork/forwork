@@ -26,7 +26,7 @@ var langService = (function() {
 
 	function getLang(project_id,callback, error) {
 		
-		$.getJSON("/pmPage/"+project_id+"/getLang"+ ".json", function(data) {
+		$.getJSON("/pmPage/getLang/"+project_id+ ".json", function(data) {
 			if (callback) {
 				callback(data);
 			}

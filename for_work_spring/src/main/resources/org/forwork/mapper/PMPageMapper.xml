@@ -30,10 +30,10 @@ from task where project_id = #{project_id} and responsibility = #{responsibility
 </select>
 
 <select id="getProjects" resultType="org.forwork.domain.Project">
-select project_id, project_title, project_status_id,
-To_CHAR(project_start_date,'YYYY-MM-DD') as project_start_date,
-TO_CHAR(project_end_date,'YYYY-MM-DD') as project_end_date 
-from project order by project_id asc
+select pro.project_id, pro.project_title, pro.project_status_id,
+pro.project_start_date,pro.project_end_date, pmr.is_pm 
+from PROJECT PRO left outer join PROJECT_MEMBER_RELATION PMR
+on PRO.PROJECT_ID =	PMR.PROJECT_ID WHERE PMR.MEMBER_ID = #{member_id} order by pro.project_id asc
 </select>
 
 <insert id="insertLang">

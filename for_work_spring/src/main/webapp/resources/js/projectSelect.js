@@ -2,9 +2,9 @@ console.log("Project Select js 실행...!!!");
 
 var projectSelect = (function(){
 	
-	function getProjects(callback, error){
+	function getProjects(member_id,callback, error){
 		
-		$.getJSON("/pmPage/PrSelect.json",
+		$.getJSON("/pmPage/PrSelect/"+member_id+".json",
 				function(data){
 			if(callback){
 				callback(data);

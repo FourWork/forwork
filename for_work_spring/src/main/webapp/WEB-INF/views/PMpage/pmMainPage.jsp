@@ -63,11 +63,11 @@ personalChartDiv.html(str);
 
 <!-- 차트 그리기 : teamProgress.js  -->
 <script type="text/javascript">
-
-	var url = window.location.pathname;
 	
-	var project_id = url.substring(8,url.length-5);
-	console.log("project_id: "+project_id);
+	var url = window.location.pathname;
+	console.log("PM페이지 메인 url....!!!"+url);
+	var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
+	console.log("PM페이지 메인  project_id....!!! " + project_id);
 	
 		
 	google.charts.load('current', {
@@ -255,10 +255,10 @@ personalChartDiv.html(str);
 
 $(document).ready(function(){
 	
-	   var url = window.location.pathname;
-		
-		var projectId = url.substring(8,url.length-5);
-		console.log("project_id...!!! "+projectId);
+	var url = window.location.pathname;
+	console.log("프로젝트 언어 url....!!!"+url);
+	var projectId = url.substring(url.lastIndexOf('/')+1,url.length);
+	console.log("프로젝트 언어 project_id....!!! " + projectId);
 	
 	var langDiv = $("#langDiv");
 	
