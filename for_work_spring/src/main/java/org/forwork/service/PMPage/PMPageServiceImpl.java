@@ -88,6 +88,14 @@ public class PMPageServiceImpl implements PMPageService {
 		
 		return mapper.getSeq(pr_lang_seq);
 	}
+
+	@Override
+	public Project isPm(int project_id, int member_id) {
+
+		log.info("GET IS PM......!!!!");
+		
+		return mapper.isPm(project_id, member_id);
+	}
 	
 	
 

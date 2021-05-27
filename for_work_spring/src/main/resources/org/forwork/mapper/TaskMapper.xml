@@ -63,7 +63,7 @@
 	</select>
 	
 	
-	<select id="maxIndex" resultType="int">
+	<select id="maxIndex" resultType="Integer">
 		select /*+ INDEX_DESC(task task_index)*/ task_index from task where rownum=1 and TASK_TYPE_ID = 1
 	</select>
 

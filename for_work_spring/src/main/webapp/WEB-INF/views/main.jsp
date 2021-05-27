@@ -18,19 +18,37 @@
 	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
 	crossorigin="anonymous">
 
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 <!-- Optional JavaScript; choose one of the two! -->
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 	crossorigin="anonymous"></script>
-<script
+<!-- <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
+	
+<!-- 캘린더 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css">
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>	
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView : 'timeGridWeek',
+			slotDuration: '1:00',
+			allDay : true,
+			allDayText: '일정',
+			events: "http://localhost:8081/calendar/getWeek/1.json"
+		});
+		calendar.setOption('height',270);
+		calendar.render();
+	});
+</script>
 
 <!-- 구글차트-->
 <script type="text/javascript"
@@ -188,6 +206,36 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 	font-weight: bold;
 	margin: 30px 0px 10px;
 }
+
+/*캘린더 CSS*/
+.calendar .fc-toolbar {
+	height : 50px;
+
+}
+
+#calendar{
+	margin-right : 20px;
+}
+
+.fc .fc-scrollgrid-section-liquid{
+	display : none;
+
+}
+
+.fc-daygrid-body-natural{
+	border-top : 2px solid black;
+	border-bottom : 2px solid black;
+	
+}
+.fc-scrollgrid-section .fc-scroller-harness .fc-scroller .fc-daygrid-body .fc-scrollgrid-sync-table{
+height : 150px;
+
+}
+
+.fc-scrollgrid-sync-inner a{
+	height : 25px;
+} 
+
 </style>
 
 
@@ -197,9 +245,9 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 		<div class="container">
 			<div class="row">
 
-				<div class="col-sm-7 calendar">
+				<div class="col-sm-7 calendar mt-3">
 				
-					일정
+					<div id='calendar'></div>
 				
 				</div>
 				<!-- calendar end -->
@@ -261,7 +309,7 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 								<tr>
 									<td>${notice.post_id}</td>
 									<td style="width: 50%"><a
-										href="board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
+										href="/board/post?post_id=${notice.post_id}&board_id=${notice.board_id}&project_id=${project_id}">${notice.post_title}</a></td>
 									<td><fmt:parseDate var="dt" value="${notice.post_date}"
 											pattern="yyyy-MM-dd HH:mm:ss"></fmt:parseDate> <fmt:formatDate
 											value="${dt}" pattern="yyyy.MM.dd" /></td>
@@ -294,7 +342,7 @@ google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
 	<script type="text/javascript">
 	
 		function main() {
-			window.location.href = "main?project_id=${project_id}&member_id=${member_id}";
+			window.location.href = "${project_id}";
 		}	
 	
 	</script>

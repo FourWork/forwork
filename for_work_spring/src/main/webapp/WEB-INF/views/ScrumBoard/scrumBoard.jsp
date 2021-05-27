@@ -69,7 +69,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var ws = new WebSocket("ws://localhost:8081/taskSocket"); // socket 연결
+	var ws = new WebSocket("ws://localhost:8081/taskSocket/1"); // socket 연결
 
 	ws.onopen = function(e){
 		console.log("info : connection opened."); // 정상적으로 연결 시 출력
@@ -257,17 +257,37 @@ $(document).ready(function(){
 	var taskModalDeleteBtn = $("#taskDeleteBtn");
 	
 	$("#taskAddBtn").on("click", function(e){
+		var sprintNames = $("#sprintList tr");
+		if(sprintNames != null && sprintNames != ""){
+			var check = false;
+			var now = new Date();
+			
+			sprintNames.each(function(){			
+				var s_date = new Date($(this).find("td").next().html());
+				var e_date = new Date($(this).find("td").next().next().html());
+				
+				if(s_date - now <= 0 && e_date - now >= 0){
+					check = true;
+				}
+				
+			});
+			if(check){
+				taskModal.find("input").val("");
+				taskModalId.closest("div").hide();
+				taskModalRes.closest("div").hide();
+				taskModalWriter.closest("div").hide();
 		
-		taskModal.find("input").val("");
-		taskModalId.closest("div").hide();
-		taskModalRes.closest("div").hide();
-		taskModalWriter.closest("div").hide();
+				taskModal.find("button[id!='taskModalClose']").hide();
 		
-		taskModal.find("button[id!='taskModalClose']").hide();
+				taskModalRegisterBtn.show();
+				$("#taskModal").modal("show");
+			}else{
+				alert("오늘 날짜가 포함된 Sprint가 존재하지 않습니다.");
+			}
 		
-		taskModalRegisterBtn.show();
-		
-		$("#taskModal").modal("show");
+		}else{
+			alert("Sprint를 먼저 생성해주세요.");
+		}
 	});
 	
 	taskModalRegisterBtn.on("click", function(e) {
@@ -610,6 +630,7 @@ $(document).ready(function(){
 			alert("Sprint정보가 삭제되었습니다.");
 			sprintModal.modal("hide");
 			showSprints();
+			showList();
 		});
 	});
 	

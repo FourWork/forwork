@@ -26,10 +26,10 @@ public interface TaskMapper {
 	
 	public int addResponsibility(Task task);
 	
-	public int getSprint(int task_id);
+	public Integer getSprint(int task_id);
 	
 	public Project getPr(int project_id);
 
-	public int maxIndex();
+	public Integer maxIndex();
 
 }

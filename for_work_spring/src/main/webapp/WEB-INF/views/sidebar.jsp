@@ -21,7 +21,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="icons.html">
+              <a class="nav-link" href="/attendance">
                <i class="ni ni-time-alarm"></i>
                 <span class="nav-link-text">출퇴근</span>
               </a>
@@ -44,17 +44,64 @@
                 <span class="nav-link-text">캘린더</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">
-                <i class="ni ni-chart-bar-32"></i>
-                <span class="nav-link-text">스크럼 보드</span>
-              </a>
+            <li class="nav-item" id="scrumPage">
+            	<script type="text/javascript">
+				
+				$(document).ready(function() {
+					
+					var url = window.location.pathname;
+					console.log("url....!!!"+url);
+					var project_id = url.substring(6,url.length);
+					console.log("project_id....!!! " + project_id);
+					
+					var scrumBoard = $("#scrumPage");
+					var str="";
+
+					str += "<a class='nav-link' href='/task/taskPage/"+project_id+"'><i class='ni ni-chart-bar-32'></i><span class='nav-link-text'>스크럼보드</span></a>"
+					
+					scrumBoard.html(str);
+
+				});
+				</script>
+
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.html">
-                <i class="ni ni-single-02"></i>
-                <span class="nav-link-text">관리자페이지</span>
-              </a>
+            <li class="nav-item" id="pmPageBtn">
+            	<script type="text/javascript" src="/resources/js/isPm.js"></script>  
+				<script type="text/javascript">
+				
+				$(document).ready(function() {
+				
+					var url = window.location.pathname;
+					console.log("url....!!!"+url);
+					var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
+					console.log("project_id....!!! " + project_id);
+					
+					var member_id = "${member.member_id}";
+					console.log("member_id...>!!!!!!" +member_id);
+					var pmPageBtn = $("#pmPageBtn");
+					
+					checkIsPm(project_id, member_id);
+					
+					function checkIsPm(project_id, member_id) {
+						
+						isPmService.isPm(project_id, member_id,function(result){
+							
+							console.log("is pm 확인 : "+result.is_pm);
+							var str = "";
+							if(result.is_pm=="y"){
+								str += "<a class='nav-link' href='/pmPage/select/"+project_id+"'><i class='ni ni-single-02'></i><span class='nav-link-text'>관리자페이지</span></a>"
+							}
+							pmPageBtn.html(str);
+						}); //end function
+						
+					}// end checkIsPm
+					
+					
+					
+				});
+				
+				</script>
+           
             </li>
           </ul>
         </div>

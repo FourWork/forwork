@@ -27,7 +27,7 @@
 					</div>
 					<div class="form-group">
 						<label for="taskContent" class="col-form-label">내용</label> 
-						<input type="text" class="form-control" id="taskContent" name="task_content">
+						<input type="text" class="form-control" id="taskContent" name="task_content" autocomplete="off">
 					</div>
 					<div class="form-group">
 						<label for="taskRes" class="col-form-label">담당자</label> 

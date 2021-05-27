@@ -18,6 +18,7 @@ public class PMPageMapperTests {
 	@Setter(onMethod_=@Autowired)
 	public PMPageMapper mapper;
 
+	/*
 	@Test
 	public void testGetTeamProgress(){
 		
@@ -43,7 +44,7 @@ public class PMPageMapperTests {
 		mapper.getProjects().forEach(pr -> log.info(pr));
 	}
 	
-/*	@Test
+	@Test
 	public void testInsertLang(){
 		
 		ProjectLanguage lang = new ProjectLanguage();
@@ -51,7 +52,7 @@ public class PMPageMapperTests {
 		lang.setProject_language("c++");
 		
 		mapper.insertLang(lang);
-	}*/
+	}
 	
 	@Test
 	public void testGetLang(){
@@ -70,7 +71,7 @@ public class PMPageMapperTests {
 	public void testUpdateLang(){
 		
 		ProjectLanguage lang = new ProjectLanguage();
-		lang.setProject_language("¼öÁ¤ÇÑ ¾ð¾î");
+		lang.setProject_language("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
 		lang.setProject_language_seq(2);
 		
 		int count = mapper.updateLang(lang);
@@ -82,6 +83,16 @@ public class PMPageMapperTests {
 		
 		log.info(mapper.getSeq(4));
 	}
+	*/
 	
+	@Test
+	public void testIsPm(){
+		
+		int project_id = 1;
+		int member_id = 1;
+		
+		log.info(mapper.isPm(project_id, member_id));
+		
+	}
 	}
 

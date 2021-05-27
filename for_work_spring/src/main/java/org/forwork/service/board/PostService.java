@@ -3,6 +3,7 @@ package org.forwork.service.board;
 import java.util.List;
 
 import org.forwork.domain.Post;
+import org.forwork.domain.Attach;
 import org.forwork.domain.Criteria;
 
 public interface PostService {
@@ -26,4 +27,7 @@ public interface PostService {
 	public List<Post> getNotice(int project_id);
 	
 	public List<Post> getBoard(int project_id);
+	
+	public List<Attach> getAttachList(Long post_id);
+	
 }

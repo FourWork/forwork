@@ -85,7 +85,7 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getMemberById(memberId);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
 	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub
@@ -170,7 +170,7 @@ public class ChattingServiceImpl implements ChattingService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public void createChatroom(String chatroomTitle, List<String> memberIds) {
+	public String createChatroom(String chatroomTitle, List<String> memberIds) {
 		// TODO Auto-generated method stub
 		Chatroom chatroom = new Chatroom();
 		chatroom.setChatroom_name(chatroomTitle);
@@ -181,7 +181,7 @@ public class ChattingServiceImpl implements ChattingService {
 			relation.setMember_id(id);
 			mapper.insertChatroomMemberRelation(relation);
 		});
-		return;
+		return chatroom.getChatroom_id();
 	}
 
 	@Override

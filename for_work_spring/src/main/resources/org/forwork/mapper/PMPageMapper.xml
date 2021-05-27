@@ -59,5 +59,9 @@ select project_language, project_id, project_language_seq from project_language
 where project_language_seq = #{project_language_seq}
 </select>
 
+<select id="isPm" parameterType="map" resultType="org.forwork.domain.Project">
+select * from project_member_relation where project_id = #{project_id} and member_id = #{member_id}
+</select>
+
 
 </mapper>
