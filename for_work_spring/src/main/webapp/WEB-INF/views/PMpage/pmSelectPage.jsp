@@ -75,7 +75,7 @@ $(document).ready(function() {
 				str += "<tbody><tr><th scope='row'>Start Date</th><td>"+list[i].project_start_date +"</td></tr>";
 				str += "<tbody><tr><th scope='row'>End Date</th><td>"+list[i].project_end_date +"</td></tr>";
 				str += "</tbody></table></p><div class='d-grid gap-2 float-end'>";
-				str += "<a class='btn btn-primary float-right' role='button' data-project_id='"+list[i].project_id+"' href='/pmPage/"+list[i].project_id+"/main'>프로젝트 선택</a></div></div></div></div>";
+				str += "<a class='btn btn-primary float-right' role='button' data-project_id='"+list[i].project_id+"' href='/pmPage/main/"+list[i].project_id+"'>프로젝트 선택</a></div></div></div></div>";
 				
 			};
 			

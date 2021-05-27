@@ -255,10 +255,10 @@ personalChartDiv.html(str);
 
 $(document).ready(function(){
 	
-	   var url = window.location.pathname;
-		
-		var projectId = url.substring(8,url.length-5);
-		console.log("project_id...!!! "+projectId);
+	var url = window.location.pathname;
+	console.log("프로젝트 언어 url....!!!"+url);
+	var projectId = url.substring(url.lastIndexOf('/')+1,url.length);
+	console.log("프로젝트 언어 project_id....!!! " + projectId);
 	
 	var langDiv = $("#langDiv");
 	
