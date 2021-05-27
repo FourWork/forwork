@@ -108,10 +108,10 @@
 		<input type="text" class="chatroom-title" placeholder="채팅방 제목을 입력해주세요" />
 		<div id="member"></div>
 		<div id="footer">
-			<a href="/chatting/tmpMain?userId=${userId }" class="btn">취소</a><a href="#" class="btn" onclick="createChatroom(this)"><span id="num-member">0</span>명 초대</a>
+			<a href="/chatting/tmpMain" class="btn">취소</a><a href="#" class="btn" onclick="createChatroom(this)"><span id="num-member">0</span>명 초대</a>
 		</div>
 	</div>
-	<input type="text" value="${userId }" id="user" style="display:none;">
+	<input type="text" value="${member.member_id }" id="user" style="display:none;">
 </body>
 <script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/chatting.js"></script>
@@ -158,7 +158,7 @@
 		}
 		chattingService.createChatroom(data, function(result){
 			console.log(result);
-			let url = "/chatting/tmpMain?userId=" + userId;
+			let url = "/chatting/tmpMain";
 			window.location.href = url;
 		})	
 	}

@@ -93,7 +93,7 @@
               <div class="dropdown-menu dropdown-menu-xl  dropdown-menu-right  py-0 overflow-hidden">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
-					<a href="/chatting/searchMember?userId=${userId }"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
+					<a href="/chatting/searchMember"><img alt="Image placeholder" src="/resources/Img/add-chat.png" class="add-chat" width="30px"></a>
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary" id="n-chatroom"></strong> chatrooms.</h6>
                 </div>
                 <!-- List group -->
@@ -147,7 +147,7 @@
         </div>
       </div>
     </nav>
-<input type="text" value="${userId }" id="user" style="display:none;">
+<input type="text" value="${member.member_id }" id="user" style="display:none;">
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script src="/resources/assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -177,7 +177,7 @@
 					}
 					html += 
 					'<div class="list-group list-group-flush">' + 
-						'<a href="/chatting/chatroomDetail?userId=' + userId + '&chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
+						'<a href="/chatting/chatroomDetail?chatroomId=' + chatroom.chatroom_id + '" class="list-group-item list-group-item-action">'+
 							'<div class="row align-items-center">'+
 								'<div class="col-auto">' +'<img alt="Image placeholder" src="/resources/Img/chatroom.png" class="avatar rounded-circle">'+'</div>' +
 								'<div class="col ml--2">' +
