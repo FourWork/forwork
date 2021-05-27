@@ -18,6 +18,7 @@
 <title>PMOPage_project_detail</title>
 	<style>
 .grid-container {
+margin:30px;
 padding:20px;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -101,7 +102,7 @@ text-align:center;
 			
 		  	  </c:when>
 				<c:when test = "${approval_id ==3 }">
-				<div class='approval-status'>상태:<span class='badge badge-"secondary'>반려</span></div><div class='button-group'></div>
+				<div class='approval-status'>상태:<span class='badge badge-secondary'>반려</span></div><div class='button-group'></div>
 				
 		  	  </c:when>
 				<c:when test = "${approval_id ==4 }">
@@ -138,7 +139,7 @@ text-align:center;
 		        	  alert("RESULT: "+result);
 					
 		          })//update 서비스 끝
- 		            self.location="main"; 
+ 		            location.href="main"; 
 		          
 		});
 		
