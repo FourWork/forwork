@@ -1,5 +1,8 @@
 package org.forwork.config;
 
+import org.forwork.controller.member.CustomAccessDeniedHandler;
+import org.forwork.controller.member.CustomAuthFailureHandler;
+import org.forwork.controller.member.CustomLoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -34,10 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
+		http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
 		http.csrf().disable()
 		.authorizeRequests()
 		// 페이지 권한 설정
-		// .antMatchers("/admin/**").hasRole("ADMIN")
+		.antMatchers("/PMOpage/**").hasRole("ADMIN")
 		.antMatchers("/**")
 		.permitAll()
 		.and() // 로그인  설정
@@ -46,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.usernameParameter("email")
 		.passwordParameter("pw")
 		.loginPage("/login")
-		.defaultSuccessUrl("/member/loginSuccess",true)//로그인 후 들어갈 페이지
+		// .defaultSuccessUrl("/member/loginSuccess",true)//로그인 후 들어갈 페이지
+		.successHandler(new CustomLoginSuccessHandler())
+		.failureHandler(new CustomAuthFailureHandler())
 		.permitAll()
 		.and() // 로그아웃 설정
 		.logout()

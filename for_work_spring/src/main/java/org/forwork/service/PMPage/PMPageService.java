@@ -17,5 +17,6 @@ public interface PMPageService {
 	public int deleteLang(int pr_lang_seq);
 	public int updateLang(ProjectLanguage prLang);
 	public ProjectLanguage getSeq(int pr_lang_seq);
+	public Project isPm(int project_id, int member_id);
 
 }

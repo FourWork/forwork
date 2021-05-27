@@ -20,5 +20,6 @@ public interface PMPageMapper {
 	public int deleteLang(int pr_lang_seq);
 	public int updateLang(ProjectLanguage prLang);
 	public ProjectLanguage getSeq(int pr_lang_seq);
+	public Project isPm(@Param("project_id")int project_id, @Param("member_id")int member_id);
 
 }

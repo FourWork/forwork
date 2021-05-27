@@ -17,8 +17,6 @@
 		
 		<result column="name" property="name"/>
 		
-		<result column="auth" property="auth"/>
-		
 		<collection property="authList" resultMap="authMap"> </collection>
 
 	</resultMap>
@@ -37,8 +35,8 @@
 	
 	<insert id="signUp" parameterType="org.forwork.domain.Member">
 	
-	insert into member (member_id, email, name, pw, auth)
-	values (member_seq.nextval, #{email}, #{name}, #{pw}, #{auth}) </insert>
+	insert into member (member_id, email, name, pw)
+	values (member_seq.nextval, #{email}, #{name}, #{pw}) </insert>
 	
 	<insert id="insertAuth" parameterType="org.forwork.domain.Auth">
 	insert into auth (email, auth) values (#{email}, #{auth}) </insert>
