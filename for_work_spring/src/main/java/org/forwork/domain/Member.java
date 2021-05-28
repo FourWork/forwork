@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class Member implements Serializable {
+	
 	private String member_id;
 	private String name;
 	private String email;
