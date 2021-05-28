@@ -15,7 +15,7 @@
 		  <!-- Nav items -->
 		  <ul class="navbar-nav">
 			<li class="nav-item">
-			  <a class="nav-link active" href="dashboard.html">
+			  <a class="nav-link active" id="main">
 				<i class="ni ni-shop"></i>
 				<span class="nav-link-text">메인</span>
 			  </a>
@@ -67,7 +67,7 @@
 					var burl = window.location.search;
 					var bproject_id = burl.substr(burl.indexOf("project_id=") + 11, 2);
 					
-					$("#board").on("click", function(e) {
+					$("#board, #main").on("click", function(e) {
 						e.preventDefault();
 						
 						if (project_id == 'list' || project_id == 'post' || project_id == 'manager' || project_id == 'updatePost' || project_id == 'insertPost') {
