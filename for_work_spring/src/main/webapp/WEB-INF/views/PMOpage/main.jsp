@@ -50,8 +50,8 @@ padding-top:10px;
 <body>
 
 	<div class="grid-container">
-		<div class="approved">
 			<c:forEach items="${count_list}" var="count">
+		<div class="approved">
 				<h3>
 					진행중인 프로젝트 <small class="text-muted"> <c:if
 							test="${count.approval_id==2 }">
@@ -69,15 +69,15 @@ padding-top:10px;
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list_approved}" var="PMODto">
+						<c:forEach items="${list_approved}" var="PMODto1">
 							<tr>
 								<th scope="row"><a class="getLink"
-									data-project_id="${PMODto.project_id}"><c:out
-											value="${PMODto.project_title}" /></a></th>
-								<td><c:out value="${PMODto.name}" /></td>
+									data-project_id="${PMODto1.project_id}"><c:out
+											value="${PMODto1.project_title}" /></a></th>
+								<td><c:out value="${PMODto1.name}" /></td>
 								<td><fmt:formatDate pattern="yyyy-MM-dd"
-										value="${PMODto.check_date}" /></td>
-								<td><c:out value="${PMODto.project_end_date}" /></td>
+										value="${PMODto1.check_date}" /></td>
+								<td><c:out value="${PMODto1.project_end_date}" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -101,15 +101,15 @@ padding-top:10px;
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list_not_yet_approved}" var="PMODto">
+					<c:forEach items="${list_not_yet_approved}" var="PMODto2">
 						<tr>
 							<th scope="row"><a class="getLink"
-								data-project_id="${PMODto.project_id}"><c:out
-										value="${PMODto.project_title}" /></a></th>
-							<td><c:out value="${PMODto.name}" /></td>
+								data-project_id="${PMODto2.project_id}"><c:out
+										value="${PMODto2.project_title}" /></a></th>
+							<td><c:out value="${PMODto2.name}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${PMODto.register_date}" /></td>
-							<td><c:out value="${PMODto.project_start_date}" /></td>
+									value="${PMODto2.register_date}" /></td>
+							<td><c:out value="${PMODto2.project_start_date}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -133,16 +133,16 @@ padding-top:10px;
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list_disapproved}" var="PMODto">
+					<c:forEach items="${list_disapproved}" var="PMODto3">
 						<tr>
 							<th scope="row"><a class="getLink"
-								data-project_id="${PMODto.project_id}"><c:out
-										value="${PMODto.project_title}" /></a></th>
-							<td><c:out value="${PMODto.name}" /></td>
+								data-project_id="${PMODto3.project_id}"><c:out
+										value="${PMODto3.project_title}" /></a></th>
+							<td><c:out value="${PMODto3.name}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${PMODto.register_date}" /></td>
+									value="${PMODto3.register_date}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${PMODto.check_date}" /></td>
+									value="${PMODto3.check_date}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -166,23 +166,24 @@ padding-top:10px;
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list_completed}" var="PMODto">
+					<c:forEach items="${list_completed}" var="PMODto4">
 						<tr>
 							<th scope="row"><a class="getLink"
-								data-project_id="${PMODto.project_id}"> <c:out
-										value="${PMODto.project_title}" />
+								data-project_id="${PMODto4.project_id}"> <c:out
+										value="${PMODto4.project_title}" />
 							</a></th>
-							<td><c:out value="${PMODto.name}" /></td>
-							<td><c:out value="${PMODto.project_end_date}" /></td>
+							<td><c:out value="${PMODto4.name}" /></td>
+							<td><c:out value="${PMODto4.project_end_date}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${PMODto.complete_date}" /></td>
+									value="${PMODto4.complete_date}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+		</div>
 			</c:forEach>
 		</div>
-	</div>
+
 
 
 </body>
