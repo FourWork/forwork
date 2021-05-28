@@ -94,8 +94,8 @@ var attendanceService = (function(){
 	  $("button").click(function(e) {	
 	 		var check = window.prompt($(this).val()+"하시려면 "+$(this).val()+"을 입력해주세요", "");
 			//출근 또는 퇴근 실행
-			if(check == $(this).val()){
-				if(check == "출근"){
+			if(check == $(this).val()){  // prompt 입력값 확인
+				if(check == "출근"){ 
 					e.preventDefault();
 					$.ajax({
 						url:"/attendance/commute/"+id,
@@ -108,7 +108,7 @@ var attendanceService = (function(){
 					})
 					
 				}else{
-					if($("#commute").html() != "-"){
+					if($("#commute").html() != "-"){ // 출근 여부 확인
 						e.preventDefault();
 						
 						$.ajax({
