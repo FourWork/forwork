@@ -21,7 +21,7 @@
 			  </a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="/attendance">
+			  <a class="nav-link" id="sidebar_attendance" href="#">
 			   <i class="ni ni-time-alarm"></i>
 				<span class="nav-link-text">출퇴근</span>
 			  </a>
@@ -112,6 +112,7 @@
 					
 					checkIsPm(project_id, member_id);
 					$("#sidebar_calendar").attr("href","/calendar/"+project_id);
+					$("#sidebar_attendance").attr("href","/attendance/"+project_id);
 					
 					function checkIsPm(project_id, member_id) {
 						
