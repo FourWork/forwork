@@ -33,7 +33,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="profile.html">
+              <a class="nav-link" id="board">
                 <i class="ni ni-badge"></i>
                 <span class="nav-link-text">게시판</span>
               </a>
@@ -50,9 +50,9 @@
 				$(document).ready(function() {
 					
 					var url = window.location.pathname;
-					console.log("url....!!!"+url);
+					console.log("sidebar 스크럼보드 url....!!!"+url);
 					var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
-					console.log("project_id....!!! " + project_id);
+					console.log("sidebar 스크럼보드 project_id....!!! " + project_id);
 					
 					var scrumBoard = $("#scrumPage");
 					var str="";
@@ -61,6 +61,13 @@
 					
 					scrumBoard.html(str);
 
+					
+					// 게시판 이동
+					$("#board").on("click", function(e) {
+						e.preventDefault();
+						
+						window.location.href = "/board/main/" + project_id;
+					});
 				});
 				</script>
 
@@ -72,12 +79,12 @@
 				$(document).ready(function() {
 				
 					var url = window.location.pathname;
-					console.log("url....!!!"+url);
+					console.log("sidebar 관리자페이지 url....!!!"+url);
 					var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
-					console.log("project_id....!!! " + project_id);
+					console.log("sidebar 관리자페이지 project_id....!!! " + project_id);
 					
 					var member_id = "${member.member_id}";
-					console.log("member_id...>!!!!!!" +member_id);
+					console.log("sidebar 관리자페이지 member_id...>!!!!!!" +member_id);
 					var pmPageBtn = $("#pmPageBtn");
 					
 					checkIsPm(project_id, member_id);
@@ -87,7 +94,7 @@
 						
 						isPmService.isPm(project_id, member_id,function(result){
 							
-							console.log("is pm 확인 : "+result.is_pm);
+							console.log("sidebar 관리자페이지 is pm 확인 : "+result.is_pm);
 							var str = "";
 							if(result.is_pm=="y"){
 								str += "<a class='nav-link' href='/pmPage/select/"+project_id+"'><i class='ni ni-single-02'></i><span class='nav-link-text'>관리자페이지</span></a>"
