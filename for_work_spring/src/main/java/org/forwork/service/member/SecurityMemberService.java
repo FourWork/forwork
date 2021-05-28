@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class SecurityMemberService implements UserDetailsService {
 
-    private final MemberMapper memberMapper;
+	private final MemberMapper memberMapper;
 
-    // /login 요청이 오면 자동으로 UserDetailsService 타입으로 ioc되어 있는 loadUserByUsername 함수가 실행
-    // 시큐리티 session(내부 Authentication(내부 UserDetails))
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberMapper.read(username);
-        return member == null ? null : new CustomMember(member);
-    }
+	// /login 요청이 오면 자동으로 UserDetailsService 타입으로 ioc되어 있는 loadUserByUsername 함수가 실행
+	// 시큐리티 session(내부 Authentication(내부 UserDetails))
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Member member = memberMapper.read(username);
+		return member == null ? null : new CustomMember(member);
+	}
 }

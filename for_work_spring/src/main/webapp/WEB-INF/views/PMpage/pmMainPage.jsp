@@ -192,9 +192,9 @@ personalChartDiv.html(str);
 													"project_id");
 											var res = $(this).data(
 													"responsibility");
-											console.log("project_id....: "
+											console.log("개별 업무 모달 project_id....: "
 													+ prId);
-											console.log("responsibility....: "
+											console.log("개별 업무 모달 responsibility....: "
 													+ res);
 
 											personalTask
@@ -328,7 +328,7 @@ $(document).ready(function(){
 	$("#langDiv").on("click","#langBtn", function(e){
 		
 		var lang_seq = $(this).data("project_language_seq");
-		console.log("Language Sequence: "+ lang_seq);
+		console.log("프로젝트 언어 Language Sequence: "+ lang_seq);
 		
 		langService.getSeq(lang_seq, function(prLang) {
 			
@@ -354,7 +354,7 @@ $(document).ready(function(){
 					project_id : prIdInput.val(),
 					project_language : prLangInput.val()
 			};
-			console.log("Project:"+prLang);
+			console.log("프로젝트 언어 수정 Project:"+prLang);
 			
 			langService.updateLang(prLang, function(result){
 				

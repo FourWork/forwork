@@ -25,6 +25,8 @@
 						<label for="taskId" class="col-form-label">Sprint Name</label> 
 						<input type="text" class="form-control" id="sprint_name" name="sprint_name" readonly="readonly">
 						<div id="suggestion"></div>
+						<input type="hidden" id="select_sprint_id">
+						<input type="hidden" id="select_task_id">
 					</div>
 				</div>
 				<div class="modal-footer">

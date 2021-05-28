@@ -23,13 +23,11 @@ import lombok.AllArgsConstructor;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
 	// 패스워드 인코딩을 사용하기 위한 빈
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -58,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.loginProcessingUrl("/login")
 		.usernameParameter("email")
 		.passwordParameter("pw")
-		.loginPage("/login")
+		.loginPage("/member/login")
 		// .defaultSuccessUrl("/member/loginSuccess",true)//로그인 후 들어갈 페이지
 		.successHandler(new CustomLoginSuccessHandler())
 		.failureHandler(new CustomAuthFailureHandler())
@@ -69,9 +67,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.logoutSuccessUrl("/member/login")//로그아웃 하고 넘어갈 페이지
 		.invalidateHttpSession(true);
 	}
-	
-	
-	
-	
-
 }

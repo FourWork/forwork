@@ -33,7 +33,7 @@
 $(document).ready(function() {
 	
 	var member_id = "${member.member_id}";
-	console.log("member_id...>!!!!!!" +member_id);
+	console.log("Pm 프로젝트 선택 페이지 member_id...>!!!!!!" +member_id);
 	var pmPageBtn = $("#pmPageBtn");
 	
 	showProjects(member_id);

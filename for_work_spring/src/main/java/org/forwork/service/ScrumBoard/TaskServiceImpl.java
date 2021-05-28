@@ -71,10 +71,8 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int updateTask(Task task) {
+	public int updateTask(Task task,String member_name) {
 		int project_id = 1;
-		// member_name setting
-		String member_name = "tester";
 		Task beforeTask = mapper.detailTask(Integer.parseInt(task.getTask_id()));
 		String content = "change content Before : " + beforeTask.getTask_content()
 			+" Now : " + task.getTask_content()+" by."+member_name;
@@ -94,9 +92,9 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int moveTask(Map<String, String> changeData) {
+	public int moveTask(Map<String, String> changeData,String member_name) {
 		int project_id = 1;
-		String member_name = "tester";
+
 		String content = null;
 		log.info("move task : " + changeData.toString());
 		Task task = mapper.detailTask(Integer.parseInt(changeData.get("task_id")));
@@ -138,14 +136,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int addRes(int task_id, String member_id) {
+	public int addRes(int task_id, String member_id,String member_name) {
 		log.info("add Res");
-		String name = "null"; // member_name get
 		Task task = mapper.detailTask(task_id);
+		String beforeName = task.getName() == null ? "null" : task.getName();
+		String content = "Add Responsibility Before : " + beforeName + " Now : "+member_name;
 		task.setResponsibility(member_id);
-		task.setName(name);
+		task.setName(member_name);
 		int project_id = 1;
-		String content = "Add Responsibility Before : " + task.getName() + " Now : "+name;
 		logMapper.insertLog(task_id+"", content, project_id);
 		return mapper.addResponsibility(task);
 	}

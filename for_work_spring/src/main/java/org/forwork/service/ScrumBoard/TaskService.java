@@ -15,13 +15,13 @@ public interface TaskService {
 
 	public int deleteTask(int task_id);
 
-	public int updateTask(Task task);
+	public int updateTask(Task task, String member_name);
 
 	public Task detailTask(int task_id);
 	
-	public int moveTask(Map<String, String> changeData);
+	public int moveTask(Map<String, String> changeData,String member_name);
 	
-	public int addRes(int task_id, String member_id);
+	public int addRes(int task_id, String member_id,String member_name);
 	
 	public TaskLog getLog(int task_id);
 	

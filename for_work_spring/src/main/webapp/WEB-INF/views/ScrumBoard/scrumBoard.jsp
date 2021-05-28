@@ -285,16 +285,15 @@ $(document).ready(function(){
 	});
 	
 	taskModalRegisterBtn.on("click", function(e) {
-		
 		var task = {
 				task_content :taskModalContent.val(),
-				writer : 1,	// writer id
-				writer_name : "test",
+				writer : "${member.member_id}",	// writer id
+				writer_name : "${member.name}",
 				project_id : projectId
 		};
 				
 		
-		console.log(task);
+		
 	taskService.insertTask(task, function(result) {
 		
 		alert("Task가 추가되었습니다.");
@@ -337,7 +336,7 @@ $(document).ready(function(){
 		
 		var task = {task_id:taskModal.data("task_id"), task_content:taskModalContent.val()};
 		
-		taskService.updateTask(task, function(result){
+		taskService.updateTask("${member.name}",task, function(result){
 			
 			alert("Task가 수정되었습니다.");
 			taskModal.modal("hide");
@@ -365,51 +364,54 @@ $(document).ready(function(){
 	$("#column_container").on("click",".addRes",function(){
 		var task_id = $(this).closest('.card').find(".task_id").html();
 		var now = $(this).closest('.card').find('#resp').find('b');
-		var member_id = "1"; // session에서 아이디 가져오기
-		var obj = {"task_id":task_id,"member_id":member_id};
-		
+		var member_id = "${member.member_id}"; // session에서 아이디 가져오기
+		var member_name = "${member.name}";
+		var obj = {"task_id":task_id,"member_id":member_id,"member_name":member_name};
+
 		$.ajax({
 			type : "PATCH",
 			url : "/task/addRes",
 			contentType:"application/json",
 			data : JSON.stringify(obj),
 			success : function(data){
-				$(now).html(myName);
+				$(now).html(member_name);
 				ws.send("c");
 			}
 		});
 	});
 	
-	//sprint setting
+	//sprint modal setting
 	$("#column_container").on("click",".setSprint",function(){
-		var task_id = $(this).closest('.card').find(".task_id").html();
-	
 		var sprintSettingModal = $("#sprintSettingModal");
+		var task_id = $(this).closest('.card').find(".task_id").html();
+		$("#sprint_name").val("");
+		$("#select_sprint_id").val("");
+		$("#select_task_id").val(task_id);
 
-		
-		
+		setSuggestion();
 		sprintSettingModal.modal("show");
-		
+	});
+	
+	function setSuggestion(){
 		var sprintNames = $("#sprintList tr");
 		if(sprintNames != null && sprintNames != ""){
 			$("#suggestion").html("<ul></ul>");
 			sprintNames.each(function(){
-				$("#suggestion ul").append("<li>"+$(this).find("td").html()+"</li>");
+				$("#suggestion ul").append("<li data-sprint_id="+$(this).find("td").data("sprint_id")+">"+$(this).find("td").html()+"</li>");
 			});
 			$("#suggestion ul li").click(function(){
 				$("#sprint_name").val($(this).html());
+				$("#select_sprint_id").val($(this).data("sprint_id"));
 			});
 		}
-
+	}
+	// sprint setting update btn event
 		$("#taskSprintUpdateBtn").on("click",function(){
-			var sprint_id = "";
-			sprintNames.each(function(){
-				if($(this).find("td").html() == $("#sprint_name").val()){
-					sprint_id = $(this).find("td").data("sprint_id");
-				}
-			});
-			
+			var sprintSettingModal = $("#sprintSettingModal");
+			var sprint_id = $("#select_sprint_id").val();
+			var task_id = $("#select_task_id").val();
 			var obj = {"task_id":task_id,"sprint_id":sprint_id};
+			
 			
 			$.ajax({
 				type : "POST",
@@ -423,10 +425,7 @@ $(document).ready(function(){
 			
 			sprintSettingModal.modal("hide");
 			showList(projectId);
-		})
-
-	});
-	
+		});
 	
 
 	// task move 기능
@@ -460,12 +459,11 @@ $(document).ready(function(){
 						
 						$.ajax({
 							type : "PATCH",
-							url : "/task/move",
+							url : "/task/move/"+"${member.name}",
 							contentType:"application/json",
 							data : JSON.stringify(changeData),
 							success : function(data) {
 								if (data == 'success') {
-									console.log("성공");
 									ws.send("c");
 								}},
 							error : function(e) {
@@ -610,6 +608,7 @@ $(document).ready(function(){
 			alert("Sprint정보가 수정되었습니다.");
 			sprintModal.modal("hide");
 			console.log("수정시 : "+ projectId);
+			
 			showSprints(projectId);
 			showList(projectId);
 		});

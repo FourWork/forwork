@@ -27,9 +27,14 @@ public class PMOPageServiceTests {
 //		
 //	}
 	
+//	@Test
+//	public void testGetMList(){
+//		String project_id = "1";
+//		log.info(service.getMemberList(project_id));
+//	}
+	
 	@Test
-	public void testGetMList(){
-		String project_id = "1";
-		log.info(service.getMemberList(project_id));
+	public void testCount(){
+		log.info(service.countProject());
 	}
 }
