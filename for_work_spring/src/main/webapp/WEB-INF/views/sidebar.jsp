@@ -15,13 +15,13 @@
 		  <!-- Nav items -->
 		  <ul class="navbar-nav">
 			<li class="nav-item">
-			  <a class="nav-link active" href="dashboard.html">
+			  <a class="nav-link active" id="main">
 				<i class="ni ni-shop"></i>
 				<span class="nav-link-text">메인</span>
 			  </a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="/attendance">
+			  <a class="nav-link" id="sidebar_attendance" href="#">
 			   <i class="ni ni-time-alarm"></i>
 				<span class="nav-link-text">출퇴근</span>
 			  </a>
@@ -33,7 +33,7 @@
 			  </a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="profile.html">
+			  <a class="nav-link" id="board">
 				<i class="ni ni-badge"></i>
 				<span class="nav-link-text">게시판</span>
 			  </a>
@@ -61,14 +61,37 @@
 					
 					scrumBoard.html(str);
 
-					
+					$("#sidebar_calendar").attr("href","/calendar/"+project_id);
 					// 게시판 이동
+					
+					var burl = window.location.search;
+					var bproject_id = burl.substr(burl.indexOf("project_id=") + 11, 2);
+					
 					$("#board").on("click", function(e) {
 						e.preventDefault();
 						
-						window.location.href = "/board/main/" + project_id;
+						if (project_id == 'list' || project_id == 'post' || project_id == 'manager' || project_id == 'updatePost' || project_id == 'insertPost') {
+							window.location.href = "/board/main/" + bproject_id;
+						} else {
+							window.location.href = "/board/main/" + project_id;
+						}
+						
 					});
+
+					$("#main").on("click", function(e) {
+						e.preventDefault();
+						
+						if (project_id == 'list' || project_id == 'post' || project_id == 'manager' || project_id == 'updatePost' || project_id == 'insertPost') {
+							window.location.href = "/main/" + bproject_id;
+						} else {
+							window.location.href = "/main/" + project_id;
+						}
+						
+					});
+					
+					
 				});
+				
 				</script>
 
 			</li>
@@ -89,6 +112,7 @@
 					
 					checkIsPm(project_id, member_id);
 					$("#sidebar_calendar").attr("href","/calendar/"+project_id);
+					$("#sidebar_attendance").attr("href","/attendance/"+project_id);
 					
 					function checkIsPm(project_id, member_id) {
 						

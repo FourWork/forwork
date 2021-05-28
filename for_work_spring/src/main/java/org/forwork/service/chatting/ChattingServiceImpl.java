@@ -66,6 +66,32 @@ public class ChattingServiceImpl implements ChattingService {
 
 		return message.getMessage_id();
 	}
+	
+//	@Transactional(readOnly = true)
+//	@Override
+//	public String createMessage(Message message) {
+//		// TODO Auto-generated method stub
+//		System.out.println(message.getFile_path());
+//		if (message.getFile_path() == null) {
+//			message.setFile_path("");
+//		}
+//		mapper.insertMessage(message);
+//		MemberMessageRelation status = new MemberMessageRelation();
+//		status.setMessage_id(message.getMessage_id());
+//		
+//		List<String> memberIds = mapper.getMemberByChatroomId(message.getChatroom_id());
+//		memberIds.forEach(memberId -> {
+//			// 보낸 사람 빼고 안읽음 상태 insert
+//			if (!memberId.equals(message.getSender())) {
+//				status.setMember_id(memberId);
+//				mapper.insertUnreadStatus(status);
+//			}
+//		});
+//		
+//		status.setMember_id(message.getSender());
+//		mapper.updateReadStatus(status);
+//		return message.getMessage_id();
+//	}
 
 	@Override
 	public List<MessageDto> findMessageByChatroomId(String chatroomId) {
@@ -117,6 +143,12 @@ public class ChattingServiceImpl implements ChattingService {
 
 		return messages;
 	}
+	
+//	@Override
+//	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
+//		// TODO Auto-generated method stub
+//		return mapper.getLastMessagePerChatroomByMemberId(memberId);
+//	}
 
 	@Override
 	public String findChatroomName(String chatroomId) {

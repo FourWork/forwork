@@ -52,7 +52,7 @@
                      <label class="form-control-label">포트폴리오 기간</label><br>
                      <label class="form-control-label">
                      	<div class="portfolio_date">시작 날짜</div></label>
-                     <input id= "portfolio_start_date" type="date" name="portfolio_start_date" value="">
+                     <input id= "portfolio_start_date" type="date" name="portfolio_start_date" value=""><br>
                       <label class="form-control-label">
                      	<div class="portfolio_date">종료 날짜</div></label>
                      <input id= "portfolio_end_date" type="date" name="portfolio_end_date" value="">

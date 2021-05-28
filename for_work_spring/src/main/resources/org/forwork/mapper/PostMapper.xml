@@ -83,7 +83,7 @@
 			from 
 				(
 				select distinct p.board_id, p.post_id, p.post_title, p.post_writer, p.post_date, p.hitcount
-					from board b, post p where b.project_id = #{project_id} order by p.post_id desc
+					from board b, post p where b.project_id = #{project_id} and b.board_id = p.board_id order by p.post_id desc
 				)
 			where rownum <= 7 order by post_id desc
 		]]>
