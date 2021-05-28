@@ -60,7 +60,8 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public int deleteTask(int task_id) {
-		int project_id = 1;
+		Task task = mapper.detailTask(task_id);
+		int project_id = Integer.parseInt(task.getProject_id());
 		String member_name = "tester";
 		String content = "delete task by." + member_name;
 		logMapper.insertLog(task_id+"", content, project_id);
@@ -72,8 +73,8 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public int updateTask(Task task,String member_name) {
-		int project_id = 1;
 		Task beforeTask = mapper.detailTask(Integer.parseInt(task.getTask_id()));
+		int project_id = Integer.parseInt(beforeTask.getProject_id());
 		String content = "change content Before : " + beforeTask.getTask_content()
 			+" Now : " + task.getTask_content()+" by."+member_name;
 		
