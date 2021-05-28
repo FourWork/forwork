@@ -21,7 +21,7 @@ public interface TaskService {
 	
 	public int moveTask(Map<String, String> changeData);
 	
-	public int addRes(int task_id, String member_id);
+	public int addRes(int task_id, String member_id,String member_name);
 	
 	public TaskLog getLog(int task_id);
 	
