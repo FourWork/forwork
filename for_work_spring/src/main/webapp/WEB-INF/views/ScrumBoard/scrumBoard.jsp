@@ -286,9 +286,12 @@ $(document).ready(function(){
 	
 	taskModalRegisterBtn.on("click", function(e) {
 		
+		var memberId = "${member.member_id}";
+		console.log("Task 추가!!! "+ memberId);
+		
 		var task = {
 				task_content :taskModalContent.val(),
-				writer : 1,	// writer id
+				writer : memberId,	// writer id
 				writer_name : "test",
 				project_id : projectId
 		};
