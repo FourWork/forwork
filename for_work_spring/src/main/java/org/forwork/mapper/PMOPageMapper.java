@@ -13,4 +13,5 @@ public interface PMOPageMapper {
 	public PMODto getProject(String project_id);
 	public List<Member> getMemberList(String project_id);
 	public PMODto getProjectTimeline(String project_id);
+	public List<PMODto> countProject();
 }

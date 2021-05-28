@@ -138,14 +138,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int addRes(int task_id, String member_id) {
+	public int addRes(int task_id, String member_id,String member_name) {
 		log.info("add Res");
-		String name = "null"; // member_name get
 		Task task = mapper.detailTask(task_id);
+		String beforeName = task.getName() == null ? "null" : task.getName();
+		String content = "Add Responsibility Before : " + beforeName + " Now : "+member_name;
 		task.setResponsibility(member_id);
-		task.setName(name);
+		task.setName(member_name);
 		int project_id = 1;
-		String content = "Add Responsibility Before : " + task.getName() + " Now : "+name;
 		logMapper.insertLog(task_id+"", content, project_id);
 		return mapper.addResponsibility(task);
 	}
