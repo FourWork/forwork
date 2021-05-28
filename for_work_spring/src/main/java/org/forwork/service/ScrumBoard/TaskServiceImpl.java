@@ -93,11 +93,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public int moveTask(Map<String, String> changeData,String member_name) {
-		int project_id = 1;
 
 		String content = null;
 		log.info("move task : " + changeData.toString());
 		Task task = mapper.detailTask(Integer.parseInt(changeData.get("task_id")));
+		int project_id = Integer.parseInt(task.getProject_id());
 
 		switch (Integer.parseInt(task.getTask_type_id())) {
 		case 1:content = "move task Before column : Stories";
@@ -143,7 +143,7 @@ public class TaskServiceImpl implements TaskService {
 		String content = "Add Responsibility Before : " + beforeName + " Now : "+member_name;
 		task.setResponsibility(member_id);
 		task.setName(member_name);
-		int project_id = 1;
+		int project_id = Integer.parseInt(task.getProject_id());
 		logMapper.insertLog(task_id+"", content, project_id);
 		return mapper.addResponsibility(task);
 	}
