@@ -71,10 +71,8 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int updateTask(Task task) {
+	public int updateTask(Task task,String member_name) {
 		int project_id = 1;
-		// member_name setting
-		String member_name = "tester";
 		Task beforeTask = mapper.detailTask(Integer.parseInt(task.getTask_id()));
 		String content = "change content Before : " + beforeTask.getTask_content()
 			+" Now : " + task.getTask_content()+" by."+member_name;
@@ -94,9 +92,9 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int moveTask(Map<String, String> changeData) {
+	public int moveTask(Map<String, String> changeData,String member_name) {
 		int project_id = 1;
-		String member_name = "tester";
+
 		String content = null;
 		log.info("move task : " + changeData.toString());
 		Task task = mapper.detailTask(Integer.parseInt(changeData.get("task_id")));

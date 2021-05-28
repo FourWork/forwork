@@ -336,7 +336,7 @@ $(document).ready(function(){
 		
 		var task = {task_id:taskModal.data("task_id"), task_content:taskModalContent.val()};
 		
-		taskService.updateTask(task, function(result){
+		taskService.updateTask("${member.name}",task, function(result){
 			
 			alert("Task가 수정되었습니다.");
 			taskModal.modal("hide");
@@ -459,12 +459,11 @@ $(document).ready(function(){
 						
 						$.ajax({
 							type : "PATCH",
-							url : "/task/move",
+							url : "/task/move/"+"${member.name}",
 							contentType:"application/json",
 							data : JSON.stringify(changeData),
 							success : function(data) {
 								if (data == 'success') {
-									console.log("성공");
 									ws.send("c");
 								}},
 							error : function(e) {

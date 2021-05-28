@@ -72,8 +72,8 @@ public class TaskController {
 		return service.deleteTask(task_id) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH}, value="/{task_id}", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> updateTask(@RequestBody Task task, @PathVariable("task_id") int task_id){
+	@RequestMapping(method = { RequestMethod.PUT, RequestMethod.PATCH}, value="/{task_id}/{member_name}", consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateTask(@RequestBody Task task, @PathVariable("task_id") int task_id,@PathVariable("member_name")String member_name){
 		
 		String taskId = ""+task_id;
 		
@@ -81,16 +81,16 @@ public class TaskController {
 		
 		log.info("task_id: " + task_id);
 		
-		return service.updateTask(task) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return service.updateTask(task, member_name) == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
 	
 	
-	@PatchMapping(value="/move", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<String> moveTask(@RequestBody Map<String, String>param){
+	@PatchMapping(value="/move/{member_name}", consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> moveTask(@RequestBody Map<String, String>param,@PathVariable("member_name")String member_name){
 		
 		System.out.println(param);
-		if(service.moveTask(param)== 1){			
+		if(service.moveTask(param, member_name)== 1){			
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		}else{
 			return new ResponseEntity<String>("false",HttpStatus.OK);			

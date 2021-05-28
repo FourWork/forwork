@@ -56,13 +56,13 @@ var taskService = (function() {
 		});
 	}
 	
-	function updateTask(task, callback, error){
+	function updateTask(member_name,task, callback, error){
 		
 		console.log("TASK_ID: "+task.task_id);
 		
 		$.ajax({
 			type : 'put',
-			url : '/task/' + task.task_id,
+			url : '/task/' + task.task_id+"/"+member_name,
 			data : JSON.stringify(task),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr){
