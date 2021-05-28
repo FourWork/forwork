@@ -39,31 +39,57 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getChatroomMemberRelation();
 	}
 
+//	@Transactional(readOnly = true)
+//	@Override
+//	public String createMessage(Message message) {
+//		// 메세지 저장
+//		if (message.getFile_path() == null) {
+//			message.setFile_path("");
+//		}
+//		mapper.insertMessage(message);
+//
+//		// 안읽음 상태 생성
+//		MemberMessageRelation status = new MemberMessageRelation();
+//		status.setMessage_id(message.getMessage_id());
+//		List<String> memberIds = mapper.getMemberByChatroomId(message.getChatroom_id());
+//		memberIds.forEach(memberId -> {
+//			if (!memberId.equals(message.getSender())) {
+//				status.setMember_id(memberId);
+//				mapper.insertUnreadStatus(status);
+//			}
+//		});
+//
+//		// 캐시 업데이트
+//		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+//		String key = "chatroom:" + message.getChatroom_id() + ":last:message";
+//		vop.set(key, message);
+//
+//		return message.getMessage_id();
+//	}
+	
 	@Transactional(readOnly = true)
 	@Override
 	public String createMessage(Message message) {
-		// 메세지 저장
+		// TODO Auto-generated method stub
+		System.out.println(message.getFile_path());
 		if (message.getFile_path() == null) {
 			message.setFile_path("");
 		}
 		mapper.insertMessage(message);
-
-		// 안읽음 상태 생성
 		MemberMessageRelation status = new MemberMessageRelation();
 		status.setMessage_id(message.getMessage_id());
+		
 		List<String> memberIds = mapper.getMemberByChatroomId(message.getChatroom_id());
 		memberIds.forEach(memberId -> {
+			// 보낸 사람 빼고 안읽음 상태 insert
 			if (!memberId.equals(message.getSender())) {
 				status.setMember_id(memberId);
 				mapper.insertUnreadStatus(status);
 			}
 		});
-
-		// 캐시 업데이트
-		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
-		String key = "chatroom:" + message.getChatroom_id() + ":last:message";
-		vop.set(key, message);
-
+		
+		status.setMember_id(message.getSender());
+		mapper.updateReadStatus(status);
 		return message.getMessage_id();
 	}
 
@@ -85,37 +111,43 @@ public class ChattingServiceImpl implements ChattingService {
 		return mapper.getMemberById(memberId);
 	}
 
-	@Transactional
+//	@Transactional
+//	@Override
+//	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
+//		// TODO Auto-generated method stub
+//		List<Message> messages = new ArrayList<Message>();
+//		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
+//		List<Chatroom> chatrooms = mapper.getChatroomByMemberId(memberId);
+//		for (Chatroom chatroom : chatrooms) {
+//			String key = "chatroom:" + chatroom.getChatroom_id() + ":last:message";
+//			Message lastMessageFromCache = (Message) vop.get(key);
+//			log.info("cache: " + lastMessageFromCache);
+//			if (lastMessageFromCache != null) {
+//				messages.add(lastMessageFromCache);
+//			} else {
+//				Message lastMessageFromDB = mapper.getLastMessageByChatroomId(chatroom.getChatroom_id());
+//				if (lastMessageFromDB == null) {
+//					Message msg = new Message();
+//					msg.setChatroom_id(chatroom.getChatroom_id());
+//					msg.setMessage("대화를 시작해보세요.");
+//					msg.setSend_time("");
+//					vop.set(key, msg);
+//					messages.add(msg);
+//				} else {
+//					vop.set(key, lastMessageFromDB);
+//					messages.add(lastMessageFromDB);
+//				}
+//			}
+//		}
+//		log.info("all last messages: " + messages);
+//
+//		return messages;
+//	}
+	
 	@Override
 	public List<Message> findLastMessagePerChatroomByMemberId(String memberId) {
 		// TODO Auto-generated method stub
-		List<Message> messages = new ArrayList<Message>();
-		ValueOperations<String, Object> vop = redisTemplate.opsForValue();
-		List<Chatroom> chatrooms = mapper.getChatroomByMemberId(memberId);
-		for (Chatroom chatroom : chatrooms) {
-			String key = "chatroom:" + chatroom.getChatroom_id() + ":last:message";
-			Message lastMessageFromCache = (Message) vop.get(key);
-			log.info("cache: " + lastMessageFromCache);
-			if (lastMessageFromCache != null) {
-				messages.add(lastMessageFromCache);
-			} else {
-				Message lastMessageFromDB = mapper.getLastMessageByChatroomId(chatroom.getChatroom_id());
-				if (lastMessageFromDB == null) {
-					Message msg = new Message();
-					msg.setChatroom_id(chatroom.getChatroom_id());
-					msg.setMessage("대화를 시작해보세요.");
-					msg.setSend_time("");
-					vop.set(key, msg);
-					messages.add(msg);
-				} else {
-					vop.set(key, lastMessageFromDB);
-					messages.add(lastMessageFromDB);
-				}
-			}
-		}
-		log.info("all last messages: " + messages);
-
-		return messages;
+		return mapper.getLastMessagePerChatroomByMemberId(memberId);
 	}
 
 	@Override

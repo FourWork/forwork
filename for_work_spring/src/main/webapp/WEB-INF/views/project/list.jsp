@@ -21,9 +21,23 @@
 			<div class="card mt-3 ml-3" style="width: 18rem;float: left">
 			
 				<div class="card-body">
+				
 					<h5 class="card-title">프로젝트 이름</h5>
-					<a href="/main/${project.project_id}" class="card-link">${project.project_title}</a>
+					
+					<c:if test="${project.project_status_id == '1'}" >
+						<span  class="card-link">${project.project_title}</span>
+					</c:if>
+					<c:if test="${project.project_status_id == '2'}" >
+						<a href="/main/${project.project_id}" class="card-link">${project.project_title}</a>
+					</c:if>	
+					<c:if test="${project.project_status_id == '3'}" >
+						<span  class="card-link">${project.project_title}</span>
+					</c:if>	
+					<c:if test="${project.project_status_id == '4'}" >
+						<a href="/main/${project.project_id}" class="card-link">${project.project_title}</a>
+					</c:if>	
 				</div>
+				
 				
 				<ul class="list-group list-group-flush">
 					<c:if test="${project.is_pm == 'y' }">

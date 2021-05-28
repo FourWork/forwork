@@ -46,7 +46,7 @@
                         <label class="form-control-label">포트폴리오 기간</label><br>
                         <label class="form-control-label">
                         <div class="portfolio_date">시작 날짜</div></label>
-                        <input type="date" name="portfolio_start_date">
+                        <input type="date" name="portfolio_start_date"><br>
                         <label class="form-control-label">
                        	<div class="portfolio_date">종료 날짜</div></label>
                         <input type="date" name="portfolio_end_date">
@@ -152,12 +152,14 @@ $(document).ready(function(){
 	console.log("===================");
 	console.log("JS TEST");
 	
+ 
+	
 	var m_id ='<c:out value ="${member_id}"/>';
-	
-	
 	function main() {
 		window.location.href = "main?member_id="+m_id;
 	}
+	
+
 	
 	$("#PortfolioSubmit").on("click",(function(e){
 		e.preventDefault();
@@ -200,6 +202,7 @@ $(document).ready(function(){
 	
 });
 </script>
+
 </body>
 </html>
 <%@ include file="../footer.jsp" %>
