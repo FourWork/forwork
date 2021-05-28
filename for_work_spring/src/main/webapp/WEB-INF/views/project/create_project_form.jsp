@@ -24,7 +24,7 @@
 										class="form-control form-control-muted col-8 mt-3"
 										placeholder="ex)projectTitle" />
 									<div class="col-4 text-right align-self-center">PM :</div>
-									<input type="text" name="pm_id" id="pm_id"
+									<input type="email" name="pm_id" id="pm_id"
 										class="form-control form-control-muted col-8 mt-3"
 										placeholder="ex)email" />
 									<button
@@ -32,7 +32,7 @@
 										type="button" onclick="projectService.addPaBtn()">PA
 										Email추가</button>
 									<div class="col-4 text-right align-self-center">PA :</div>
-									<input type="text" name="pa_id" id="pa_id"
+									<input type="email" name="pa_id" id="pa_id"
 										class="form-control form-control-muted col-8 mt-3"
 										placeholder="ex)email" />
 									<div class="row my-2 inline col-12" id="append"></div>
