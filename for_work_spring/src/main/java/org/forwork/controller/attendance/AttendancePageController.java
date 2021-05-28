@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/attendance")
+@RequestMapping("/attendance/*")
 public class AttendancePageController {
 	@GetMapping
 	public String attendance(){
