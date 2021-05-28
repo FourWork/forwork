@@ -37,7 +37,6 @@ var projectOfficeService=(function(){
 	
 return {
 	getStatusId:getStatusId,
-	update:update,
-	countProject:countProject
+	update:update
 	};
 })();
