@@ -26,6 +26,12 @@ public class PMOPagePageController {
 		model.addAttribute("list_not_yet_approved", service.getList("1"));
 		model.addAttribute("list_disapproved", service.getList("3"));
 		model.addAttribute("list_completed", service.getList("4"));
+		
+		model.addAttribute("count_list",service.countProject());
+//		model.addAttribute("project_count_ny",service.countProject("1"));
+//		model.addAttribute("project_count_ap",service.countProject("2"));
+//		model.addAttribute("project_count_dis",service.countProject("3"));
+//		model.addAttribute("project_count_comp",service.countProject("4"));
 	}
 	
 	@GetMapping("/get")

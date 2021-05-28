@@ -16,25 +16,7 @@
 <title>Insert title here</title>
 </head>
 <style>
-/* .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 10px 10px;
-}
 
-.project_status { grid-area: 1 / 1 / 3 / 2;
-border:2px solid black; }
-
-.attendance { grid-area: 1 / 2 / 3 / 3;
-border:2px solid blue;}
-
-.approved { grid-area: 1 / 1 / 2 / 2;
-border:2px solid green;
-}
-
-.not-yet-approved { grid-area: 2 / 1 / 3 / 2;
-border:2px solid red;} */
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -68,9 +50,15 @@ padding-top:10px;
 
 <div class="grid-container">
 	  <div class="approved">
+	  <c:forEach items="${count_list}" var="count">
 	  <h3>
-  		진행중인 프로젝트
-		  <small class="text-muted">With faded secondary text</small>
+  		진행중인 프로젝트 
+		  <small class="text-muted">
+
+		  		<c:if test="${count.approval_id==2 }">
+		  			<c:out value="${count.count}"/> 건
+		  		</c:if>
+		   </small>
 	  </h3>
 		  <table class="table" id="tb_approved" data-approval_id="2">
 			  <thead>
@@ -97,7 +85,12 @@ padding-top:10px;
 		<div class="not-yet-approved">
 		 <h3>
   			승인대기 프로젝트
-		  <small class="text-muted">With faded secondary text</small>
+		  <small class="text-muted">
+
+		  		<c:if test="${count.approval_id==1 }">
+		  			<c:out value="${count.count}"/> 건
+		  		</c:if>
+		   </small>
 	     </h3>
 			<table class="table" id="tb_not_approved" data-approval_id="1">
 			  <thead>
@@ -124,7 +117,12 @@ padding-top:10px;
 		<div class="disapproved">
 		<h3>
   			반려 프로젝트
-		  <small class="text-muted">With faded secondary text</small>
+		  		  <small class="text-muted">
+
+		  		<c:if test="${count.approval_id==3 }">
+		  			<c:out value="${count.count}"/> 건
+		  		</c:if>
+		   </small>
 	     </h3>
 		<table class="table" id="tb_disapproved" data-approval_id="3">
 			  <thead>
@@ -152,8 +150,12 @@ padding-top:10px;
 			<div class="completed">
 		<h3>
   			완료 프로젝트
-		  <small class="text-muted">With faded secondary text</small>
-	     </h3>
+		 		  <small class="text-muted">
+
+		  		<c:if test="${count.approval_id==4 }">
+		  			<c:out value="${count.count}"/> 건
+		  		</c:if>
+		   </small>	     </h3>
 			<table class="table" id="tb_completed" data-approval_id="4">
 				  <thead>
 				    <tr>
@@ -175,7 +177,8 @@ padding-top:10px;
 				    </c:forEach>
 				  </tbody>
 				</table>
-				</div>
+		</c:forEach>		
+		</div>
 </div>
 
 

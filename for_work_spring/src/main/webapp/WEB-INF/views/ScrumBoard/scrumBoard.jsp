@@ -285,7 +285,6 @@ $(document).ready(function(){
 	});
 	
 	taskModalRegisterBtn.on("click", function(e) {
-		
 		var task = {
 				task_content :taskModalContent.val(),
 				writer : "${member.member_id}",	// writer id
