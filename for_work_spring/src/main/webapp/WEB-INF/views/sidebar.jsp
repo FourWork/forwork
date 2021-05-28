@@ -33,7 +33,7 @@
 			  </a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="profile.html">
+			  <a class="nav-link" id="board">
 				<i class="ni ni-badge"></i>
 				<span class="nav-link-text">게시판</span>
 			  </a>
@@ -63,12 +63,24 @@
 
 					
 					// 게시판 이동
+					
+					var burl = window.location.search;
+					var bproject_id = burl.substr(burl.indexOf("project_id=") + 11, 2);
+					
 					$("#board").on("click", function(e) {
 						e.preventDefault();
 						
-						window.location.href = "/board/main/" + project_id;
+						if (project_id == 'list' || project_id == 'post' || project_id == 'manager' || project_id == 'updatePost' || project_id == 'insertPost') {
+							window.location.href = "/board/main/" + bproject_id;
+						} else {
+							window.location.href = "/board/main/" + project_id;
+						}
+						
 					});
+					
+					
 				});
+				
 				</script>
 
 			</li>
