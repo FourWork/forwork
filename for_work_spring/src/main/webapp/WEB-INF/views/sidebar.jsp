@@ -67,13 +67,24 @@
 					var burl = window.location.search;
 					var bproject_id = burl.substr(burl.indexOf("project_id=") + 11, 2);
 					
-					$("#board, #main").on("click", function(e) {
+					$("#board").on("click", function(e) {
 						e.preventDefault();
 						
 						if (project_id == 'list' || project_id == 'post' || project_id == 'manager' || project_id == 'updatePost' || project_id == 'insertPost') {
 							window.location.href = "/board/main/" + bproject_id;
 						} else {
 							window.location.href = "/board/main/" + project_id;
+						}
+						
+					});
+
+					$("#main").on("click", function(e) {
+						e.preventDefault();
+						
+						if (project_id == 'list' || project_id == 'post' || project_id == 'manager' || project_id == 'updatePost' || project_id == 'insertPost') {
+							window.location.href = "/main/" + bproject_id;
+						} else {
+							window.location.href = "/main/" + project_id;
 						}
 						
 					});
