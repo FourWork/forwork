@@ -25,21 +25,14 @@ public class MemberServiceImpl implements MemberService {
 		
 		log.info("회원가입 ");
 		member.setPw(passwordEncoder.encode(member.getPw()));
-        member.setAuth("ROLE_USER");
-        Auth auth = new Auth();
-        auth.setEmail(member.getEmail());
-        auth.setAuth(member.getAuth());
+		member.setAuth("ROLE_USER");
+		Auth auth = new Auth();
+		auth.setEmail(member.getEmail());
+		auth.setAuth(member.getAuth());
 
-        mapper.signUp(member);
-        mapper.insertAuth(auth);
-		
-		 
-		 
+		mapper.signUp(member);
+		mapper.insertAuth(auth);
 	
-		
 	}
-	
-	
-	
 	
 }

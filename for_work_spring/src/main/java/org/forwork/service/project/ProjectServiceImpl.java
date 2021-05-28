@@ -1,5 +1,7 @@
 package org.forwork.service.project;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.forwork.domain.Project;
@@ -14,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @AllArgsConstructor
 public class ProjectServiceImpl<project> implements ProjectService{
+	
 	private final ProjectMapper mapper;
 	
 	@Override
@@ -24,31 +27,22 @@ public class ProjectServiceImpl<project> implements ProjectService{
 		mapper.projectCreate(project);
 	}
 	
-
 	@Override
 	public List<Project> getProjects(String member_id) {
 		return mapper.getProjectList(Integer.parseInt(member_id));
 	}
 
 	@Override
-    public void createProject(Project project) {
+	public void createProject(Project project) {
+				
 		project.setProject_status_id("1");
-        mapper.createProject(project);
-        mapper.createMemberProjectRelationPm(project);
-        for (String pa : project.getPa_id()){
-            project.setPa_email(pa);
-            mapper.createMemberProjectRelationPa(project);
-        }
-
-    }
-
-
-
-
-	
-	
-	
-		
+		mapper.createProject(project);
+		mapper.createMemberProjectRelationPm(project);
+		for (String pa : project.getPa_id()){
+			project.setPa_email(pa);
+			mapper.createMemberProjectRelationPa(project);
+		}
 	}
+}
 
 
