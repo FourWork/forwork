@@ -35,13 +35,18 @@
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>	
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
+		var url = window.location.pathname;
+		console.log("주간캘린더 url....!!!"+url);
+		var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
+		console.log("주간캘린더 차트 project_id....!!! " + project_id);
+		
 		var calendarEl = document.getElementById('calendar');
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			initialView : 'timeGridWeek',
 			slotDuration: '1:00',
 			allDay : true,
 			allDayText: '일정',
-			events: "http://localhost:8081/calendar/getWeek/1.json"
+			events: "http://localhost:8081/calendar/getWeek/"+project_id+".json"
 		});
 		calendar.setOption('height',270);
 		calendar.render();
@@ -56,9 +61,9 @@
 <script type="text/javascript">
 
 var url = window.location.pathname;
-console.log("url....!!!"+url);
+console.log("진행률 차트 url....!!!"+url);
 var project_id = url.substring(url.lastIndexOf('/')+1,url.length);
-console.log("project_id....!!! " + project_id);
+console.log("진행률 차트 project_id....!!! " + project_id);
 
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(function() { drawColumnProgress(project_id); });
