@@ -61,7 +61,7 @@
 					
 					scrumBoard.html(str);
 
-					
+					$("#sidebar_calendar").attr("href","/calendar/"+project_id);
 					// 게시판 이동
 					$("#board").on("click", function(e) {
 						e.preventDefault();
