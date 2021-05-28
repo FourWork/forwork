@@ -262,7 +262,7 @@ height : 150px;
 
 						<div class="todoBox">
 							<div class="refreshBtn">
-								<a href="main?member_id=${member_id}&project_id=${project_id}"><i
+								<a href="${project_id}"><i
 									class="bi bi-arrow-counterclockwise"></i></a>
 							</div>
 							<!-- <div class="allDelBtn">done list <i class="bi bi-trash-fill"></i></div> -->
