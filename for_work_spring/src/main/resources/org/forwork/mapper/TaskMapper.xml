@@ -70,8 +70,7 @@
 
 	<select id="getPr" resultType="org.forwork.domain.Project">
 		select project_id, project_title, project_status_id,
-		To_CHAR(project_start_date,'YYYY-MM-DD') as project_start_date,
-		TO_CHAR(project_end_date,'YYYY-MM-DD') as project_end_date
+		project_start_date, project_end_date
 		from project where project_id=#{project_id} order by project_id asc
 	</select>
 
