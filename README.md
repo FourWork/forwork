@@ -62,7 +62,8 @@
 #### 프로젝트 메인 화면   
     TO DO LIST / 공지 사항
 
-![forwork_main_todolist](https://user-images.githubusercontent.com/73222541/120594960-a3eae080-c47c-11eb-87a6-e2119df58025.jpg)   
+![프로젝트 메인](https://user-images.githubusercontent.com/73222541/120598090-cf6fca00-c480-11eb-92c5-115bae2e7520.jpg)
+   
 
 #### 게시판 메인 화면   
 ![forwork_board_main](https://user-images.githubusercontent.com/73222541/120595754-d812d100-c47d-11eb-8177-e1f8b4a31ec1.jpg)   
@@ -75,6 +76,11 @@
 ![forwork_post_list](https://user-images.githubusercontent.com/73222541/120596074-4192df80-c47e-11eb-9b6b-a77dbdfd53b0.jpg)   
 
 ![forwork_post_detail](https://user-images.githubusercontent.com/73222541/120596131-53748280-c47e-11eb-9090-6bfabc4173fa.jpg)   
+
+#### 게시글 / 댓글 수정
+![게시글 수정](https://user-images.githubusercontent.com/73222541/120598061-c3840800-c480-11eb-8038-3a436013ae2f.jpg)
+![댓글 수정](https://user-images.githubusercontent.com/73222541/120598066-c5e66200-c480-11eb-8aa3-56ded51cac21.jpg)
+
 
 #### 게시글 첨부 파일
     게시글 작성 시 파일 추가, 삭제 가능   
