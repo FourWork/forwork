@@ -60,7 +60,7 @@
 ### DB   
 ![image](https://user-images.githubusercontent.com/73222541/120601667-33948d00-c485-11eb-9aca-f4cb3dd52e04.png)
 ---
-### 구현
+### 구현 화면
 
 #### 프로젝트 메인 화면   
     TO DO LIST / 공지 사항
