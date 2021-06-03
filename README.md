@@ -57,6 +57,9 @@
 
 
 ---
+### DB   
+![image](https://user-images.githubusercontent.com/73222541/120601667-33948d00-c485-11eb-9aca-f4cb3dd52e04.png)
+---
 ### 구현
 
 #### 프로젝트 메인 화면   
