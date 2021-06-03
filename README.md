@@ -74,13 +74,7 @@
 
 #### 게시판별 게시글 / 댓글
 ![forwork_post_list](https://user-images.githubusercontent.com/73222541/120596074-4192df80-c47e-11eb-9b6b-a77dbdfd53b0.jpg)   
-
-![forwork_post_detail](https://user-images.githubusercontent.com/73222541/120596131-53748280-c47e-11eb-9090-6bfabc4173fa.jpg)   
-
-#### 게시글 / 댓글 수정
-![게시글 수정](https://user-images.githubusercontent.com/73222541/120598061-c3840800-c480-11eb-8038-3a436013ae2f.jpg)
-![댓글 수정](https://user-images.githubusercontent.com/73222541/120598066-c5e66200-c480-11eb-8aa3-56ded51cac21.jpg)
-
+![forwork_post_detail](https://user-images.githubusercontent.com/73222541/120596131-53748280-c47e-11eb-9090-6bfabc4173fa.jpg)
 
 #### 게시글 첨부 파일
     게시글 작성 시 파일 추가, 삭제 가능   
@@ -88,6 +82,11 @@
 ![forwork_post_attach](https://user-images.githubusercontent.com/73222541/120596175-612a0800-c47e-11eb-9125-3c64a8e7a987.jpg)   
 ![forwork_post](https://user-images.githubusercontent.com/73222541/120596198-69824300-c47e-11eb-9a10-db6029116425.jpg)   
 ![forwork_post_photo](https://user-images.githubusercontent.com/73222541/120596229-756e0500-c47e-11eb-89d3-1d8617a57186.jpg)
+
+#### 게시글 / 댓글 수정
+![게시글 수정](https://user-images.githubusercontent.com/73222541/120598061-c3840800-c480-11eb-8038-3a436013ae2f.jpg)
+![댓글 수정](https://user-images.githubusercontent.com/73222541/120598066-c5e66200-c480-11eb-8aa3-56ded51cac21.jpg)
+
 
 #### 게시글 검색
     제목 / 내용 / 작성자 / 제목 + 내용 / 제목 + 작성자 / 제목 + 내용 + 작성자 검색 가능   
